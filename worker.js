@@ -68,6 +68,8 @@ export default {
       response = await handleVerifyOTP(request, env);
     } else if (url.pathname === '/api/auth/google' && request.method === 'POST') {
       response = await handleGoogleAuth(request, env);
+    } else if (url.pathname === '/api/auth/discord' && request.method === 'POST') {
+      response = await handleDiscordAuth(request, env);
     } else {
       response = json({ error: 'Not found' }, 404);
     }
@@ -522,4 +524,69 @@ function otpEmailHTML(otp) {
 </div>
 </body>
 </html>`;
+}
+
+async function handleDiscordAuth(request, env) {
+  try {
+    const { code, redirectUri, tierId } = await request.json();
+    if (!code || !redirectUri) {
+      return json({ error: 'Missing code or redirectUri' }, 400);
+    }
+
+    // 1. Exchange code for access token
+    const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        client_id: env.DISCORD_CLIENT_ID || '1521435317129842728',
+        client_secret: env.DISCORD_CLIENT_SECRET,
+        grant_type: 'authorization_code',
+        code,
+        redirect_uri: redirectUri,
+      }),
+    });
+
+    if (!tokenResponse.ok) {
+      const errData = await tokenResponse.text();
+      return json({ error: 'Failed to exchange Discord authorization code: ' + errData }, 400);
+    }
+
+    const tokenData = await tokenResponse.json();
+    const accessToken = tokenData.access_token;
+
+    // 2. Fetch user profile from Discord
+    const userResponse = await fetch('https://discord.com/api/users/@me', {
+      headers: { 'Authorization': `Bearer ${accessToken}` },
+    });
+
+    if (!userResponse.ok) {
+      return json({ error: 'Failed to fetch user details from Discord' }, 400);
+    }
+
+    const userData = await userResponse.json();
+    const email = (userData.email || '').toLowerCase().trim();
+    const username = userData.username || '';
+
+    if (!email) {
+      return json({ error: 'Your Discord account must have a verified email address to sign in.' }, 400);
+    }
+
+    // 3. Map tier ID
+    let tier = 'pro';
+    if (tierId === '199' || tierId === 'soldier') tier = 'soldier';
+    if (tierId === '1199' || tierId === 'elite') tier = 'elite';
+
+    const user = {
+      email,
+      firstName: username,
+      lastName: '',
+      tier,
+      subscribed: true,
+      joinedAt: new Date().toISOString()
+    };
+
+    return json({ success: true, user });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
 }

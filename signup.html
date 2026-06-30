@@ -663,8 +663,44 @@ function toggleLoginPass(){
   p.type=p.type==='password'?'text':'password';
 }
 
+function handleDiscordLogin() {
+  const redirectUri = encodeURIComponent(window.location.origin + '/signup.html');
+  window.location.href = `https://discord.com/oauth2/authorize?client_id=1521435317129842728&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email`;
+}
+
+async function handleDiscordCallback(code) {
+  setTimeout(() => {
+    const wrap = document.querySelector('.wrapper');
+    if (wrap) {
+      wrap.innerHTML = `
+        <div style="background:var(--card);border:1px solid var(--border2);border-radius:6px;padding:3rem 2rem;text-align:center;max-width:400px;margin:4rem auto;animation:fadeUp .6s ease;border-left:3px solid var(--gold)">
+          <div style="font-size:1.6rem;font-weight:900;color:var(--gold);margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em">VERIFYING DISCORD...</div>
+          <p style="color:var(--muted);font-size:.88rem;line-height:1.7">Authenticating your Discord account. Please wait...</p>
+        </div>`;
+    }
+  }, 100);
+
+  let tierId = 'pro';
+  const params = new URLSearchParams(location.search);
+  if(params.get('tier')==='199') tierId = 'soldier';
+  if(params.get('tier')==='1199') tierId = 'elite';
+
+  const redirectUri = window.location.origin + '/signup.html';
+  const res = await VV.loginWithDiscord(code, redirectUri, tierId);
+  if (res.success) {
+    window.location.href = 'dashboard.html';
+  } else {
+    alert("Discord login failed: " + (res.error || "Unknown error"));
+    window.location.href = 'signup.html?mode=login';
+  }
+}
+
 // Pre-select from URL param
 const params=new URLSearchParams(location.search);
+const discordCode = params.get('code');
+if (discordCode) {
+  handleDiscordCallback(discordCode);
+}
 if(params.get('tier')==='199')selectTier(199,'Soldier');
 if(params.get('tier')==='1199')selectTier(1199,'Elite Crew');
 
@@ -683,7 +719,7 @@ if(params.get('mode')==='login'){
       
       <!-- Discord button container -->
       <div style="display:flex;justify-content:center;margin-bottom:1.5rem">
-        <button class="social-btn" style="width:336px;flex:none;height:40px;display:flex;align-items:center;justify-content:center" onclick="window.location='dashboard.html'"><span class="social-icon">🎮</span>Discord</button>
+        <button class="social-btn" style="width:336px;flex:none;height:40px;display:flex;align-items:center;justify-content:center" onclick="handleDiscordLogin()"><span class="social-icon">🎮</span>Discord</button>
       </div>
       
       <div class="divider-or" style="margin-top:0">Or use email</div>

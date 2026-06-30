@@ -903,6 +903,23 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     }
   }
 
+  async function loginWithDiscord(code, redirectUri, tierId) {
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/discord`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, redirectUri, tierId })
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+      }
+      return data;
+    } catch (e) {
+      return { error: e.message };
+    }
+  }
+
   // Export to window.VV
   window.VV = {
     ...window.VV,
@@ -913,7 +930,8 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     checkAccess,
     sendOTP,
     verifyOTP,
-    loginWithGoogle
+    loginWithGoogle,
+    loginWithDiscord
   };
 
   // ─── KEYBOARD CLOSE ──────────────────────────────────────
