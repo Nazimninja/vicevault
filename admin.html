@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  const user = JSON.parse(localStorage.getItem('vv_user') || 'null');
+  if (!user || !user.isAdmin || !user.adminToken) {
+    window.location.replace('signup.html?mode=login');
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vice Vault — Admin Center</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;--border2:#24243a;
+    --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--blue:#4a9eff;
+    --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,0.07);--borderl:rgba(255,255,255,.13);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;flex-direction:column}
+  a{color:inherit;text-decoration:none}
+
+  /* HEADER */
+  header{
+    height:70px;background:var(--deep);border-bottom:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;
+    position:sticky;top:0;z-index:100;
+  }
+  .logo{
+    font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;
+    display:flex;align-items:center;gap:.6rem;
+  }
+  .logo .v{color:var(--gold)}
+  .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--pink);animation:pdot 2s ease-in-out infinite}
+  @keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 8px rgba(255,61,110,0)}}
+  
+  .header-actions{display:flex;align-items:center;gap:1.5rem}
+  .admin-badge{
+    font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    background:rgba(255,61,110,.12);color:var(--pink);border:1px solid rgba(255,61,110,.3);
+    padding:.2rem .7rem;border-radius:2px;
+  }
+  .btn-signout{
+    font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);cursor:pointer;transition:color .2s;
+  }
+  .btn-signout:hover{color:var(--white)}
+
+  /* CONTAINER */
+  main{flex:1;max-width:1200px;width:100%;margin:0 auto;padding:2.5rem;display:flex;flex-direction:column;gap:2rem}
+
+  /* STATS GRID */
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem}
+  .stat-card{
+    background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.5rem;
+    position:relative;overflow:hidden;
+  }
+  .stat-card::before{
+    content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--border);
+  }
+  .stat-card.gold::before{background:var(--gold)}
+  .stat-card.pink::before{background:var(--pink)}
+  .stat-card.teal::before{background:var(--teal)}
+  
+  .stat-label{
+    font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:.4rem;
+  }
+  .stat-val{
+    font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--white);line-height:1;margin-bottom:.3rem;
+  }
+  .stat-sub{font-size:.78rem;color:var(--muted)}
+
+  /* TABS */
+  .tab-bar{
+    display:flex;gap:1.5rem;border-bottom:1px solid var(--border);margin-top:1rem;
+  }
+  .tab{
+    font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);padding-bottom:.8rem;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;
+    display:flex;align-items:center;gap:.5rem;
+  }
+  .tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+  .tab-badge{
+    font-size:.65rem;background:var(--lift);color:var(--muted);padding:.1rem .4rem;border-radius:10px;
+  }
+  .tab.active .tab-badge{background:rgba(212,163,50,.15);color:var(--gold)}
+
+  /* CONTROLS */
+  .controls-row{display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
+  .search-wrap{position:relative;max-width:320px;width:100%}
+  .search-input{
+    width:100%;background:var(--card);border:1px solid var(--border);border-radius:3px;
+    padding:.65rem 1rem .65rem 2.2rem;color:var(--white);font-family:inherit;font-size:.85rem;
+    outline:none;transition:border-color .2s;
+  }
+  .search-input:focus{border-color:var(--border2)}
+  .search-icon{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
+  
+  .btn-export{
+    font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    background:var(--gold);color:var(--ink);border:none;padding:.65rem 1.4rem;border-radius:2px;cursor:pointer;
+    transition:background .2s,transform .1s;display:inline-flex;align-items:center;gap:.4rem;
+  }
+  .btn-export:hover{background:var(--gold2);transform:translateY(-1px)}
+
+  /* TABLES */
+  .table-card{
+    background:var(--card);border:1px solid var(--border);border-radius:4px;overflow:hidden;
+  }
+  table{width:100%;border-collapse:collapse;text-align:left}
+  th{
+    background:var(--deep);font-family:'Barlow Condensed',sans-serif;font-size:.74rem;font-weight:800;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:1rem 1.5rem;
+    border-bottom:1px solid var(--border);
+  }
+  td{padding:1rem 1.5rem;border-bottom:1px solid var(--border);font-size:.86rem;vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:rgba(255,255,255,.015)}
+
+  .badge-tier{
+    font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    padding:.15rem .5rem;border-radius:2px;display:inline-block;
+  }
+  .badge-tier.soldier{background:rgba(122,120,138,.12);color:var(--muted);border:1px solid rgba(122,120,138,.3)}
+  .badge-tier.pro{background:rgba(212,163,50,.12);color:var(--gold);border:1px solid rgba(212,163,50,.3)}
+  .badge-tier.elite{background:rgba(155,89,255,.12);color:#ab7dff;border:1px solid rgba(155,89,255,.3)}
+  
+  .badge-status{
+    font-size:.76rem;display:inline-flex;align-items:center;gap:.3rem;
+  }
+  .badge-status.active{color:var(--teal)}
+  .badge-status.inactive{color:var(--pink)}
+  .status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+  .actions{display:flex;gap:.8rem}
+  .btn-action{
+    background:transparent;border:1px solid var(--border2);color:var(--muted);border-radius:2px;
+    padding:.35rem .6rem;font-size:.78rem;cursor:pointer;transition:all .2s;
+    font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .btn-action:hover{color:var(--white);border-color:var(--muted)}
+  .btn-action.delete:hover{color:var(--pink);border-color:var(--pink);background:rgba(255,61,110,.05)}
+
+  /* MODAL */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(3,3,8,.85);backdrop-filter:blur(5px);
+    display:flex;align-items:center;justify-content:center;z-index:500;
+    opacity:0;pointer-events:none;transition:opacity .25s;
+  }
+  .modal-overlay.active{opacity:1;pointer-events:auto}
+  .modal-card{
+    background:var(--card);border:1px solid var(--border2);border-radius:6px;max-width:480px;width:100%;
+    padding:2rem;transform:scale(.95);transition:transform .25s;
+  }
+  .modal-overlay.active .modal-card{transform:scale(1)}
+  .modal-title{
+    font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:.04em;
+    color:var(--white);margin-bottom:.3rem;
+  }
+  .modal-sub{font-size:.82rem;color:var(--muted);margin-bottom:1.5rem}
+  
+  .form-group{margin-bottom:1.2rem}
+  .form-group label{
+    display:block;font-family:'Barlow Condensed',sans-serif;font-size:.74rem;font-weight:800;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;
+  }
+  .form-group select, .form-group input{
+    width:100%;background:var(--ink);border:1px solid var(--border);border-radius:3px;
+    padding:.65rem 1rem;color:var(--white);font-family:inherit;font-size:.9rem;outline:none;
+  }
+  .form-group select:focus, .form-group input:focus{border-color:var(--border2)}
+  
+  .modal-actions{display:flex;gap:.8rem;margin-top:2rem}
+  .btn-modal{
+    flex:1;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:800;
+    letter-spacing:.12em;text-transform:uppercase;border:none;padding:.75rem;border-radius:2px;
+    cursor:pointer;transition:all .2s;justify-content:center;text-align:center;
+  }
+  .btn-modal.cancel{background:var(--lift);color:var(--muted)}
+  .btn-modal.cancel:hover{color:var(--white)}
+  .btn-modal.save{background:var(--gold);color:var(--ink)}
+  .btn-modal.save:hover{background:var(--gold2)}
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span class="v">VICE</span><span>VAULT</span>
+      <div class="dot"></div>
+    </div>
+    <div class="header-actions">
+      <span class="admin-badge">Admin Mode</span>
+      <div class="btn-signout" onclick="signOut()">Sign Out</div>
+    </div>
+  </header>
+
+  <main>
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card gold">
+        <div class="stat-label">Estimated MRR</div>
+        <div class="stat-val" id="stat-mrr">₹0</div>
+        <div class="stat-sub">Monthly recurring revenue</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Members</div>
+        <div class="stat-val" id="stat-active">0</div>
+        <div class="stat-sub">Subscribed premium accounts</div>
+      </div>
+      <div class="stat-card pink">
+        <div class="stat-label">Waitlist Signups</div>
+        <div class="stat-val" id="stat-waitlist">0</div>
+        <div class="stat-sub">Total newsletter waitlist</div>
+      </div>
+      <div class="stat-card teal">
+        <div class="stat-label">Tiers Breakdown</div>
+        <div class="stat-val" style="font-size:1.15rem;font-family:inherit;font-weight:700;display:flex;flex-direction:column;gap:.2rem;margin-top:.4rem;margin-bottom:.5rem">
+          <span style="color:var(--muted)">Soldier: <strong style="color:var(--white)" id="stat-soldier-count">0</strong></span>
+          <span style="color:var(--gold)">Pro: <strong style="color:var(--white)" id="stat-pro-count">0</strong></span>
+          <span style="color:#ab7dff">Elite: <strong style="color:var(--white)" id="stat-elite-count">0</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tab-bar">
+      <div class="tab active" id="tab-members" onclick="switchTab('members')">
+        Members <span class="tab-badge" id="badge-members">0</span>
+      </div>
+      <div class="tab" id="tab-waitlist" onclick="switchTab('waitlist')">
+        Waitlist <span class="tab-badge" id="badge-waitlist">0</span>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls-row">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search by email..." class="search-input" id="searchInput" oninput="filterData()">
+      </div>
+      <button class="btn-export" style="display:none" id="exportBtn" onclick="exportWaitlistCSV()">
+        📥 Export CSV
+      </button>
+    </div>
+
+    <!-- MEMBERS LIST -->
+    <div class="table-card" id="section-members">
+      <table>
+        <thead>
+          <tr>
+            <th>Email address</th>
+            <th>Tier</th>
+            <th>Status</th>
+            <th>Expires On</th>
+            <th>Discord ID</th>
+            <th style="width:200px">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="members-tbody">
+          <tr>
+            <td colspan="6" style="text-align:center;color:var(--muted)">Loading members data...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- WAITLIST LIST -->
+    <div class="table-card" id="section-waitlist" style="display:none">
+      <table>
+        <thead>
+          <tr>
+            <th>Email address</th>
+            <th>Joined On</th>
+            <th>Waitlist Position</th>
+          </tr>
+        </thead>
+        <tbody id="waitlist-tbody">
+          <tr>
+            <td colspan="3" style="text-align:center;color:var(--muted)">Loading waitlist data...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- EDIT USER MODAL -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal-card">
+      <h3 class="modal-title">Edit Subscription</h3>
+      <p class="modal-sub" id="editModalEmail">user@example.com</p>
+      
+      <div class="form-group">
+        <label>Membership Tier</label>
+        <select id="editTier">
+          <option value="soldier">Soldier</option>
+          <option value="pro">Vault Pro</option>
+          <option value="elite">Elite Crew</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Subscription Status</label>
+        <select id="editStatus">
+          <option value="active">Active (Subscribed)</option>
+          <option value="expired">Expired (Unsubscribed)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Expires On (ISO Date)</label>
+        <input type="text" id="editExpiry" placeholder="YYYY-MM-DDTHH:MM:SS.SSSZ">
+        <a href="#" style="font-size:.78rem;color:var(--gold);display:inline-block;margin-top:.4rem" onclick="extendExpiry(30); return false;">+ Extend by 30 days</a>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-modal cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-modal save" onclick="saveUser()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
+      ? 'http://localhost:8787'
+      : 'https://vicevault.linkwa.in';
+
+    let members = [];
+    let waitlist = [];
+    let currentTab = 'members';
+    let editUserEmail = '';
+
+    async function fetchStats() {
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/stats`, {
+          headers: { 'Authorization': `Bearer ${user.adminToken}` }
+        });
+        if (res.status === 401) return handleUnauthorized();
+        const data = await res.json();
+        if (data.success) {
+          const s = data.stats;
+          document.getElementById('stat-mrr').textContent = '₹' + s.mrr.toLocaleString('en-IN');
+          document.getElementById('stat-active').textContent = s.activeSubs.toLocaleString('en-IN');
+          document.getElementById('stat-waitlist').textContent = s.waitlistCount.toLocaleString('en-IN');
+          document.getElementById('stat-soldier-count').textContent = s.soldierCount;
+          document.getElementById('stat-pro-count').textContent = s.proCount;
+          document.getElementById('stat-elite-count').textContent = s.eliteCount;
+          document.getElementById('badge-members').textContent = s.totalMembers;
+          document.getElementById('badge-waitlist').textContent = s.waitlistCount;
+        }
+      } catch (err) {
+        console.error("Fetch stats error:", err);
+      }
+    }
+
+    async function fetchMembers() {
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/users`, {
+          headers: { 'Authorization': `Bearer ${user.adminToken}` }
+        });
+        if (res.status === 401) return handleUnauthorized();
+        const data = await res.json();
+        if (data.success) {
+          members = data.users || [];
+          renderMembers();
+        }
+      } catch (err) {
+        console.error("Fetch members error:", err);
+        document.getElementById('members-tbody').innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--pink)">Failed to load members data.</td></tr>`;
+      }
+    }
+
+    async function fetchWaitlist() {
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/waitlist`, {
+          headers: { 'Authorization': `Bearer ${user.adminToken}` }
+        });
+        if (res.status === 401) return handleUnauthorized();
+        const data = await res.json();
+        if (data.success) {
+          waitlist = data.waitlist || [];
+          renderWaitlist();
+        }
+      } catch (err) {
+        console.error("Fetch waitlist error:", err);
+        document.getElementById('waitlist-tbody').innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--pink)">Failed to load waitlist data.</td></tr>`;
+      }
+    }
+
+    function renderMembers(dataToRender = members) {
+      const tbody = document.getElementById('members-tbody');
+      if (dataToRender.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted)">No members found.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = dataToRender.map(u => {
+        const isExpired = !u.subscribed || new Date(u.subscriptionExpiresAt) < new Date();
+        const formattedDate = u.subscriptionExpiresAt ? new Date(u.subscriptionExpiresAt).toLocaleString() : 'N/A';
+        return `
+          <tr>
+            <td style="font-weight:500;color:var(--white)">${u.email}</td>
+            <td><span class="badge-tier ${u.tier || 'pro'}">${u.tier || 'pro'}</span></td>
+            <td>
+              <span class="badge-status ${isExpired ? 'inactive' : 'active'}">
+                <span class="status-dot"></span>${isExpired ? 'Expired' : 'Active'}
+              </span>
+            </td>
+            <td style="color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:.9rem">${formattedDate}</td>
+            <td style="color:var(--muted);font-family:monospace;font-size:.8rem">${u.discordUserId || 'Not linked'}</td>
+            <td>
+              <div class="actions">
+                <button class="btn-action" onclick="openEditModal('${u.email}')">Edit</button>
+                <button class="btn-action delete" onclick="deleteUser('${u.email}')">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderWaitlist(dataToRender = waitlist) {
+      const tbody = document.getElementById('waitlist-tbody');
+      if (dataToRender.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--muted)">No waitlist signups found.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = dataToRender.map(w => {
+        return `
+          <tr>
+            <td style="font-weight:500;color:var(--white)">${w.email}</td>
+            <td style="color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:.9rem">${new Date(w.joinedAt).toLocaleString()}</td>
+            <td style="color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700">#${w.position || 'N/A'}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      
+      document.getElementById('section-members').style.display = tab === 'members' ? 'block' : 'none';
+      document.getElementById('section-waitlist').style.display = tab === 'waitlist' ? 'block' : 'none';
+      document.getElementById('exportBtn').style.display = tab === 'waitlist' ? 'inline-flex' : 'none';
+
+      document.getElementById('searchInput').value = '';
+      filterData();
+    }
+
+    function filterData() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      if (currentTab === 'members') {
+        const filtered = members.filter(u => u.email.toLowerCase().includes(q));
+        renderMembers(filtered);
+      } else {
+        const filtered = waitlist.filter(w => w.email.toLowerCase().includes(q));
+        renderWaitlist(filtered);
+      }
+    }
+
+    function openEditModal(email) {
+      const u = members.find(m => m.email === email);
+      if (!u) return;
+
+      editUserEmail = email;
+      document.getElementById('editModalEmail').textContent = email;
+      document.getElementById('editTier').value = u.tier || 'pro';
+      document.getElementById('editStatus').value = u.subscribed ? 'active' : 'expired';
+      document.getElementById('editExpiry').value = u.subscriptionExpiresAt || '';
+      
+      document.getElementById('editModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('editModal').classList.remove('active');
+    }
+
+    function extendExpiry(days) {
+      const input = document.getElementById('editExpiry');
+      let baseDate = new Date();
+      if (input.value) {
+        const parsed = new Date(input.value);
+        if (!isNaN(parsed)) baseDate = parsed;
+      }
+      baseDate.setDate(baseDate.getDate() + days);
+      input.value = baseDate.toISOString();
+    }
+
+    async function saveUser() {
+      try {
+        const tier = document.getElementById('editTier').value;
+        const subscribed = document.getElementById('editStatus').value === 'active';
+        const subscriptionExpiresAt = document.getElementById('editExpiry').value;
+
+        const res = await fetch(`${API_BASE}/api/admin/update-user`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.adminToken}`
+          },
+          body: JSON.stringify({ email: editUserEmail, tier, subscribed, subscriptionExpiresAt })
+        });
+        if (res.status === 401) return handleUnauthorized();
+        const data = await res.json();
+        if (data.success) {
+          closeModal();
+          // Refresh data
+          await fetchStats();
+          await fetchMembers();
+        } else {
+          alert("Error: " + (data.error || "Failed to update member"));
+        }
+      } catch (err) {
+        console.error("Save member error:", err);
+      }
+    }
+
+    async function deleteUser(email) {
+      if (!confirm(`Are you absolutely sure you want to delete ${email}?\nThis will permanently delete them from KV and immediately revoke their Discord crew roles.`)) {
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/delete-user`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.adminToken}`
+          },
+          body: JSON.stringify({ email })
+        });
+        if (res.status === 401) return handleUnauthorized();
+        const data = await res.json();
+        if (data.success) {
+          await fetchStats();
+          await fetchMembers();
+        } else {
+          alert("Error: " + (data.error || "Failed to delete member"));
+        }
+      } catch (err) {
+        console.error("Delete user error:", err);
+      }
+    }
+
+    function exportWaitlistCSV() {
+      if (waitlist.length === 0) return alert("No waitlist data to export.");
+      let csv = "Email,Joined On,Waitlist Position\n";
+      waitlist.forEach(w => {
+        csv += `"${w.email}","${w.joinedAt}","${w.position || ''}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", `vicevault_waitlist_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function handleUnauthorized() {
+      alert("Session expired or unauthorized. Please log in again.");
+      localStorage.removeItem('vv_user');
+      window.location.replace('signup.html?mode=login');
+    }
+
+    function signOut() {
+      localStorage.removeItem('vv_user');
+      window.location.replace('index.html');
+    }
+
+    // Init load
+    async function init() {
+      await fetchStats();
+      await fetchMembers();
+      await fetchWaitlist();
+    }
+
+    init();
+  </script>
+</body>
+</html>
