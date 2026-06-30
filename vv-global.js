@@ -1041,6 +1041,19 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     }
 
     // Settings view navigation is handled by onclick="showView('settings')" in HTML
+    
+    // Admin Link
+    if (user.isAdmin) {
+      const nav = document.querySelector('.sb-nav');
+      if (nav && !document.getElementById('sb-admin-link')) {
+        const adminLink = document.createElement('div');
+        adminLink.id = 'sb-admin-link';
+        adminLink.className = 'sb-item';
+        adminLink.style.color = 'var(--pink)';
+        adminLink.innerHTML = `<span class="ico">🛡️</span><a href="admin.html" style="color:inherit">Admin Center</a>`;
+        nav.appendChild(adminLink);
+      }
+    }
   }
 
   // ─── INIT ────────────────────────────────────────────────
