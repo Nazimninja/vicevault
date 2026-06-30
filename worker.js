@@ -144,6 +144,27 @@ async function handleWaitlist(request, env) {
       await sendAdminNotification(position, env);
     }
 
+    // Send Discord Webhook
+    if (env.DISCORD_WEBHOOK_URL) {
+      try {
+        await fetch(env.DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            embeds: [{
+              title: "⏳ New Waitlist Sign-up",
+              color: 13935410, // 0xd4a332 in decimal
+              fields: [
+                { name: "Email", value: email, inline: true },
+                { name: "Position", value: `#${position?.toLocaleString()}`, inline: true }
+              ],
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+      } catch(err) { console.error("Webhook error:", err); }
+    }
+
     return json({
       success: true,
       position,
@@ -449,6 +470,27 @@ async function handleVerifyOTP(request, env) {
       joinedAt: new Date().toISOString()
     };
 
+    // Send Discord Webhook
+    if (env.DISCORD_WEBHOOK_URL) {
+      try {
+        await fetch(env.DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            embeds: [{
+              title: "🔑 User OTP Sign-in",
+              color: 3093046, // 0x2f3136 in decimal
+              fields: [
+                { name: "Email", value: cleanEmail, inline: true },
+                { name: "Tier", value: tier.toUpperCase(), inline: true }
+              ],
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+      } catch(err) { console.error("Webhook error:", err); }
+    }
+
     return json({ success: true, user });
   } catch (e) {
     return json({ error: e.message }, 500);
@@ -485,6 +527,28 @@ async function handleGoogleAuth(request, env) {
       subscribed: true,
       joinedAt: new Date().toISOString()
     };
+
+    // Send Discord Webhook
+    if (env.DISCORD_WEBHOOK_URL) {
+      try {
+        await fetch(env.DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            embeds: [{
+              title: "🌐 Google OAuth Sign-in",
+              color: 4359924, // 0x4285f4 in decimal
+              fields: [
+                { name: "Name", value: `${firstName} ${lastName}`, inline: true },
+                { name: "Email", value: email, inline: true },
+                { name: "Tier", value: tier.toUpperCase(), inline: true }
+              ],
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+      } catch(err) { console.error("Webhook error:", err); }
+    }
 
     return json({ success: true, user });
   } catch (e) {
@@ -584,6 +648,28 @@ async function handleDiscordAuth(request, env) {
       subscribed: true,
       joinedAt: new Date().toISOString()
     };
+
+    // Send Discord Webhook
+    if (env.DISCORD_WEBHOOK_URL) {
+      try {
+        await fetch(env.DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            embeds: [{
+              title: "🎮 Discord OAuth Sign-in",
+              color: 5793010, // 0x5865f2 in decimal
+              fields: [
+                { name: "Username", value: username, inline: true },
+                { name: "Email", value: email, inline: true },
+                { name: "Tier", value: tier.toUpperCase(), inline: true }
+              ],
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+      } catch(err) { console.error("Webhook error:", err); }
+    }
 
     return json({ success: true, user });
   } catch (e) {
