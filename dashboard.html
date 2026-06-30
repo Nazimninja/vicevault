@@ -311,7 +311,7 @@ a{color:inherit;text-decoration:none}
 
     <div class="sb-section">Account</div>
     <div class="sb-item"><span class="ico">📌</span>Saved Guides</div>
-    <div class="sb-item"><span class="ico">⚙️</span>Settings</div>
+    <div class="sb-item" onclick="showView('settings')"><span class="ico">⚙️</span>Settings</div>
     <div class="sb-item"><span class="ico">←</span><a href="index.html" style="color:inherit">Back to Site</a></div>
   </nav>
   <div class="sb-upgrade">
@@ -450,6 +450,28 @@ a{color:inherit;text-decoration:none}
     </div>
 
   </div><!-- /dashboard view -->
+  
+  <!-- SETTINGS VIEW -->
+  <div class="dash-content" id="view-settings" style="display:none">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:2rem;max-width:560px;margin-top:1rem">
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:.3rem;letter-spacing:.04em">Subscription Settings</h3>
+      <p style="font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem">Manage your membership status. Cancelling will <strong style="color:var(--white)">immediately revoke</strong> your private Discord crew channels access.</p>
+      
+      <div style="display:flex;flex-direction:column;gap:.8rem">
+        <button class="btn-g" style="background:linear-gradient(135deg,#ff3d6e,#c4193b);border:none;padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer" onclick="VV.cancelSubscription()" id="cancelSubBtn">🚫 Cancel Subscription &amp; Revoke Discord Roles</button>
+        <button class="btn-o" style="padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer" onclick="VV.logout()">← Sign Out</button>
+      </div>
+
+      <div style="margin-top:2rem;padding:1rem;background:rgba(255,61,110,.06);border-left:3px solid #ff3d6e;border-radius:0 4px 4px 0">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#ff3d6e;margin-bottom:.4rem">What happens when you cancel</div>
+        <ul style="font-size:.82rem;color:var(--muted);line-height:1.9;list-style:none;padding:0;margin:0">
+          <li>✗ Vault Pro / Elite Crew Discord roles removed immediately</li>
+          <li>✗ Access to private channels (Heist, RP, Multiplayer) revoked</li>
+          <li>✗ Membership content access disabled</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <!-- WEEKLY DROP VIEW -->
   <div class="dash-content" id="view-weekly" style="display:none">
@@ -565,6 +587,10 @@ function showView(v){
     document.getElementById('view-weekly').style.display='block';
   } else if(v==='cheat'){
     document.getElementById('view-cheat').style.display='block';
+  } else if(v==='settings'){
+    document.getElementById('view-settings').style.display='block';
+    document.getElementById('pageTitle').textContent='Settings';
+    document.getElementById('pageSub').textContent='Manage your subscription and account';
   } else {
     // generic section
     const sv=document.getElementById('view-section');

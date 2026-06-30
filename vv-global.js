@@ -716,6 +716,8 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
         if (success) success.classList.add('vvm-shown');
       }
     },
+    logout() { logout(); },
+    cancelSubscription() { cancelSubscription(); }
   };
 
   // ─── AUTHENTICATION SYSTEM ──────────────────────────────────
@@ -775,6 +777,48 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   function logout() {
     localStorage.removeItem(USER_KEY);
     window.location.href = 'index.html';
+  }
+
+  async function cancelSubscription() {
+    if (!confirm("Are you sure you want to cancel your Vice Vault subscription? This will revoke your private Discord access immediately.")) {
+      return;
+    }
+    const user = getCurrentUser();
+    if (!user) return;
+
+    const btn = document.getElementById('cancelSubBtn');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Cancelling...";
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/cancel-subscription`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: user.email })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Subscription cancelled successfully! Discord roles have been revoked.");
+        user.subscribed = false;
+        user.tier = 'none';
+        localStorage.setItem(USER_KEY, JSON.stringify(user));
+        window.location.reload();
+      } else {
+        alert("Failed to cancel: " + (data.error || "Unknown error"));
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Cancel Subscription";
+        }
+      }
+    } catch (e) {
+      alert("Error cancelling subscription: " + e.message);
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Cancel Subscription";
+      }
+    }
   }
 
   function checkAccess(requiredTier) {
@@ -996,17 +1040,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
       window.subs.dashboard = 'Welcome back, ' + user.firstName;
     }
 
-    // Connect Logout / Sign Out
-    const sbItems = document.querySelectorAll('.sb-item');
-    sbItems.forEach(item => {
-      if (item.textContent.includes('Settings')) {
-        item.innerHTML = '<span class="ico">⚙️</span>Sign Out';
-        item.onclick = (e) => {
-          e.preventDefault();
-          logout();
-        };
-      }
-    });
+    // Settings view navigation is handled by onclick="showView('settings')" in HTML
   }
 
   // ─── INIT ────────────────────────────────────────────────

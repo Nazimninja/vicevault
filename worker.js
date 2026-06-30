@@ -70,6 +70,8 @@ export default {
       response = await handleGoogleAuth(request, env);
     } else if (url.pathname === '/api/auth/discord' && request.method === 'POST') {
       response = await handleDiscordAuth(request, env);
+    } else if (url.pathname === '/api/auth/cancel-subscription' && request.method === 'POST') {
+      response = await handleCancelSubscription(request, env);
     } else {
       response = json({ error: 'Not found' }, 404);
     }
@@ -86,6 +88,9 @@ export default {
       headers: newHeaders,
     });
   },
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(syncDiscordRoles(env));
+  }
 };
 
 // ─── WAITLIST HANDLER ──────────────────────────────────────
@@ -467,8 +472,22 @@ async function handleVerifyOTP(request, env) {
       lastName: '',
       tier,
       subscribed: true,
+      subscriptionExpiresAt: new Date(Date.now() + 30 * 86400 * 1000).toISOString(),
       joinedAt: new Date().toISOString()
     };
+
+    // Preserve existing Discord ID if present in KV
+    const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
+    if (existingStr) {
+      try {
+        const existing = JSON.parse(existingStr);
+        if (existing.discordUserId) {
+          user.discordUserId = existing.discordUserId;
+        }
+      } catch(e) {}
+    }
+
+    await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
 
     // Send Discord Webhook
     if (env.DISCORD_WEBHOOK_URL) {
@@ -525,8 +544,22 @@ async function handleGoogleAuth(request, env) {
       lastName,
       tier,
       subscribed: true,
+      subscriptionExpiresAt: new Date(Date.now() + 30 * 86400 * 1000).toISOString(),
       joinedAt: new Date().toISOString()
     };
+
+    // Preserve existing Discord ID if present in KV
+    const existingStr = await env.VICE_VAULT_KV.get(`user:${email}`);
+    if (existingStr) {
+      try {
+        const existing = JSON.parse(existingStr);
+        if (existing.discordUserId) {
+          user.discordUserId = existing.discordUserId;
+        }
+      } catch(e) {}
+    }
+
+    await env.VICE_VAULT_KV.put(`user:${email}`, JSON.stringify(user));
 
     // Send Discord Webhook
     if (env.DISCORD_WEBHOOK_URL) {
@@ -646,8 +679,12 @@ async function handleDiscordAuth(request, env) {
       lastName: '',
       tier,
       subscribed: true,
+      subscriptionExpiresAt: new Date(Date.now() + 30 * 86400 * 1000).toISOString(),
+      discordUserId: userData.id,
       joinedAt: new Date().toISOString()
     };
+
+    await env.VICE_VAULT_KV.put(`user:${email}`, JSON.stringify(user));
 
     // 4. Auto-join server & assign roles if tier is Vault Pro/Elite
     if ((tier === 'pro' || tier === 'elite') && env.DISCORD_BOT_TOKEN && env.DISCORD_GUILD_ID && env.DISCORD_PRO_ROLE_ID) {
@@ -703,5 +740,132 @@ async function handleDiscordAuth(request, env) {
     return json({ success: true, user });
   } catch (e) {
     return json({ error: e.message }, 500);
+  }
+}
+
+async function handleCancelSubscription(request, env) {
+  try {
+    const { email } = await request.json();
+    const cleanEmail = (email || '').toLowerCase().trim();
+    if (!cleanEmail) {
+      return json({ error: 'Missing email' }, 400);
+    }
+
+    const userStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
+    if (!userStr) {
+      return json({ error: 'User profile not found' }, 400);
+    }
+    const user = JSON.parse(userStr);
+
+    user.subscribed = false;
+    user.subscriptionExpiresAt = new Date(0).toISOString(); // Expired
+    await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
+
+    // Remove roles on Discord immediately
+    if (user.discordUserId && env.DISCORD_BOT_TOKEN && env.DISCORD_GUILD_ID) {
+      const userId = user.discordUserId;
+      const guildId = env.DISCORD_GUILD_ID;
+
+      if (env.DISCORD_PRO_ROLE_ID) {
+        await fetch(`https://discord.com/api/v10/guilds/${guildId}/members/${userId}/roles/${env.DISCORD_PRO_ROLE_ID}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bot ${env.DISCORD_BOT_TOKEN}` }
+        });
+      }
+      if (env.DISCORD_ELITE_ROLE_ID) {
+        await fetch(`https://discord.com/api/v10/guilds/${guildId}/members/${userId}/roles/${env.DISCORD_ELITE_ROLE_ID}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bot ${env.DISCORD_BOT_TOKEN}` }
+        });
+      }
+      
+      // Post webhook alert about cancellation role sync
+      if (env.DISCORD_WEBHOOK_URL) {
+        try {
+          await fetch(env.DISCORD_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              embeds: [{
+                title: "🚫 Subscription Cancelled & Roles Revoked",
+                color: 16724590, // 0xff3d6e in decimal
+                fields: [
+                  { name: "Email", value: cleanEmail, inline: true },
+                  { name: "Discord User ID", value: userId, inline: true }
+                ],
+                timestamp: new Date().toISOString()
+              }]
+            })
+          });
+        } catch(err) {}
+      }
+    }
+
+    return json({ success: true, user });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+async function syncDiscordRoles(env) {
+  try {
+    if (!env.DISCORD_BOT_TOKEN || !env.DISCORD_GUILD_ID) return;
+
+    const listResult = await env.VICE_VAULT_KV.list({ prefix: "user:" });
+    const now = new Date();
+
+    for (const key of listResult.keys) {
+      const userStr = await env.VICE_VAULT_KV.get(key.name);
+      if (!userStr) continue;
+
+      const user = JSON.parse(userStr);
+      if (!user.discordUserId) continue;
+
+      const isExpired = user.subscriptionExpiresAt && now > new Date(user.subscriptionExpiresAt);
+      const isInactive = !user.subscribed || isExpired;
+
+      if (isInactive) {
+        const userId = user.discordUserId;
+        const guildId = env.DISCORD_GUILD_ID;
+
+        let roleRemoved = false;
+        if (env.DISCORD_PRO_ROLE_ID) {
+          const res = await fetch(`https://discord.com/api/v10/guilds/${guildId}/members/${userId}/roles/${env.DISCORD_PRO_ROLE_ID}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bot ${env.DISCORD_BOT_TOKEN}` }
+          });
+          if (res.ok) roleRemoved = true;
+        }
+        if (env.DISCORD_ELITE_ROLE_ID) {
+          const res = await fetch(`https://discord.com/api/v10/guilds/${guildId}/members/${userId}/roles/${env.DISCORD_ELITE_ROLE_ID}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bot ${env.DISCORD_BOT_TOKEN}` }
+          });
+          if (res.ok) roleRemoved = true;
+        }
+
+        if (roleRemoved && env.DISCORD_WEBHOOK_URL) {
+          try {
+            await fetch(env.DISCORD_WEBHOOK_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                embeds: [{
+                  title: "🧹 Automated Role Clean-up",
+                  color: 16724590, // Red
+                  fields: [
+                    { name: "User", value: user.email, inline: true },
+                    { name: "Reason", value: "Subscription Expired", inline: true }
+                  ],
+                  timestamp: new Date().toISOString()
+                }]
+              })
+            });
+          } catch(err) {}
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Scheduled sync error:", err);
   }
 }

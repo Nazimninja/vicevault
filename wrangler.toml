@@ -45,3 +45,6 @@ ENVIRONMENT = "production"
 #   curl -X POST http://localhost:8787/api/waitlist \
 #     -H "Content-Type: application/json" \
 #     -d '{"email":"test@example.com","source":"website"}'
+
+[triggers]
+crons = ["0 * * * *"] # Run hourly to sync subscription states and Discord roles
