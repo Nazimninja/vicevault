@@ -362,76 +362,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
     <div class="order-summary">
       <div class="os-title">Order summary</div>
       <div class="os-row"><span class="os-label" id="os-tier-name">Vault Pro — Monthly</span><span class="os-val" id="os-price">₹499</span></div>
-      <div class="os-row"><span class="os-label">GST (18%)</span><span class="os-val" id="os-gst">₹89.82</span></div>
-      <div class="os-row"><span class="os-label">Discount</span><span class="os-val" style="color:var(--teal)">₹0</span></div>
-      <div class="os-row"><span class="os-label" style="font-weight:800">Total due today</span><span class="os-total-val" id="os-total">₹588.82</span></div>
+      <div class="os-row"><span class="os-label" style="font-weight:800">Total due today</span><span class="os-total-val" id="os-total">₹499</span></div>
     </div>
 
-    <!-- PAYMENT METHODS -->
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem">Payment method</div>
-    <div class="payment-methods">
-      <div class="pm active" onclick="setPM(this,'card')"><span class="pm-icon">💳</span>Card</div>
-      <div class="pm" onclick="setPM(this,'upi')"><span class="pm-icon">📱</span>UPI</div>
-      <div class="pm" onclick="setPM(this,'netbanking')"><span class="pm-icon">🏦</span>Net Banking</div>
-      <div class="pm" onclick="setPM(this,'wallet')"><span class="pm-icon">👛</span>Wallet</div>
-    </div>
-
-    <!-- CARD FIELDS -->
-    <div id="pm-card">
-      <div class="field">
-        <label>Card number</label>
-        <div class="card-field"><span class="card-field-placeholder">1234 5678 9012 3456</span><div class="card-icons">💳 🔒</div></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label>Expiry</label><input type="text" placeholder="MM / YY"></div>
-        <div class="field"><label>CVV</label><input type="text" placeholder="123"></div>
-      </div>
-      <div class="field"><label>Name on card</label><input type="text" placeholder="Nazim Pasha"></div>
-    </div>
-
-    <!-- UPI FIELDS -->
-    <div id="pm-upi" style="display:none">
-      <div class="field"><label>UPI ID</label><input class="upi-field" type="text" placeholder="yourname@upi"></div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">Or pay with</div>
-      <div class="upi-apps">
-        <div class="upi-app">GPay</div>
-        <div class="upi-app">PhonePe</div>
-        <div class="upi-app">Paytm</div>
-        <div class="upi-app">BHIM</div>
-        <div class="upi-app">Amazon Pay</div>
-      </div>
-    </div>
-
-    <!-- NET BANKING -->
-    <div id="pm-netbanking" style="display:none">
-      <div class="field">
-        <label>Select bank</label>
-        <select style="width:100%;background:var(--card);border:1px solid var(--border2);color:var(--white);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.85rem 1rem;border-radius:3px;outline:none;appearance:none">
-          <option style="background:var(--card)">Select your bank</option>
-          <option style="background:var(--card)">SBI</option>
-          <option style="background:var(--card)">HDFC Bank</option>
-          <option style="background:var(--card)">ICICI Bank</option>
-          <option style="background:var(--card)">Axis Bank</option>
-          <option style="background:var(--card)">Kotak Mahindra</option>
-          <option style="background:var(--card)">Other bank</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- WALLET -->
-    <div id="pm-wallet" style="display:none">
-      <div class="upi-apps" style="margin-bottom:1rem">
-        <div class="upi-app">Paytm</div>
-        <div class="upi-app">Mobikwik</div>
-        <div class="upi-app">Freecharge</div>
-        <div class="upi-app">Airtel</div>
-      </div>
+    <!-- WHAT RAZORPAY SUPPORTS -->
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.4rem">
+      <span style="background:rgba(255,255,255,.06);border:1px solid var(--border2);border-radius:3px;padding:.35rem .75rem;font-size:.75rem;color:var(--muted)">💳 Card</span>
+      <span style="background:rgba(255,255,255,.06);border:1px solid var(--border2);border-radius:3px;padding:.35rem .75rem;font-size:.75rem;color:var(--muted)">📱 UPI</span>
+      <span style="background:rgba(255,255,255,.06);border:1px solid var(--border2);border-radius:3px;padding:.35rem .75rem;font-size:.75rem;color:var(--muted)">🏦 Net Banking</span>
+      <span style="background:rgba(255,255,255,.06);border:1px solid var(--border2);border-radius:3px;padding:.35rem .75rem;font-size:.75rem;color:var(--muted)">👛 Wallets</span>
+      <span style="background:rgba(255,255,255,.06);border:1px solid var(--border2);border-radius:3px;padding:.35rem .75rem;font-size:.75rem;color:var(--muted)">GPay · PhonePe · Paytm</span>
     </div>
 
     <div class="secure-note"><span class="lock">🔒</span>Secured by Razorpay · 256-bit SSL encryption · PCI DSS compliant</div>
 
-    <button class="pay-btn" id="payBtn" onclick="processPayment()">
-      <span id="payBtnText">Pay ₹588.82 — Get instant access</span>
+    <button class="pay-btn" id="payBtn" onclick="launchRazorpay()">
+      <span id="payBtnText">Pay <span id="pay-amount-label">₹499</span> — Get instant access</span>
     </button>
 
     <p class="pay-terms">By completing this purchase you agree to our <a href="#">Terms of Service</a>. Subscriptions auto-renew until cancelled. Cancel anytime from your dashboard with no penalty.</p>
@@ -481,13 +427,10 @@ function selectTier(price,name){
   document.getElementById('selectedTierBadge').textContent=name;
 
   // update order summary
-  const gst=(price*.18).toFixed(2);
-  const total=(price*1.18).toFixed(2);
   document.getElementById('os-tier-name').textContent=name+(price===1199?' — Annual':' — Monthly');
   document.getElementById('os-price').textContent='₹'+price;
-  document.getElementById('os-gst').textContent='₹'+gst;
-  document.getElementById('os-total').textContent='₹'+total;
-  document.getElementById('payBtnText').textContent=`Pay ₹${total} — Get instant access`;
+  document.getElementById('os-total').textContent='₹'+price;
+  document.getElementById('pay-amount-label').textContent='₹'+price;
 
   // success features
   const sf1=document.getElementById('sf1');
@@ -544,25 +487,28 @@ function setPM(el,type){
   document.getElementById('pm-'+type).style.display='block';
 }
 
-function processPayment(){
-  const btn=document.getElementById('payBtn');
-  btn.classList.add('loading');
-  btn.innerHTML='<span>Processing...</span>';
+async function launchRazorpay(){
+  // Determine tier string
+  let tierId = 'pro';
+  if (selectedTier.price === 199) tierId = 'soldier';
+  if (selectedTier.price === 1199) tierId = 'elite';
 
-  // Save the registration details in localStorage session
+  // Save registration details to KV before payment
   try {
-    const email = document.getElementById('email').value;
-    const fname = document.getElementById('fname').value;
-    const lname = document.getElementById('lname').value;
-    let tierId = 'pro';
-    if (selectedTier.price === 199) tierId = 'soldier';
-    if (selectedTier.price === 1199) tierId = 'elite';
-    VV.signup(email, fname, lname, tierId);
+    const email = document.getElementById('email') ? document.getElementById('email').value : '';
+    const fname = document.getElementById('fname') ? document.getElementById('fname').value : '';
+    const lname = document.getElementById('lname') ? document.getElementById('lname').value : '';
+    if (email) await VV.signup(email, fname, lname, tierId);
   } catch (err) {
-    console.error("Auth registration error:", err);
+    console.warn('Pre-payment signup error (non-fatal):', err);
   }
 
-  setTimeout(()=>goStep(4),2000);
+  // Launch real Razorpay checkout — VV.pay handles everything
+  if (window.VV && window.VV.pay) {
+    window.VV.pay(tierId);
+  } else {
+    alert('Payment system loading... please try again in a moment.');
+  }
 }
 
 function handleLogin() {

@@ -1069,4 +1069,104 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     console.warn("Global Auth Handled Error:", e.message);
   });
 
+  // ─── RAZORPAY CHECKOUT ─────────────────────────────────────
+  async function initRazorpayPayment(tier) {
+    const user = getUser();
+    const email = user?.email || '';
+
+    // Ensure Razorpay script is loaded
+    if (!window.Razorpay) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    // Show loading state on button
+    const btn = document.getElementById(`pay-btn-${tier}`);
+    if (btn) { btn.disabled = true; btn.textContent = 'Processing…'; }
+
+    try {
+      // 1. Create order on backend
+      const orderRes = await fetch(`${API_BASE}/api/pay/create-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier })
+      });
+      const orderData = await orderRes.json();
+
+      if (!orderData.success) {
+        alert('Could not initiate payment: ' + (orderData.error || 'Unknown error'));
+        if (btn) { btn.disabled = false; btn.textContent = 'Subscribe Now'; }
+        return;
+      }
+
+      // Price labels for display
+      const LABELS = { soldier: '₹199/mo', pro: '₹499/mo', elite: '₹1,199/mo' };
+      const NAMES  = { soldier: 'Vault Soldier', pro: 'Vault Pro', elite: 'Elite Crew' };
+
+      // 2. Open Razorpay checkout modal
+      const options = {
+        key: orderData.keyId,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: 'Vice Vault',
+        description: `${NAMES[tier] || tier} — ${LABELS[tier] || ''}`,
+        order_id: orderData.orderId,
+        prefill: { email },
+        theme: { color: '#f5a623' },
+        modal: {
+          ondismiss: () => {
+            if (btn) { btn.disabled = false; btn.textContent = 'Subscribe Now'; }
+          }
+        },
+        handler: async function(response) {
+          // 3. Verify payment on backend
+          if (btn) btn.textContent = 'Verifying…';
+          try {
+            const verifyRes = await fetch(`${API_BASE}/api/pay/verify`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id:   response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature:  response.razorpay_signature,
+                email, tier,
+                firstName: user?.firstName || '',
+                lastName:  user?.lastName  || ''
+              })
+            });
+            const verifyData = await verifyRes.json();
+
+            if (verifyData.success) {
+              // Save updated user to localStorage
+              localStorage.setItem('vv_user', JSON.stringify(verifyData.user));
+              // Redirect to dashboard
+              window.location.href = '/dashboard.html?payment=success&tier=' + tier;
+            } else {
+              alert('Payment verification failed: ' + (verifyData.error || 'Please contact support.'));
+              if (btn) { btn.disabled = false; btn.textContent = 'Subscribe Now'; }
+            }
+          } catch(e) {
+            alert('Error verifying payment. Please contact support.');
+            if (btn) { btn.disabled = false; btn.textContent = 'Subscribe Now'; }
+          }
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch(e) {
+      alert('Payment error: ' + e.message);
+      if (btn) { btn.disabled = false; btn.textContent = 'Subscribe Now'; }
+    }
+  }
+
+  // Expose to global scope
+  window.VV = window.VV || {};
+  window.VV.pay = initRazorpayPayment;
+
 })();

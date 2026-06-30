@@ -72,6 +72,10 @@ export default {
       response = await handleDiscordAuth(request, env);
     } else if (url.pathname === '/api/auth/cancel-subscription' && request.method === 'POST') {
       response = await handleCancelSubscription(request, env);
+    } else if (url.pathname === '/api/pay/create-order' && request.method === 'POST') {
+      response = await handleCreateOrder(request, env);
+    } else if (url.pathname === '/api/pay/verify' && request.method === 'POST') {
+      response = await handleVerifyPayment(request, env);
     } else {
       response = json({ error: 'Not found' }, 404);
     }
@@ -867,5 +871,141 @@ async function syncDiscordRoles(env) {
     }
   } catch (err) {
     console.error("Scheduled sync error:", err);
+  }
+}
+
+// ─── RAZORPAY: CREATE ORDER ────────────────────────────────
+async function handleCreateOrder(request, env) {
+  try {
+    const { tier } = await request.json();
+
+    // Price map in paise (INR × 100)
+    const PRICES = {
+      soldier: 19900,  // ₹199
+      pro:     49900,  // ₹499
+      elite:   119900, // ₹1199
+    };
+
+    const amount = PRICES[tier];
+    if (!amount) {
+      return json({ error: 'Invalid tier. Must be soldier, pro, or elite.' }, 400);
+    }
+
+    if (!env.RAZORPAY_KEY_ID || !env.RAZORPAY_KEY_SECRET) {
+      return json({ error: 'Payment gateway not configured.' }, 500);
+    }
+
+    const credentials = btoa(`${env.RAZORPAY_KEY_ID}:${env.RAZORPAY_KEY_SECRET}`);
+
+    const rzpRes = await fetch('https://api.razorpay.com/v1/orders', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${credentials}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        amount,
+        currency: 'INR',
+        receipt: `vv_${tier}_${Date.now()}`,
+        payment_capture: 1
+      })
+    });
+
+    if (!rzpRes.ok) {
+      const err = await rzpRes.text();
+      return json({ error: 'Failed to create Razorpay order: ' + err }, 500);
+    }
+
+    const order = await rzpRes.json();
+    return json({
+      success: true,
+      orderId: order.id,
+      amount: order.amount,
+      currency: order.currency,
+      keyId: env.RAZORPAY_KEY_ID
+    });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+// ─── RAZORPAY: VERIFY PAYMENT ──────────────────────────────
+async function handleVerifyPayment(request, env) {
+  try {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, email, tier, firstName, lastName } = await request.json();
+
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return json({ error: 'Missing payment verification fields' }, 400);
+    }
+    if (!email) {
+      return json({ error: 'Missing email' }, 400);
+    }
+
+    // Verify HMAC SHA256 signature
+    const message = `${razorpay_order_id}|${razorpay_payment_id}`;
+    const encoder = new TextEncoder();
+    const keyData = encoder.encode(env.RAZORPAY_KEY_SECRET);
+    const msgData = encoder.encode(message);
+
+    const cryptoKey = await crypto.subtle.importKey(
+      'raw', keyData, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+    );
+    const signatureBuffer = await crypto.subtle.sign('HMAC', cryptoKey, msgData);
+    const expectedSignature = Array.from(new Uint8Array(signatureBuffer))
+      .map(b => b.toString(16).padStart(2, '0')).join('');
+
+    if (expectedSignature !== razorpay_signature) {
+      return json({ error: 'Payment verification failed — invalid signature.' }, 400);
+    }
+
+    // Payment is valid — activate subscription
+    const cleanEmail = email.toLowerCase().trim();
+    let tierName = 'pro';
+    if (tier === 'soldier' || tier === '199') tierName = 'soldier';
+    if (tier === 'elite' || tier === '1199') tierName = 'elite';
+
+    const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
+    let user = existingStr ? JSON.parse(existingStr) : {};
+
+    user = {
+      ...user,
+      email: cleanEmail,
+      firstName: firstName || user.firstName || cleanEmail.split('@')[0],
+      lastName: lastName || user.lastName || '',
+      tier: tierName,
+      subscribed: true,
+      subscriptionExpiresAt: new Date(Date.now() + 30 * 86400 * 1000).toISOString(),
+      lastPaymentId: razorpay_payment_id,
+      lastOrderId: razorpay_order_id,
+      joinedAt: user.joinedAt || new Date().toISOString()
+    };
+
+    await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
+
+    // Send Discord Webhook alert
+    if (env.DISCORD_WEBHOOK_URL) {
+      try {
+        await fetch(env.DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            embeds: [{
+              title: '💳 New Payment Received!',
+              color: 3329330, // Green
+              fields: [
+                { name: 'Email', value: cleanEmail, inline: true },
+                { name: 'Tier', value: tierName.toUpperCase(), inline: true },
+                { name: 'Payment ID', value: razorpay_payment_id, inline: false }
+              ],
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+      } catch(err) {}
+    }
+
+    return json({ success: true, user });
+  } catch (e) {
+    return json({ error: e.message }, 500);
   }
 }
