@@ -8,8 +8,8 @@ compatibility_flags = ["nodejs_compat"]
 # Paste the returned ID below
 [[kv_namespaces]]
 binding = "VICE_VAULT_KV"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
-preview_id = "REPLACE_WITH_YOUR_KV_PREVIEW_ID"
+id = "31d5ed49d5ee4891a890ad47f4aad99a"
+preview_id = "f2c6cbddba344806aed74123479fa214"
 
 # ─── ROUTES ──────────────────────────────────────────────────
 [[routes]]
