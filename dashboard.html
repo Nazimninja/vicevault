@@ -278,7 +278,33 @@ a{color:inherit;text-decoration:none}
   .main{height:auto}
   .recent-grid{grid-template-columns:1fr}
   .cats-dash{grid-template-columns:repeat(2,1fr)}
+/* SUCCESS MODAL */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(3,3,8,.88);backdrop-filter:blur(5px);
+  display:flex;align-items:center;justify-content:center;z-index:9999;
+  opacity:0;pointer-events:none;transition:opacity .25s;
 }
+.modal-overlay.active{opacity:1;pointer-events:auto}
+.modal-card{
+  background:var(--card);border:1px solid var(--borderl);border-radius:6px;max-width:440px;width:100%;
+  padding:2.5rem 2rem;transform:scale(.95);transition:transform .25s;
+  box-shadow:0 15px 40px rgba(0,0,0,.5);
+}
+.modal-overlay.active .modal-card{transform:scale(1)}
+.modal-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.04em;
+  color:var(--white);
+}
+.modal-sub{font-size:.82rem;color:var(--muted)}
+.btn-modal{
+  display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;border:none;padding:.75rem;border-radius:2px;
+  cursor:pointer;transition:all .2s;
+}
+.btn-modal.cancel{background:var(--lift);color:var(--muted)}
+.btn-modal.cancel:hover{color:var(--white)}
+.btn-modal.save{background:var(--gold);color:var(--ink)}
+.btn-modal.save:hover{background:var(--gold2)}
 </style>
 </head>
 <body>
@@ -711,6 +737,65 @@ function animProgress(){
 }
 animProgress();
 </script>
+<!-- PAYMENT SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-card" style="max-width:440px;text-align:center;border-left:3px solid var(--gold);position:relative">
+    <div style="font-size:3rem;margin-bottom:1rem">👑</div>
+    <h3 class="modal-title" style="color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.08em;margin-bottom:.5rem">PAYMENT SUCCESSFUL!</h3>
+    <p class="modal-sub" style="font-size:.86rem;line-height:1.6;margin-bottom:1.5rem">Welcome to the inner circle. Your premium access has been activated.</p>
+    
+    <div style="background:rgba(212,163,50,.06);border:1px solid rgba(212,163,50,.15);border-radius:4px;padding:1rem;margin-bottom:1.5rem">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem">Membership Tier</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;color:var(--white);text-transform:uppercase" id="successTierName">Vault Pro</div>
+    </div>
+    
+    <div style="font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:1.8rem">
+      To unlock your private heist, roleplay, and multiplayer voice channels, link your Discord account now.
+    </div>
+    
+    <div style="display:flex;flex-direction:column;gap:.8rem">
+      <button class="btn-modal save" style="width:100%;padding:.85rem;font-size:.85rem" onclick="handleSuccessDiscord()">🎮 Connect Discord &amp; Get Roles</button>
+      <button class="btn-modal cancel" style="width:100%;padding:.85rem;font-size:.85rem;background:transparent;border:1px solid var(--border)" onclick="closeSuccessModal()">Go to Dashboard</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function closeSuccessModal() {
+    document.getElementById('successModal').classList.remove('active');
+    // Remove query parameters from URL without reloading
+    const url = new URL(window.location);
+    url.searchParams.delete('payment');
+    url.searchParams.delete('tier');
+    window.history.replaceState({}, document.title, url);
+  }
+
+  function handleSuccessDiscord() {
+    const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
+    let tierParam = '';
+    if (user && user.tier === 'soldier') tierParam = '?tier=299';
+    if (user && user.tier === 'elite') tierParam = '?tier=999';
+    if (user && user.tier === 'pro') tierParam = '?tier=699';
+    
+    const redirectUri = encodeURIComponent(window.location.origin + '/signup.html' + tierParam);
+    window.location.href = `https://discord.com/oauth2/authorize?client_id=1521435317129842728&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email%20guilds.join`;
+  }
+
+  // Check URL parameters for payment success
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('payment') === 'success') {
+    const tier = urlParams.get('tier') || 'pro';
+    const tierNames = {
+      'soldier': 'Vault Soldier',
+      'pro': 'Vault Pro',
+      'elite': 'Elite Crew'
+    };
+    const tierName = tierNames[tier] || 'Vault Member';
+    document.getElementById('successTierName').textContent = tierName;
+    document.getElementById('successModal').classList.add('active');
+  }
+</script>
+
 <script src="vv-global.js"></script>
 </body>
 </html>
