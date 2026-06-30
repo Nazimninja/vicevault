@@ -39,7 +39,7 @@
     {
       id: 'soldier',
       name: 'Soldier',
-      price: 199,
+      price: 299,
       originalPrice: null,
       period: 'month',
       badge: null,
@@ -56,10 +56,10 @@
     {
       id: 'pro',
       name: 'Vault Pro',
-      price: 399,
-      originalPrice: 499,
+      price: 699,
+      originalPrice: null,
       period: 'month',
-      badge: '⭐ Best deal — 20% off launch price',
+      badge: '⭐ Best value',
       color: '#d4a332',
       hot: true,
       features: [
@@ -72,15 +72,15 @@
         'Priority Discord crew channels (Heist, RP, Lobbies)',
       ],
       locked: ['Custom blueprint requests'],
-      note: 'Price locks at ₹399/mo forever — rises to ₹499 on launch day',
+      note: null,
     },
     {
       id: 'elite',
       name: 'Elite Crew',
       price: 999,
-      originalPrice: 1199,
+      originalPrice: null,
       period: 'year',
-      badge: '💎 Founding member — 16% off',
+      badge: '💎 Founding member',
       color: '#9b59ff',
       features: [
         'Everything in Vault Pro',
@@ -1105,7 +1105,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
       }
 
       // Price labels for display
-      const LABELS = { soldier: '₹199/mo', pro: '₹499/mo', elite: '₹1,199/mo' };
+      const LABELS = { soldier: '₹299/mo', pro: '₹699/mo', elite: '₹999/yr' };
       const NAMES  = { soldier: 'Vault Soldier', pro: 'Vault Pro', elite: 'Elite Crew' };
 
       // 2. Open Razorpay checkout modal

@@ -881,9 +881,9 @@ async function handleCreateOrder(request, env) {
 
     // Price map in paise (INR × 100)
     const PRICES = {
-      soldier: 19900,  // ₹199
-      pro:     49900,  // ₹499
-      elite:   119900, // ₹1199
+      soldier: 29900,  // ₹299
+      pro:     69900,  // ₹699
+      elite:   99900,  // ₹999
     };
 
     const amount = PRICES[tier];
