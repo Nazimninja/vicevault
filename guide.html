@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTA 6 Cargo Ship Heist Guide: Full Walkthrough & $2.2M Max Take | Vice Vault</title>
+<meta name="description" content="Complete GTA 6 Cargo Ship heist guide. All three approaches, hidden vault route, crew compositions and $2.2M max take strategy. Updated June 2025.">
+<meta name="keywords" content="GTA 6 cargo ship heist, GTA 6 heist guide, GTA 6 max money, GTA VI walkthrough, GTA 6 hidden route">
+<meta property="og:title" content="GTA 6 Cargo Ship Heist — Full Blueprint | Vice Vault">
+<meta property="og:description" content="Hidden vault route, $2.2M max take, all three approaches. The complete blueprint.">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://vicevault.linkwa.in/guides/cargo-ship-heist">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"GTA 6 Cargo Ship Heist Guide: Full Walkthrough & $2.2M Max Take","description":"Complete GTA 6 Cargo Ship heist guide covering all three approaches, hidden vault route, and max take strategy.","datePublished":"2025-06-01","author":{"@type":"Organization","name":"Vice Vault"},"publisher":{"@type":"Organization","name":"Vice Vault","url":"https://vicevault.linkwa.in"}}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;
+  --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:66px;background:rgba(3,3,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
+.logo-v{color:var(--gold)}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--gold);color:var(--ink)!important;padding:.45rem 1.3rem;border-radius:2px;font-weight:800!important}
+.nav-cta:hover{background:var(--gold2)!important}
+
+/* BREADCRUMB */
+.breadcrumb{padding:90px 2.5rem 0;max-width:1120px;margin:0 auto}
+.bc-inner{display:flex;align-items:center;gap:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.bc-inner a{color:var(--muted);transition:color .2s}
+.bc-inner a:hover{color:var(--gold)}
+.bc-sep{color:var(--border2)}
+.bc-cur{color:var(--white)}
+
+/* HERO HEADER */
+.art-hero{padding:2rem 2.5rem 0;max-width:1120px;margin:0 auto}
+.art-eyebrow{display:flex;gap:.8rem;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap}
+.tag{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.22rem .7rem;border-radius:2px}
+.tg{background:rgba(212,163,50,.1);color:var(--gold);border:1px solid rgba(212,163,50,.3)}
+.tp{background:rgba(255,61,110,.12);color:var(--pink);border:1px solid rgba(255,61,110,.3)}
+.tt{background:rgba(0,212,170,.1);color:var(--teal);border:1px solid rgba(0,212,170,.3)}
+.tn{background:rgba(255,61,110,.8);color:#fff;border:none}
+.art-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.1;margin-bottom:1rem;max-width:800px}
+.art-lead{font-size:1rem;color:var(--muted);line-height:1.85;max-width:680px;margin-bottom:1.5rem}
+.art-meta-bar{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;padding:1rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:0;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.amb-item{display:flex;align-items:center;gap:.4rem}
+.amb-val{color:var(--white)}
+.amb-gold{color:var(--gold)}
+
+/* FEATURED THUMB */
+.art-thumb{height:340px;position:relative;overflow:hidden;margin:0 0 0}
+.at-bg{position:absolute;inset:0;background:linear-gradient(135deg,#100a00,#08001a,#001a0a)}
+.at-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 80%,rgba(212,163,50,.1) 0%,transparent 70%)}
+.at-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);background-size:60px 60px}
+.at-city{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:flex-end;gap:3px;padding:0 40px;height:180px;opacity:.6}
+.atb{background:var(--lift);flex-shrink:0;position:relative}
+.atb::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:rgba(212,163,50,.2)}
+.abl{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;animation:blk var(--d,2s) var(--dl,0s) ease-in-out infinite}
+@keyframes blk{0%,100%{opacity:1}50%{opacity:.05}}
+.at-label{position:absolute;bottom:2rem;left:2.5rem;z-index:5}
+.at-label .cat-pill{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;background:var(--gold);color:var(--ink);padding:.3rem .9rem;border-radius:2px;display:inline-block;margin-bottom:.6rem}
+.at-label h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.06em;color:var(--white);text-shadow:0 2px 20px rgba(0,0,0,.8)}
+
+/* MAIN LAYOUT */
+.art-layout{max-width:1120px;margin:0 auto;padding:2.5rem 2.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;align-items:start}
+
+/* ARTICLE BODY */
+.ac{max-width:680px}
+.ac h2{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:800;color:var(--gold);margin:2.2rem 0 .75rem;letter-spacing:.02em;scroll-margin-top:90px}
+.ac h2:first-child{margin-top:0}
+.ac h3{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;color:var(--white);margin:1.5rem 0 .5rem}
+.ac p{font-size:.92rem;color:#9a98aa;line-height:1.95;margin-bottom:1rem}
+.ac ul,.ac ol{margin:1rem 0 1rem 1.2rem;display:flex;flex-direction:column;gap:.5rem}
+.ac ul li,.ac ol li{font-size:.9rem;color:#9a98aa;line-height:1.7}
+.ac ul li::marker{color:var(--gold)}
+
+.tipbox{background:rgba(212,163,50,.06);border-left:3px solid var(--gold);padding:1.1rem 1.3rem;border-radius:0 4px 4px 0;margin:1.5rem 0}
+.tipbox-l{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.45rem}
+.tipbox p{margin:0;font-size:.87rem;color:var(--muted)}
+
+.warnbox{background:rgba(255,61,110,.06);border-left:3px solid var(--pink);padding:1.1rem 1.3rem;border-radius:0 4px 4px 0;margin:1.5rem 0}
+.warnbox-l{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);margin-bottom:.45rem}
+.warnbox p{margin:0;font-size:.87rem;color:var(--muted)}
+
+.steplist{counter-reset:s;list-style:none!important;margin-left:0!important;display:flex;flex-direction:column;gap:.9rem;margin:1.2rem 0}
+.steplist li{counter-increment:s;display:flex;gap:1rem;align-items:flex-start;font-size:.9rem;color:#9a98aa;line-height:1.7}
+.steplist li::before{content:counter(s,decimal-leading-zero);font-family:'Bebas Neue',sans-serif;font-size:1.15rem;color:var(--gold);flex-shrink:0;line-height:1.3;margin-left:0}
+.steplist li::marker{content:none}
+
+.divider{border:none;border-top:1px solid var(--border);margin:2rem 0}
+
+.stat-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1rem 1.2rem;text-align:center}
+.sc-val{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);line-height:1}
+.sc-label{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
+
+.approach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.appr{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.2rem;cursor:pointer;transition:border-color .2s}
+.appr:hover{border-color:var(--gold)}
+.appr-name{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;margin-bottom:.3rem}
+.appr.best .appr-name{color:var(--gold)}
+.appr-pay{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;line-height:1;margin-bottom:.4rem}
+.appr.best .appr-pay{color:var(--gold)}
+.appr-diff{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.appr-badge{display:inline-block;margin-bottom:.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:rgba(212,163,50,.15);color:var(--gold);border:1px solid rgba(212,163,50,.3);padding:.18rem .6rem;border-radius:2px}
+
+.code-box{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:1rem 1.2rem;margin:1rem 0;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.code-box code{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.12em;color:var(--gold)}
+.copy-btn{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:rgba(212,163,50,.1);color:var(--gold);border:1px solid rgba(212,163,50,.25);padding:.3rem .7rem;border-radius:2px;cursor:pointer;transition:all .2s;flex-shrink:0}
+.copy-btn:hover{background:var(--gold);color:var(--ink)}
+
+.paywall{position:relative;overflow:hidden;border-top:1px solid var(--border);margin-top:1rem;border-radius:0 0 4px 4px}
+.pw-blur{filter:blur(5px);opacity:.3;user-select:none;pointer-events:none;padding:1.5rem 0}
+.pw-gate{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:2.5rem;background:linear-gradient(to bottom,rgba(13,13,24,0) 0%,var(--ink) 35%)}
+.pw-eye{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.pw-t{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.06em}
+.pw-s{font-size:.86rem;color:var(--muted);max-width:340px;line-height:1.75}
+.pw-perks{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin:.5rem 0}
+.pw-perk{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;color:var(--muted);display:flex;align-items:center;gap:.35rem}
+.pw-perk::before{content:'✓';color:var(--gold)}
+.btn-g{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;border-radius:2px;border:none;cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s}
+.btn-g:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,163,50,.3)}
+.btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:border-color .2s,background .2s}
+.btn-o:hover{border-color:var(--gold);background:rgba(212,163,50,.07)}
+
+/* SIDEBAR */
+.sidebar-col{position:sticky;top:86px;display:flex;flex-direction:column;gap:1.2rem}
+.sw{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.3rem}
+.sw-t{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.toc{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.toc a{font-size:.8rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start;line-height:1.4;transition:color .2s;padding:.2rem 0}
+.toc a:hover,.toc a.active{color:var(--gold)}
+.toc a::before{content:'›';color:var(--border2);margin-top:1px;flex-shrink:0}
+.toc a.active::before{color:var(--gold)}
+
+.sw-stat{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)}
+.sw-stat:last-child{border:none}
+.sw-stat-l{font-size:.8rem;color:var(--muted)}
+.sw-stat-v{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;color:var(--white)}
+.sw-stat-v.gold{color:var(--gold)}
+.sw-stat-v.teal{color:var(--teal)}
+
+.share-btns{display:flex;flex-direction:column;gap:.5rem}
+.share-btn{display:flex;align-items:center;gap:.7rem;padding:.65rem .9rem;border-radius:3px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.share-btn:hover{border-color:var(--gold);color:var(--white);background:rgba(212,163,50,.05)}
+
+.upgrade-sw{background:rgba(212,163,50,.07);border:1px solid rgba(212,163,50,.22);border-radius:4px;padding:1.3rem}
+.usw-t{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.usw-heading{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;margin-bottom:.5rem}
+.usw-p{font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:1rem}
+
+/* RELATED */
+.related-sec{background:var(--deep);padding:60px 2.5rem}
+.container{max-width:1120px;margin:0 auto}
+.rel-hd{margin-bottom:1.8rem}
+.rel-hd .eye{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.rel-hd h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em}
+.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.rc{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+.rc:hover{border-color:var(--gold);transform:translateY(-3px)}
+.rc-thumb{height:120px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.rct1{background:linear-gradient(135deg,#1a0a00,#1a0010)}
+.rct2{background:linear-gradient(135deg,#001a08,#001018)}
+.rct3{background:linear-gradient(135deg,#0a0018,#180008)}
+.rc-thumb-word{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(255,255,255,.05);position:absolute}
+.rc-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);z-index:1;border:1px solid rgba(212,163,50,.3);padding:.22rem .7rem;border-radius:2px;background:rgba(212,163,50,.07)}
+.rc-body{padding:1rem 1.1rem 1.2rem;flex:1;display:flex;flex-direction:column}
+.rc-title{font-family:'Barlow Condensed',sans-serif;font-size:.98rem;font-weight:800;line-height:1.3;color:var(--white);flex:1;margin-bottom:.6rem}
+.rc-meta{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.rc-arrow{color:var(--gold)}
+
+/* CTA STRIP */
+.cta-strip{background:var(--ink);padding:60px 2.5rem;border-top:1px solid var(--border)}
+.cta-strip-in{max-width:700px;margin:0 auto;text-align:center}
+.cs-eye{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.cs-t{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:.04em;line-height:.95;margin-bottom:1rem}
+.cs-s{font-size:.95rem;color:var(--muted);margin-bottom:2rem;line-height:1.8}
+.cs-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:var(--deep);border-top:1px solid var(--border);padding:40px 2.5rem 24px}
+.fbot{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.73rem;color:var(--muted)}
+.fleg{display:flex;gap:1.5rem}
+.fleg a{color:var(--muted);transition:color .2s}
+.fleg a:hover{color:var(--white)}
+
+/* PROGRESS BAR TOP */
+.reading-bar{position:fixed;top:0;left:0;height:3px;background:var(--gold);z-index:1000;width:0;transition:width .1s linear}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.rev.in{opacity:1;transform:none}
+
+@media(max-width:900px){.art-layout{grid-template-columns:1fr}.sidebar-col{display:none}.rel-grid{grid-template-columns:1fr 1fr}.approach-grid,.stat-cards{grid-template-columns:1fr}}
+@media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}.art-hero,.art-layout,.breadcrumb{padding-left:1.2rem;padding-right:1.2rem}.rel-grid{grid-template-columns:1fr}.related-sec,.cta-strip{padding:40px 1.2rem}}
+</style>
+</head>
+<body>
+
+<div class="reading-bar" id="rbar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span class="logo-v">VICE</span>VAULT<span class="nav-dot"></span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#categories">Vault</a></li>
+    <li><a href="index.html#allguides">Guides</a></li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
+  </ul>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="bc-inner">
+    <a href="index.html">Vice Vault</a>
+    <span class="bc-sep">/</span>
+    <a href="index.html#allguides">Heist Blueprints</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-cur">Cargo Ship Heist</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="art-hero">
+  <div class="art-eyebrow">
+    <span class="tag tn">New</span>
+    <span class="tag tg">Heist Blueprint</span>
+    <span class="tag tt">PS5 &amp; Xbox</span>
+  </div>
+  <h1 class="art-h1" itemprop="headline">GTA 6 Cargo Ship Heist: Full Walkthrough, Hidden Vault Route &amp; $2.2M Max Take Strategy</h1>
+  <p class="art-lead">The Cargo Ship is GTA 6's highest-paying early-game heist at $1.8M base — but most players leave $400K on the table. This blueprint covers all three approaches, the hidden maintenance shaft route, and the exact setup that pushes your take to $2.2M.</p>
+  <div class="art-meta-bar">
+    <div class="amb-item">📅 <span class="amb-val">June 2025</span></div>
+    <div class="amb-item">⏱ <span class="amb-val">14 min read</span></div>
+    <div class="amb-item">💰 <span class="amb-gold">$2.2M max take</span></div>
+    <div class="amb-item">⚡ <span class="amb-val">Level 15+ required</span></div>
+    <div class="amb-item">👥 <span class="amb-val">Solo or 4-player</span></div>
+  </div>
+</div>
+
+<!-- THUMB -->
+<div class="art-thumb">
+  <div class="at-bg"></div>
+  <div class="at-glow"></div>
+  <div class="at-grid"></div>
+  <div class="at-city">
+    <div class="atb" style="width:18px;height:75px"><div class="abl" style="top:4px;left:7px;--d:1.8s;--dl:0s"></div></div>
+    <div class="atb" style="width:26px;height:120px"><div class="abl" style="top:8px;left:10px;--d:2.5s;--dl:.5s"></div><div class="abl" style="top:30px;left:4px;--d:1.5s;--dl:.2s"></div></div>
+    <div class="atb" style="width:14px;height:58px"></div>
+    <div class="atb" style="width:40px;height:150px"><div class="abl" style="top:10px;left:16px;--d:2s;--dl:.3s"></div><div class="abl" style="top:40px;left:6px;--d:1.8s;--dl:1s"></div><div class="abl" style="top:75px;left:24px;--d:2.2s;--dl:.1s"></div></div>
+    <div class="atb" style="width:20px;height:88px"><div class="abl" style="top:6px;left:8px;--d:1.6s;--dl:.7s"></div></div>
+    <div class="atb" style="width:58px;height:170px"><div class="abl" style="top:12px;left:24px;--d:2.8s;--dl:0s"></div><div class="abl" style="top:50px;left:9px;--d:1.5s;--dl:.4s"></div><div class="abl" style="top:90px;left:40px;--d:2s;--dl:.9s"></div><div class="abl" style="top:125px;left:16px;--d:1.7s;--dl:.2s"></div></div>
+    <div class="atb" style="width:18px;height:68px"><div class="abl" style="top:5px;left:7px;--d:3.2s;--dl:.6s"></div></div>
+    <div class="atb" style="width:34px;height:130px"><div class="abl" style="top:9px;left:13px;--d:2.1s;--dl:.3s"></div><div class="abl" style="top:60px;left:5px;--d:1.9s;--dl:.7s"></div></div>
+    <div class="atb" style="width:24px;height:96px"><div class="abl" style="top:7px;left:9px;--d:2.4s;--dl:1.1s"></div></div>
+    <div class="atb" style="width:46px;height:160px"><div class="abl" style="top:10px;left:18px;--d:1.7s;--dl:.4s"></div><div class="abl" style="top:46px;left:8px;--d:2.3s;--dl:.8s"></div><div class="abl" style="top:100px;left:30px;--d:1.5s;--dl:.1s"></div></div>
+    <div class="atb" style="width:16px;height:72px"></div>
+    <div class="atb" style="width:52px;height:145px"><div class="abl" style="top:8px;left:20px;--d:2s;--dl:.5s"></div><div class="abl" style="top:55px;left:10px;--d:1.8s;--dl:0s"></div></div>
+  </div>
+  <div class="at-label">
+    <span class="cat-pill">Heist Blueprint</span>
+    <h2>Cargo Ship Takeover</h2>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="art-layout">
+
+  <!-- ARTICLE -->
+  <article class="ac" id="article" itemscope itemtype="https://schema.org/Article">
+
+    <h2 id="s1">What is the Cargo Ship heist?</h2>
+    <p>The Cargo Ship Takeover is a Freemode heist in GTA 6 Online, unlocked at Reputation Level 15. It runs on a moving container vessel off the South Leonida coast and supports solo play or up to four players. Three distinct approach options exist — stealth, aggressive, and the crew infiltration route almost nobody knows about.</p>
+    <p>Base take is $1.8M, scaling with difficulty modifier, crew cut split, and whether you collect the secondary cargo crates. Most players skip the crates and leave $400K per run on the table. This guide doesn't.</p>
+
+    <div class="stat-cards">
+      <div class="sc"><div class="sc-val">$2.2M</div><div class="sc-label">Max take (this guide)</div></div>
+      <div class="sc"><div class="sc-val">15+</div><div class="sc-label">Required level</div></div>
+      <div class="sc"><div class="sc-val">46min</div><div class="sc-label">Avg completion</div></div>
+    </div>
+
+    <h2 id="s2">Approach comparison</h2>
+    <p>Choose your approach before starting any prep missions — they're locked in once you begin. Here's how each approach compares on take, difficulty, and crew requirements:</p>
+
+    <div class="approach-grid">
+      <div class="appr best">
+        <div class="appr-badge">Recommended</div>
+        <div class="appr-name">Silent &amp; Sneaky</div>
+        <div class="appr-pay">$2.2M</div>
+        <div class="appr-diff">Hard · 2–4 players</div>
+      </div>
+      <div class="appr">
+        <div class="appr-name">Aggressive</div>
+        <div class="appr-pay">$1.6M</div>
+        <div class="appr-diff">Easy · 2–4 players</div>
+      </div>
+      <div class="appr">
+        <div class="appr-name">Crew Infiltration</div>
+        <div class="appr-pay">$1.9M</div>
+        <div class="appr-diff">Medium · 3–4 players</div>
+      </div>
+    </div>
+
+    <div class="tipbox">
+      <div class="tipbox-l">Vice Vault tip</div>
+      <p>Run this Thursday between 10pm–2am in-game time. Guard density drops 30% during shift change — a 4-minute window to clear the engine room completely undetected. Don't skip this.</p>
+    </div>
+
+    <h2 id="s3">Prep missions (in order)</h2>
+    <p>Three prep missions are required. Do them in this exact order — the third mission drops a keycard that's used in the second, so rushing out of order wastes 20 minutes of backtracking.</p>
+    <ol class="steplist">
+      <li>Steal the Security Pass from the Valence Hotel valet. Approach as a civilian guest. Wearing business attire reduces suspicion — change at any clothing store before arrival. Do not trigger combat here.</li>
+      <li>Acquire the Vault Keycard from Merryweather Security. Three guards are posted. Two can be bypassed entirely by entering through the loading dock on the east side — only one guard covers this entrance and he faces away from the door on a 90-second cycle.</li>
+      <li>Scout the vessel using the drone purchased from the Maze Bank foreclosure listing ($8,400). This is non-optional for this guide — the drone reveal unlocks the secondary vault route covered in Section 5.</li>
+    </ol>
+
+    <div class="warnbox">
+      <div class="warnbox-l">Warning</div>
+      <p>Do not complete Prep Mission 2 on a wanted level. The keycard NPC will despawn and the mission will require a full restart. Clear your wanted level first at a Pay &amp; Spray.</p>
+    </div>
+
+    <h2 id="s4">Stealth walkthrough — step by step</h2>
+    <p>This is the full stealth approach for the Silent &amp; Sneaky route. Follow every step precisely — one noise alert on this approach adds two guard waves and cuts your time window for the secondary vault to zero.</p>
+    <ol class="steplist">
+      <li>Approach from the south using dive gear purchased from Ammu-Nation ($350). Surface at marker B on your minimap — not the default marker A the game highlights. Marker A triggers a radar sweep on surfacing.</li>
+      <li>Eliminate the two guards on the port side before climbing the boarding ladder. Use a suppressed pistol only. Any unsuppressed weapon or explosion instantly triggers Hard Mode for the remainder of the heist.</li>
+      <li>Disable the deck-level camera using the EMP device from your prep inventory. You have a 3-second window between the camera sweep left and sweep right. Time it by watching the red light — it blinks twice before reversing direction.</li>
+      <li>Move to Deck 2 and hack the cargo manifest terminal within 90 seconds of boarding. Use the Vice Vault code generator (in the Cheat Vault section) for today's rotating access code — it changes every 24 hours.</li>
+      <li>Descend to the engine room via the port stairwell only. The starboard stairwell has a pressure sensor added in the latest patch that the game doesn't document anywhere.</li>
+    </ol>
+
+    <hr class="divider">
+
+    <h2 id="s5">The hidden vault route <span style="color:var(--gold)">⭐</span></h2>
+
+    <div class="paywall">
+      <div class="pw-blur">
+        <p>Most players take the main stairwell to the vault, which triggers three additional guard spawns and cuts 8 minutes from your window. The hidden maintenance shaft route bypasses all of them and leads directly to sub-level 2 — where both the main vault and the secondary cargo hold are located on the same floor.</p>
+        <p>Here is exactly how to find the maintenance hatch, what item unlocks the secondary door, the fastest path through the shaft, the cargo crate locations on sub-level 2, and the crew positioning that lets two players clear both vaults simultaneously...</p>
+        <ol class="steplist">
+          <li>After clearing Deck 2, drop to the waterline on the starboard side. The maintenance hatch is marked with a rust streak — it looks non-interactive but responds to a crouch+interact input.</li>
+          <li>The shaft requires the keycard from Prep Mission 2. Without it you're back to the main stairwell and three guard spawns.</li>
+        </ol>
+        <p>Secondary cargo is located in three crates on sub-level 2. Each crate takes 22 seconds to load if you're solo, 11 seconds with a second player. With a crew of four using this route you can complete both vaults with 6 minutes to spare before the coast guard response timer triggers.</p>
+      </div>
+      <div class="pw-gate">
+        <div class="pw-eye">Members only — Vice Vault Pro</div>
+        <div class="pw-t">Unlock the hidden route</div>
+        <p class="pw-s">Get the full hidden vault walkthrough, secondary cargo map, crew positioning guide, and max take calculator — plus 320+ more guides.</p>
+        <div class="pw-perks">
+          <span class="pw-perk">Hidden vault route</span>
+          <span class="pw-perk">Secondary cargo map</span>
+          <span class="pw-perk">Max take calculator</span>
+          <span class="pw-perk">Crew positioning</span>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center">
+          <a href="index.html#pricing" class="btn-g">Join for ₹499/mo</a>
+          <a href="signup.html" class="btn-o">Start at ₹199</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="s6">Cheat codes for this mission</h2>
+    <p>Using cheat codes disables trophies and achievements for this session but doesn't affect your heist cut or reputation. Useful for practice runs and learning the layout.</p>
+
+    <div class="code-box"><span>Invincibility (PS5)</span><code>→ X → ← → R1 → ← X △</code><button class="copy-btn" onclick="copyCode(this,'→ X → ← → R1 → ← X △')">Copy</button></div>
+    <div class="code-box"><span>Full health &amp; armor (PS5)</span><code>R1 R2 L1 △ ↓ ↑ ↓ ↑</code><button class="copy-btn" onclick="copyCode(this,'R1 R2 L1 △ ↓ ↑ ↓ ↑')">Copy</button></div>
+    <div class="code-box"><span>Clear wanted level (PS5)</span><code>R1 R1 ○ R2 → ← → ← → ←</code><button class="copy-btn" onclick="copyCode(this,'R1 R1 ○ R2 → ← → ← → ←')">Copy</button></div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar-col">
+    <div class="sw">
+      <div class="sw-t">In this guide</div>
+      <ul class="toc" id="toc">
+        <li><a href="#s1" class="active">What is this heist?</a></li>
+        <li><a href="#s2">Approach comparison</a></li>
+        <li><a href="#s3">Prep missions</a></li>
+        <li><a href="#s4">Stealth walkthrough</a></li>
+        <li><a href="#s5">Hidden vault route ⭐</a></li>
+        <li><a href="#s6">Cheat codes</a></li>
+      </ul>
+    </div>
+
+    <div class="sw">
+      <div class="sw-t">Quick stats</div>
+      <div class="sw-stat"><span class="sw-stat-l">Difficulty</span><span class="sw-stat-v gold">Medium</span></div>
+      <div class="sw-stat"><span class="sw-stat-l">Base take</span><span class="sw-stat-v">$1.8M</span></div>
+      <div class="sw-stat"><span class="sw-stat-l">Max take</span><span class="sw-stat-v gold">$2.2M</span></div>
+      <div class="sw-stat"><span class="sw-stat-l">Players</span><span class="sw-stat-v">Solo – 4</span></div>
+      <div class="sw-stat"><span class="sw-stat-l">Level req.</span><span class="sw-stat-v">15+</span></div>
+      <div class="sw-stat"><span class="sw-stat-l">Best time</span><span class="sw-stat-v teal">~46 min</span></div>
+    </div>
+
+    <div class="sw">
+      <div class="sw-t">Share</div>
+      <div class="share-btns">
+        <button class="share-btn" onclick="navigator.clipboard.writeText(location.href)">🔗 Copy link</button>
+        <button class="share-btn">𝕏 Share on X</button>
+        <button class="share-btn">📱 WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="upgrade-sw">
+      <div class="usw-t">Vice Vault Pro</div>
+      <div class="usw-heading">Unlock everything</div>
+      <p class="usw-p">Hidden vault route, secondary cargo map, crew positioning guide, and 320+ more guides across all 11 sections.</p>
+      <a href="index.html#pricing" class="btn-g" style="width:100%;justify-content:center;font-size:.8rem;padding:.8rem 1rem">Join for ₹499/mo</a>
+    </div>
+  </aside>
+
+</div><!-- /art-layout -->
+
+<!-- RELATED -->
+<section class="related-sec">
+  <div class="container">
+    <div class="rel-hd rev">
+      <div class="eye">More blueprints</div>
+      <h2>Related guides</h2>
+    </div>
+    <div class="rel-grid rev">
+      <a href="guide.html" class="rc">
+        <div class="rc-thumb rct1"><span class="rc-thumb-word">BANK</span><span class="rc-lbl">Blueprint</span></div>
+        <div class="rc-body"><div class="rc-title">Vice City Bank Job — Silent approach, $4.2M max take complete guide</div><div class="rc-meta"><span>14 min</span><span class="rc-arrow">→</span></div></div>
+      </a>
+      <a href="guide.html" class="rc">
+        <div class="rc-thumb rct2"><span class="rc-thumb-word">AIRPORT</span><span class="rc-lbl">Blueprint</span></div>
+        <div class="rc-body"><div class="rc-title">GTA 6 Airport Raid — all 3 approaches + $3.1M max take breakdown</div><div class="rc-meta"><span>16 min</span><span class="rc-arrow">→</span></div></div>
+      </a>
+      <a href="guide.html" class="rc">
+        <div class="rc-thumb rct3"><span class="rc-thumb-word">MONEY</span><span class="rc-lbl">Money Meta</span></div>
+        <div class="rc-body"><div class="rc-title">$800K/hr passive farm — the business stacking method explained</div><div class="rc-meta"><span>8 min</span><span class="rc-arrow">→</span></div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div class="cta-strip-in rev">
+    <div class="cs-eye">320+ guides · 11 sections · Updated weekly</div>
+    <h2 class="cs-t">Want the full vault?</h2>
+    <p class="cs-s">Join Vice Vault Pro for unlimited access to every guide, hidden route, money meta deep-dive, cheat code, and weekly drop — from ₹499/month.</p>
+    <div class="cs-btns">
+      <a href="index.html#pricing" class="btn-g">Join Vice Vault →</a>
+      <a href="index.html" class="btn-o">Browse free guides</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fbot">
+    <span>© 2025 Vice Vault — Independent gaming guide. Not affiliated with Rockstar Games or Take-Two Interactive.</span>
+    <div class="fleg"><a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+// READING PROGRESS BAR
+window.addEventListener('scroll',()=>{
+  const art=document.getElementById('article');
+  const {top,height}=art.getBoundingClientRect();
+  const pct=Math.max(0,Math.min(100,(-top/(height-window.innerHeight))*100));
+  document.getElementById('rbar').style.width=pct+'%';
+});
+
+// ACTIVE TOC
+const sections=['s1','s2','s3','s4','s5','s6'];
+window.addEventListener('scroll',()=>{
+  let current='s1';
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&el.getBoundingClientRect().top<120)current=id;
+  });
+  document.querySelectorAll('.toc a').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+current);
+  });
+});
+
+// COPY
+function copyCode(btn,code){
+  navigator.clipboard.writeText(code).then(()=>{
+    const orig=btn.textContent;btn.textContent='Copied!';
+    setTimeout(()=>btn.textContent=orig,2000);
+  });
+}
+
+// REVEAL
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+</script>
+<script src="vv-global.js"></script>
+</body>
+</html>

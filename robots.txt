@@ -1,0 +1,68 @@
+# Vice Vault — robots.txt
+# https://vicevault.linkwa.in
+
+User-agent: *
+Allow: /
+
+# Block member-only pages from indexing
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /signup
+Disallow: /signup.html
+Disallow: /api/
+Disallow: /member/
+Disallow: /account/
+Disallow: /checkout/
+
+# Allow all guide pages, blog pages, weekly drops
+Allow: /guides/
+Allow: /blog/
+Allow: /weekly
+Allow: /cheat-codes
+Allow: /guides/cheat-codes/
+Allow: /guides/heist-blueprints/
+Allow: /guides/money-meta/
+Allow: /guides/story-mode/
+Allow: /guides/easter-eggs/
+Allow: /guides/vehicles/
+Allow: /guides/online-multiplayer/
+Allow: /guides/character-builds/
+Allow: /guides/properties-investments/
+Allow: /guides/wanted-level/
+Allow: /guides/pro-plays/
+
+# Sitemap location
+Sitemap: https://vicevault.linkwa.in/sitemap.xml
+
+# Crawl delay (be respectful to bots)
+Crawl-delay: 2
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /signup
+Disallow: /signup.html
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /signup
+Disallow: /signup.html
+Crawl-delay: 2
+
+# Block AI scrapers from member content
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /

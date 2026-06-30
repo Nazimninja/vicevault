@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vice Vault Discord — Join the Crew | GTA 6 Community</title>
+<meta name="description" content="Join the Vice Vault Discord — GTA 6's most organised crew. Heist teams, weekly drops, cheat codes, Easter egg discoveries and more. Free to join.">
+<meta property="og:title" content="Vice Vault Discord — Join the Crew">
+<meta property="og:description" content="GTA 6's most organised crew. Heist teams, weekly drops, community discoveries.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vicevault.linkwa.in/discord">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--purple:#9b59ff;--discord:#5865f2;
+  --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;min-height:100vh}
+a{color:inherit;text-decoration:none}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.022}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:66px;background:rgba(3,3,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
+.logo-v{color:var(--gold)}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--gold);color:var(--ink)!important;padding:.45rem 1.3rem;border-radius:2px;font-weight:800!important}
+
+/* HERO */
+.hero{position:relative;min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 80px;overflow:hidden}
+.h-bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 40%,rgba(88,101,242,.08),transparent 65%),
+  radial-gradient(ellipse 50% 40% at 20% 80%,rgba(212,163,50,.06),transparent 55%),
+  linear-gradient(180deg,#030308,#07070f)}
+.h-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
+.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(88,101,242,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(88,101,242,.02) 1px,transparent 1px);background-size:60px 60px}
+.h-content{position:relative;z-index:5;max-width:700px}
+
+.discord-icon{font-size:3.5rem;margin-bottom:1.2rem;display:block;animation:float 3s ease-in-out infinite;opacity:0;animation:fup .7s .2s forwards,float 3s 1s ease-in-out infinite}
+@keyframes fup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.h-eye{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--discord);margin-bottom:1rem;opacity:0;animation:fup .7s .3s forwards}
+.h-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,7rem);letter-spacing:.04em;line-height:.9;margin-bottom:1rem;opacity:0;animation:fup .8s .4s forwards}
+.h-title .g{color:var(--gold)}
+.h-title .d{color:var(--discord)}
+.h-sub{font-size:1rem;color:var(--muted);line-height:1.85;max-width:480px;margin:0 auto 2.5rem;opacity:0;animation:fup .8s .5s forwards}
+
+/* LIVE COUNTER */
+.live-bar{display:flex;gap:2rem;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:2.5rem;opacity:0;animation:fup .8s .6s forwards}
+.lb-item{text-align:center}
+.lb-n{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:1}
+.lb-1 .lb-n{color:var(--teal)}.lb-2 .lb-n{color:var(--gold)}.lb-3 .lb-n{color:var(--pink)}
+.lb-l{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lb-sep{width:1px;height:40px;background:var(--border2)}
+
+/* DISCORD JOIN BTN */
+.join-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fup .8s .7s forwards}
+.btn-discord{display:inline-flex;align-items:center;gap:.7rem;background:var(--discord);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;border-radius:3px;border:none;cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s}
+.btn-discord:hover{background:#4752c4;transform:translateY(-2px);box-shadow:0 8px 28px rgba(88,101,242,.3)}
+.btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 1.8rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:all .2s}
+.btn-o:hover{border-color:var(--gold);background:rgba(212,163,50,.07)}
+
+/* ONLINE INDICATOR */
+.online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal);margin-right:.4rem;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(0,212,170,.6)}50%{box-shadow:0 0 0 6px rgba(0,212,170,0)}}
+
+/* SERVER PREVIEW */
+.preview-sec{background:var(--deep);padding:80px 2.5rem}
+.preview-inner{max-width:1000px;margin:0 auto}
+.preview-hd{text-align:center;margin-bottom:3rem}
+.eye{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4vw,3.5rem);letter-spacing:.04em;line-height:.95}
+
+/* DISCORD UI MOCKUP */
+.discord-mockup{background:#1e1f22;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:72px 240px 1fr;height:520px}
+
+/* SERVER ICON SIDEBAR */
+.srv-icons{background:#1e1f22;padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:8px;border-right:1px solid rgba(255,255,255,.06)}
+.si{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;transition:border-radius .2s;flex-shrink:0}
+.si:hover{border-radius:16px}
+.si-vv{background:linear-gradient(135deg,#d4a332,#e05c1a);border-radius:16px}
+.si-vv span{font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.1em;color:#030308;font-weight:900}
+.si-other{background:#36393f;color:#96989d;font-size:.9rem}
+.si-add{background:rgba(0,212,170,.15);color:var(--teal);font-size:1.1rem;border-radius:50%}
+.si-divider{width:32px;height:2px;background:#36393f;border-radius:1px}
+
+/* CHANNEL LIST */
+.channels{background:#2b2d31;display:flex;flex-direction:column;overflow:hidden}
+.ch-server-name{padding:16px;font-weight:700;font-size:.9rem;color:#fff;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.ch-list{flex:1;overflow-y:auto;padding:8px 0}
+.ch-list::-webkit-scrollbar{width:3px}
+.ch-list::-webkit-scrollbar-thumb{background:#1e1f22}
+.ch-category{padding:16px 8px 4px 16px;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#96989d;display:flex;align-items:center;gap:.3rem}
+.ch-cat-arr{font-size:.6rem}
+.ch-item{display:flex;align-items:center;gap:.5rem;padding:5px 8px 5px 16px;border-radius:4px;margin:1px 8px;cursor:pointer;font-size:.88rem;color:#96989d;transition:background .15s,color .15s}
+.ch-item:hover{background:rgba(255,255,255,.06);color:#dcddde}
+.ch-item.active{background:rgba(255,255,255,.1);color:#fff}
+.ch-hash{font-size:.9rem;flex-shrink:0}
+.ch-notif{margin-left:auto;background:var(--pink);color:#fff;font-size:.6rem;font-weight:800;padding:.1rem .35rem;border-radius:8px;min-width:18px;text-align:center}
+.ch-user{margin-top:auto;padding:10px;background:#232428;display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.ch-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--orange));display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--ink);flex-shrink:0;position:relative}
+.ch-avatar::after{content:'';position:absolute;bottom:0;right:0;width:10px;height:10px;background:var(--teal);border-radius:50%;border:2px solid #232428}
+.ch-uname{font-size:.8rem;font-weight:600;color:#dcddde;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* CHAT AREA */
+.chat{background:#313338;display:flex;flex-direction:column;overflow:hidden}
+.chat-header{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.chat-ch-name{font-weight:700;font-size:.9rem;color:#fff;display:flex;align-items:center;gap:.4rem}
+.chat-ch-hash{color:#96989d}
+.chat-ch-desc{font-size:.78rem;color:#96989d;margin-left:.5rem;border-left:1px solid rgba(255,255,255,.12);padding-left:.5rem}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.chat-msgs::-webkit-scrollbar{width:3px}
+.chat-msgs::-webkit-scrollbar-thumb{background:#2b2d31}
+.msg{display:flex;gap:.8rem;align-items:flex-start}
+.msg-av{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;font-family:'Barlow Condensed',sans-serif}
+.av-bot{background:linear-gradient(135deg,var(--discord),#7289da)}
+.av-g{background:linear-gradient(135deg,var(--gold),var(--orange));color:var(--ink)}
+.av-t{background:linear-gradient(135deg,var(--teal),#0099aa);color:var(--ink)}
+.av-p{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff}
+.msg-body{flex:1;min-width:0}
+.msg-header{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.25rem}
+.msg-name{font-size:.88rem;font-weight:700;color:#fff}
+.msg-role{font-size:.6rem;font-weight:800;padding:.1rem .4rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.role-bot{background:rgba(88,101,242,.3);color:#7289da}
+.role-elite{background:rgba(212,163,50,.2);color:var(--gold)}
+.role-pro{background:rgba(0,212,170,.15);color:var(--teal)}
+.role-sol{background:rgba(255,255,255,.08);color:#96989d}
+.msg-time{font-size:.7rem;color:#4e5058}
+.msg-text{font-size:.86rem;color:#dcddde;line-height:1.65}
+.msg-text strong{color:#fff}
+.msg-text code{background:#2b2d31;padding:.1rem .35rem;border-radius:3px;font-family:'Courier New',monospace;font-size:.8rem;color:#d4a332}
+.msg-embed{background:#2b2d31;border-left:4px solid var(--gold);border-radius:0 4px 4px 0;padding:.75rem 1rem;margin-top:.5rem;max-width:400px}
+.me-title{font-weight:700;font-size:.86rem;color:#fff;margin-bottom:.3rem}
+.me-body{font-size:.8rem;color:#96989d;line-height:1.6}
+.chat-input{padding:16px;flex-shrink:0}
+.ci-box{background:#383a40;border-radius:8px;padding:.65rem 1rem;display:flex;align-items:center;gap:.8rem;color:#96989d;font-size:.88rem}
+.ci-plus{font-size:1.1rem;cursor:pointer}
+
+/* ROLES SECTION */
+.roles-sec{background:var(--ink);padding:80px 2.5rem}
+.roles-inner{max-width:1000px;margin:0 auto}
+.roles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}
+.role-card{background:var(--surface);border-radius:4px;overflow:hidden;padding:1.6rem 1.3rem;text-align:center;transition:transform .2s,border-color .2s;border:1px solid var(--border)}
+.role-card:hover{transform:translateY(-3px);border-color:var(--border2)}
+.rc-crown{font-size:2rem;margin-bottom:.8rem;display:block}
+.rc-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.08em;margin-bottom:.4rem}
+.rc-r1 .rc-name{color:var(--gold)} .rc-r2 .rc-name{color:var(--gold)} .rc-r3 .rc-name{color:var(--teal)} .rc-r4 .rc-name{color:var(--pink)}
+.rc-how{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.rc-perks{list-style:none;display:flex;flex-direction:column;gap:.45rem;text-align:left}
+.rc-perks li{font-size:.8rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start;line-height:1.5}
+.rc-perks li::before{content:'→';color:var(--gold);flex-shrink:0;font-size:.7rem;margin-top:2px}
+
+/* CHANNELS PREVIEW */
+.channels-sec{background:var(--deep);padding:80px 2.5rem}
+.channels-inner{max-width:900px;margin:0 auto}
+.ch-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.chp{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.2rem;transition:border-color .2s}
+.chp:hover{border-color:var(--border2)}
+.chp-name{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;color:var(--white);margin-bottom:.3rem;display:flex;align-items:center;gap:.4rem}
+.chp-hash{color:var(--muted);font-weight:400}
+.chp-desc{font-size:.8rem;color:var(--muted);line-height:1.6}
+.chp-badge{display:inline-block;margin-top:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2px}
+.cb-free{background:rgba(0,212,170,.1);color:var(--teal);border:1px solid rgba(0,212,170,.25)}
+.cb-pro{background:rgba(212,163,50,.1);color:var(--gold);border:1px solid rgba(212,163,50,.25)}
+.cb-elite{background:rgba(155,89,255,.1);color:var(--purple);border:1px solid rgba(155,89,255,.25)}
+
+/* RULES */
+.rules-sec{background:var(--ink);padding:80px 2.5rem}
+.rules-inner{max-width:700px;margin:0 auto}
+.rules-list{counter-reset:rules;list-style:none;display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.rules-list li{counter-increment:rules;display:flex;gap:1.2rem;align-items:flex-start;padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:4px}
+.rules-list li::before{content:counter(rules,decimal-leading-zero);font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--gold);flex-shrink:0;line-height:1.2}
+.rule-text{font-size:.88rem;color:var(--muted);line-height:1.7}
+.rule-text strong{color:var(--white)}
+
+/* CTA */
+.cta-sec{background:var(--deep);padding:80px 2.5rem;text-align:center}
+.cta-in{max-width:580px;margin:0 auto}
+.cta-t{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);letter-spacing:.04em;margin-bottom:1rem}
+.cta-s{font-size:.95rem;color:var(--muted);margin-bottom:2rem;line-height:1.8}
+
+footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5rem}
+.fbot{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.73rem;color:var(--muted)}
+.fleg{display:flex;gap:1.5rem}
+.fleg a{color:var(--muted);transition:color .2s}.fleg a:hover{color:var(--white)}
+
+.rev{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rev.in{opacity:1;transform:none}
+.d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}
+
+@media(max-width:900px){.discord-mockup{grid-template-columns:60px 1fr;height:400px}.chat{display:none}.roles-grid{grid-template-columns:1fr 1fr}.ch-preview-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}.preview-sec,.roles-sec,.channels-sec,.rules-sec,.cta-sec{padding:60px 1.2rem}.discord-mockup{grid-template-columns:1fr;height:auto}.srv-icons{display:none}.roles-grid{grid-template-columns:1fr}.ch-preview-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><span class="logo-v">VICE</span>VAULT<span class="nav-dot"></span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#allguides">Guides</a></li>
+    <li><a href="weekly.html">Weekly Drop</a></li>
+    <li><a href="signup.html" class="nav-cta">Join Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="h-bg"></div><div class="h-scan"></div><div class="h-grid"></div>
+  <div class="h-content">
+    <span class="discord-icon">💬</span>
+    <div class="h-eye">Vice Vault Community</div>
+    <h1 class="h-title">
+      Join<br>
+      <span class="d">the</span><br>
+      <span class="g">Crew</span>
+    </h1>
+    <p class="h-sub">The most organised GTA 6 crew on Discord. Heist teams, weekly intel drops, community Easter egg hunts, and a crew that actually knows what they're doing.</p>
+    <div class="live-bar">
+      <div class="lb-item lb-1"><div class="lb-n"><span class="online-dot"></span>247</div><div class="lb-l">Online now</div></div>
+      <div class="lb-sep"></div>
+      <div class="lb-item lb-2"><div class="lb-n">8,400+</div><div class="lb-l">Total members</div></div>
+      <div class="lb-sep"></div>
+      <div class="lb-item lb-3"><div class="lb-n">Free</div><div class="lb-l">To join</div></div>
+    </div>
+    <div class="join-btns">
+      <a href="https://discord.gg/vicevault" target="_blank" class="btn-discord">
+        💬 Join Discord — it's free
+      </a>
+      <a href="signup.html" class="btn-o">Get Vault Pro access →</a>
+    </div>
+  </div>
+</div>
+
+<!-- DISCORD MOCKUP -->
+<div class="preview-sec">
+  <div class="preview-inner">
+    <div class="preview-hd rev">
+      <div class="eye">Inside the server</div>
+      <h2 class="stitle">What it looks like<br><span style="color:var(--discord)">inside</span></h2>
+    </div>
+    <div class="discord-mockup rev">
+      <!-- SERVER ICONS -->
+      <div class="srv-icons">
+        <div class="si si-vv"><span>VV</span></div>
+        <div class="si-divider"></div>
+        <div class="si si-other">🎮</div>
+        <div class="si si-other">🎯</div>
+        <div class="si-add">+</div>
+      </div>
+      <!-- CHANNELS -->
+      <div class="channels">
+        <div class="ch-server-name">Vice Vault <span style="color:#96989d;font-size:.8rem">▼</span></div>
+        <div class="ch-list">
+          <div class="ch-category"><span class="ch-cat-arr">▾</span> Information</div>
+          <div class="ch-item"><span class="ch-hash">#</span>welcome</div>
+          <div class="ch-item"><span class="ch-hash">#</span>rules</div>
+          <div class="ch-item active"><span class="ch-hash">#</span>announcements <span class="ch-notif">3</span></div>
+          <div class="ch-category"><span class="ch-cat-arr">▾</span> Weekly Drops</div>
+          <div class="ch-item"><span class="ch-hash">#</span>weekly-drop <span class="ch-notif">12</span></div>
+          <div class="ch-item"><span class="ch-hash">#</span>cheat-codes</div>
+          <div class="ch-category"><span class="ch-cat-arr">▾</span> The Vault</div>
+          <div class="ch-item"><span class="ch-hash">#</span>heist-crew</div>
+          <div class="ch-item"><span class="ch-hash">#</span>money-meta</div>
+          <div class="ch-item"><span class="ch-hash">#</span>easter-eggs <span class="ch-notif">5</span></div>
+          <div class="ch-item"><span class="ch-hash">#</span>general</div>
+          <div class="ch-category"><span class="ch-cat-arr">▾</span> Elite Only 🔒</div>
+          <div class="ch-item" style="opacity:.4"><span class="ch-hash">#</span>elite-crew</div>
+          <div class="ch-item" style="opacity:.4"><span class="ch-hash">#</span>analyst-direct</div>
+        </div>
+        <div class="ch-user">
+          <div class="ch-avatar">N</div>
+          <div class="ch-uname">Nazim#4821</div>
+          <span style="font-size:.8rem;color:#96989d">⚙️</span>
+        </div>
+      </div>
+      <!-- CHAT -->
+      <div class="chat">
+        <div class="chat-header">
+          <div class="chat-ch-name"><span class="chat-ch-hash">#</span>announcements</div>
+          <div class="chat-ch-desc">Weekly drops & vault updates</div>
+        </div>
+        <div class="chat-msgs">
+          <div class="msg">
+            <div class="msg-av av-bot">VV</div>
+            <div class="msg-body">
+              <div class="msg-header"><span class="msg-name">VaultBot</span><span class="msg-role role-bot">BOT</span><span class="msg-time">Today at 6:00 PM</span></div>
+              <div class="msg-text">🔐 <strong>Week 26 drop is live.</strong> 7 new guides just dropped for Vault Pro members. Public access in 48 hours.</div>
+              <div class="msg-embed">
+                <div class="me-title">📋 Vice City Bank Job — $4.2M max take</div>
+                <div class="me-body">Silent approach blueprint. Hidden secondary vault route. Full crew breakdown. → vicevault.linkwa.in/weekly</div>
+              </div>
+            </div>
+          </div>
+          <div class="msg">
+            <div class="msg-av av-g">K</div>
+            <div class="msg-body">
+              <div class="msg-header"><span class="msg-name">KingHeist</span><span class="msg-role role-elite">Elite Crew</span><span class="msg-time">Today at 6:02 PM</span></div>
+              <div class="msg-text">The hidden route on the bank job is insane 😭 got $4.2M first try following this</div>
+            </div>
+          </div>
+          <div class="msg">
+            <div class="msg-av av-t">R</div>
+            <div class="msg-body">
+              <div class="msg-header"><span class="msg-name">RealSlick</span><span class="msg-role role-pro">Vault Pro</span><span class="msg-time">Today at 6:08 PM</span></div>
+              <div class="msg-text">anyone need a 4th for the cargo ship tonight? got full crew build loadout from the guide, just need 1 more person</div>
+            </div>
+          </div>
+          <div class="msg">
+            <div class="msg-av av-p">S</div>
+            <div class="msg-body">
+              <div class="msg-header"><span class="msg-name">SilentVault</span><span class="msg-role role-elite">Elite Crew</span><span class="msg-time">Today at 6:15 PM</span></div>
+              <div class="msg-text">found something in the lighthouse tonight. checking coordinates now. tagging <code>@Analyst</code></div>
+            </div>
+          </div>
+          <div class="msg">
+            <div class="msg-av av-bot">VV</div>
+            <div class="msg-body">
+              <div class="msg-header"><span class="msg-name">VaultBot</span><span class="msg-role role-bot">BOT</span><span class="msg-time">Today at 6:30 PM</span></div>
+              <div class="msg-text">💰 <strong>Money meta update:</strong> ViceCoin is at $0.38. Based on last 3 cycles, this is buy territory. See <code>#money-meta</code> for the full breakdown.</div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <div class="ci-box">
+            <span class="ci-plus">⊕</span>
+            <span>Message #announcements</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROLES -->
+<div class="roles-sec">
+  <div class="roles-inner">
+    <div class="preview-hd rev" style="text-align:center;margin-bottom:0">
+      <div class="eye">Server roles</div>
+      <h2 class="stitle" style="margin-bottom:3rem">Your rank<br><span style="color:var(--gold)">in the crew</span></h2>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card rc-r4 rev d1">
+        <span class="rc-crown">🔓</span>
+        <div class="rc-name">Free Member</div>
+        <div class="rc-how">Just join the server</div>
+        <ul class="rc-perks">
+          <li>Access to #welcome, #rules, #general</li>
+          <li>Read public announcements</li>
+          <li>Participate in community events</li>
+          <li>See public Easter egg finds</li>
+        </ul>
+      </div>
+      <div class="role-card rc-r3 rev d2">
+        <span class="rc-crown">⚔️</span>
+        <div class="rc-name" style="color:#96989d">Soldier</div>
+        <div class="rc-how">₹199/month subscriber</div>
+        <ul class="rc-perks">
+          <li>All Free Member access</li>
+          <li>#cheat-codes full channel</li>
+          <li>#weekly-drop read access</li>
+          <li>Soldier role badge</li>
+        </ul>
+      </div>
+      <div class="role-card rc-r2 rev d3" style="border-color:rgba(0,212,170,.2)">
+        <span class="rc-crown">⭐</span>
+        <div class="rc-name" style="color:var(--teal)">Vault Pro</div>
+        <div class="rc-how">₹499/month subscriber</div>
+        <ul class="rc-perks">
+          <li>All channels unlocked</li>
+          <li>#heist-crew matchmaking</li>
+          <li>#money-meta live updates</li>
+          <li>#easter-eggs community channel</li>
+          <li>Priority bot commands</li>
+        </ul>
+      </div>
+      <div class="role-card rc-r1 rev d4" style="border-color:rgba(212,163,50,.25)">
+        <span class="rc-crown">💎</span>
+        <div class="rc-name">Elite Crew</div>
+        <div class="rc-how">₹1199/year subscriber</div>
+        <ul class="rc-perks">
+          <li>Everything in Vault Pro</li>
+          <li>#elite-crew private channel</li>
+          <li>#analyst-direct — message our team</li>
+          <li>Animated Elite Crew badge</li>
+          <li>Early access to new guides</li>
+          <li>Founding member status</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHANNELS -->
+<div class="channels-sec">
+  <div class="channels-inner">
+    <div class="preview-hd rev" style="text-align:center;margin-bottom:0">
+      <div class="eye">What's inside</div>
+      <h2 class="stitle" style="margin-bottom:2.5rem">Every channel<br><span style="color:var(--discord)">explained</span></h2>
+    </div>
+    <div class="ch-preview-grid">
+      <div class="chp rev d1"><div class="chp-name"><span class="chp-hash">#</span>announcements</div><div class="chp-desc">Weekly drop alerts, patch updates, and meta changes. Posted every Thursday at 6PM IST.</div><span class="chp-badge cb-free">Free</span></div>
+      <div class="chp rev d2"><div class="chp-name"><span class="chp-hash">#</span>weekly-drop</div><div class="chp-desc">Discussion thread for each Thursday drop. Member reactions, questions, and additional community tips.</div><span class="chp-badge cb-pro">Vault Pro</span></div>
+      <div class="chp rev d3"><div class="chp-name"><span class="chp-hash">#</span>cheat-codes</div><div class="chp-desc">Pinned, searchable, and updated. All PS5 and Xbox codes confirmed working. Bot commands for instant lookup.</div><span class="chp-badge cb-free">Free</span></div>
+      <div class="chp rev d1"><div class="chp-name"><span class="chp-hash">#</span>heist-crew</div><div class="chp-desc">Find crew members for any heist. Post your level, preferred role, and target heist. Get matched in minutes.</div><span class="chp-badge cb-pro">Vault Pro</span></div>
+      <div class="chp rev d2"><div class="chp-name"><span class="chp-hash">#</span>money-meta</div><div class="chp-desc">Live farm route updates, ViceCoin price alerts, business stacking discussion. Fastest-moving channel on the server.</div><span class="chp-badge cb-pro">Vault Pro</span></div>
+      <div class="chp rev d3"><div class="chp-name"><span class="chp-hash">#</span>easter-eggs</div><div class="chp-desc">Community discoveries with video proof. If you find something new, post it here. Verified finds go into the vault.</div><span class="chp-badge cb-pro">Vault Pro</span></div>
+      <div class="chp rev d1"><div class="chp-name"><span class="chp-hash">#</span>general</div><div class="chp-desc">Everything else. GTA talk, clips, flexing your take. The most active channel on the server.</div><span class="chp-badge cb-free">Free</span></div>
+      <div class="chp rev d2"><div class="chp-name"><span class="chp-hash">#</span>elite-crew</div><div class="chp-desc">Private channel for Elite members. Early access guide previews, direct analyst feedback, and founding member community.</div><span class="chp-badge cb-elite">Elite Only</span></div>
+      <div class="chp rev d3"><div class="chp-name"><span class="chp-hash">#</span>analyst-direct</div><div class="chp-desc">Direct message channel to Vice Vault analysts. Ask custom questions, request specific blueprints, report meta changes.</div><span class="chp-badge cb-elite">Elite Only</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- RULES -->
+<div class="rules-sec">
+  <div class="rules-inner">
+    <div class="rev" style="text-align:center;margin-bottom:0">
+      <div class="eye">Server rules</div>
+      <h2 class="stitle" style="margin-bottom:2rem;text-align:center">Keep it<br><span style="color:var(--gold)">clean</span></h2>
+    </div>
+    <ul class="rules-list">
+      <li class="rev d1"><div class="rule-text"><strong>No unverified info.</strong> Post cheat codes, coordinates or strategies with proof. Unverified claims get removed. Three removals = ban.</div></li>
+      <li class="rev d2"><div class="rule-text"><strong>No spoilers without tags.</strong> Use the [SPOILER] tag or Discord spoiler formatting for story content. People play at different paces.</div></li>
+      <li class="rev d3"><div class="rule-text"><strong>No cheating other members.</strong> Scamming crew members, stealing cargo, or deliberately ruining heist runs = permanent ban, no appeal.</div></li>
+      <li class="rev d4"><div class="rule-text"><strong>No self-promotion.</strong> This isn't a place to plug your channel, site, or service. Vice Vault content only.</div></li>
+      <li class="rev"><div class="rule-text"><strong>Be useful or be quiet.</strong> Low-effort posts, spam, and "gg" chains in announcement threads get deleted. Keep discussion signal-to-noise high.</div></li>
+      <li class="rev"><div class="rule-text"><strong>English only in main channels.</strong> We can't moderate what we can't read. Regional language channels may be added if there's demand.</div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-sec">
+  <div class="cta-in rev">
+    <div class="eye">Free to join</div>
+    <h2 class="cta-t">Ready to<br><span style="color:var(--discord)">join the crew?</span></h2>
+    <p class="cta-s">8,400 members. 247 online right now. The most organised GTA 6 crew on Discord — and it's free to get in.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="https://discord.gg/vicevault" target="_blank" class="btn-discord" style="font-size:.9rem">💬 Join Discord — free</a>
+      <a href="signup.html" class="btn-o">Upgrade to Vault Pro</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fbot">
+    <span>© 2025 Vice Vault — Not affiliated with Rockstar Games, Take-Two Interactive, or Discord Inc.</span>
+    <div class="fleg"><a href="index.html">Home</a><a href="about.html">About</a><a href="privacy.html">Privacy</a></div>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+</script>
+<script src="vv-global.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "vicevault",
+  "version": "1.0.0",
+  "description": "Vice Vault - GTA 6 intelligence hub pre-launch waitlist and dashboard",
+  "scripts": {
+    "dev:site": "npx serve . -p 3000",
+    "dev:api": "npx wrangler dev",
+    "dev": "npx concurrently \"npm run dev:site\" \"npm run dev:api\"",
+    "deploy:api": "npx wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

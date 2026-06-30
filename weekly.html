@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Drop — Vice Vault GTA 6 Intel</title>
+<meta name="description" content="Vice Vault's weekly Thursday drop — the best GTA 6 money routes, heist updates, cheat codes and secrets discovered this week.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vicevault.linkwa.in/weekly">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--blue:#4a9eff;--purple:#9b59ff;
+  --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* NOISE */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.022}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:66px;transition:background .4s,border-bottom .4s}
+nav.scrolled{background:rgba(3,3,8,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
+.logo-v{color:var(--gold)}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--gold);color:var(--ink)!important;padding:.45rem 1.3rem;border-radius:2px;font-weight:800!important;transition:background .2s!important}
+.nav-cta:hover{background:var(--gold2)!important}
+
+/* HERO */
+.drop-hero{position:relative;min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2.5rem 80px;overflow:hidden}
+.dh-bg{position:absolute;inset:0;z-index:1;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%,rgba(212,163,50,.08) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 50% at 10% 80%,rgba(255,61,110,.07) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 40% at 90% 20%,rgba(0,212,170,.05) 0%,transparent 50%),
+    linear-gradient(180deg,#030308 0%,#07070f 100%)}
+.dh-scan{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px)}
+.dh-grid{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(212,163,50,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.03) 1px,transparent 1px);background-size:60px 60px}
+
+/* animated corner accents */
+.corner{position:absolute;width:60px;height:60px;z-index:3;pointer-events:none}
+.corner-tl{top:80px;left:2.5rem;border-top:1.5px solid var(--gold);border-left:1.5px solid var(--gold);opacity:.4}
+.corner-tr{top:80px;right:2.5rem;border-top:1.5px solid var(--gold);border-right:1.5px solid var(--gold);opacity:.4}
+.corner-bl{bottom:40px;left:2.5rem;border-bottom:1.5px solid var(--gold);border-left:1.5px solid var(--gold);opacity:.4}
+.corner-br{bottom:40px;right:2.5rem;border-bottom:1.5px solid var(--gold);border-right:1.5px solid var(--gold);opacity:.4}
+
+.dh-content{position:relative;z-index:10}
+.dh-week-badge{display:inline-flex;align-items:center;gap:.6rem;background:rgba(212,163,50,.1);border:1px solid rgba(212,163,50,.3);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:.4rem 1.2rem;border-radius:2px;margin-bottom:1.8rem;animation:fadeUp .7s .1s both}
+.dh-week-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pd 1.5s ease-in-out infinite}
+.dh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);letter-spacing:.04em;line-height:.88;margin-bottom:1.2rem;animation:fadeUp .8s .2s both}
+.dh-title .gd{color:var(--gold);text-shadow:0 0 80px rgba(212,163,50,.3)}
+.dh-title .pk{color:var(--pink)}
+.dh-date{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem;animation:fadeUp .8s .3s both}
+.dh-stats{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .4s both}
+.dh-stat{text-align:center}
+.dh-stat-n{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--gold);line-height:1}
+.dh-stat-l{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.1rem}
+.dh-divider{width:1px;height:40px;background:var(--border2);align-self:center}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* TICKER */
+.ticker{overflow:hidden;background:var(--gold);padding:.6rem 0;position:relative;z-index:20}
+.ticker-t{display:flex;white-space:nowrap;animation:trun 28s linear infinite}
+.ticker-t span{display:inline-flex;align-items:center;gap:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);padding:0 1.5rem;flex-shrink:0}
+.td{color:rgba(3,3,8,.3)}
+@keyframes trun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:80px 2.5rem;position:relative;z-index:2}
+.container{max-width:1120px;margin:0 auto}
+.eye{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.2rem);letter-spacing:.04em;line-height:.95;margin-bottom:.5rem}
+.ssub{font-size:.92rem;color:var(--muted);line-height:1.8;max-width:460px}
+
+/* WEEK HERO DROP */
+.week-hero-drop{background:var(--deep);padding:80px 2.5rem}
+.whd-inner{max-width:1120px;margin:0 auto}
+.whd-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;gap:2rem;flex-wrap:wrap}
+
+.drop-number-badge{font-family:'Bebas Neue',sans-serif;font-size:8rem;color:rgba(255,255,255,.03);line-height:1;position:absolute;right:3rem;top:50%;transform:translateY(-50%);pointer-events:none;user-select:none}
+
+/* FEATURED DROP CARD */
+.featured-drop{background:var(--surface);border:1px solid rgba(212,163,50,.25);border-radius:6px;overflow:hidden;margin-bottom:1.5rem;position:relative;cursor:pointer;transition:border-color .3s}
+.featured-drop:hover{border-color:var(--gold)}
+.fd-top{padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.fd-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:rgba(212,163,50,.2);line-height:1;flex-shrink:0}
+.fd-badges{display:flex;flex-direction:column;gap:.4rem;flex:1}
+.fd-badge-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.tag{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .65rem;border-radius:2px}
+.tg{background:rgba(212,163,50,.1);color:var(--gold);border:1px solid rgba(212,163,50,.3)}
+.tn{background:rgba(255,61,110,.8);color:#fff}
+.tt{background:rgba(0,212,170,.1);color:var(--teal);border:1px solid rgba(0,212,170,.3)}
+.to{background:rgba(224,92,26,.1);color:var(--orange);border:1px solid rgba(224,92,26,.3)}
+.tb{background:rgba(74,158,255,.1);color:var(--blue);border:1px solid rgba(74,158,255,.3)}
+.tp-tag{background:rgba(155,89,255,.1);color:var(--purple);border:1px solid rgba(155,89,255,.3)}
+.fd-title-wrap{}
+.fd-title{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;line-height:1.15;color:var(--white)}
+.fd-body{padding:1.5rem 2rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+.fd-excerpt{font-size:.9rem;color:var(--muted);line-height:1.85;max-width:640px}
+.fd-meta{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;flex-shrink:0}
+.fd-read-time{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.fd-arrow{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;color:var(--gold);transition:letter-spacing .2s}
+.featured-drop:hover .fd-arrow{letter-spacing:.2em}
+.fd-stat-row{padding:.9rem 2rem;background:var(--card);display:flex;gap:2rem;flex-wrap:wrap}
+.fd-stat{display:flex;align-items:center;gap:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fd-stat-v{color:var(--gold)}
+
+/* DROP LIST */
+.drop-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.drop-item{background:var(--surface);display:flex;align-items:center;gap:1.2rem;padding:1.1rem 1.5rem;cursor:pointer;transition:background .2s;position:relative}
+.drop-item:hover{background:var(--card)}
+.drop-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
+.drop-item:hover::before{transform:scaleY(1)}
+.di-1::before{background:var(--gold)}
+.di-2::before{background:var(--teal)}
+.di-3::before{background:var(--pink)}
+.di-4::before{background:var(--orange)}
+.di-5::before{background:var(--blue)}
+.di-6::before{background:var(--purple)}
+.di-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--border2);line-height:1;flex-shrink:0;width:2.2rem;text-align:right}
+.di-icon{width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.ic1{background:rgba(212,163,50,.12)} .ic2{background:rgba(0,212,170,.12)} .ic3{background:rgba(255,61,110,.12)}
+.ic4{background:rgba(224,92,26,.12)} .ic5{background:rgba(74,158,255,.12)} .ic6{background:rgba(155,89,255,.12)}
+.di-body{flex:1;min-width:0}
+.di-cat{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem}
+.di-title{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;line-height:1.3;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.di-meta{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+.di-tags{display:flex;gap:.4rem;margin-top:.3rem;flex-wrap:wrap}
+.di-arrow{color:var(--gold);font-size:.9rem;flex-shrink:0}
+.di-lock{font-size:.9rem;flex-shrink:0;opacity:.5}
+
+/* LOCK NOTICE */
+.lock-notice{background:rgba(212,163,50,.06);border:1px solid rgba(212,163,50,.2);border-radius:4px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;margin-top:1.5rem;flex-wrap:wrap}
+.ln-text{flex:1;font-size:.85rem;color:var(--muted);line-height:1.6}
+.ln-text strong{color:var(--white)}
+.btn-g{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.75rem 1.5rem;border-radius:2px;border:none;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap}
+.btn-g:hover{background:var(--gold2);transform:translateY(-1px)}
+.btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.75rem 1.4rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-o:hover{border-color:var(--gold);background:rgba(212,163,50,.07)}
+
+/* PAST DROPS */
+.past-sec{background:var(--ink);padding:80px 2.5rem}
+.past-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem}
+.past-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.4rem;cursor:pointer;transition:border-color .2s,transform .2s;display:flex;flex-direction:column;gap:.8rem}
+.past-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.pc-week{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.pc-date{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;color:var(--white)}
+.pc-guides{display:flex;gap:.4rem;flex-wrap:wrap}
+.pc-g{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border);padding:.18rem .5rem;border-radius:2px}
+.pc-count{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:auto}
+.pc-arrow{color:var(--gold);font-size:.8rem}
+
+/* CHEAT THIS WEEK */
+.cheat-sec{background:var(--deep);padding:80px 2.5rem}
+.cheat-wrap{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:2rem}
+.cw-header{padding:1.2rem 1.6rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.cw-h-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.08em}
+.cw-tabs{display:flex;gap:.4rem}
+.cw-tab{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .8rem;border-radius:2px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.cw-tab.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.cheat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.cheat-item{padding:.9rem 1.5rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.8rem;cursor:pointer;transition:background .2s}
+.cheat-item:hover{background:var(--card)}
+.cheat-item:nth-child(3n){border-right:none}
+.cheat-item:nth-last-child(-n+3){border-bottom:none}
+.cheat-name{font-family:'Barlow Condensed',sans-serif;font-size:.84rem;font-weight:700;color:var(--white)}
+.cheat-code{font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.1em;color:var(--gold);background:rgba(212,163,50,.08);padding:.2rem .6rem;border-radius:2px;border:1px solid rgba(212,163,50,.2);white-space:nowrap;cursor:pointer;transition:all .2s}
+.cheat-code:hover{background:var(--gold);color:var(--ink)}
+.cheat-new{font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:var(--pink);color:#fff;padding:.1rem .4rem;border-radius:2px;margin-left:.3rem}
+
+/* META SUMMARY */
+.meta-sec{background:var(--ink);padding:80px 2.5rem}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.meta-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s}
+.meta-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.mc-header{padding:1rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.mc-cat{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.mc-badge{font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:rgba(0,212,170,.1);color:var(--teal);border:1px solid rgba(0,212,170,.25);padding:.15rem .5rem;border-radius:2px}
+.mc-body{padding:1.2rem 1.4rem}
+.mc-title{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;line-height:1.25;color:var(--white);margin-bottom:.6rem}
+.mc-list{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.mc-list li{font-size:.82rem;color:var(--muted);display:flex;align-items:flex-start;gap:.5rem;line-height:1.5}
+.mc-list li::before{content:'→';color:var(--gold);flex-shrink:0;font-size:.75rem;margin-top:2px}
+.mc-footer{padding:.8rem 1.4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.mc-read{color:var(--gold)}
+
+/* EASTER EGG THIS WEEK */
+.egg-sec{background:var(--deep);padding:80px 2.5rem}
+.egg-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ec-vis{background:linear-gradient(135deg,#080018,#001808,#180800);display:flex;align-items:center;justify-content:center;min-height:280px;position:relative;overflow:hidden}
+.ec-bg-text{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:8rem;color:rgba(255,255,255,.03);letter-spacing:.04em;user-select:none}
+.ec-glow{position:absolute;inset:0;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(212,163,50,.08),transparent)}
+.ec-icon{font-size:3.5rem;z-index:1;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.ec-body{padding:2rem}
+.ec-eye{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);margin-bottom:.6rem}
+.ec-title{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:800;line-height:1.2;margin-bottom:.8rem}
+.ec-desc{font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.2rem}
+.ec-location{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;margin-bottom:1.2rem}
+.ec-loc-label{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
+.ec-loc-val{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.1em;color:var(--gold)}
+.ec-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.ec-status-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pd 1.5s ease-in-out infinite}
+
+/* NEWSLETTER */
+.nl-sec{background:var(--ink);padding:80px 2.5rem}
+.nl-inner{max-width:620px;margin:0 auto;text-align:center}
+.nl-title{font-size:clamp(2rem,5vw,3.5rem)}
+.nl-sub{font-size:.92rem;color:var(--muted);margin:1rem auto 2rem;max-width:380px;line-height:1.8}
+.nl-form{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.nl-input{background:var(--surface);border:1px solid var(--border2);color:var(--white);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.95rem 1.2rem;border-radius:2px;width:260px;outline:none;transition:border-color .2s}
+.nl-input::placeholder{color:var(--muted)}
+.nl-input:focus{border-color:var(--gold)}
+.nl-note{font-size:.72rem;color:var(--dim);margin-top:.8rem}
+
+/* FOOTER */
+footer{background:var(--deep);border-top:1px solid var(--border);padding:40px 2.5rem 24px}
+.fg{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.73rem;color:var(--muted)}
+.fleg{display:flex;gap:1.5rem}
+.fleg a{color:var(--muted);transition:color .2s}
+.fleg a:hover{color:var(--white)}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rev-l{opacity:0;transform:translateX(-24px);transition:opacity .7s ease,transform .7s ease}
+.rev-r{opacity:0;transform:translateX(24px);transition:opacity .7s ease,transform .7s ease}
+.rev.in,.rev-l.in,.rev-r.in{opacity:1;transform:none}
+.d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}.d5{transition-delay:.3s}.d6{transition-delay:.36s}
+
+@media(max-width:900px){.past-grid{grid-template-columns:1fr 1fr}.meta-grid{grid-template-columns:1fr}.egg-card{grid-template-columns:1fr}.cheat-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}section,.week-hero-drop,.past-sec,.cheat-sec,.meta-sec,.egg-sec,.nl-sec{padding:60px 1.2rem}.past-grid{grid-template-columns:1fr}.cheat-grid{grid-template-columns:1fr}.fd-body{grid-template-columns:1fr}.dh-stats{gap:1.5rem}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo"><span class="logo-v">VICE</span>VAULT<span class="nav-dot"></span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#categories">Vault</a></li>
+    <li><a href="index.html#allguides">Guides</a></li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="preorder.html" style="color:#d4a332">Pre-order</a></li>
+    <li><a href="signup.html" class="nav-cta">Join Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="drop-hero">
+  <div class="dh-bg"></div>
+  <div class="dh-scan"></div>
+  <div class="dh-grid"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+  <div class="dh-content">
+    <div class="dh-week-badge"><span class="dh-week-dot"></span>Thursday Drop · Week 26</div>
+    <h1 class="dh-title">
+      WEEKLY<br>
+      <span class="gd">INTEL</span><br>
+      <span class="pk">DROP</span>
+    </h1>
+    <div class="dh-date">June 26, 2025 — Every Thursday at 6PM IST</div>
+    <div class="dh-stats">
+      <div class="dh-stat"><div class="dh-stat-n">7</div><div class="dh-stat-l">Guides dropped</div></div>
+      <div class="dh-divider"></div>
+      <div class="dh-stat"><div class="dh-stat-n">4</div><div class="dh-stat-l">Sections updated</div></div>
+      <div class="dh-divider"></div>
+      <div class="dh-stat"><div class="dh-stat-n">3</div><div class="dh-stat-l">New cheat codes</div></div>
+      <div class="dh-divider"></div>
+      <div class="dh-stat"><div class="dh-stat-n">1</div><div class="dh-stat-l">Easter egg found</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-t">
+    <span>Week 26 Drop <span class="td">◆</span></span>
+    <span>Vice City Bank Job Blueprint <span class="td">◆</span></span>
+    <span>$800K/hr Farm Route <span class="td">◆</span></span>
+    <span>3 New Cheat Codes <span class="td">◆</span></span>
+    <span>Easter Egg Confirmed <span class="td">◆</span></span>
+    <span>Online Meta Update <span class="td">◆</span></span>
+    <span>Vehicle Speed Rankings <span class="td">◆</span></span>
+    <span>Week 26 Drop <span class="td">◆</span></span>
+    <span>Vice City Bank Job Blueprint <span class="td">◆</span></span>
+    <span>$800K/hr Farm Route <span class="td">◆</span></span>
+    <span>3 New Cheat Codes <span class="td">◆</span></span>
+    <span>Easter Egg Confirmed <span class="td">◆</span></span>
+    <span>Online Meta Update <span class="td">◆</span></span>
+    <span>Vehicle Speed Rankings <span class="td">◆</span></span>
+  </div>
+</div>
+
+<!-- THIS WEEK'S DROP -->
+<div class="week-hero-drop">
+  <div class="whd-inner">
+    <div class="whd-header rev">
+      <div>
+        <div class="eye">This week's intel</div>
+        <h2 class="stitle">7 guides · Just dropped</h2>
+      </div>
+      <p class="ssub">Every Thursday at 6PM IST. Members get it first — public access 48 hours later.</p>
+    </div>
+
+    <!-- FEATURED DROP -->
+    <a href="guide.html" class="featured-drop rev">
+      <div class="fd-top">
+        <div class="fd-num">01</div>
+        <div class="fd-badges">
+          <div class="fd-badge-row">
+            <span class="tag tn">Featured drop</span>
+            <span class="tag tg">Heist Blueprint</span>
+            <span class="tag">PS5 · Xbox</span>
+          </div>
+          <div class="fd-title">Vice City Bank Job — Complete Blueprint: Silent Approach, $4.2M Max Take</div>
+        </div>
+      </div>
+      <div class="fd-body">
+        <p class="fd-excerpt">The flagship heist of GTA 6 Online, fully mapped. Every entry point, guard patrol window, vault bypass, the hidden secondary vault route that pushes your take from $2.8M to $4.2M, and the exact crew setup that executes this clean on the first attempt — without a single shot fired.</p>
+        <div class="fd-meta">
+          <div class="fd-read-time">14 min read</div>
+          <div class="fd-arrow">Read blueprint →</div>
+        </div>
+      </div>
+      <div class="fd-stat-row">
+        <div class="fd-stat">Max take: <span class="fd-stat-v">$4.2M</span></div>
+        <div class="fd-stat">Difficulty: <span class="fd-stat-v">Hard</span></div>
+        <div class="fd-stat">Players: <span class="fd-stat-v">2–4</span></div>
+        <div class="fd-stat">Level: <span class="fd-stat-v">12+</span></div>
+        <div class="fd-stat">Approach: <span class="fd-stat-v">Silent & Sneaky</span></div>
+      </div>
+    </a>
+
+    <!-- DROP LIST -->
+    <div class="drop-list rev">
+      <div class="drop-item di-1" onclick="window.location='guide.html'">
+        <div class="di-n">02</div>
+        <div class="di-icon ic2">💰</div>
+        <div class="di-body">
+          <div class="di-cat">Money Meta</div>
+          <div class="di-title">$800K/hr passive income — the GTA 6 business stacking method fully explained</div>
+          <div class="di-meta">8 min read · Members · New this week</div>
+          <div class="di-tags"><span class="tag tt">Passive</span><span class="tag">Business</span></div>
+        </div>
+        <div class="di-arrow">→</div>
+      </div>
+
+      <div class="drop-item di-2" onclick="window.location='guide.html'">
+        <div class="di-n">03</div>
+        <div class="di-icon ic3">🚗</div>
+        <div class="di-body">
+          <div class="di-cat">Vehicles</div>
+          <div class="di-title">Top 5 new vehicles added in the latest GTA 6 update — ranked by class and top speed</div>
+          <div class="di-meta">6 min read · Members · Updated</div>
+          <div class="di-tags"><span class="tag to">New vehicles</span><span class="tag">Speed rankings</span></div>
+        </div>
+        <div class="di-arrow">→</div>
+      </div>
+
+      <div class="drop-item di-3" onclick="window.location='guide.html'">
+        <div class="di-n">04</div>
+        <div class="di-icon ic4">🌐</div>
+        <div class="di-body">
+          <div class="di-cat">Online Multiplayer</div>
+          <div class="di-title">Cargo war tactics that actually dominate 2025 lobbies — updated meta with new counter-plays</div>
+          <div class="di-meta">10 min read · Members · Meta updated</div>
+          <div class="di-tags"><span class="tag tb">PvP</span><span class="tag">Strategy</span></div>
+        </div>
+        <div class="di-arrow">→</div>
+      </div>
+
+      <div class="drop-item di-4" onclick="window.location='guide.html'">
+        <div class="di-n">05</div>
+        <div class="di-icon ic5">⭐</div>
+        <div class="di-body">
+          <div class="di-cat">Wanted Level</div>
+          <div class="di-title">New 5-star escape route in the Port district — confirmed working, community discovered</div>
+          <div class="di-meta">5 min read · Members · Community find</div>
+          <div class="di-tags"><span class="tag tn">New</span><span class="tag">Escape route</span></div>
+        </div>
+        <div class="di-arrow">→</div>
+      </div>
+
+      <div class="drop-item di-5" onclick="window.location='guide.html'">
+        <div class="di-n">06</div>
+        <div class="di-icon ic6">🥚</div>
+        <div class="di-body">
+          <div class="di-cat">Easter Eggs</div>
+          <div class="di-title">The lighthouse signal Easter egg — community cracked it, here's what it means</div>
+          <div class="di-meta">7 min read · Free preview · This week's find</div>
+          <div class="di-tags"><span class="tag tp-tag">Easter egg</span><span class="tag">Lore</span></div>
+        </div>
+        <div class="di-arrow">→</div>
+      </div>
+
+      <div class="drop-item di-6" onclick="window.location='guide.html'">
+        <div class="di-n">07</div>
+        <div class="di-icon ic1">📋</div>
+        <div class="di-body">
+          <div class="di-cat">Story Mode</div>
+          <div class="di-title">Chapter 4 hidden mission — the one that only triggers if you made specific choices in Chapter 2</div>
+          <div class="di-meta">9 min read · Members · Spoiler-tagged</div>
+          <div class="di-tags"><span class="tag tg">Story</span><span class="tag">Missable</span></div>
+        </div>
+        <div class="di-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- LOCK NOTICE -->
+    <div class="lock-notice rev">
+      <span style="font-size:1.3rem">🔒</span>
+      <div class="ln-text"><strong>Guides 02–07 are members only.</strong> Join Vice Vault Pro for ₹499/month to unlock every weekly drop instantly on Thursday. Free visitors get access 48 hours later.</div>
+      <a href="signup.html" class="btn-g">Join for ₹499/mo</a>
+      <a href="signup.html?tier=199" class="btn-o">Start at ₹199</a>
+    </div>
+  </div>
+</div>
+
+<!-- CHEAT CODES THIS WEEK -->
+<div class="cheat-sec">
+  <div class="container">
+    <div class="rev">
+      <div class="eye">Cheat vault update</div>
+      <h2 class="stitle">3 new codes this week</h2>
+      <p class="ssub" style="margin-bottom:2rem">Newly discovered or confirmed cheat codes added to the vault this Thursday. Click any code to copy it.</p>
+    </div>
+    <div class="cheat-wrap rev">
+      <div class="cw-header">
+        <div class="cw-h-title">Cheat Codes — Week 26</div>
+        <div class="cw-tabs">
+          <button class="cw-tab on" onclick="switchTab(this,'ps5')">PS5</button>
+          <button class="cw-tab" onclick="switchTab(this,'xbox')">Xbox</button>
+        </div>
+      </div>
+      <div id="cheat-ps5">
+        <div class="cheat-grid">
+          <div class="cheat-item"><span class="cheat-name">Spawn Armoured Truck <span class="cheat-new">New</span></span><span class="cheat-code" onclick="copyCheat(this,'L2 R2 L1 R1 ← → ← → □')">L2 R2 L1 R1 ← → ← → □</span></div>
+          <div class="cheat-item"><span class="cheat-name">Night Vision Mode <span class="cheat-new">New</span></span><span class="cheat-code" onclick="copyCheat(this,'R1 L1 R2 L2 ↑ ↓ ↑ ↓ △')">R1 L1 R2 L2 ↑ ↓ ↑ ↓ △</span></div>
+          <div class="cheat-item"><span class="cheat-name">Explosive Melee <span class="cheat-new">New</span></span><span class="cheat-code" onclick="copyCheat(this,'→ ← X △ R1 ○ ○ ○ L2')">→ ← X △ R1 ○ ○ ○ L2</span></div>
+          <div class="cheat-item"><span class="cheat-name">Full Health & Armor</span><span class="cheat-code" onclick="copyCheat(this,'R1 R2 L1 △ ↓ ↑ ↓ ↑')">R1 R2 L1 △ ↓ ↑ ↓ ↑</span></div>
+          <div class="cheat-item"><span class="cheat-name">Clear Wanted Level</span><span class="cheat-code" onclick="copyCheat(this,'R1 R1 ○ R2 → ← → ← → ←')">R1 R1 ○ R2 → ← → ← → ←</span></div>
+          <div class="cheat-item"><span class="cheat-name">Invincibility</span><span class="cheat-code" onclick="copyCheat(this,'→ X → ← → R1 → ← X △')">→ X → ← → R1 → ← X △</span></div>
+          <div class="cheat-item"><span class="cheat-name">Weapons Set 1</span><span class="cheat-code" onclick="copyCheat(this,'△ R2 ← L1 X → △ ↓ □')">△ R2 ← L1 X → △ ↓ □</span></div>
+          <div class="cheat-item"><span class="cheat-name">Spawn Supercar</span><span class="cheat-code" onclick="copyCheat(this,'R2 ○ R1 L2 ← R1 L1 R2 R2')">R2 ○ R1 L2 ← R1 L1 R2 R2</span></div>
+          <div class="cheat-item"><span class="cheat-name">Spawn Helicopter</span><span class="cheat-code" onclick="copyCheat(this,'○ ○ L1 ○ ○ ○ L1 L2 R1 △')">○ ○ L1 ○ ○ ○ L1 L2 R1 △</span></div>
+        </div>
+      </div>
+      <div id="cheat-xbox" style="display:none">
+        <div class="cheat-grid">
+          <div class="cheat-item"><span class="cheat-name">Spawn Armoured Truck <span class="cheat-new">New</span></span><span class="cheat-code" onclick="copyCheat(this,'LT RT LB RB ← → ← → X')">LT RT LB RB ← → ← → X</span></div>
+          <div class="cheat-item"><span class="cheat-name">Night Vision Mode <span class="cheat-new">New</span></span><span class="cheat-code" onclick="copyCheat(this,'RB LB RT LT ↑ ↓ ↑ ↓ Y')">RB LB RT LT ↑ ↓ ↑ ↓ Y</span></div>
+          <div class="cheat-item"><span class="cheat-name">Explosive Melee <span class="cheat-new">New</span></span><span class="cheat-code" onclick="copyCheat(this,'→ ← A Y RB B B B LT')">→ ← A Y RB B B B LT</span></div>
+          <div class="cheat-item"><span class="cheat-name">Full Health & Armor</span><span class="cheat-code" onclick="copyCheat(this,'RB RT LB Y ↓ ↑ ↓ ↑')">RB RT LB Y ↓ ↑ ↓ ↑</span></div>
+          <div class="cheat-item"><span class="cheat-name">Clear Wanted Level</span><span class="cheat-code" onclick="copyCheat(this,'RB RB B RT → ← → ← → ←')">RB RB B RT → ← → ← → ←</span></div>
+          <div class="cheat-item"><span class="cheat-name">Invincibility</span><span class="cheat-code" onclick="copyCheat(this,'→ A → ← → RB → ← A Y')">→ A → ← → RB → ← A Y</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MONEY META SUMMARY -->
+<div class="meta-sec">
+  <div class="container">
+    <div class="rev">
+      <div class="eye">This week's meta</div>
+      <h2 class="stitle">Money meta snapshot</h2>
+      <p class="ssub" style="margin-bottom:2rem">What changed this week. Full deep-dives in the Vault Pro section.</p>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-card rev-l">
+        <div class="mc-header"><span class="mc-cat">🔥 Hot this week</span><span class="mc-badge">Updated</span></div>
+        <div class="mc-body">
+          <div class="mc-title">Business stacking is back — $800K/hr confirmed</div>
+          <ul class="mc-list">
+            <li>Nightclub + Bunker + Counterfeit Cash + Meth lab running simultaneously</li>
+            <li>Resupply timing trick still working after the patch — 4 minute window unchanged</li>
+            <li>Cayo Perico prep now counts as free resupply for bunker — saves 18 minutes/cycle</li>
+            <li>Solo viable if you own all 4 businesses within 3 map zones</li>
+          </ul>
+        </div>
+        <div class="mc-footer"><span>Money Meta</span><span class="mc-read">Full guide →</span></div>
+      </div>
+      <div class="meta-card rev-r">
+        <div class="mc-header"><span class="mc-cat">📉 Nerfed this week</span><span class="mc-badge" style="color:var(--pink);background:rgba(255,61,110,.1);border-color:rgba(255,61,110,.25)">Patched</span></div>
+        <div class="mc-body">
+          <div class="mc-title">Import/Export glitch patched in v1.04 — move on</div>
+          <ul class="mc-list">
+            <li>The duplicate vehicle glitch that was earning $120K per minute is now fixed</li>
+            <li>Standard I/E still worth doing — $80K/delivery, 15 min cycle, still competitive</li>
+            <li>Rockstar's patch notes silent on this — confirmed by community testing Thursday AM</li>
+            <li>Switch to business stacking as primary earner this week</li>
+          </ul>
+        </div>
+        <div class="mc-footer"><span>Money Meta</span><span class="mc-read">See alternatives →</span></div>
+      </div>
+      <div class="meta-card rev-l">
+        <div class="mc-header"><span class="mc-cat">🚗 Vehicle meta</span><span class="mc-badge">New data</span></div>
+        <div class="mc-body">
+          <div class="mc-title">3 new cars worth buying — speed tests done</div>
+          <ul class="mc-list">
+            <li>Grotti Itali RSX still #1 for races at max tune — uncontested at 133.8mph</li>
+            <li>New Ocelot Pariah update closes gap — 131.2mph, better handling on tight circuits</li>
+            <li>The Enus Paragon R Armored is this week's heist getaway pick after buffs</li>
+          </ul>
+        </div>
+        <div class="mc-footer"><span>Vehicles</span><span class="mc-read">Full rankings →</span></div>
+      </div>
+      <div class="meta-card rev-r">
+        <div class="mc-header"><span class="mc-cat">🌐 Online meta</span><span class="mc-badge">Meta shift</span></div>
+        <div class="mc-body">
+          <div class="mc-title">Lobby composition shifted — new griefing wave incoming</div>
+          <ul class="mc-list">
+            <li>Oppressor Mk3 is the new griefing vehicle after MK2 missile lock nerfed</li>
+            <li>Best defence: get to a populated public lobby fast and use the Terrorbyte counter</li>
+            <li>Invite-only sessions still best for serious business — 15% bonus removed this week</li>
+          </ul>
+        </div>
+        <div class="mc-footer"><span>Online Multiplayer</span><span class="mc-read">Full breakdown →</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EASTER EGG THIS WEEK -->
+<div class="egg-sec">
+  <div class="container">
+    <div class="rev">
+      <div class="eye">Community discovery</div>
+      <h2 class="stitle">Easter egg of the week</h2>
+    </div>
+    <div class="egg-card rev">
+      <div class="ec-vis">
+        <span class="ec-bg-text">SIGNAL</span>
+        <div class="ec-glow"></div>
+        <span class="ec-icon">🔦</span>
+      </div>
+      <div class="ec-body">
+        <div class="ec-eye">🥚 Confirmed Easter egg · Week 26</div>
+        <div class="ec-title">The Lighthouse Morse Code Signal — What It's Actually Saying</div>
+        <p class="ec-desc">Players noticed the lighthouse at Paleto Point flashes in a specific pattern between 11pm–1am in-game time. The Vice Vault community cracked it this week — it's transmitting a Morse code message that references a hidden mission only accessible after completing the story. Here's the translation, what it unlocks, and how to trigger the follow-up event.</p>
+        <div class="ec-location">
+          <span class="ec-loc-label">📍 Location</span>
+          <span class="ec-loc-val">Paleto Point Lighthouse · Coords: -1487.8, 4958.2</span>
+        </div>
+        <div class="ec-status"><span class="ec-status-dot"></span>Community confirmed · Video proof on file</div>
+        <a href="guide.html" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)">Read full breakdown →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAST DROPS -->
+<div class="past-sec">
+  <div class="container">
+    <div class="rev">
+      <div class="eye">Archive</div>
+      <h2 class="stitle">Previous drops</h2>
+    </div>
+    <div class="past-grid">
+      <div class="past-card rev d1">
+        <div class="pc-week">Week 25</div>
+        <div class="pc-date">June 19, 2025</div>
+        <div class="pc-guides"><span class="pc-g">Blueprint</span><span class="pc-g">Money</span><span class="pc-g">Vehicles</span><span class="pc-g">Easter Egg</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.3rem">
+          <div class="pc-count">6 guides dropped</div>
+          <div class="pc-arrow">→</div>
+        </div>
+      </div>
+      <div class="past-card rev d2">
+        <div class="pc-week">Week 24</div>
+        <div class="pc-date">June 12, 2025</div>
+        <div class="pc-guides"><span class="pc-g">Story</span><span class="pc-g">Heist</span><span class="pc-g">Cheats</span><span class="pc-g">Builds</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.3rem">
+          <div class="pc-count">8 guides dropped</div>
+          <div class="pc-arrow">→</div>
+        </div>
+      </div>
+      <div class="past-card rev d3">
+        <div class="pc-week">Week 23</div>
+        <div class="pc-date">June 5, 2025</div>
+        <div class="pc-guides"><span class="pc-g">Money</span><span class="pc-g">Online</span><span class="pc-g">Properties</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.3rem">
+          <div class="pc-count">5 guides dropped</div>
+          <div class="pc-arrow">→</div>
+        </div>
+      </div>
+      <div class="past-card rev d4">
+        <div class="pc-week">Week 22</div>
+        <div class="pc-date">May 29, 2025</div>
+        <div class="pc-guides"><span class="pc-g">Blueprint</span><span class="pc-g">Cheats</span><span class="pc-g">Stunts</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.3rem">
+          <div class="pc-count">7 guides dropped</div>
+          <div class="pc-arrow">→</div>
+        </div>
+      </div>
+      <div class="past-card rev d5">
+        <div class="pc-week">Week 21</div>
+        <div class="pc-date">May 22, 2025</div>
+        <div class="pc-guides"><span class="pc-g">Story</span><span class="pc-g">Vehicles</span><span class="pc-g">Easter Egg</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.3rem">
+          <div class="pc-count">6 guides dropped</div>
+          <div class="pc-arrow">→</div>
+        </div>
+      </div>
+      <div class="past-card rev d6">
+        <div class="pc-week">Week 20</div>
+        <div class="pc-date">May 15, 2025</div>
+        <div class="pc-guides"><span class="pc-g">Heist</span><span class="pc-g">Money</span><span class="pc-g">Online</span><span class="pc-g">Builds</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.3rem">
+          <div class="pc-count">9 guides dropped</div>
+          <div class="pc-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="nl-sec">
+  <div class="nl-inner rev">
+    <div class="eye">Free every Thursday</div>
+    <h2 class="stitle nl-title">Get the drop<br><span style="color:var(--gold)">before everyone</span></h2>
+    <p class="nl-sub">The weekly intel summary — best routes, meta shifts, new cheat codes — straight to your inbox every Thursday at 6PM IST. Free forever.</p>
+    <div class="nl-form">
+      <input type="email" class="nl-input" placeholder="your@email.com" aria-label="Email address">
+      <button class="btn-g" onclick="subscribeNL(this)">Subscribe free</button>
+    </div>
+    <p class="nl-note">No spam. Unsubscribe any time. 12,400+ subscribers already in.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fg">
+    <span>© 2025 Vice Vault — Independent GTA 6 guide site. Not affiliated with Rockstar Games or Take-Two Interactive.</span>
+    <div class="fleg">
+      <a href="index.html">Home</a>
+      <a href="index.html#pricing">Join</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV SCROLL
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rev,.rev-l,.rev-r').forEach(el=>obs.observe(el));
+
+// CHEAT TAB SWITCH
+function switchTab(btn,platform){
+  document.querySelectorAll('.cw-tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('cheat-ps5').style.display=platform==='ps5'?'block':'none';
+  document.getElementById('cheat-xbox').style.display=platform==='xbox'?'block':'none';
+}
+
+// COPY CHEAT CODE
+function copyCheat(el,code){
+  navigator.clipboard.writeText(code).then(()=>{
+    const orig=el.textContent;
+    el.textContent='Copied!';
+    setTimeout(()=>el.textContent=orig,1800);
+  });
+}
+
+// NEWSLETTER
+function subscribeNL(btn){
+  btn.textContent='Subscribed! ✓';
+  btn.style.background='var(--teal)';
+  btn.disabled=true;
+}
+</script>
+<script src="vv-global.js"></script>
+</body>
+</html>

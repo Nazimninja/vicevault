@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vice Vault — Member Dashboard</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;--border2:#24243a;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--blue:#4a9eff;
+  --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--borderl:rgba(255,255,255,.13);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;display:flex}
+a{color:inherit;text-decoration:none}
+
+/* SIDEBAR */
+.sidebar{
+  width:240px;flex-shrink:0;height:100vh;
+  background:var(--deep);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;
+  position:relative;z-index:10;
+}
+.sb-logo{
+  padding:1.4rem 1.6rem 1.2rem;
+  border-bottom:1px solid var(--border);
+  font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.14em;
+  display:flex;align-items:center;gap:.6rem;flex-shrink:0;
+}
+.sb-logo .v{color:var(--gold)}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+
+.sb-user{
+  padding:1.2rem 1.6rem;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.sb-avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--orange));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--ink);
+  margin-bottom:.7rem;
+}
+.sb-name{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:.15rem}
+.sb-tier{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;
+  letter-spacing:.16em;text-transform:uppercase;
+  background:rgba(212,163,50,.12);color:var(--gold);
+  border:1px solid rgba(212,163,50,.3);
+  padding:.18rem .6rem;border-radius:2px;
+}
+
+.sb-nav{flex:1;overflow-y:auto;padding:.8rem 0}
+.sb-nav::-webkit-scrollbar{width:4px}
+.sb-nav::-webkit-scrollbar-track{background:transparent}
+.sb-nav::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.sb-section{padding:.4rem 1.6rem .2rem;font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:.6rem}
+.sb-item{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.65rem 1.6rem;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:600;
+  color:var(--muted);transition:all .2s;position:relative;
+}
+.sb-item:hover{color:var(--white);background:rgba(255,255,255,.04)}
+.sb-item.active{color:var(--white);background:rgba(212,163,50,.08)}
+.sb-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold)}
+.sb-item .ico{font-size:1rem;width:1.1rem;text-align:center;flex-shrink:0}
+.sb-badge{margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.1em;background:var(--pink);color:#fff;padding:.15rem .5rem;border-radius:2px}
+.sb-lock{margin-left:auto;font-size:.75rem;opacity:.4}
+
+.sb-upgrade{
+  margin:1rem 1.2rem;padding:1rem;
+  background:rgba(212,163,50,.07);border:1px solid rgba(212,163,50,.2);
+  border-radius:4px;flex-shrink:0;
+}
+.sb-upgrade-t{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.sb-upgrade p{font-size:.75rem;color:var(--muted);line-height:1.5;margin-bottom:.8rem}
+.sb-upgrade-btn{display:block;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.5rem .8rem;border-radius:2px;text-align:center;transition:background .2s}
+.sb-upgrade-btn:hover{background:var(--gold2)}
+
+/* MAIN */
+.main{flex:1;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.main::-webkit-scrollbar{width:5px}
+.main::-webkit-scrollbar-track{background:transparent}
+.main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* TOP BAR */
+.topbar{
+  height:60px;flex-shrink:0;
+  background:rgba(7,7,15,.9);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;position:sticky;top:0;z-index:50;
+}
+.topbar-left{display:flex;align-items:center;gap:1rem}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.1em;color:var(--white)}
+.page-sub{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.topbar-right{display:flex;align-items:center;gap:1rem}
+.tb-search{
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--white);font-family:'Barlow',sans-serif;font-size:.84rem;
+  padding:.45rem 1rem;border-radius:2px;outline:none;width:200px;
+  transition:border-color .2s;
+}
+.tb-search::placeholder{color:var(--muted)}
+.tb-search:focus{border-color:var(--gold)}
+.tb-notif{width:34px;height:34px;background:var(--surface);border:1px solid var(--border);border-radius:2px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;position:relative;transition:border-color .2s}
+.tb-notif:hover{border-color:var(--gold)}
+.notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;background:var(--pink);border-radius:50%}
+
+/* DASHBOARD CONTENT */
+.dash-content{padding:2rem;flex:1}
+
+/* WEEK DROP BANNER */
+.week-banner{
+  background:var(--card);border:1px solid rgba(212,163,50,.25);
+  border-radius:4px;padding:1.2rem 1.6rem;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:2rem;gap:1rem;flex-wrap:wrap;
+  position:relative;overflow:hidden;
+}
+.week-banner::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
+.wb-left{display:flex;align-items:center;gap:1rem}
+.wb-badge{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;background:var(--gold);color:var(--ink);padding:.22rem .7rem;border-radius:2px;flex-shrink:0}
+.wb-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--white)}
+.wb-sub{font-size:.78rem;color:var(--muted);margin-top:.1rem}
+.wb-btn{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:rgba(212,163,50,.1);color:var(--gold);border:1px solid rgba(212,163,50,.3);padding:.45rem 1rem;border-radius:2px;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.wb-btn:hover{background:var(--gold);color:var(--ink)}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.2rem 1.4rem;position:relative;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.stat-box:hover{border-color:var(--borderl)}
+.stat-box::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px}
+.sb1::after{background:var(--gold)} .sb2::after{background:var(--teal)} .sb3::after{background:var(--pink)} .sb4::after{background:var(--orange)}
+.stat-label{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:1;margin-bottom:.25rem}
+.sb1 .stat-val{color:var(--gold)} .sb2 .stat-val{color:var(--teal)} .sb3 .stat-val{color:var(--pink)} .sb4 .stat-val{color:var(--orange)}
+.stat-change{font-size:.74rem;color:var(--muted)}
+.stat-change .up{color:var(--teal)}
+
+/* SECTION GRID */
+.section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.section-hd h2{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;color:var(--white)}
+.see-all{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);cursor:pointer;transition:opacity .2s}
+.see-all:hover{opacity:.7}
+
+.cats-dash{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem}
+.cat-d{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:4px;padding:1.2rem;cursor:pointer;
+  display:flex;flex-direction:column;gap:.4rem;
+  transition:border-color .2s,background .2s,transform .2s;
+  position:relative;overflow:hidden;
+}
+.cat-d:hover{border-color:var(--borderl);background:var(--card);transform:translateY(-2px)}
+.cat-d-glow{position:absolute;inset:0;opacity:0;transition:opacity .3s;pointer-events:none}
+.cat-d:hover .cat-d-glow{opacity:1}
+.cg1 .cat-d-glow{background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(212,163,50,.06),transparent)}
+.cg2 .cat-d-glow{background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(0,212,170,.06),transparent)}
+.cg3 .cat-d-glow{background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(255,61,110,.06),transparent)}
+.cg4 .cat-d-glow{background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(224,92,26,.06),transparent)}
+.cat-d-icon{font-size:1.3rem;margin-bottom:.2rem}
+.cat-d-name{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;color:var(--white)}
+.cg1 .cat-d-name{color:var(--gold)} .cg2 .cat-d-name{color:var(--teal)} .cg3 .cat-d-name{color:var(--pink)} .cg4 .cat-d-name{color:var(--orange)}
+.cg5 .cat-d-name{color:var(--gold)} .cg6 .cat-d-name{color:var(--teal)} .cg7 .cat-d-name{color:var(--pink)} .cg8 .cat-d-name{color:var(--orange)}
+.cg9 .cat-d-name{color:var(--gold)} .cg10 .cat-d-name{color:var(--teal)} .cg11 .cat-d-name{color:var(--pink)}
+.cat-d-count{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.cat-d-bar{height:2px;background:var(--border);border-radius:1px;margin-top:.6rem;overflow:hidden}
+.cat-d-prog{height:100%;border-radius:1px;transition:width .8s ease}
+.cg1 .cat-d-prog{background:var(--gold)} .cg2 .cat-d-prog{background:var(--teal)} .cg3 .cat-d-prog{background:var(--pink)} .cg4 .cat-d-prog{background:var(--orange)}
+.cg5 .cat-d-prog{background:var(--gold)} .cg6 .cat-d-prog{background:var(--teal)} .cg7 .cat-d-prog{background:var(--pink)} .cg8 .cat-d-prog{background:var(--orange)}
+.cg9 .cat-d-prog{background:var(--gold)} .cg10 .cat-d-prog{background:var(--teal)} .cg11 .cat-d-prog{background:var(--pink)}
+.locked-overlay{position:absolute;inset:0;background:rgba(7,7,15,.6);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;border-radius:4px}
+.lock-badge{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.08);color:var(--muted);border:1px solid var(--border);padding:.25rem .7rem;border-radius:2px}
+
+/* RECENT GUIDES */
+.recent-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.5rem}
+.guide-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;display:flex;gap:1rem;align-items:stretch;transition:border-color .2s,transform .2s}
+.guide-card:hover{border-color:var(--borderl);transform:translateY(-1px)}
+.gc-thumb{width:90px;flex-shrink:0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.gt1{background:linear-gradient(135deg,#1a1000,#1a0808)}
+.gt2{background:linear-gradient(135deg,#001a0a,#001018)}
+.gt3{background:linear-gradient(135deg,#180010,#100018)}
+.gt4{background:linear-gradient(135deg,#0a1200,#001010)}
+.gc-thumb-word{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:rgba(255,255,255,.08);letter-spacing:.04em}
+.gc-body{padding:.9rem .9rem .9rem 0;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.gc-cat{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.25rem}
+.gc-title{font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:800;line-height:1.3;color:var(--white)}
+.gc-meta{display:flex;gap:.6rem;align-items:center;margin-top:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.gc-new{background:var(--pink);color:#fff;padding:.12rem .5rem;border-radius:2px}
+
+/* QUICK ACTIONS */
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem}
+.qa{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.1rem 1.2rem;cursor:pointer;display:flex;align-items:center;gap:.8rem;transition:all .2s}
+.qa:hover{border-color:var(--gold);background:rgba(212,163,50,.05)}
+.qa-ico{font-size:1.3rem;flex-shrink:0}
+.qa-text .qa-t{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;color:var(--white)}
+.qa-text .qa-s{font-size:.74rem;color:var(--muted);margin-top:.1rem}
+
+/* WEEKLY DROP SECTION */
+.drop-section{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.4rem;margin-bottom:2.5rem}
+.drop-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.drop-header h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.08em}
+.drop-list{display:flex;flex-direction:column;gap:0}
+.drop-item{display:flex;align-items:center;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:padding-left .2s}
+.drop-item:hover{padding-left:.5rem}
+.drop-item:last-child{border:none}
+.di-num{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--border2);width:2rem;flex-shrink:0;text-align:right;line-height:1}
+.di-icon{width:32px;height:32px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.ic1{background:rgba(212,163,50,.12)} .ic2{background:rgba(0,212,170,.12)} .ic3{background:rgba(255,61,110,.12)} .ic4{background:rgba(224,92,26,.12)} .ic5{background:rgba(74,158,255,.12)}
+.di-body{flex:1;min-width:0}
+.di-cat{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.15rem}
+.di-title{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.di-meta{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.di-arrow{color:var(--gold);font-size:.85rem;flex-shrink:0}
+
+/* CHEAT QUICK REF */
+.cheat-ref{background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:2.5rem;overflow:hidden}
+.cheat-hd{padding:1rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cheat-hd h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.08em}
+.cheat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.cheat-item{padding:.9rem 1.4rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.8rem;cursor:pointer;transition:background .2s}
+.cheat-item:hover{background:var(--card)}
+.cheat-item:nth-child(3n){border-right:none}
+.cheat-item:nth-last-child(-n+3){border-bottom:none}
+.cheat-name{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;color:var(--white)}
+.cheat-code{font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.12em;color:var(--gold);background:rgba(212,163,50,.1);padding:.2rem .5rem;border-radius:2px;border:1px solid rgba(212,163,50,.2);white-space:nowrap}
+
+/* PROGRESS */
+.progress-sec{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.4rem;margin-bottom:2rem}
+.prog-items{display:flex;flex-direction:column;gap:1rem;margin-top:1rem}
+.prog-item{display:flex;align-items:center;gap:1rem}
+.prog-name{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;color:var(--white);width:140px;flex-shrink:0}
+.prog-bar-wrap{flex:1;height:4px;background:var(--dim);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;transition:width 1s ease}
+.p1{background:var(--gold)} .p2{background:var(--teal)} .p3{background:var(--pink)} .p4{background:var(--orange)} .p5{background:var(--blue)}
+.prog-pct{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--muted);width:2.5rem;text-align:right;flex-shrink:0}
+
+/* ARTICLE VIEW */
+.art-view{display:none;padding:2rem;max-width:760px}
+.art-back{display:inline-flex;align-items:center;gap:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);cursor:pointer;margin-bottom:1.5rem;transition:color .2s}
+.art-back:hover{color:var(--gold)}
+.av-meta{display:flex;gap:.8rem;align-items:center;margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.av-cat{color:var(--gold)}
+.av-h1{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:800;line-height:1.15;margin-bottom:.8rem;color:var(--white)}
+.av-lead{font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.av-body h2{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;color:var(--gold);margin:1.5rem 0 .6rem}
+.av-body h2:first-child{margin-top:0}
+.av-body p{font-size:.9rem;color:#9a98aa;line-height:1.9;margin-bottom:.9rem}
+.av-tipbox{background:rgba(212,163,50,.06);border-left:3px solid var(--gold);padding:1rem 1.2rem;border-radius:0 3px 3px 0;margin:1.2rem 0}
+.av-tipbox-l{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem}
+.av-tipbox p{margin:0;font-size:.84rem}
+.av-steps{counter-reset:s;list-style:none;display:flex;flex-direction:column;gap:.8rem;margin:1rem 0}
+.av-steps li{counter-increment:s;display:flex;gap:1rem;align-items:flex-start;font-size:.88rem;color:#9a98aa}
+.av-steps li::before{content:counter(s,decimal-leading-zero);font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold);flex-shrink:0;line-height:1.4}
+.av-code-box{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:1rem 1.2rem;margin:1rem 0;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.12em;color:var(--gold)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .cats-dash{grid-template-columns:repeat(3,1fr)}
+  .qa-grid{grid-template-columns:repeat(2,1fr)}
+  .cheat-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .sidebar{display:none}
+  html,body{overflow:auto}
+  .main{height:auto}
+  .recent-grid{grid-template-columns:1fr}
+  .cats-dash{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-logo"><span class="v">VICE</span>VAULT<span class="sb-dot"></span></div>
+  <div class="sb-user">
+    <div class="sb-avatar">N</div>
+    <div class="sb-name">Nazim</div>
+    <div class="sb-tier">⭐ Vault Pro</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-section">Overview</div>
+    <div class="sb-item active" onclick="showView('dashboard')"><span class="ico">🏠</span>Dashboard</div>
+    <div class="sb-item" onclick="showView('weekly')"><span class="ico">📅</span>Weekly Drop<span class="sb-badge">5 New</span></div>
+
+    <div class="sb-section">The Vault</div>
+    <div class="sb-item" onclick="showView('story')"><span class="ico">🗺️</span>Story Mode</div>
+    <div class="sb-item" onclick="showView('heist')"><span class="ico">📋</span>Heist Blueprints</div>
+    <div class="sb-item" onclick="showView('money')"><span class="ico">💰</span>Money Meta</div>
+    <div class="sb-item" onclick="showView('cheat')"><span class="ico">🔑</span>Cheat Codes</div>
+    <div class="sb-item" onclick="showView('online')"><span class="ico">🌐</span>Online Multiplayer</div>
+    <div class="sb-item" onclick="showView('builds')"><span class="ico">🎯</span>Builds &amp; Weapons</div>
+    <div class="sb-item" onclick="showView('easter')"><span class="ico">🥚</span>Easter Eggs</div>
+    <div class="sb-item" onclick="showView('properties')"><span class="ico">🏠</span>Properties</div>
+    <div class="sb-item" onclick="showView('vehicles')"><span class="ico">🚗</span>Vehicles</div>
+    <div class="sb-item" onclick="showView('wanted')"><span class="ico">⭐</span>Wanted Level</div>
+    <div class="sb-item" onclick="showView('pro')"><span class="ico">🎬</span>Pro Plays</div>
+
+    <div class="sb-section">Account</div>
+    <div class="sb-item"><span class="ico">📌</span>Saved Guides</div>
+    <div class="sb-item"><span class="ico">⚙️</span>Settings</div>
+    <div class="sb-item"><span class="ico">←</span><a href="index.html" style="color:inherit">Back to Site</a></div>
+  </nav>
+  <div class="sb-upgrade">
+    <div class="sb-upgrade-t">Upgrade to Elite</div>
+    <p>Custom blueprint requests, early access + private Discord crew.</p>
+    <a href="index.html#pricing" class="sb-upgrade-btn">Upgrade — ₹1199/yr</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main" id="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div>
+        <div class="page-title" id="pageTitle">Dashboard</div>
+        <div class="page-sub" id="pageSub">Welcome back, Nazim</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <input type="text" class="tb-search" placeholder="Search guides...">
+      <div class="tb-notif">🔔<span class="notif-dot"></span></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD VIEW -->
+  <div class="dash-content" id="view-dashboard">
+
+    <!-- WEEK BANNER -->
+    <div class="week-banner">
+      <div class="wb-left">
+        <div class="wb-badge">🔥 New this week</div>
+        <div>
+          <div class="wb-title">Vice City Bank Job Blueprint + $800K/hr Farm Route just dropped</div>
+          <div class="wb-sub">Thursday drop · 5 new guides added across 3 sections</div>
+        </div>
+      </div>
+      <button class="wb-btn" onclick="showView('weekly')">See weekly drop →</button>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-box sb1"><div class="stat-label">Guides read</div><div class="stat-val">14</div><div class="stat-change">of 320 available</div></div>
+      <div class="stat-box sb2"><div class="stat-label">Sections unlocked</div><div class="stat-val">9</div><div class="stat-change"><span class="up">▲ All Pro sections</span></div></div>
+      <div class="stat-box sb3"><div class="stat-label">Saved guides</div><div class="stat-val">6</div><div class="stat-change">in your reading list</div></div>
+      <div class="stat-box sb4"><div class="stat-label">New this week</div><div class="stat-val">5</div><div class="stat-change">guides just dropped</div></div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="section-hd"><h2>Quick access</h2></div>
+    <div class="qa-grid">
+      <div class="qa" onclick="showView('cheat')"><span class="qa-ico">🔑</span><div class="qa-text"><div class="qa-t">Cheat Codes</div><div class="qa-s">All 52 codes — PS5 &amp; Xbox</div></div></div>
+      <div class="qa" onclick="showView('heist')"><span class="qa-ico">📋</span><div class="qa-text"><div class="qa-t">Latest Heist</div><div class="qa-s">Vice City Bank Job — new</div></div></div>
+      <div class="qa" onclick="showView('money')"><span class="qa-ico">💰</span><div class="qa-text"><div class="qa-t">Money Meta</div><div class="qa-s">$800K/hr farm — updated</div></div></div>
+      <div class="qa" onclick="showView('vehicles')"><span class="qa-ico">🚗</span><div class="qa-text"><div class="qa-t">Fastest Cars</div><div class="qa-s">Top 15 speed ranked</div></div></div>
+    </div>
+
+    <!-- ALL SECTIONS -->
+    <div class="section-hd"><h2>All vault sections</h2><span class="see-all">Browse all →</span></div>
+    <div class="cats-dash">
+      <div class="cat-d cg1" onclick="showView('story')"><div class="cat-d-glow"></div><div class="cat-d-icon">🗺️</div><div class="cat-d-name">Story Mode</div><div class="cat-d-count">62 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:12%"></div></div></div>
+      <div class="cat-d cg2" onclick="showView('money')"><div class="cat-d-glow"></div><div class="cat-d-icon">💰</div><div class="cat-d-name">Money Meta</div><div class="cat-d-count">54 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:28%"></div></div></div>
+      <div class="cat-d cg3" onclick="showView('heist')"><div class="cat-d-glow"></div><div class="cat-d-icon">📋</div><div class="cat-d-name">Heist Blueprints</div><div class="cat-d-count">48 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:35%"></div></div></div>
+      <div class="cat-d cg4" onclick="showView('cheat')"><div class="cat-d-glow"></div><div class="cat-d-icon">🔑</div><div class="cat-d-name">Cheat Codes</div><div class="cat-d-count">All verified</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:80%"></div></div></div>
+      <div class="cat-d cg5" onclick="showView('online')"><div class="cat-d-glow"></div><div class="cat-d-icon">🌐</div><div class="cat-d-name">Online Multiplayer</div><div class="cat-d-count">41 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:5%"></div></div></div>
+      <div class="cat-d cg6" onclick="showView('builds')"><div class="cat-d-glow"></div><div class="cat-d-icon">🎯</div><div class="cat-d-name">Builds &amp; Weapons</div><div class="cat-d-count">38 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:18%"></div></div></div>
+      <div class="cat-d cg7" onclick="showView('easter')"><div class="cat-d-glow"></div><div class="cat-d-icon">🥚</div><div class="cat-d-name">Easter Eggs</div><div class="cat-d-count">29 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:55%"></div></div></div>
+      <div class="cat-d cg8" onclick="showView('properties')"><div class="cat-d-glow"></div><div class="cat-d-icon">🏠</div><div class="cat-d-name">Properties</div><div class="cat-d-count">24 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:8%"></div></div></div>
+      <div class="cat-d cg9" onclick="showView('vehicles')"><div class="cat-d-glow"></div><div class="cat-d-icon">🚗</div><div class="cat-d-name">Vehicles</div><div class="cat-d-count">36 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:22%"></div></div></div>
+      <div class="cat-d cg10" onclick="showView('wanted')"><div class="cat-d-glow"></div><div class="cat-d-icon">⭐</div><div class="cat-d-name">Wanted Level</div><div class="cat-d-count">18 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:44%"></div></div></div>
+      <div class="cat-d cg11" onclick="showView('pro')"><div class="cat-d-glow"></div><div class="cat-d-icon">🎬</div><div class="cat-d-name">Pro Plays</div><div class="cat-d-count">22 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:9%"></div></div></div>
+      <!-- Upgrade locked card -->
+      <div class="cat-d" style="position:relative"><div class="cat-d-icon">💎</div><div class="cat-d-name" style="color:var(--muted)">Elite Extras</div><div class="cat-d-count">Custom requests</div><div class="locked-overlay"><span class="lock-badge">🔒 Elite only</span></div></div>
+    </div>
+
+    <!-- RECENT GUIDES -->
+    <div class="section-hd"><h2>Continue reading</h2><span class="see-all">See all →</span></div>
+    <div class="recent-grid">
+      <div class="guide-card" onclick="showArticle()">
+        <div class="gc-thumb gt1"><span class="gc-thumb-word">HEIST</span></div>
+        <div class="gc-body">
+          <div class="gc-cat">Heist Blueprint</div>
+          <div class="gc-title">Vice City Bank Job: Silent approach — $4.2M max take</div>
+          <div class="gc-meta"><span class="gc-new">New</span><span>14 min read</span></div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="gc-thumb gt2"><span class="gc-thumb-word">MONEY</span></div>
+        <div class="gc-body">
+          <div class="gc-cat">Money Meta</div>
+          <div class="gc-title">$800K/hr farm route — no heist required</div>
+          <div class="gc-meta"><span class="gc-new">New</span><span>8 min read</span></div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="gc-thumb gt3"><span class="gc-thumb-word">CARS</span></div>
+        <div class="gc-body">
+          <div class="gc-cat">Vehicles</div>
+          <div class="gc-title">Top 15 fastest cars in GTA 6 — speed ranked</div>
+          <div class="gc-meta"><span>7 min read</span></div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="gc-thumb gt4"><span class="gc-thumb-word">EGGS</span></div>
+        <div class="gc-body">
+          <div class="gc-cat">Easter Eggs</div>
+          <div class="gc-title">23 Easter eggs in Leonida — all locations confirmed</div>
+          <div class="gc-meta"><span>10 min read</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHEAT QUICK REF -->
+    <div class="section-hd"><h2>Cheat quick reference</h2><span class="see-all" onclick="showView('cheat')">Full vault →</span></div>
+    <div class="cheat-ref">
+      <div class="cheat-hd"><h3>Top cheats — PS5</h3><span class="see-all" onclick="showView('cheat')" style="font-size:.68rem">See all 52 →</span></div>
+      <div class="cheat-grid">
+        <div class="cheat-item"><span class="cheat-name">Full Health &amp; Armor</span><span class="cheat-code">R1 R2 L1 △ ↓ ↑ ↓ ↑</span></div>
+        <div class="cheat-item"><span class="cheat-name">Weapons Set 1</span><span class="cheat-code">△ R2 ← L1 X → △ ↓ □</span></div>
+        <div class="cheat-item"><span class="cheat-name">Clear Wanted Level</span><span class="cheat-code">R1 R1 ○ R2 → ← → ← → ←</span></div>
+        <div class="cheat-item"><span class="cheat-name">Spawn Supercar</span><span class="cheat-code">R2 ○ R1 L2 ← R1 L1 R2 R2</span></div>
+        <div class="cheat-item"><span class="cheat-name">Invincibility</span><span class="cheat-code">→ X → ← → R1 → ← X △</span></div>
+        <div class="cheat-item"><span class="cheat-name">Lower Wanted Level</span><span class="cheat-code">R1 R1 ○ R2 ↑ ↓ ↑ ↓ ↑ ↓</span></div>
+      </div>
+    </div>
+
+    <!-- MY PROGRESS -->
+    <div class="section-hd"><h2>Your progress</h2></div>
+    <div class="progress-sec">
+      <div class="prog-items">
+        <div class="prog-item"><span class="prog-name">Story Mode</span><div class="prog-bar-wrap"><div class="prog-fill p1" style="width:0" data-w="12"></div></div><span class="prog-pct">12%</span></div>
+        <div class="prog-item"><span class="prog-name">Heist Blueprints</span><div class="prog-bar-wrap"><div class="prog-fill p2" style="width:0" data-w="35"></div></div><span class="prog-pct">35%</span></div>
+        <div class="prog-item"><span class="prog-name">Money Meta</span><div class="prog-bar-wrap"><div class="prog-fill p3" style="width:0" data-w="28"></div></div><span class="prog-pct">28%</span></div>
+        <div class="prog-item"><span class="prog-name">Easter Eggs</span><div class="prog-bar-wrap"><div class="prog-fill p4" style="width:0" data-w="55"></div></div><span class="prog-pct">55%</span></div>
+        <div class="prog-item"><span class="prog-name">Cheat Codes</span><div class="prog-bar-wrap"><div class="prog-fill p5" style="width:0" data-w="80"></div></div><span class="prog-pct">80%</span></div>
+      </div>
+    </div>
+
+  </div><!-- /dashboard view -->
+
+  <!-- WEEKLY DROP VIEW -->
+  <div class="dash-content" id="view-weekly" style="display:none">
+    <div class="week-banner" style="margin-bottom:2rem">
+      <div class="wb-left"><div class="wb-badge">📅 This week</div><div><div class="wb-title">Thursday Drop — Week of June 26, 2025</div><div class="wb-sub">5 new guides across Heists, Money Meta, and Vehicles</div></div></div>
+    </div>
+    <div class="drop-section">
+      <div class="drop-header"><h3>New this week</h3><span style="font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Jun 26, 2025</span></div>
+      <div class="drop-list">
+        <div class="drop-item" onclick="showArticle()"><div class="di-num">01</div><div class="di-icon ic1">📋</div><div class="di-body"><div class="di-cat">Heist Blueprint</div><div class="di-title">Vice City Bank Job — Silent approach, $4.2M max take complete guide</div><div class="di-meta">New · 14 min read · Just dropped</div></div><span class="di-arrow">→</span></div>
+        <div class="drop-item"><div class="di-num">02</div><div class="di-icon ic2">💰</div><div class="di-body"><div class="di-cat">Money Meta</div><div class="di-title">$800K/hr passive farm: business stacking method fully explained</div><div class="di-meta">New · 8 min read · Just dropped</div></div><span class="di-arrow">→</span></div>
+        <div class="drop-item"><div class="di-num">03</div><div class="di-icon ic3">🚗</div><div class="di-body"><div class="di-cat">Vehicles</div><div class="di-title">Top 5 new vehicles added in the latest GTA 6 update — ranked by class</div><div class="di-meta">New · 6 min read · Just dropped</div></div><span class="di-arrow">→</span></div>
+        <div class="drop-item"><div class="di-num">04</div><div class="di-icon ic4">🌐</div><div class="di-body"><div class="di-cat">Online Multiplayer</div><div class="di-title">Cargo war tactics that actually work in 2025 lobbies — updated meta</div><div class="di-meta">Updated · 10 min read</div></div><span class="di-arrow">→</span></div>
+        <div class="drop-item"><div class="di-num">05</div><div class="di-icon ic5">⭐</div><div class="di-body"><div class="di-cat">Wanted Level</div><div class="di-title">New 5-star escape route discovered in the Port district — confirmed working</div><div class="di-meta">New · 5 min read · Community find</div></div><span class="di-arrow">→</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHEAT CODE VIEW -->
+  <div class="dash-content" id="view-cheat" style="display:none">
+    <div class="cheat-ref" style="margin-bottom:2rem">
+      <div class="cheat-hd"><h3>All Cheat Codes — PS5</h3></div>
+      <div class="cheat-grid">
+        <div class="cheat-item"><span class="cheat-name">Full Health &amp; Armor</span><span class="cheat-code">R1 R2 L1 △ ↓ ↑ ↓ ↑</span></div>
+        <div class="cheat-item"><span class="cheat-name">Weapons Set 1</span><span class="cheat-code">△ R2 ← L1 X → △ ↓ □</span></div>
+        <div class="cheat-item"><span class="cheat-name">Weapons Set 2</span><span class="cheat-code">R1 R2 L1 R2 ← ↓ → ↑ ← ↓</span></div>
+        <div class="cheat-item"><span class="cheat-name">Clear Wanted Level</span><span class="cheat-code">R1 R1 ○ R2 → ← → ← → ←</span></div>
+        <div class="cheat-item"><span class="cheat-name">Lower Wanted Level</span><span class="cheat-code">R1 R1 ○ R2 ↑ ↓ ↑ ↓ ↑ ↓</span></div>
+        <div class="cheat-item"><span class="cheat-name">Raise Wanted Level</span><span class="cheat-code">R1 R1 ○ R2 ← → ← → ← →</span></div>
+        <div class="cheat-item"><span class="cheat-name">Invincibility</span><span class="cheat-code">→ X → ← → R1 → ← X △</span></div>
+        <div class="cheat-item"><span class="cheat-name">Spawn Supercar</span><span class="cheat-code">R2 ○ R1 L2 ← R1 L1 R2 R2</span></div>
+        <div class="cheat-item"><span class="cheat-name">Spawn Motorcycle</span><span class="cheat-code">△ △ ← → ← R1 L1 ← →</span></div>
+        <div class="cheat-item"><span class="cheat-name">Spawn Helicopter</span><span class="cheat-code">○ ○ L1 ○ ○ ○ L1 L2 R1 △</span></div>
+        <div class="cheat-item"><span class="cheat-name">Spawn Boat</span><span class="cheat-code">R2 ○ R1 L2 L2 R1 R1 △ ○</span></div>
+        <div class="cheat-item"><span class="cheat-name">Wanted: 6 Stars</span><span class="cheat-code">○ R1 ○ R1 ← ← R1 L1 ○ →</span></div>
+      </div>
+    </div>
+    <div class="cheat-ref">
+      <div class="cheat-hd"><h3>All Cheat Codes — Xbox</h3></div>
+      <div class="cheat-grid">
+        <div class="cheat-item"><span class="cheat-name">Full Health &amp; Armor</span><span class="cheat-code">RB RT LB Y ↓ ↑ ↓ ↑</span></div>
+        <div class="cheat-item"><span class="cheat-name">Weapons Set 1</span><span class="cheat-code">Y RT ← LB A → Y ↓ X</span></div>
+        <div class="cheat-item"><span class="cheat-name">Clear Wanted Level</span><span class="cheat-code">RB RB B RT → ← → ← → ←</span></div>
+        <div class="cheat-item"><span class="cheat-name">Invincibility</span><span class="cheat-code">→ A → ← → RB → ← A Y</span></div>
+        <div class="cheat-item"><span class="cheat-name">Spawn Supercar</span><span class="cheat-code">RT B RB LT ← RB LB RT RT</span></div>
+        <div class="cheat-item"><span class="cheat-name">Spawn Helicopter</span><span class="cheat-code">B B LB B B B LB LT RB Y</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERIC SECTION VIEW -->
+  <div class="dash-content" id="view-section" style="display:none">
+    <div class="section-hd"><h2 id="section-title">Section</h2></div>
+    <div class="bgrid" id="section-guides" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem"></div>
+  </div>
+
+  <!-- ARTICLE VIEW -->
+  <div class="art-view" id="view-article">
+    <div class="art-back" onclick="showView('dashboard')">← Back to dashboard</div>
+    <div class="av-meta"><span class="av-cat">Heist Blueprints</span><span>/</span><span>June 2025</span><span>/</span><span>14 min read</span></div>
+    <h1 class="av-h1">Vice City Bank Job: Complete Blueprint — Silent Approach, $4.2M Max Take</h1>
+    <p class="av-lead">Walk away with $4.2M on your first attempt. Every entry point, guard patrol window, vault bypass route, and crew setup that delivers 100% take without firing a single shot.</p>
+    <div class="av-body">
+      <h2>Overview &amp; approach options</h2>
+      <p>The Vice City Bank Job is the flagship heist of GTA 6's Online mode, unlocked at Reputation Level 12. It supports 2–4 players and offers three approaches: Silent &amp; Sneaky, Big Con, and Aggressive. This blueprint covers Silent &amp; Sneaky in full — it's the highest-paying approach at $4.2M max take and the hardest to execute without guidance.</p>
+      <div class="av-tipbox"><div class="av-tipbox-l">Vice Vault tip</div><p>Always do prep missions on a Wednesday in-game — fewer random NPCs trigger during rain weather, and two of the three prep targets spawn closer to your base.</p></div>
+      <h2>Prep missions (complete in this order)</h2>
+      <ol class="av-steps">
+        <li>Steal the Security Pass from the Valence Hotel valet — approach as a guest, not a thief. Wearing civilian clothes matters here.</li>
+        <li>Acquire the Vault Keycard from Merryweather Security. Three guards. Two can be avoided entirely by entering from the loading dock entrance on the east side.</li>
+        <li>Scout the bank using the drone purchased from the Maze Bank foreclosure listing — this unlocks the secondary vault route we cover below.</li>
+      </ol>
+      <h2>Guard patrol timing</h2>
+      <p>The bank has 9 guards in total on the Silent approach. Only 4 need to be dealt with — the remaining 5 never cover the route we use. Guard rotation cycles every 4 minutes. The east wing guard changes at minute 2 and minute 6 — this is your window to cross without triggering the second camera sweep.</p>
+      <div class="av-tipbox"><div class="av-tipbox-l">Key window</div><p>The vault room guard leaves his post at exactly 2 minutes 18 seconds into each rotation to check the bathroom. You have 46 seconds to enter, start the drill, and position before he returns.</p></div>
+      <h2>The hidden secondary vault</h2>
+      <p>Most players hit the main vault for $2.8M and leave. The secondary vault — accessed through the maintenance corridor on sub-level 2 — holds an additional $1.4M in bearer bonds. This is what gets you to the $4.2M max take. The entrance is behind a shelving unit that looks non-interactive. Push it with the interact button while crouching.</p>
+      <h2>Crew composition (optimal)</h2>
+      <ol class="av-steps">
+        <li>Hacker (you or best player) — needs at least 80 hacking skill. Faster vault crack = more time for secondary vault.</li>
+        <li>Gunman — carry suppressed weapons only. Loud weapons during the silent approach are mission-fail.</li>
+        <li>Driver — wait at the east service exit, not the front. Police response time is 40 seconds slower from the east.</li>
+        <li>Optional 4th — secondary vault runner. Solo-able but a 4th player doubles your secondary take speed.</li>
+      </ol>
+      <h2>Extraction route</h2>
+      <p>Do not use the main entrance. Exit through the service corridor to the alley, turn left at the dumpsters, and reach the driver at the east exit. The first 60 seconds after vault breach are your window — police dispatch takes 90 seconds if you've been clean throughout.</p>
+      <div class="av-code-box">🔑 Safe room code: changes daily — use the Vice Vault code generator in the Cheat Vault section</div>
+      <h2>Max take breakdown</h2>
+      <p>Main vault: $2.8M base. Secondary vault bonds: $1.4M. Total before cuts: $4.2M. With a 4-player crew using this setup, your personal cut is $1.05M per run. On Hard difficulty, the base scales to $5.1M — secondary vault becomes $1.7M for a $6.8M total.</p>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// VIEWS
+const views={dashboard:'Dashboard',weekly:'Weekly Drop',cheat:'Cheat Codes',story:'Story Mode',heist:'Heist Blueprints',money:'Money Meta',online:'Online Multiplayer',builds:'Builds & Weapons',easter:'Easter Eggs',properties:'Properties & Investments',vehicles:'Vehicles',wanted:'Wanted Level',pro:'Pro Plays'};
+const subs={dashboard:'Welcome back, Nazim',weekly:'Thursday drop — 5 new guides',cheat:'All verified codes — PS5 & Xbox',heist:'Step-by-step blueprints + hidden routes'};
+
+function showView(v){
+  // hide all
+  document.querySelectorAll('[id^="view-"]').forEach(el=>el.style.display='none');
+  // highlight sidebar
+  document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
+  // update topbar
+  document.getElementById('pageTitle').textContent=views[v]||v;
+  document.getElementById('pageSub').textContent=subs[v]||'Browse all guides in this section';
+
+  if(v==='dashboard'){
+    document.getElementById('view-dashboard').style.display='block';
+    animProgress();
+  } else if(v==='weekly'){
+    document.getElementById('view-weekly').style.display='block';
+  } else if(v==='cheat'){
+    document.getElementById('view-cheat').style.display='block';
+  } else {
+    // generic section
+    const sv=document.getElementById('view-section');
+    sv.style.display='block';
+    document.getElementById('section-title').textContent=views[v]||v;
+    renderSectionGuides(v);
+  }
+  document.querySelector('.main').scrollTo({top:0,behavior:'smooth'});
+}
+
+function showArticle(){
+  document.querySelectorAll('[id^="view-"]').forEach(el=>el.style.display='none');
+  document.getElementById('view-article').style.display='block';
+  document.getElementById('pageTitle').textContent='Vice City Bank Job';
+  document.getElementById('pageSub').textContent='Heist Blueprint · 14 min read';
+  document.querySelector('.main').scrollTo({top:0,behavior:'smooth'});
+}
+
+// Section guide data
+const guideData={
+  story:[
+    {cat:'Story Mode',title:'GTA 6 story missions in order — full walkthrough part 1',meta:'12 min · Chapter 1'},
+    {cat:'Story Mode',title:'All GTA 6 story endings — how to unlock each one',meta:'8 min · Endgame'},
+    {cat:'Story Mode',title:'Hidden dialogue choices that affect your playthrough',meta:'6 min · Tips'},
+    {cat:'Story Mode',title:'Best order to do side missions for max money early',meta:'10 min · Strategy'},
+    {cat:'Story Mode',title:'All collectibles in story mode — locations mapped',meta:'15 min · 100%'},
+    {cat:'Story Mode',title:'The missable missions guide — don\'t lock yourself out',meta:'7 min · Warning'},
+  ],
+  heist:[
+    {cat:'Blueprint',title:'Vice City Bank Job — Silent approach $4.2M max take',meta:'14 min · New'},
+    {cat:'Blueprint',title:'Airport Raid — all 3 approaches + $3.1M breakdown',meta:'16 min · Hard'},
+    {cat:'Blueprint',title:'Cargo Ship Takeover — hidden vault route + $2.2M',meta:'12 min · Medium'},
+    {cat:'Blueprint',title:'Mansion Heist — solo guide, all escape routes mapped',meta:'11 min · Solo'},
+    {cat:'Blueprint',title:'Casino Job — Big Con vs Silent approaches compared',meta:'14 min · Popular'},
+    {cat:'Blueprint',title:'Port Takeover — crew of 4 max take $3.8M strategy',meta:'13 min · Online'},
+  ],
+  money:[
+    {cat:'Money Meta',title:'$800K/hr passive: business stacking method explained',meta:'8 min · New'},
+    {cat:'Money Meta',title:'Best businesses to buy and in what order — ROI ranked',meta:'10 min · Beginner'},
+    {cat:'Money Meta',title:'Stock market manipulation guide — legal in-game method',meta:'12 min · Advanced'},
+    {cat:'Money Meta',title:'Daily objectives that pay $50K+ — complete list',meta:'5 min · Quick'},
+    {cat:'Money Meta',title:'Property investment timing — buy low, sell high guide',meta:'9 min · Strategy'},
+    {cat:'Money Meta',title:'Passive income setup: $200K/hr while offline',meta:'11 min · Setup'},
+  ],
+  online:[
+    {cat:'Online',title:'GTA Online for GTA 6 — first 30 days complete guide',meta:'18 min · Starter'},
+    {cat:'Online',title:'Cargo war tactics that work in 2025 lobbies',meta:'10 min · PvP'},
+    {cat:'Online',title:'Best crew compositions for every heist type',meta:'12 min · Team'},
+    {cat:'Online',title:'Griefing prevention — keep your cargo safe every time',meta:'8 min · Defense'},
+    {cat:'Online',title:'Rank levelling fastest route — Level 1 to 100 guide',meta:'14 min · Grind'},
+    {cat:'Online',title:'Best money-making businesses in GTA Online ranked',meta:'9 min · Income'},
+  ],
+  vehicles:[
+    {cat:'Vehicles',title:'Top 15 fastest cars in GTA 6 — speed tested & ranked',meta:'7 min · Rankings'},
+    {cat:'Vehicles',title:'Best car for each heist type — handling vs speed guide',meta:'8 min · Heist'},
+    {cat:'Vehicles',title:'Hidden vehicle locations — 8 free supercars to grab',meta:'6 min · Free'},
+    {cat:'Vehicles',title:'Car modification guide — upgrades that actually matter',meta:'10 min · Tuning'},
+    {cat:'Vehicles',title:'Motorcycle builds for wanted level escape — ranked',meta:'5 min · Escape'},
+    {cat:'Vehicles',title:'Best aircraft for every situation — helicopters & planes',meta:'8 min · Air'},
+  ],
+  easter:[
+    {cat:'Easter Egg',title:'23 confirmed Easter eggs in Leonida — all locations',meta:'10 min · Complete'},
+    {cat:'Easter Egg',title:'The alien encounter at coordinates 412.7 — how to trigger',meta:'5 min · Rare'},
+    {cat:'Easter Egg',title:'Hidden developer messages found in game files',meta:'7 min · Deep'},
+    {cat:'Easter Egg',title:'Secret missions unlocked by specific story choices',meta:'9 min · Story'},
+    {cat:'Easter Egg',title:'The mural that changes with weather — full breakdown',meta:'6 min · Visual'},
+    {cat:'Easter Egg',title:'All hidden packages — locations & rewards guide',meta:'12 min · Collectibles'},
+  ],
+  builds:[
+    {cat:'Build',title:'Best gunman build for heists — weapons & stats ranked',meta:'10 min · Popular'},
+    {cat:'Build',title:'Stealth character build — max sneaking efficiency',meta:'8 min · Sneaky'},
+    {cat:'Build',title:'Best hacker build — skill priority & equipment guide',meta:'9 min · Support'},
+    {cat:'Build',title:'Weapon upgrade priority — what to buy first with $50K',meta:'6 min · Beginner'},
+    {cat:'Build',title:'Driver build — best skills for getaway efficiency',meta:'7 min · Escape'},
+    {cat:'Build',title:'Tank build — best armor, health & heavy weapon setup',meta:'8 min · Aggro'},
+  ],
+  properties:[
+    {cat:'Properties',title:'GTA 6 property investment guide — ROI ranked',meta:'9 min · Strategy'},
+    {cat:'Properties',title:'When to buy each property — story timing guide',meta:'8 min · Timing'},
+    {cat:'Properties',title:'Passive income from properties — $200K/day setup',meta:'10 min · Income'},
+    {cat:'Properties',title:'Which safehouse location is best for each mission',meta:'6 min · Practical'},
+  ],
+  wanted:[
+    {cat:'Wanted Level',title:'5-star escape routes — best by district',meta:'8 min · Escape'},
+    {cat:'Wanted Level',title:'Police AI patterns — how cops actually think in GTA 6',meta:'10 min · Deep'},
+    {cat:'Wanted Level',title:'Best hiding spots for every wanted level',meta:'7 min · Survival'},
+    {cat:'Wanted Level',title:'New Port district escape route discovered',meta:'5 min · New'},
+  ],
+  pro:[
+    {cat:'Pro Plays',title:'Insane stunt locations in Vice City — 12 confirmed',meta:'8 min · Stunts'},
+    {cat:'Pro Plays',title:'Speedrun route for story mode — current WR strategy',meta:'12 min · Speed'},
+    {cat:'Pro Plays',title:'Trick shot gallery — 8 insane shots with instructions',meta:'9 min · Skill'},
+    {cat:'Pro Plays',title:'No-damage playthrough guide — full story',meta:'14 min · Challenge'},
+  ]
+};
+
+function renderSectionGuides(v){
+  const grid=document.getElementById('section-guides');
+  const guides=guideData[v]||[];
+  grid.innerHTML=guides.map(g=>`
+    <div onclick="showArticle()" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .2s,transform .2s" onmouseenter="this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
+      <div style="height:100px;background:var(--card);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.16em;color:var(--gold);border-bottom:1px solid var(--border)">${g.cat.toUpperCase()}</div>
+      <div style="padding:1rem 1.1rem 1.2rem;flex:1;display:flex;flex-direction:column">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;line-height:1.3;color:var(--white);flex:1;margin-bottom:.7rem">${g.title}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">${g.meta}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// PROGRESS BARS
+function animProgress(){
+  setTimeout(()=>{
+    document.querySelectorAll('.prog-fill').forEach(el=>{
+      el.style.width=el.dataset.w+'%';
+    });
+  },300);
+}
+animProgress();
+</script>
+<script src="vv-global.js"></script>
+</body>
+</html>

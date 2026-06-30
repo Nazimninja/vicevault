@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Vice Vault — GTA 6 Intelligence Hub</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;
+  --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+  --red:#c0281e;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* NOISE */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.022}
+
+/* BG */
+.page-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 20%,rgba(212,163,50,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 10% 80%,rgba(255,61,110,.08) 0%,transparent 55%),
+    linear-gradient(180deg,#030308 0%,#07070f 100%)}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);
+  background-size:70px 70px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:66px;background:rgba(3,3,8,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
+.logo-v{color:var(--gold)}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+.nav-back{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.4rem;transition:color .2s}
+.nav-back:hover{color:var(--white)}
+
+/* MAIN WRAPPER */
+.wrapper{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:100px 1.5rem 60px}
+
+/* STEP FLOW */
+.steps-bar{display:flex;align-items:center;gap:0;margin-bottom:3rem}
+.step{display:flex;align-items:center;gap:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.step.active{color:var(--gold)}
+.step.done{color:var(--teal)}
+.step-n{width:24px;height:24px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0}
+.step.done .step-n{background:var(--teal);border-color:var(--teal);color:var(--ink)}
+.step.active .step-n{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.step-connector{width:40px;height:1px;background:var(--border2);margin:0 .5rem}
+
+/* TIER SELECTOR (STEP 1) */
+.tier-section{width:100%;max-width:820px;animation:fadeUp .6s ease forwards}
+.section-eye{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:.6rem}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:.04em;text-align:center;margin-bottom:.5rem}
+.section-sub{font-size:.9rem;color:var(--muted);text-align:center;margin-bottom:2.5rem;line-height:1.7}
+
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2rem}
+.tier-card{background:var(--surface);border:1.5px solid var(--border);border-radius:6px;padding:1.8rem 1.6rem;cursor:pointer;transition:border-color .25s,transform .2s,background .2s;position:relative;display:flex;flex-direction:column}
+.tier-card:hover{border-color:var(--border2);background:var(--card);transform:translateY(-2px)}
+.tier-card.selected{border-color:var(--gold);background:var(--card)}
+.tier-card.selected .tier-check{opacity:1;transform:scale(1)}
+.tier-popular{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.22rem 1rem;border-radius:0 0 4px 4px}
+.tier-check{position:absolute;top:.9rem;right:.9rem;width:22px;height:22px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--ink);font-weight:900;opacity:0;transform:scale(.5);transition:opacity .2s,transform .2s}
+.tier-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em;color:var(--gold);margin-bottom:.2rem}
+.tier-tagline{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem}
+.tier-price{display:flex;align-items:baseline;gap:.2rem;margin-bottom:.2rem}
+.tier-cur{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--muted)}
+.tier-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--white);line-height:1}
+.tier-per{font-size:.74rem;color:var(--muted);margin-bottom:1.5rem}
+.tier-save{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem}
+.tier-feats{list-style:none;display:flex;flex-direction:column;gap:.6rem;flex:1}
+.tier-feats li{display:flex;align-items:flex-start;gap:.55rem;font-size:.82rem;color:var(--white)}
+.tier-feats li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:1px}
+.tier-feats li.no{color:var(--muted);opacity:.45}
+.tier-feats li.no::before{content:'×';color:var(--dim)}
+
+.tier-continue{display:block;width:100%;max-width:360px;margin:0 auto;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:3px;border:none;cursor:pointer;text-align:center;transition:background .2s,transform .15s,box-shadow .2s}
+.tier-continue:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,163,50,.3)}
+.tier-continue:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* FORM (STEP 2) */
+.form-section{width:100%;max-width:480px;animation:fadeUp .6s ease forwards}
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2.2rem;margin-bottom:1.5rem}
+.fc-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between}
+.fc-badge{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:rgba(212,163,50,.1);color:var(--gold);border:1px solid rgba(212,163,50,.25);padding:.22rem .7rem;border-radius:2px}
+
+.field{margin-bottom:1.2rem}
+.field label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
+.field input,.field select{width:100%;background:var(--card);border:1px solid var(--border2);color:var(--white);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.85rem 1rem;border-radius:3px;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none}
+.field input::placeholder{color:var(--dim)}
+.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,163,50,.1)}
+.field input.error{border-color:var(--red)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.field-err{font-size:.75rem;color:var(--red);margin-top:.35rem;display:none}
+.field input.error+.field-err{display:block}
+.field-hint{font-size:.74rem;color:var(--muted);margin-top:.35rem}
+
+.pass-wrap{position:relative}
+.pass-wrap input{padding-right:3rem}
+.pass-toggle{position:absolute;right:.9rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;transition:color .2s}
+.pass-toggle:hover{color:var(--white)}
+
+.strength-bar{height:3px;background:var(--dim);border-radius:2px;margin-top:.5rem;overflow:hidden}
+.strength-fill{height:100%;border-radius:2px;transition:width .3s,background .3s;width:0}
+
+.divider-or{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.social-btns{display:flex;gap:.75rem}
+.social-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:.6rem;background:var(--card);border:1px solid var(--border2);color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1rem;border-radius:3px;cursor:pointer;transition:border-color .2s,background .2s}
+.social-btn:hover{border-color:var(--border2);background:var(--lift)}
+.social-icon{font-size:1rem}
+
+/* PAYMENT (STEP 3) */
+.pay-section{width:100%;max-width:480px;animation:fadeUp .6s ease forwards}
+.order-summary{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.4rem;margin-bottom:1.2rem}
+.os-title{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.os-row{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid var(--border);font-size:.88rem}
+.os-row:last-child{border:none;padding-top:.7rem;font-weight:700}
+.os-label{color:var(--muted)}
+.os-val{color:var(--white)}
+.os-total-val{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--gold)}
+
+.payment-methods{display:flex;gap:.75rem;margin-bottom:1.5rem}
+.pm{flex:1;background:var(--card);border:1.5px solid var(--border);border-radius:4px;padding:.8rem;text-align:center;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:all .2s}
+.pm:hover{border-color:var(--border2);color:var(--white)}
+.pm.active{border-color:var(--gold);color:var(--gold);background:rgba(212,163,50,.06)}
+.pm-icon{font-size:1.2rem;display:block;margin-bottom:.3rem}
+
+.card-field{background:var(--card);border:1px solid var(--border2);border-radius:3px;padding:.85rem 1rem;color:var(--white);font-family:'Barlow',sans-serif;font-size:.9rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+.card-field-placeholder{color:var(--dim)}
+.card-icons{display:flex;gap:.4rem;font-size:.8rem}
+
+.upi-field{width:100%;background:var(--card);border:1px solid var(--border2);color:var(--white);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.85rem 1rem;border-radius:3px;outline:none;transition:border-color .2s;margin-bottom:1rem}
+.upi-field:focus{border-color:var(--gold)}
+.upi-field::placeholder{color:var(--dim)}
+
+.upi-apps{display:flex;gap:.6rem;margin-bottom:1rem}
+.upi-app{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:.5rem .8rem;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .2s}
+.upi-app:hover{border-color:var(--gold);color:var(--gold)}
+
+.secure-note{display:flex;align-items:center;gap:.5rem;font-size:.76rem;color:var(--muted);margin-bottom:1.2rem}
+.secure-note .lock{color:var(--teal)}
+
+.pay-btn{width:100%;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem;border-radius:3px;border:none;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.6rem}
+.pay-btn:hover{background:var(--gold2);transform:translateY(-1px)}
+.pay-btn.loading{opacity:.7;pointer-events:none}
+
+.pay-terms{font-size:.72rem;color:var(--muted);text-align:center;margin-top:.9rem;line-height:1.6}
+.pay-terms a{color:var(--gold);text-decoration:underline}
+
+/* SUCCESS (STEP 4) */
+.success-section{width:100%;max-width:480px;text-align:center;animation:fadeUp .7s ease forwards}
+.success-icon{font-size:4rem;margin-bottom:1.2rem;animation:pop .5s .2s both}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.06em;margin-bottom:.6rem}
+.success-sub{font-size:.95rem;color:var(--muted);line-height:1.8;max-width:360px;margin:0 auto 2rem}
+.success-features{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.4rem;margin-bottom:2rem;text-align:left}
+.sf-title{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.sf-item{display:flex;align-items:flex-start;gap:.7rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.86rem;color:var(--white)}
+.sf-item:last-child{border:none}
+.sf-item::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+.btn-dash{display:block;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem;border-radius:3px;text-align:center;transition:background .2s,transform .15s}
+.btn-dash:hover{background:var(--gold2);transform:translateY(-2px)}
+
+/* LOGIN CARD */
+.login-section{width:100%;max-width:420px;animation:fadeUp .6s ease forwards}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2.2rem}
+.lc-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.08em;margin-bottom:.3rem}
+.lc-sub{font-size:.84rem;color:var(--muted);margin-bottom:2rem}
+.lc-foot{text-align:center;margin-top:1.2rem;font-size:.8rem;color:var(--muted)}
+.lc-foot a{color:var(--gold)}
+.forgot{display:block;text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.3rem;margin-bottom:1rem;transition:color .2s}
+.forgot:hover{color:var(--gold)}
+
+/* TRUST BADGES */
+.trust-bar{display:flex;gap:1.5rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.trust-item{display:flex;align-items:center;gap:.4rem;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+.btn-g{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;border-radius:2px;border:none;cursor:pointer;transition:background .2s,transform .15s}
+.btn-g:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:border-color .2s,background .2s}
+.btn-o:hover{border-color:var(--gold);background:rgba(212,163,50,.07)}
+
+@media(max-width:700px){.tier-grid{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.payment-methods{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+<div class="bg-grid"></div>
+
+<nav>
+  <div class="nav-logo"><span class="logo-v">VICE</span>VAULT<span class="nav-dot"></span></div>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<div class="wrapper">
+
+  <!-- STEPS BAR -->
+  <div class="steps-bar" id="stepsBar">
+    <div class="step active" id="step1-ind"><div class="step-n">1</div>Choose tier</div>
+    <div class="step-connector"></div>
+    <div class="step" id="step2-ind"><div class="step-n">2</div>Create account</div>
+    <div class="step-connector"></div>
+    <div class="step" id="step3-ind"><div class="step-n">3</div>Payment</div>
+    <div class="step-connector"></div>
+    <div class="step" id="step4-ind"><div class="step-n">4</div>Access granted</div>
+  </div>
+
+  <!-- STEP 1: TIER SELECT -->
+  <div id="step1" class="tier-section">
+    <div class="section-eye">Step 1 of 3</div>
+    <h1 class="section-title">Choose your tier</h1>
+    <p class="section-sub">No free tier. Real intel has real value. Cancel anytime — no questions asked.</p>
+
+    <div class="tier-grid">
+      <!-- SOLDIER -->
+      <div class="tier-card" id="tc-199" onclick="selectTier(199,'Soldier')">
+        <div class="tier-check">✓</div>
+        <div class="tier-name">Soldier</div>
+        <div class="tier-tagline">Essential access for casual players</div>
+        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">199</span></div>
+        <div class="tier-per">per month · cancel anytime</div>
+        <ul class="tier-feats">
+          <li>10 heist blueprints per month</li>
+          <li>Full cheat code vault (all platforms)</li>
+          <li>Weekly money meta summary</li>
+          <li>Basic story mission walkthroughs</li>
+          <li>Wanted level escape guides</li>
+          <li class="no">Unlimited guide access</li>
+          <li class="no">Hidden route unlocks</li>
+          <li class="no">Discord crew access</li>
+        </ul>
+      </div>
+
+      <!-- VAULT PRO -->
+      <div class="tier-card selected" id="tc-499" onclick="selectTier(499,'Vault Pro')">
+        <div class="tier-popular">Best value</div>
+        <div class="tier-check" style="opacity:1;transform:scale(1)">✓</div>
+        <div class="tier-name">Vault Pro</div>
+        <div class="tier-tagline">For players who want every edge</div>
+        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">499</span></div>
+        <div class="tier-per">per month · cancel anytime</div>
+        <div class="tier-save">⭐ 80% of members choose this</div>
+        <ul class="tier-feats">
+          <li>Unlimited access to all 11 sections</li>
+          <li>Full heist blueprints + hidden routes</li>
+          <li>Weekly money meta deep-dives</li>
+          <li>Full story walkthrough vault</li>
+          <li>Vehicle speed tests & tuning guides</li>
+          <li>Online multiplayer strategy</li>
+          <li>Properties & investment ROI rankings</li>
+          <li>Priority Discord crew channel</li>
+        </ul>
+      </div>
+
+      <!-- ELITE -->
+      <div class="tier-card" id="tc-1199" onclick="selectTier(1199,'Elite Crew')">
+        <div class="tier-check">✓</div>
+        <div class="tier-name">Elite Crew</div>
+        <div class="tier-tagline">Annual — maximum value + perks</div>
+        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">1199</span></div>
+        <div class="tier-per">per year — saves ₹4,789</div>
+        <ul class="tier-feats">
+          <li>Everything in Vault Pro</li>
+          <li>Custom blueprint requests (2/month)</li>
+          <li>Early access — guides before public</li>
+          <li>Monthly live strategy session</li>
+          <li>Private Elite Discord channel</li>
+          <li>Founding member badge</li>
+          <li>Direct line to our analysts</li>
+          <li>Weekly personal meta briefing</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="tier-continue" id="tierContinue" onclick="goStep(2)">Continue with Vault Pro — ₹499/mo →</button>
+
+    <div class="trust-bar">
+      <div class="trust-item">🔒 Secure checkout</div>
+      <div class="trust-item">↩ Cancel anytime</div>
+      <div class="trust-item">⚡ Instant access</div>
+      <div class="trust-item">🇮🇳 Razorpay powered</div>
+    </div>
+  </div>
+
+  <!-- STEP 2: CREATE ACCOUNT -->
+  <div id="step2" class="form-section" style="display:none">
+    <div class="section-eye">Step 2 of 3</div>
+    <h2 class="section-title" style="font-size:2rem">Create your account</h2>
+    <p class="section-sub" style="margin-bottom:2rem">Your dashboard access details. Takes 30 seconds.</p>
+
+    <div class="form-card">
+      <div class="fc-title">Account details <span class="fc-badge" id="selectedTierBadge">Vault Pro</span></div>
+
+      <div class="divider-or" style="margin-top:0">Continue with</div>
+      <div class="social-btns" style="margin-bottom:1.5rem">
+        <button class="social-btn" onclick="goStep(3)"><span class="social-icon">G</span>Google</button>
+        <button class="social-btn" onclick="goStep(3)"><span class="social-icon">🎮</span>Discord</button>
+      </div>
+      <div class="divider-or">Or use email</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>First name</label>
+          <input type="text" placeholder="Nazim" id="fname">
+        </div>
+        <div class="field">
+          <label>Last name</label>
+          <input type="text" placeholder="Pasha" id="lname">
+        </div>
+      </div>
+      <div class="field">
+        <label>Email address</label>
+        <input type="email" placeholder="you@email.com" id="email">
+        <div class="field-err">Please enter a valid email address</div>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <div class="pass-wrap">
+          <input type="password" placeholder="Min. 8 characters" id="password" oninput="checkStrength(this.value)">
+          <button class="pass-toggle" type="button" onclick="togglePass()">👁</button>
+        </div>
+        <div class="strength-bar"><div class="strength-fill" id="sbar"></div></div>
+        <div class="field-hint" id="stext">Use 8+ characters with a number and symbol</div>
+      </div>
+      <div class="field">
+        <label>Platform</label>
+        <select id="platform" style="color:var(--white)">
+          <option value="" style="background:var(--card)">Select your platform</option>
+          <option style="background:var(--card)">PlayStation 5</option>
+          <option style="background:var(--card)">Xbox Series X/S</option>
+          <option style="background:var(--card)">PC</option>
+          <option style="background:var(--card)">Multiple platforms</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:.8rem;margin-bottom:1rem">
+      <button class="btn-o" onclick="goStep(1)" style="flex:1;justify-content:center">← Back</button>
+      <button class="btn-g" onclick="validateAndNext()" style="flex:2;justify-content:center">Create account →</button>
+    </div>
+    <p style="font-size:.74rem;color:var(--muted);text-align:center">By continuing you agree to our <a href="#" style="color:var(--gold)">Terms</a> and <a href="#" style="color:var(--gold)">Privacy Policy</a></p>
+  </div>
+
+  <!-- STEP 3: PAYMENT -->
+  <div id="step3" class="pay-section" style="display:none">
+    <div class="section-eye">Step 3 of 3</div>
+    <h2 class="section-title" style="font-size:2rem">Complete payment</h2>
+    <p class="section-sub" style="margin-bottom:1.5rem">Instant access after payment. Cancel anytime.</p>
+
+    <!-- ORDER SUMMARY -->
+    <div class="order-summary">
+      <div class="os-title">Order summary</div>
+      <div class="os-row"><span class="os-label" id="os-tier-name">Vault Pro — Monthly</span><span class="os-val" id="os-price">₹499</span></div>
+      <div class="os-row"><span class="os-label">GST (18%)</span><span class="os-val" id="os-gst">₹89.82</span></div>
+      <div class="os-row"><span class="os-label">Discount</span><span class="os-val" style="color:var(--teal)">₹0</span></div>
+      <div class="os-row"><span class="os-label" style="font-weight:800">Total due today</span><span class="os-total-val" id="os-total">₹588.82</span></div>
+    </div>
+
+    <!-- PAYMENT METHODS -->
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem">Payment method</div>
+    <div class="payment-methods">
+      <div class="pm active" onclick="setPM(this,'card')"><span class="pm-icon">💳</span>Card</div>
+      <div class="pm" onclick="setPM(this,'upi')"><span class="pm-icon">📱</span>UPI</div>
+      <div class="pm" onclick="setPM(this,'netbanking')"><span class="pm-icon">🏦</span>Net Banking</div>
+      <div class="pm" onclick="setPM(this,'wallet')"><span class="pm-icon">👛</span>Wallet</div>
+    </div>
+
+    <!-- CARD FIELDS -->
+    <div id="pm-card">
+      <div class="field">
+        <label>Card number</label>
+        <div class="card-field"><span class="card-field-placeholder">1234 5678 9012 3456</span><div class="card-icons">💳 🔒</div></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Expiry</label><input type="text" placeholder="MM / YY"></div>
+        <div class="field"><label>CVV</label><input type="text" placeholder="123"></div>
+      </div>
+      <div class="field"><label>Name on card</label><input type="text" placeholder="Nazim Pasha"></div>
+    </div>
+
+    <!-- UPI FIELDS -->
+    <div id="pm-upi" style="display:none">
+      <div class="field"><label>UPI ID</label><input class="upi-field" type="text" placeholder="yourname@upi"></div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">Or pay with</div>
+      <div class="upi-apps">
+        <div class="upi-app">GPay</div>
+        <div class="upi-app">PhonePe</div>
+        <div class="upi-app">Paytm</div>
+        <div class="upi-app">BHIM</div>
+        <div class="upi-app">Amazon Pay</div>
+      </div>
+    </div>
+
+    <!-- NET BANKING -->
+    <div id="pm-netbanking" style="display:none">
+      <div class="field">
+        <label>Select bank</label>
+        <select style="width:100%;background:var(--card);border:1px solid var(--border2);color:var(--white);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.85rem 1rem;border-radius:3px;outline:none;appearance:none">
+          <option style="background:var(--card)">Select your bank</option>
+          <option style="background:var(--card)">SBI</option>
+          <option style="background:var(--card)">HDFC Bank</option>
+          <option style="background:var(--card)">ICICI Bank</option>
+          <option style="background:var(--card)">Axis Bank</option>
+          <option style="background:var(--card)">Kotak Mahindra</option>
+          <option style="background:var(--card)">Other bank</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- WALLET -->
+    <div id="pm-wallet" style="display:none">
+      <div class="upi-apps" style="margin-bottom:1rem">
+        <div class="upi-app">Paytm</div>
+        <div class="upi-app">Mobikwik</div>
+        <div class="upi-app">Freecharge</div>
+        <div class="upi-app">Airtel</div>
+      </div>
+    </div>
+
+    <div class="secure-note"><span class="lock">🔒</span>Secured by Razorpay · 256-bit SSL encryption · PCI DSS compliant</div>
+
+    <button class="pay-btn" id="payBtn" onclick="processPayment()">
+      <span id="payBtnText">Pay ₹588.82 — Get instant access</span>
+    </button>
+
+    <p class="pay-terms">By completing this purchase you agree to our <a href="#">Terms of Service</a>. Subscriptions auto-renew until cancelled. Cancel anytime from your dashboard with no penalty.</p>
+
+    <div style="margin-top:1rem"><button class="btn-o" onclick="goStep(2)" style="width:100%;justify-content:center;font-size:.8rem">← Back to account</button></div>
+  </div>
+
+  <!-- STEP 4: SUCCESS -->
+  <div id="step4" class="success-section" style="display:none">
+    <div class="success-icon">🎉</div>
+    <h2 class="success-title">Access granted.</h2>
+    <p class="success-sub">Welcome to Vice Vault. Your account is live and your dashboard is ready. Let's get you your first win.</p>
+
+    <div class="success-features">
+      <div class="sf-title">What you have access to right now</div>
+      <div class="sf-item" id="sf1">Unlimited guide access across all 11 sections</div>
+      <div class="sf-item">Full heist blueprints + hidden routes</div>
+      <div class="sf-item">All 52 cheat codes — PS5 & Xbox</div>
+      <div class="sf-item">Weekly money meta drops every Thursday</div>
+      <div class="sf-item" id="sf-discord">Priority Discord crew channel</div>
+    </div>
+
+    <a href="dashboard.html" class="btn-dash">Enter your dashboard →</a>
+
+    <div class="trust-bar" style="margin-top:1.5rem">
+      <div class="trust-item">📧 Check your email for receipt</div>
+      <div class="trust-item">💬 Discord invite sent</div>
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<script>
+let selectedTier={price:499,name:'Vault Pro'};
+
+function selectTier(price,name){
+  selectedTier={price,name};
+  document.querySelectorAll('.tier-card').forEach(c=>{c.classList.remove('selected');c.querySelector('.tier-check').style.opacity='0';c.querySelector('.tier-check').style.transform='scale(.5)'});
+  const card=document.getElementById('tc-'+price);
+  card.classList.add('selected');
+  const chk=card.querySelector('.tier-check');
+  chk.style.opacity='1';chk.style.transform='scale(1)';
+
+  const btn=document.getElementById('tierContinue');
+  if(price===1199){btn.textContent=`Continue with ${name} — ₹${price}/yr →`}
+  else{btn.textContent=`Continue with ${name} — ₹${price}/mo →`}
+  document.getElementById('selectedTierBadge').textContent=name;
+
+  // update order summary
+  const gst=(price*.18).toFixed(2);
+  const total=(price*1.18).toFixed(2);
+  document.getElementById('os-tier-name').textContent=name+(price===1199?' — Annual':' — Monthly');
+  document.getElementById('os-price').textContent='₹'+price;
+  document.getElementById('os-gst').textContent='₹'+gst;
+  document.getElementById('os-total').textContent='₹'+total;
+  document.getElementById('payBtnText').textContent=`Pay ₹${total} — Get instant access`;
+
+  // success features
+  const sf1=document.getElementById('sf1');
+  const sfD=document.getElementById('sf-discord');
+  if(price===199){sf1.textContent='10 heist blueprints per month';sfD.style.display='none'}
+  else{sf1.textContent='Unlimited guide access across all 11 sections';sfD.style.display='flex'}
+}
+
+function goStep(n){
+  [1,2,3,4].forEach(i=>{
+    document.getElementById('step'+i).style.display='none';
+    const ind=document.getElementById('step'+i+'-ind');
+    ind.classList.remove('active','done');
+    if(i<n)ind.classList.add('done');
+    if(i===n)ind.classList.add('active');
+  });
+  document.getElementById('step'+n).style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validateAndNext(){
+  const email=document.getElementById('email');
+  const valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+  if(!valid){email.classList.add('error');return}
+  email.classList.remove('error');
+  goStep(3);
+}
+
+function togglePass(){
+  const p=document.getElementById('password');
+  p.type=p.type==='password'?'text':'password';
+}
+
+function checkStrength(val){
+  const bar=document.getElementById('sbar');
+  const txt=document.getElementById('stext');
+  let score=0;
+  if(val.length>=8)score++;
+  if(/[A-Z]/.test(val))score++;
+  if(/[0-9]/.test(val))score++;
+  if(/[^A-Za-z0-9]/.test(val))score++;
+  const colors=['#c0281e','#e05c1a','#d4a332','#00d4aa'];
+  const labels=['Too short','Weak','Good','Strong'];
+  bar.style.width=(score*25)+'%';
+  bar.style.background=colors[score-1]||'var(--dim)';
+  txt.textContent=score>0?labels[score-1]:'Use 8+ characters with a number and symbol';
+  txt.style.color=colors[score-1]||'var(--muted)';
+}
+
+function setPM(el,type){
+  document.querySelectorAll('.pm').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  ['card','upi','netbanking','wallet'].forEach(t=>document.getElementById('pm-'+t).style.display='none');
+  document.getElementById('pm-'+type).style.display='block';
+}
+
+function processPayment(){
+  const btn=document.getElementById('payBtn');
+  btn.classList.add('loading');
+  btn.innerHTML='<span>Processing...</span>';
+  setTimeout(()=>goStep(4),2000);
+}
+
+// Pre-select from URL param
+const params=new URLSearchParams(location.search);
+if(params.get('tier')==='199')selectTier(199,'Soldier');
+if(params.get('tier')==='1199')selectTier(1199,'Elite Crew');
+
+// Login mode
+if(params.get('mode')==='login'){
+  document.getElementById('stepsBar').style.display='none';
+  [1,2,3,4].forEach(i=>document.getElementById('step'+i).style.display='none');
+  const loginHTML=`
+  <div class="login-section">
+    <div class="login-card">
+      <div class="lc-title">Welcome back</div>
+      <p class="lc-sub">Sign in to your Vice Vault account</p>
+      <div class="divider-or" style="margin-top:0">Continue with</div>
+      <div class="social-btns" style="margin-bottom:1.5rem">
+        <button class="social-btn" onclick="window.location='dashboard.html'"><span class="social-icon">G</span>Google</button>
+        <button class="social-btn" onclick="window.location='dashboard.html'"><span class="social-icon">🎮</span>Discord</button>
+      </div>
+      <div class="divider-or">Or use email</div>
+      <div class="field"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+      <div class="field">
+        <label>Password</label>
+        <div class="pass-wrap"><input type="password" placeholder="Your password"><button class="pass-toggle" type="button">👁</button></div>
+        <a href="#" class="forgot">Forgot password?</a>
+      </div>
+      <button class="btn-g" style="width:100%;justify-content:center" onclick="window.location='dashboard.html'">Sign in →</button>
+      <p class="lc-foot">No account yet? <a href="signup.html">Join Vice Vault</a></p>
+    </div>
+    <div class="trust-bar"><div class="trust-item">🔒 Secure login</div><div class="trust-item">⚡ Instant access</div></div>
+  </div>`;
+  document.querySelector('.wrapper').insertAdjacentHTML('beforeend',loginHTML);
+}
+</script>
+<script src="vv-global.js"></script>
+</body>
+</html>

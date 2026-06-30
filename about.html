@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Vice Vault — The GTA 6 Intelligence Hub</title>
+<meta name="description" content="Vice Vault is an independent GTA 6 guide site built by obsessive players. Our mission: no fluff, no filler — just play-tested intelligence updated every week.">
+<meta property="og:title" content="About Vice Vault — Who We Are">
+<meta property="og:description" content="Built by players, for players. The story behind the most complete GTA 6 intelligence hub.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vicevault.linkwa.in/about">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--purple:#9b59ff;
+  --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.022}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:66px;background:rgba(3,3,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
+.logo-v{color:var(--gold)}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--gold);color:var(--ink)!important;padding:.45rem 1.3rem;border-radius:2px;font-weight:800!important}
+
+/* HERO */
+.about-hero{position:relative;min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2.5rem 80px;overflow:hidden}
+.ah-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(212,163,50,.07),transparent 65%),linear-gradient(180deg,#030308,#07070f)}
+.ah-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px)}
+.ah-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);background-size:60px 60px}
+.ah-content{position:relative;z-index:5;max-width:760px}
+.ah-eye{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;opacity:0;animation:fup .7s .2s forwards}
+.ah-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,7rem);letter-spacing:.04em;line-height:.9;margin-bottom:1.2rem;opacity:0;animation:fup .8s .3s forwards}
+.ah-title .g{color:var(--gold)}
+.ah-sub{font-size:1rem;color:var(--muted);line-height:1.85;max-width:520px;margin:0 auto;opacity:0;animation:fup .8s .4s forwards}
+@keyframes fup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* MARQUEE */
+.mq{overflow:hidden;background:var(--gold);padding:.6rem 0;position:relative;z-index:10}
+.mq-t{display:flex;white-space:nowrap;animation:mrun 24s linear infinite}
+.mq-t span{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);padding:0 2rem;flex-shrink:0}
+.mq-d{color:rgba(3,3,8,.3)}
+@keyframes mrun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:90px 2.5rem;position:relative;z-index:2}
+.container{max-width:1080px;margin:0 auto}
+.eye{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:.04em;line-height:.95;margin-bottom:.8rem}
+.ssub{font-size:.95rem;color:var(--muted);line-height:1.85;max-width:520px}
+
+/* MISSION */
+.mission-sec{background:var(--deep)}
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:0}
+.mission-text .eye,.mission-text .stitle{margin-bottom:1rem}
+.mission-text p{font-size:.93rem;color:#9a98aa;line-height:1.95;margin-bottom:1rem}
+.mission-text p:first-of-type{font-size:1rem;color:#b0adb8}
+.mission-quote{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:0 4px 4px 0;padding:2rem;margin-top:2rem}
+.mq-text{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;line-height:1.4;color:var(--white);margin-bottom:.6rem}
+.mq-attr{font-size:.78rem;color:var(--muted)}
+.mission-vis{display:flex;flex-direction:column;gap:1rem}
+.mv-stat{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem;display:flex;align-items:center;gap:1.2rem;transition:border-color .2s}
+.mv-stat:hover{border-color:var(--border2)}
+.mv-icon{font-size:1.6rem;flex-shrink:0}
+.mv-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1}
+.ms1 .mv-num{color:var(--gold)}.ms2 .mv-num{color:var(--teal)}.ms3 .mv-num{color:var(--pink)}.ms4 .mv-num{color:var(--orange)}
+.mv-label{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.15rem}
+
+/* VALUES */
+.values-sec{background:var(--ink)}
+.values-hd{text-align:center;margin-bottom:3rem}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.val-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2rem 1.6rem;transition:border-color .2s,transform .2s}
+.val-card:hover{border-color:var(--border2);transform:translateY(-3px)}
+.val-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--border2);line-height:1;margin-bottom:.8rem}
+.val-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;margin-bottom:.6rem}
+.v1 .val-title{color:var(--gold)}.v2 .val-title{color:var(--teal)}.v3 .val-title{color:var(--pink)}
+.v4 .val-title{color:var(--orange)}.v5 .val-title{color:var(--purple)}.v6 .val-title{color:var(--gold)}
+.val-card p{font-size:.86rem;color:var(--muted);line-height:1.75}
+
+/* WHY NOT FREE */
+.why-sec{background:var(--deep)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem}
+.why-col h3{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.wh-bad{color:var(--pink)}.wh-good{color:var(--teal)}
+.why-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.why-list li{display:flex;align-items:flex-start;gap:.7rem;font-size:.88rem;color:var(--muted);line-height:1.7}
+.wl-bad li::before{content:'✕';color:var(--pink);flex-shrink:0;margin-top:2px;font-weight:700}
+.wl-good li::before{content:'✓';color:var(--teal);flex-shrink:0;margin-top:2px;font-weight:700}
+
+/* LEGAL */
+.legal-sec{background:var(--ink)}
+.legal-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2rem;max-width:720px;margin:2rem auto 0}
+.lc-title{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.legal-card p{font-size:.86rem;color:var(--muted);line-height:1.85;margin-bottom:.8rem}
+.legal-card p:last-child{margin:0}
+
+/* CONTACT */
+.contact-sec{background:var(--deep);padding:80px 2.5rem}
+.contact-inner{max-width:680px;margin:0 auto;text-align:center}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.cc{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:border-color .2s,transform .2s}
+.cc:hover{border-color:var(--gold);transform:translateY(-2px)}
+.cc-icon{font-size:1.6rem;margin-bottom:.6rem;display:block}
+.cc-title{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:800;color:var(--white);margin-bottom:.25rem}
+.cc-sub{font-size:.76rem;color:var(--muted)}
+
+/* CTA */
+.cta-strip{background:var(--ink);padding:80px 2.5rem;border-top:1px solid var(--border)}
+.cta-in{max-width:620px;margin:0 auto;text-align:center}
+.cs-eye{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.cs-t{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:.04em;margin-bottom:1rem}
+.cs-s{font-size:.95rem;color:var(--muted);margin-bottom:2rem;line-height:1.8}
+.cs-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-g{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:2px;border:none;cursor:pointer;transition:background .2s,transform .15s}
+.btn-g:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 1.8rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:all .2s}
+.btn-o:hover{border-color:var(--gold);background:rgba(212,163,50,.07)}
+
+footer{background:var(--deep);border-top:1px solid var(--border);padding:30px 2.5rem}
+.fbot{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.73rem;color:var(--muted)}
+.fleg{display:flex;gap:1.5rem}
+.fleg a{color:var(--muted);transition:color .2s}.fleg a:hover{color:var(--white)}
+
+.rev{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rev-l{opacity:0;transform:translateX(-24px);transition:opacity .7s ease,transform .7s ease}
+.rev-r{opacity:0;transform:translateX(24px);transition:opacity .7s ease,transform .7s ease}
+.rev.in,.rev-l.in,.rev-r.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}.d6{transition-delay:.48s}
+
+@media(max-width:860px){.mission-grid,.why-grid{grid-template-columns:1fr}.values-grid{grid-template-columns:1fr 1fr}.contact-grid{grid-template-columns:1fr}}
+@media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}section,.contact-sec,.cta-strip{padding:60px 1.2rem}.values-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><span class="logo-v">VICE</span>VAULT<span class="nav-dot"></span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#categories">Vault</a></li>
+    <li><a href="index.html#allguides">Guides</a></li>
+    <li><a href="weekly.html">Weekly Drop</a></li>
+    <li><a href="preorder.html" style="color:#d4a332">Pre-order</a></li>
+    <li><a href="signup.html" class="nav-cta">Join Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="about-hero">
+  <div class="ah-bg"></div><div class="ah-scan"></div><div class="ah-grid"></div>
+  <div class="ah-content">
+    <div class="ah-eye">About Vice Vault</div>
+    <h1 class="ah-title">Built by<br><span class="g">obsessives.</span><br>For players.</h1>
+    <p class="ah-sub">We're not a media company. We're not a YouTube channel. We're a team of people who cannot stop playing GTA and decided to turn that into something useful.</p>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="mq" aria-hidden="true">
+  <div class="mq-t">
+    <span>Independent <span class="mq-d">◆</span></span><span>Play-tested <span class="mq-d">◆</span></span><span>Updated Weekly <span class="mq-d">◆</span></span><span>No Affiliation <span class="mq-d">◆</span></span><span>Built by Players <span class="mq-d">◆</span></span><span>Not Rockstar <span class="mq-d">◆</span></span><span>320+ Guides <span class="mq-d">◆</span></span><span>11 Sections <span class="mq-d">◆</span></span>
+    <span>Independent <span class="mq-d">◆</span></span><span>Play-tested <span class="mq-d">◆</span></span><span>Updated Weekly <span class="mq-d">◆</span></span><span>No Affiliation <span class="mq-d">◆</span></span><span>Built by Players <span class="mq-d">◆</span></span><span>Not Rockstar <span class="mq-d">◆</span></span><span>320+ Guides <span class="mq-d">◆</span></span><span>11 Sections <span class="mq-d">◆</span></span>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section class="mission-sec">
+  <div class="container">
+    <div class="mission-grid">
+      <div class="mission-text rev-l">
+        <div class="eye">Our mission</div>
+        <h2 class="stitle">No fluff.<br>No filler.<br><span style="color:var(--gold)">Just intel.</span></h2>
+        <p>GTA 6 is the most ambitious open-world game ever made. It's also the most complex — thousands of hidden mechanics, undocumented systems, shifting meta, and content buried so deep that 90% of players never find it.</p>
+        <p>Most gaming sites cover GTA 6 for the pageviews. They publish first, verify later, and never update. Their guides are written by people who played the game for 4 hours before deadline.</p>
+        <p>Vice Vault exists because that's not good enough. We play before we publish. We test before we claim. We update when the meta shifts. Every Thursday, without exception.</p>
+        <div class="mission-quote">
+          <div class="mq-text">"The best GTA 6 player in the room isn't the one who played the most hours. It's the one who played the smartest ones."</div>
+          <div class="mq-attr">— Vice Vault founding principle</div>
+        </div>
+      </div>
+      <div class="mission-vis rev-r">
+        <div class="mv-stat ms1"><span class="mv-icon">📋</span><div><div class="mv-num">320+</div><div class="mv-label">Guides at launch</div></div></div>
+        <div class="mv-stat ms2"><span class="mv-icon">📅</span><div><div class="mv-num">Every Thursday</div><div class="mv-label">Weekly intel drops</div></div></div>
+        <div class="mv-stat ms3"><span class="mv-icon">🗂️</span><div><div class="mv-num">11</div><div class="mv-label">Content sections</div></div></div>
+        <div class="mv-stat ms4"><span class="mv-icon">✅</span><div><div class="mv-num">100%</div><div class="mv-label">Community verified</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-sec">
+  <div class="container">
+    <div class="values-hd rev">
+      <div class="eye">How we operate</div>
+      <h2 class="stitle">The Vice Vault<br><span style="color:var(--gold)">rules</span></h2>
+    </div>
+    <div class="values-grid">
+      <div class="val-card v1 rev d1">
+        <div class="val-num">01</div>
+        <div class="val-title">Test before publish</div>
+        <p>Every guide is play-tested before it goes live. If we haven't done it ourselves or had a community member verify it with video, it doesn't go in the vault. No exceptions.</p>
+      </div>
+      <div class="val-card v2 rev d2">
+        <div class="val-num">02</div>
+        <div class="val-title">Update when it changes</div>
+        <p>Rockstar patches things. The meta shifts. A route that earned $800K/hr last week might earn $200K this week. We track changes and update guides within 24 hours of a patch.</p>
+      </div>
+      <div class="val-card v3 rev d3">
+        <div class="val-num">03</div>
+        <div class="val-title">Credit the community</div>
+        <p>Some of our best discoveries come from community members. When a member finds something, we verify it, publish it, and credit them by name. The vault belongs to all of us.</p>
+      </div>
+      <div class="val-card v4 rev d4">
+        <div class="val-num">04</div>
+        <div class="val-title">No padding, ever</div>
+        <p>We don't write 3,000-word guides to hit an SEO word count. If a guide can be done in 400 words, it's 400 words. Your time is more valuable than our traffic metrics.</p>
+      </div>
+      <div class="val-card v5 rev d5">
+        <div class="val-num">05</div>
+        <div class="val-title">Stay legal</div>
+        <p>We publish game guides, walkthroughs and cheat codes — all of which are legally protected as editorial content. We use zero Rockstar assets, logos or trademarked imagery. We're fans, not freeloaders.</p>
+      </div>
+      <div class="val-card v6 rev d6">
+        <div class="val-num">06</div>
+        <div class="val-title">Members first</div>
+        <p>Paying members get every weekly drop 48 hours before the public. They get custom blueprint requests. They get the Discord. They get priority. That's the deal, and we honour it every week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOT FREE -->
+<section class="why-sec">
+  <div class="container">
+    <div class="rev" style="text-align:center;margin-bottom:3rem">
+      <div class="eye">Honest answer</div>
+      <h2 class="stitle">Why isn't<br><span style="color:var(--gold)">Vice Vault free?</span></h2>
+      <p class="ssub" style="margin:0 auto">Fair question. Here's the honest breakdown of free GTA guides vs Vice Vault.</p>
+    </div>
+    <div class="why-grid">
+      <div class="rev-l">
+        <h3 class="wh-bad">✕ Free guides (YouTube / Reddit)</h3>
+        <ul class="why-list wl-bad">
+          <li>Published fast, verified never — wrong info stays up for months</li>
+          <li>Writer played the game for 6 hours before deadline</li>
+          <li>Guide is never updated after initial publish</li>
+          <li>10-minute video to deliver 90 seconds of actual content</li>
+          <li>The best route is always saved for a "Part 2" that monetises separately</li>
+          <li>Comments full of contradictory advice with no resolution</li>
+          <li>Optimised for search ranking, not for you actually winning</li>
+        </ul>
+      </div>
+      <div class="rev-r">
+        <h3 class="wh-good">✓ Vice Vault</h3>
+        <ul class="why-list wl-good">
+          <li>Every guide play-tested with video evidence before publishing</li>
+          <li>Written by players with 200+ hours in the specific mechanic</li>
+          <li>Updated within 24 hours of any relevant patch or meta change</li>
+          <li>Step-by-step text you can follow while actually playing</li>
+          <li>Hidden routes, secondary vaults, max take calculations all included</li>
+          <li>Community verification on every contested claim</li>
+          <li>Written for you to win, not for us to rank</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGAL DISCLAIMER -->
+<section class="legal-sec">
+  <div class="container">
+    <div class="rev" style="text-align:center;margin-bottom:1rem">
+      <div class="eye">Legal</div>
+      <h2 class="stitle" style="font-size:2rem">Disclaimer</h2>
+    </div>
+    <div class="legal-card rev">
+      <div class="lc-title">Legal disclosure — please read</div>
+      <p>Vice Vault is an independent gaming guide and editorial website. We are not affiliated with, endorsed by, sponsored by, or connected in any way to Rockstar Games, Take-Two Interactive, or any of their subsidiaries.</p>
+      <p>All guides published on Vice Vault are original editorial content created independently by our team and community. Game guide content — including walkthroughs, strategy guides, cheat codes, and tips — is widely recognised as editorial commentary protected under applicable copyright law, consistent with the practices of established gaming publications including IGN, GameFAQs, GameRant, Polygon, and others.</p>
+      <p>Cheat codes are not copyrightable as they constitute functional information rather than creative expression. No Rockstar Games or Take-Two Interactive assets, logos, character models, game audio, or trademarked imagery are used on this site.</p>
+      <p>"GTA 6," "Grand Theft Auto," and "Vice City" are trademarks of Take-Two Interactive Software, Inc. Their use on this site is purely referential and descriptive, consistent with nominative fair use.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-sec">
+  <div class="contact-inner">
+    <div class="eye rev">Get in touch</div>
+    <h2 class="stitle rev" style="margin-bottom:.5rem">Contact</h2>
+    <p class="ssub rev" style="margin:0 auto .5rem">Questions, partnerships, press or just want to say something — we read everything.</p>
+    <div class="contact-grid">
+      <div class="cc rev d1" onclick="window.location='mailto:support@vicevault.linkwa.in'">
+        <span class="cc-icon">📧</span>
+        <div class="cc-title">General support</div>
+        <div class="cc-sub">support@vicevault.linkwa.in</div>
+      </div>
+      <div class="cc rev d2" onclick="window.location='mailto:press@vicevault.linkwa.in'">
+        <span class="cc-icon">📰</span>
+        <div class="cc-title">Press & partnerships</div>
+        <div class="cc-sub">press@vicevault.linkwa.in</div>
+      </div>
+      <div class="cc rev d3" onclick="window.open('https://discord.gg/vicevault','_blank')">
+        <span class="cc-icon">💬</span>
+        <div class="cc-title">Discord community</div>
+        <div class="cc-sub">discord.gg/vicevault</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <div class="cta-in rev">
+    <div class="cs-eye">Ready to play smarter?</div>
+    <h2 class="cs-t">Join Vice Vault</h2>
+    <p class="cs-s">320+ guides. 11 sections. Updated every Thursday. From ₹499/month — cancel anytime.</p>
+    <div class="cs-btns">
+      <a href="signup.html" class="btn-g">Join now →</a>
+      <a href="coming-soon.html" class="btn-o">Join waitlist</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fbot">
+    <span>© 2025 Vice Vault — Not affiliated with Rockstar Games or Take-Two Interactive.</span>
+    <div class="fleg"><a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rev,.rev-l,.rev-r').forEach(el=>obs.observe(el));
+</script>
+<script src="vv-global.js"></script>
+</body>
+</html>

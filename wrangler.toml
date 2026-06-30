@@ -1,0 +1,44 @@
+name = "vice-vault-api"
+main = "worker.js"
+compatibility_date = "2025-06-26"
+compatibility_flags = ["nodejs_compat"]
+
+# ─── KV NAMESPACE ────────────────────────────────────────────
+# After running: wrangler kv:namespace create "VICE_VAULT_KV"
+# Paste the returned ID below
+[[kv_namespaces]]
+binding = "VICE_VAULT_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_YOUR_KV_PREVIEW_ID"
+
+# ─── ROUTES ──────────────────────────────────────────────────
+[[routes]]
+pattern = "vicevault.linkwa.in/api/*"
+zone_name = "vicevault.linkwa.in"
+
+# ─── ENVIRONMENT VARIABLES ───────────────────────────────────
+# Set secrets via CLI — do NOT put real values here:
+#   wrangler secret put RESEND_API_KEY
+#   wrangler secret put FROM_EMAIL
+#   wrangler secret put ADMIN_EMAIL
+[vars]
+ENVIRONMENT = "production"
+
+# ─── DEPLOY COMMANDS ─────────────────────────────────────────
+# 1. npm install -g wrangler
+# 2. wrangler login
+# 3. wrangler kv:namespace create "VICE_VAULT_KV"
+#    → copy the ID into kv_namespaces above
+# 4. wrangler secret put RESEND_API_KEY
+#    → paste your key from resend.com
+# 5. wrangler secret put FROM_EMAIL
+#    → type: noreply@vicevault.linkwa.in
+# 6. wrangler secret put ADMIN_EMAIL
+#    → type your personal email for admin notifications
+# 7. wrangler deploy
+#
+# Test locally:
+#   wrangler dev
+#   curl -X POST http://localhost:8787/api/waitlist \
+#     -H "Content-Type: application/json" \
+#     -d '{"email":"test@example.com","source":"website"}'

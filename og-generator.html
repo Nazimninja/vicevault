@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OG Image Generator — Vice Vault</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#030308;--gold:#d4a332;--pink:#ff3d6e;--teal:#00d4aa;--white:#ede8df;--muted:#7a788a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a12;color:var(--white);font-family:'Barlow Condensed',sans-serif;padding:2rem;min-height:100vh}
+h1{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem}
+p{font-size:.88rem;color:var(--muted);margin-bottom:2rem;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
+.og-card{background:#0d0d18;border:1px solid rgba(255,255,255,.08);border-radius:6px;overflow:hidden}
+.og-preview{width:100%;aspect-ratio:1200/630;position:relative;overflow:hidden;cursor:pointer}
+canvas{width:100%;height:100%;display:block}
+.og-footer{padding:.8rem 1rem;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between}
+.og-name{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.dl-btn{background:var(--gold);color:#030308;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;border-radius:2px;border:none;cursor:pointer;transition:background .2s}
+.dl-btn:hover{background:#f0c84a}
+.dl-all{display:block;background:var(--gold);color:#030308;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:1rem 2rem;border-radius:3px;border:none;cursor:pointer;transition:background .2s;margin-bottom:2rem;width:fit-content}
+.dl-all:hover{background:#f0c84a}
+.note{background:#131320;border:1px solid rgba(212,163,50,.2);border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.5rem;font-size:.84rem;color:var(--muted);line-height:1.7}
+.note strong{color:var(--white)}
+</style>
+</head>
+<body>
+
+<h1>OG Image Generator</h1>
+<p>All 8 Vice Vault OG images — 1200×630px each. Click any image to download it as PNG, or use the Download All button.</p>
+
+<div class="note">
+  <strong>How to use:</strong> Click each image to download it as a PNG file. Save them to an <code>og/</code> folder in your repository. The filenames match exactly what's referenced in the SEO meta tags across all pages.
+</div>
+
+<button class="dl-all" onclick="downloadAll()">⬇ Download All 8 OG Images</button>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const OGs = [
+  {
+    file: 'homepage',
+    title: 'VICE VAULT',
+    sub: 'THE ULTIMATE GTA 6\nINTELLIGENCE HUB',
+    tag: 'GTA 6 · 320+ GUIDES · UPDATED WEEKLY',
+    accent: '#d4a332',
+    bg1: '#0a0500', bg2: '#050010',
+  },
+  {
+    file: 'coming-soon',
+    title: 'VAULT OPENS',
+    sub: 'LAUNCHING WITH\nGTA 6',
+    tag: 'JOIN 12,000+ ON THE WAITLIST · VICEVAULT.LINKWA.IN',
+    accent: '#ff3d6e',
+    bg1: '#0a0005', bg2: '#050010',
+  },
+  {
+    file: 'weekly-26',
+    title: 'WEEK 26',
+    sub: 'THURSDAY INTEL\nDROP',
+    tag: '7 NEW GUIDES · JUST DROPPED · JUNE 26, 2025',
+    accent: '#00d4aa',
+    bg1: '#000a08', bg2: '#050010',
+  },
+  {
+    file: 'cheat-codes',
+    title: 'CHEAT VAULT',
+    sub: 'ALL 52 GTA 6\nCHEAT CODES',
+    tag: 'PS5 & XBOX · ALL VERIFIED · UPDATED JUNE 2025',
+    accent: '#d4a332',
+    bg1: '#0a0800', bg2: '#000008',
+  },
+  {
+    file: 'beginner-money',
+    title: '$1,000,000',
+    sub: 'IN YOUR\nFIRST WEEK',
+    tag: 'GTA 6 BEGINNER MONEY GUIDE · VICE VAULT',
+    accent: '#00d4aa',
+    bg1: '#000a05', bg2: '#050010',
+  },
+  {
+    file: '25-secrets',
+    title: '25 SECRETS',
+    sub: 'THINGS GTA 6\nDOESN\'T TELL YOU',
+    tag: 'HIDDEN MECHANICS · BURIED FEATURES · COMMUNITY CONFIRMED',
+    accent: '#9b59ff',
+    bg1: '#050010', bg2: '#100008',
+  },
+  {
+    file: '12-mistakes',
+    title: '12 MISTAKES',
+    sub: 'EVERY PLAYER\nMAKES',
+    tag: 'FIRST 10 HOURS · AND HOW TO FIX THEM · VICE VAULT',
+    accent: '#ff3d6e',
+    bg1: '#0a0005', bg2: '#050008',
+  },
+  {
+    file: 'cargo-ship-heist',
+    title: '$2.2M',
+    sub: 'CARGO SHIP\nHEIST GUIDE',
+    tag: 'HIDDEN VAULT ROUTE · MAX TAKE · ALL 3 APPROACHES',
+    accent: '#d4a332',
+    bg1: '#0a0800', bg2: '#000508',
+  },
+];
+
+const W = 1200, H = 630;
+
+function drawOG(canvas, og) {
+  const ctx = canvas.getContext('2d');
+  canvas.width = W;
+  canvas.height = H;
+
+  // BG gradient
+  const grad = ctx.createLinearGradient(0, 0, W, H);
+  grad.addColorStop(0, og.bg1);
+  grad.addColorStop(1, og.bg2);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid lines
+  ctx.strokeStyle = `${og.accent}18`;
+  ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += 70) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = 0; y < H; y += 70) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+
+  // Glow
+  const glow = ctx.createRadialGradient(W * 0.6, H * 0.5, 0, W * 0.6, H * 0.5, 400);
+  glow.addColorStop(0, `${og.accent}18`);
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // Scanlines
+  for (let y = 0; y < H; y += 4) {
+    ctx.fillStyle = 'rgba(0,0,0,0.08)';
+    ctx.fillRect(0, y + 3, W, 1);
+  }
+
+  // Left accent bar
+  const barGrad = ctx.createLinearGradient(0, 0, 0, H);
+  barGrad.addColorStop(0, 'transparent');
+  barGrad.addColorStop(0.3, og.accent);
+  barGrad.addColorStop(0.7, og.accent);
+  barGrad.addColorStop(1, 'transparent');
+  ctx.fillStyle = barGrad;
+  ctx.fillRect(60, 0, 3, H);
+
+  // Corner brackets
+  ctx.strokeStyle = `${og.accent}50`;
+  ctx.lineWidth = 2;
+  const bs = 40; // bracket size
+  const bm = 28; // bracket margin
+  // TL
+  ctx.beginPath(); ctx.moveTo(bm + bs, bm); ctx.lineTo(bm, bm); ctx.lineTo(bm, bm + bs); ctx.stroke();
+  // TR
+  ctx.beginPath(); ctx.moveTo(W - bm - bs, bm); ctx.lineTo(W - bm, bm); ctx.lineTo(W - bm, bm + bs); ctx.stroke();
+  // BL
+  ctx.beginPath(); ctx.moveTo(bm + bs, H - bm); ctx.lineTo(bm, H - bm); ctx.lineTo(bm, H - bm - bs); ctx.stroke();
+  // BR
+  ctx.beginPath(); ctx.moveTo(W - bm - bs, H - bm); ctx.lineTo(W - bm, H - bm); ctx.lineTo(W - bm, H - bm - bs); ctx.stroke();
+
+  // LOGO — top left
+  ctx.font = `700 22px 'Barlow Condensed', sans-serif`;
+  ctx.letterSpacing = '0.14em';
+  ctx.fillStyle = og.accent;
+  ctx.fillText('VICE', 90, 72);
+  ctx.fillStyle = '#ede8df';
+  ctx.fillText('VAULT', 90 + ctx.measureText('VICE ').width + 2, 72);
+
+  // Dot after logo
+  ctx.beginPath();
+  ctx.arc(90 + ctx.measureText('VICEVAULT ').width + 14, 66, 4, 0, Math.PI * 2);
+  ctx.fillStyle = '#ff3d6e';
+  ctx.fill();
+
+  // BIG NUMBER / HERO TEXT
+  ctx.textAlign = 'left';
+  ctx.fillStyle = og.accent;
+  ctx.font = `900 ${og.title.length <= 8 ? 160 : 110}px 'Bebas Neue', sans-serif`;
+  ctx.shadowColor = og.accent;
+  ctx.shadowBlur = 40;
+  ctx.fillText(og.title, 88, 300);
+  ctx.shadowBlur = 0;
+
+  // SUBTITLE (multiline)
+  ctx.fillStyle = '#ede8df';
+  ctx.font = `800 56px 'Barlow Condensed', sans-serif`;
+  const lines = og.sub.split('\n');
+  lines.forEach((line, i) => {
+    ctx.fillText(line, 88, 350 + i * 66);
+  });
+
+  // BOTTOM DIVIDER
+  ctx.fillStyle = `${og.accent}40`;
+  ctx.fillRect(88, H - 100, W - 176, 1);
+
+  // TAG LINE (bottom)
+  ctx.fillStyle = '#7a788a';
+  ctx.font = `700 20px 'Barlow Condensed', sans-serif`;
+  ctx.fillText(og.tag, 88, H - 68);
+
+  // vicevault.linkwa.in bottom right
+  ctx.textAlign = 'right';
+  ctx.fillStyle = `${og.accent}80`;
+  ctx.font = `800 22px 'Barlow Condensed', sans-serif`;
+  ctx.fillText('VICEVAULT.LINKWA.IN', W - 90, H - 68);
+  ctx.textAlign = 'left';
+}
+
+function buildGrid() {
+  const grid = document.getElementById('grid');
+  OGs.forEach(og => {
+    const card = document.createElement('div');
+    card.className = 'og-card';
+    const preview = document.createElement('div');
+    preview.className = 'og-preview';
+    const canvas = document.createElement('canvas');
+    preview.appendChild(canvas);
+    const footer = document.createElement('div');
+    footer.className = 'og-footer';
+    footer.innerHTML = `<span class="og-name">og/${og.file}.jpg</span><button class="dl-btn" data-file="${og.file}">Download PNG</button>`;
+    card.appendChild(preview);
+    card.appendChild(footer);
+    grid.appendChild(card);
+
+    // Wait for fonts
+    document.fonts.ready.then(() => {
+      drawOG(canvas, og);
+      footer.querySelector('.dl-btn').onclick = () => downloadOne(canvas, og.file);
+    });
+  });
+}
+
+function downloadOne(canvas, filename) {
+  const link = document.createElement('a');
+  link.download = filename + '.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+function downloadAll() {
+  const canvases = document.querySelectorAll('canvas');
+  canvases.forEach((canvas, i) => {
+    setTimeout(() => {
+      downloadOne(canvas, OGs[i].file);
+    }, i * 300);
+  });
+}
+
+buildGrid();
+</script>
+</body>
+</html>
