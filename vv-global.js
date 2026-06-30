@@ -905,7 +905,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 
   // Export to window.VV
   window.VV = {
-    ...VV,
+    ...window.VV,
     getCurrentUser,
     login,
     signup,
