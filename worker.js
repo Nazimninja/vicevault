@@ -649,6 +649,30 @@ async function handleDiscordAuth(request, env) {
       joinedAt: new Date().toISOString()
     };
 
+    // 4. Auto-join server & assign role if tier is Vault Pro/Elite
+    if ((tier === 'pro' || tier === 'elite') && env.DISCORD_BOT_TOKEN && env.DISCORD_GUILD_ID && env.DISCORD_PRO_ROLE_ID) {
+      try {
+        const userId = userData.id;
+        const guildId = env.DISCORD_GUILD_ID;
+        const roleId = env.DISCORD_PRO_ROLE_ID;
+
+        // Try adding the member to the server with the role directly
+        await fetch(`https://discord.com/api/v10/guilds/${guildId}/members/${userId}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bot ${env.DISCORD_BOT_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            access_token: accessToken,
+            roles: [roleId]
+          })
+        });
+      } catch (err) {
+        console.error("Auto-role error:", err);
+      }
+    }
+
     // Send Discord Webhook
     if (env.DISCORD_WEBHOOK_URL) {
       try {

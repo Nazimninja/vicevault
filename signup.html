@@ -665,7 +665,7 @@ function toggleLoginPass(){
 
 function handleDiscordLogin() {
   const redirectUri = encodeURIComponent(window.location.origin + '/signup.html');
-  window.location.href = `https://discord.com/oauth2/authorize?client_id=1521435317129842728&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email`;
+  window.location.href = `https://discord.com/oauth2/authorize?client_id=1521435317129842728&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email%20guilds.join`;
 }
 
 async function handleDiscordCallback(code) {
