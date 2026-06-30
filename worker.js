@@ -283,15 +283,28 @@ async function handleStats(env) {
 }
 
 // ─── SEND WELCOME EMAIL ─────────────────────────────────────
-async function sendWelcomeEmail(email, position, env, type) {
+async function sendWelcomeEmail(email, details, env, type) {
   if (!env.RESEND_API_KEY) return; // Skip if no key configured
 
   const isWaitlist = type === 'waitlist';
-  const subject = isWaitlist
-    ? `You're #${position?.toLocaleString()} on the Vice Vault waitlist 🔐`
-    : `Vice Vault Intel — first drop arrives Thursday 🎯`;
+  const isPremium = type === 'premium';
+  
+  let subject = `Vice Vault Intel — first drop arrives Thursday 🎯`;
+  if (isWaitlist) {
+    subject = `You're #${details?.toLocaleString()} on the Vice Vault waitlist 🔐`;
+  } else if (isPremium) {
+    const tierName = details === 'elite' ? 'Elite Crew' : (details === 'soldier' ? 'Soldier' : 'Vault Pro');
+    subject = `Welcome to the Vault, ${tierName}! Your access is activated 🔑`;
+  }
 
-  const html = isWaitlist ? waitlistEmailHTML(position) : newsletterEmailHTML();
+  let html;
+  if (isWaitlist) {
+    html = waitlistEmailHTML(details);
+  } else if (isPremium) {
+    html = premiumEmailHTML(details);
+  } else {
+    html = newsletterEmailHTML();
+  }
 
   try {
     await fetch('https://api.resend.com/emails', {
@@ -437,6 +450,46 @@ function newsletterEmailHTML() {
     <a href="https://vicevault.linkwa.in/unsubscribe" style="color:#7a788a">Unsubscribe</a>
   </div>
 </div>
+</body>
+</html>`;
+}
+
+function premiumEmailHTML(tier) {
+  const tierName = tier === 'elite' ? 'Elite Crew' : (tier === 'soldier' ? 'Soldier' : 'Vault Pro');
+  const priceLabel = tier === 'elite' ? '₹999/yr' : (tier === 'soldier' ? '₹299/mo' : '₹699/mo');
+  const badgeColor = tier === 'elite' ? '#9b59ff' : (tier === 'soldier' ? '#7a788a' : '#d4a332');
+
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Welcome to Vice Vault</title></head>
+<body style="background-color:#030308;color:#ede8df;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;margin:0;padding:40px 20px;text-align:center">
+  <div style="max-width:520px;margin:0 auto;background-color:#131320;border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:40px 30px;box-shadow:0 10px 30px rgba(0,0,0,0.5)">
+    <div style="font-size:1.6rem;font-weight:900;letter-spacing:4px;color:#ffffff;margin-bottom:30px;font-family:'Impact',sans-serif">
+      <span style="color:#d4a332">VICE</span>VAULT
+    </div>
+    <div style="font-size:45px;margin-bottom:20px">👑</div>
+    <h1 style="font-size:22px;font-weight:800;color:#ffffff;margin:0 0 10px 0;text-transform:uppercase;letter-spacing:1px">Access Granted</h1>
+    <p style="font-size:13px;color:#7a788a;line-height:1.6;margin:0 0 25px 0">Your premium subscription is live. Welcome to the ultimate GTA 6 intelligence hub.</p>
+    <div style="background-color:#0d0d18;border:1px solid rgba(255,255,255,0.05);border-radius:4px;padding:18px;margin-bottom:30px;text-align:center">
+      <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#7a788a;text-transform:uppercase;margin-bottom:5px">Active Plan</div>
+      <div style="font-size:18px;font-weight:800;color:${badgeColor};text-transform:uppercase;margin-bottom:3px">${tierName}</div>
+      <div style="font-size:12px;color:#7a788a">${priceLabel} · cancel anytime</div>
+    </div>
+    <h2 style="font-size:13px;font-weight:800;color:#ffffff;margin:0 0 15px 0;text-transform:uppercase;letter-spacing:1px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:8px">Next Steps</h2>
+    <div style="text-align:left;margin-bottom:20px">
+      <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:3px">1. Access your Dashboard 🗺️</div>
+      <p style="font-size:12px;color:#7a788a;line-height:1.6;margin:0">Log in to view heist blueprints, vehicle speed stats, wanted level escape routes, and property guides.</p>
+    </div>
+    <div style="text-align:left;margin-bottom:30px">
+      <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:3px">2. Connect your Discord 🎮</div>
+      <p style="font-size:12px;color:#7a788a;line-height:1.6;margin:0">Link Discord in your account settings to instantly receive your premium crew roles and access locked crew-only channels.</p>
+    </div>
+    <a href="https://vicevault.linkwa.in/dashboard.html" style="display:inline-block;background-color:#d4a332;color:#030308;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:14px 35px;border-radius:2px;text-decoration:none;margin-bottom:30px">Go to Dashboard →</a>
+    <div style="font-size:11px;color:#7a788a;border-top:1px solid rgba(255,255,255,0.05);padding-top:20px;line-height:1.6;text-align:center">
+      Got questions? Hit us up at support@vicevault.linkwa.in. Subscriptions auto-renew but you can cancel anytime with a single click from your dashboard.
+    </div>
+  </div>
 </body>
 </html>`;
 }
@@ -721,7 +774,7 @@ async function handleDiscordAuth(request, env) {
     if (tierId === '199' || tierId === '299' || tierId === 'soldier') tier = 'soldier';
     if (tierId === '1199' || tierId === '999' || tierId === 'elite') tier = 'elite';
 
-    const user = {
+    let user = {
       email,
       firstName: username,
       lastName: '',
@@ -731,6 +784,26 @@ async function handleDiscordAuth(request, env) {
       discordUserId: userData.id,
       joinedAt: new Date().toISOString()
     };
+
+    const existingStr = await env.VICE_VAULT_KV.get(`user:${email}`);
+    if (existingStr) {
+      try {
+        const existing = JSON.parse(existingStr);
+        user = {
+          ...existing,
+          discordUserId: userData.id,
+          firstName: existing.firstName || user.firstName,
+          lastName: existing.lastName || user.lastName,
+          tier: existing.tier || user.tier,
+          subscribed: existing.subscribed !== undefined ? existing.subscribed : user.subscribed,
+          subscriptionExpiresAt: existing.subscriptionExpiresAt || user.subscriptionExpiresAt,
+          joinedAt: existing.joinedAt || user.joinedAt
+        };
+      } catch(e) {}
+    }
+
+    // Assign the local variable tier to match the final resolved user tier for roles matching below
+    tier = user.tier;
 
     await env.VICE_VAULT_KV.put(`user:${email}`, JSON.stringify(user));
 
@@ -1027,6 +1100,9 @@ async function handleVerifyPayment(request, env) {
     };
 
     await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
+
+    // Send purchase welcome email via Resend
+    await sendWelcomeEmail(cleanEmail, tierName, env, 'premium');
 
     // Send Discord Webhook alert
     if (env.DISCORD_WEBHOOK_URL) {
