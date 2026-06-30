@@ -547,7 +547,34 @@ function processPayment(){
   const btn=document.getElementById('payBtn');
   btn.classList.add('loading');
   btn.innerHTML='<span>Processing...</span>';
+
+  // Save the registration details in localStorage session
+  try {
+    const email = document.getElementById('email').value;
+    const fname = document.getElementById('fname').value;
+    const lname = document.getElementById('lname').value;
+    let tierId = 'pro';
+    if (selectedTier.price === 199) tierId = 'soldier';
+    if (selectedTier.price === 1199) tierId = 'elite';
+    VV.signup(email, fname, lname, tierId);
+  } catch (err) {
+    console.error("Auth registration error:", err);
+  }
+
   setTimeout(()=>goStep(4),2000);
+}
+
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPassword').value;
+  if (!email || !pass) {
+    alert("Please enter both email and password.");
+    return;
+  }
+  const logged = VV.login(email, pass);
+  if (logged) {
+    window.location.href = 'dashboard.html';
+  }
 }
 
 // Pre-select from URL param
@@ -570,13 +597,13 @@ if(params.get('mode')==='login'){
         <button class="social-btn" onclick="window.location='dashboard.html'"><span class="social-icon">🎮</span>Discord</button>
       </div>
       <div class="divider-or">Or use email</div>
-      <div class="field"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="you@email.com" id="loginEmail"></div>
       <div class="field">
         <label>Password</label>
-        <div class="pass-wrap"><input type="password" placeholder="Your password"><button class="pass-toggle" type="button">👁</button></div>
+        <div class="pass-wrap"><input type="password" placeholder="Your password" id="loginPassword"><button class="pass-toggle" type="button">👁</button></div>
         <a href="#" class="forgot">Forgot password?</a>
       </div>
-      <button class="btn-g" style="width:100%;justify-content:center" onclick="window.location='dashboard.html'">Sign in →</button>
+      <button class="btn-g" style="width:100%;justify-content:center" onclick="handleLogin()">Sign in →</button>
       <p class="lc-foot">No account yet? <a href="signup.html">Join Vice Vault</a></p>
     </div>
     <div class="trust-bar"><div class="trust-item">🔒 Secure login</div><div class="trust-item">⚡ Instant access</div></div>

@@ -718,6 +718,149 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     },
   };
 
+  // ─── AUTHENTICATION SYSTEM ──────────────────────────────────
+  const USER_KEY = 'vv_user';
+
+  const TIER_LEVELS = {
+    'none': 0,
+    'free': 0,
+    'soldier': 1,
+    'pro': 2,
+    'vaultpro': 2,
+    'elite': 3,
+    'elitecrew': 3
+  };
+
+  function getCurrentUser() {
+    try {
+      const u = localStorage.getItem(USER_KEY);
+      return u ? JSON.parse(u) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function login(email, password) {
+    if (!email) return false;
+    const user = {
+      email,
+      firstName: email.split('@')[0],
+      lastName: '',
+      tier: 'pro', // default to pro
+      subscribed: true,
+      joinedAt: new Date().toISOString()
+    };
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    return true;
+  }
+
+  function signup(email, firstName, lastName, tierId) {
+    if (!email) return false;
+    let tier = 'pro';
+    if (tierId === '199' || tierId === 'soldier') tier = 'soldier';
+    if (tierId === '1199' || tierId === 'elite') tier = 'elite';
+
+    const user = {
+      email,
+      firstName: firstName || email.split('@')[0],
+      lastName: lastName || '',
+      tier,
+      subscribed: true,
+      joinedAt: new Date().toISOString()
+    };
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    return true;
+  }
+
+  function logout() {
+    localStorage.removeItem(USER_KEY);
+    window.location.href = 'index.html';
+  }
+
+  function checkAccess(requiredTier) {
+    const user = getCurrentUser();
+    if (!user) return false;
+    
+    const userTier = user.tier.toLowerCase().replace(/[^a-z]/g, '');
+    const reqTier = requiredTier.toLowerCase().replace(/[^a-z]/g, '');
+    
+    const userLevel = TIER_LEVELS[userTier] || 0;
+    const reqLevel = TIER_LEVELS[reqTier] || 0;
+    
+    return userLevel >= reqLevel;
+  }
+
+  function updateNavigationUI() {
+    const user = getCurrentUser();
+    if (!user) return;
+
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks) {
+      const loginCTA = navLinks.querySelector('.nav-cta');
+      if (loginCTA && loginCTA.textContent.toLowerCase().includes('login')) {
+        loginCTA.textContent = 'Dashboard';
+        loginCTA.href = 'dashboard.html';
+
+        const logoutLi = document.createElement('li');
+        const logoutA = document.createElement('a');
+        logoutA.href = '#';
+        logoutA.textContent = 'Logout';
+        logoutA.style.fontFamily = "'Barlow Condensed', sans-serif";
+        logoutA.style.fontSize = ".78rem";
+        logoutA.style.fontWeight = "700";
+        logoutA.style.letterSpacing = ".16em";
+        logoutA.style.textTransform = "uppercase";
+        logoutA.style.color = "var(--muted)";
+        logoutA.style.marginLeft = "1rem";
+        logoutA.style.cursor = "pointer";
+        logoutA.onclick = (e) => {
+          e.preventDefault();
+          logout();
+        };
+        logoutLi.appendChild(logoutA);
+        navLinks.appendChild(logoutLi);
+      }
+    }
+  }
+
+  function processContentGating() {
+    const paywalls = document.querySelectorAll('.paywall');
+    if (paywalls.length === 0) return;
+
+    paywalls.forEach(pw => {
+      const reqTier = pw.getAttribute('data-required-tier') || 'pro';
+      if (checkAccess(reqTier)) {
+        pw.classList.add('unlocked');
+      }
+    });
+  }
+
+  function injectPaywallCSS() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .paywall.unlocked .pw-blur {
+        filter: none !important;
+        opacity: 1 !important;
+        user-select: auto !important;
+        pointer-events: auto !important;
+      }
+      .paywall.unlocked .pw-gate {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Export to window.VV
+  window.VV = {
+    ...VV,
+    getCurrentUser,
+    login,
+    signup,
+    logout,
+    checkAccess
+  };
+
   // ─── KEYBOARD CLOSE ──────────────────────────────────────
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') VV.closePreorder();
@@ -741,6 +884,58 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     gtag('config', GA_TRACKING_ID);
   }
 
+  function setupDashboardUI() {
+    const user = getCurrentUser();
+    if (!user) {
+      if (window.location.pathname.includes('dashboard.html')) {
+        window.location.href = 'signup.html?mode=login';
+      }
+      return;
+    }
+
+    if (!window.location.pathname.includes('dashboard.html')) return;
+
+    // Update avatar and name
+    const avatar = document.querySelector('.sb-avatar');
+    if (avatar && user.firstName) {
+      avatar.textContent = user.firstName[0].toUpperCase();
+    }
+    const nameEl = document.querySelector('.sb-name');
+    if (nameEl) {
+      nameEl.textContent = user.firstName + (user.lastName ? ' ' + user.lastName : '');
+    }
+    const tierEl = document.querySelector('.sb-tier');
+    if (tierEl) {
+      const tierNames = {
+        'soldier': 'Soldier',
+        'pro': 'Vault Pro',
+        'elite': 'Elite Crew'
+      };
+      tierEl.textContent = '⭐ ' + (tierNames[user.tier] || 'Vault Member');
+    }
+
+    // Update sub title on dashboard: "Welcome back, Nazim"
+    const subEl = document.getElementById('pageSub');
+    if (subEl && subEl.textContent.startsWith('Welcome back')) {
+      subEl.textContent = 'Welcome back, ' + user.firstName;
+    }
+    if (window.subs) {
+      window.subs.dashboard = 'Welcome back, ' + user.firstName;
+    }
+
+    // Connect Logout / Sign Out
+    const sbItems = document.querySelectorAll('.sb-item');
+    sbItems.forEach(item => {
+      if (item.textContent.includes('Settings')) {
+        item.innerHTML = '<span class="ico">⚙️</span>Sign Out';
+        item.onclick = (e) => {
+          e.preventDefault();
+          logout();
+        };
+      }
+    });
+  }
+
   // ─── INIT ────────────────────────────────────────────────
   function init() {
     buildBar();
@@ -748,6 +943,12 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     tick();
     setInterval(tick, 1000);
     initGA();
+    
+    // Auth initialization
+    injectPaywallCSS();
+    updateNavigationUI();
+    processContentGating();
+    setupDashboardUI();
   }
 
   if (document.readyState === 'loading') {
@@ -755,5 +956,10 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   } else {
     init();
   }
+
+  // Define global error logger to make it safe
+  window.addEventListener('error', e => {
+    console.warn("Global Auth Handled Error:", e.message);
+  });
 
 })();
