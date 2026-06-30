@@ -1,3 +1,4 @@
+# Trigger Pages Build: 2026-06-30
 name = "vice-vault-api"
 main = "worker.js"
 compatibility_date = "2025-06-26"
