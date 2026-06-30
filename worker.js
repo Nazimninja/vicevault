@@ -24,7 +24,7 @@
 const CORS = {
   'Access-Control-Allow-Origin': 'https://vicevault.linkwa.in',
   'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Content-Type': 'application/json',
 };
 
@@ -32,7 +32,7 @@ function getCorsHeaders(request) {
   const origin = request.headers.get('Origin') || '';
   const headers = {
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Content-Type': 'application/json',
   };
   if (origin === 'https://vicevault.linkwa.in' || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
@@ -41,6 +41,27 @@ function getCorsHeaders(request) {
     headers['Access-Control-Allow-Origin'] = 'https://vicevault.linkwa.in';
   }
   return headers;
+}
+
+// ─── ADMIN HELPERS ─────────────────────────────────────────
+async function generateAdminToken(email, secret) {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(secret);
+  const msgData = encoder.encode(email);
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw', keyData, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  );
+  const buffer = await crypto.subtle.sign('HMAC', cryptoKey, msgData);
+  return Array.from(new Uint8Array(buffer))
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function formatUserResponse(user, env) {
+  if (user && env.ADMIN_EMAIL && user.email.toLowerCase().trim() === env.ADMIN_EMAIL.toLowerCase().trim()) {
+    user.isAdmin = true;
+    user.adminToken = await generateAdminToken(user.email, env.RAZORPAY_KEY_SECRET || 'fallback');
+  }
+  return user;
 }
 
 // ─── MAIN HANDLER ──────────────────────────────────────────
@@ -76,6 +97,27 @@ export default {
       response = await handleCreateOrder(request, env);
     } else if (url.pathname === '/api/pay/verify' && request.method === 'POST') {
       response = await handleVerifyPayment(request, env);
+    } else if (url.pathname.startsWith('/api/admin/')) {
+      const authHeader = request.headers.get('Authorization') || '';
+      const token = authHeader.replace('Bearer ', '').trim();
+      const expectedToken = await generateAdminToken(env.ADMIN_EMAIL, env.RAZORPAY_KEY_SECRET || 'fallback');
+      if (!env.ADMIN_EMAIL || token !== expectedToken) {
+        response = json({ error: 'Unauthorized' }, 401);
+      } else {
+        if (url.pathname === '/api/admin/stats' && request.method === 'GET') {
+          response = await handleAdminStats(env);
+        } else if (url.pathname === '/api/admin/users' && request.method === 'GET') {
+          response = await handleAdminUsers(env);
+        } else if (url.pathname === '/api/admin/waitlist' && request.method === 'GET') {
+          response = await handleAdminWaitlist(env);
+        } else if (url.pathname === '/api/admin/update-user' && request.method === 'POST') {
+          response = await handleAdminUpdateUser(request, env);
+        } else if (url.pathname === '/api/admin/delete-user' && request.method === 'POST') {
+          response = await handleAdminDeleteUser(request, env);
+        } else {
+          response = json({ error: 'Not found' }, 404);
+        }
+      }
     } else {
       response = json({ error: 'Not found' }, 404);
     }
@@ -514,7 +556,8 @@ async function handleVerifyOTP(request, env) {
       } catch(err) { console.error("Webhook error:", err); }
     }
 
-    return json({ success: true, user });
+    const responseUser = await formatUserResponse(user, env);
+    return json({ success: true, user: responseUser });
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -587,7 +630,8 @@ async function handleGoogleAuth(request, env) {
       } catch(err) { console.error("Webhook error:", err); }
     }
 
-    return json({ success: true, user });
+    const responseUser = await formatUserResponse(user, env);
+    return json({ success: true, user: responseUser });
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -741,7 +785,8 @@ async function handleDiscordAuth(request, env) {
       } catch(err) { console.error("Webhook error:", err); }
     }
 
-    return json({ success: true, user });
+    const responseUser = await formatUserResponse(user, env);
+    return json({ success: true, user: responseUser });
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -805,7 +850,8 @@ async function handleCancelSubscription(request, env) {
       }
     }
 
-    return json({ success: true, user });
+    const responseUser = await formatUserResponse(user, env);
+    return json({ success: true, user: responseUser });
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -1004,7 +1050,163 @@ async function handleVerifyPayment(request, env) {
       } catch(err) {}
     }
 
+    const responseUser = await formatUserResponse(user, env);
+    return json({ success: true, user: responseUser });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+// ─── ADMIN: GET STATS ──────────────────────────────────────
+async function handleAdminStats(env) {
+  try {
+    const userList = await env.VICE_VAULT_KV.list({ prefix: 'user:' });
+    let totalMembers = userList.keys.length;
+    let activeSubs = 0;
+    let soldierCount = 0;
+    let proCount = 0;
+    let eliteCount = 0;
+
+    for (const key of userList.keys) {
+      const val = await env.VICE_VAULT_KV.get(key.name);
+      if (val) {
+        try {
+          const user = JSON.parse(val);
+          if (user.subscribed) {
+            activeSubs++;
+            if (user.tier === 'soldier') soldierCount++;
+            else if (user.tier === 'elite') eliteCount++;
+            else proCount++; // default/pro
+          }
+        } catch(e) {}
+      }
+    }
+
+    const waitlistCountStr = await env.VICE_VAULT_KV.get('waitlist:count') || '0';
+    const waitlistCount = parseInt(waitlistCountStr, 10);
+
+    // Calculate MRR: Soldier (₹299/mo), Pro (₹699/mo), Elite (₹999/yr => ₹83/mo equivalent)
+    const mrr = (soldierCount * 299) + (proCount * 699) + Math.round(eliteCount * (999 / 12));
+
+    return json({
+      success: true,
+      stats: {
+        totalMembers,
+        activeSubs,
+        soldierCount,
+        proCount,
+        eliteCount,
+        waitlistCount,
+        mrr
+      }
+    });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+// ─── ADMIN: LIST MEMBERS ───────────────────────────────────
+async function handleAdminUsers(env) {
+  try {
+    const userList = await env.VICE_VAULT_KV.list({ prefix: 'user:' });
+    const users = [];
+    for (const key of userList.keys) {
+      const val = await env.VICE_VAULT_KV.get(key.name);
+      if (val) {
+        try {
+          users.push(JSON.parse(val));
+        } catch(e) {}
+      }
+    }
+    // Sort by joinedAt descending
+    users.sort((a, b) => new Date(b.joinedAt || 0) - new Date(a.joinedAt || 0));
+    return json({ success: true, users });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+// ─── ADMIN: LIST WAITLIST ──────────────────────────────────
+async function handleAdminWaitlist(env) {
+  try {
+    const wlList = await env.VICE_VAULT_KV.list({ prefix: 'waitlist:' });
+    const waitlist = [];
+    for (const key of wlList.keys) {
+      if (key.name === 'waitlist:count') continue;
+      const val = await env.VICE_VAULT_KV.get(key.name);
+      if (val) {
+        try {
+          waitlist.push(JSON.parse(val));
+        } catch(e) {
+          waitlist.push({ email: val, joinedAt: new Date().toISOString() });
+        }
+      }
+    }
+    // Sort by joinedAt descending
+    waitlist.sort((a, b) => new Date(b.joinedAt || 0) - new Date(a.joinedAt || 0));
+    return json({ success: true, waitlist });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+// ─── ADMIN: UPDATE MEMBER ──────────────────────────────────
+async function handleAdminUpdateUser(request, env) {
+  try {
+    const { email, tier, subscribed, subscriptionExpiresAt } = await request.json();
+    if (!email) {
+      return json({ error: 'Email is required' }, 400);
+    }
+    const cleanEmail = email.toLowerCase().trim();
+    const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
+    if (!existingStr) {
+      return json({ error: 'User not found' }, 404);
+    }
+
+    const user = JSON.parse(existingStr);
+    if (tier !== undefined) user.tier = tier;
+    if (subscribed !== undefined) user.subscribed = subscribed;
+    if (subscriptionExpiresAt !== undefined) user.subscriptionExpiresAt = subscriptionExpiresAt;
+
+    await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
     return json({ success: true, user });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+// ─── ADMIN: DELETE MEMBER ──────────────────────────────────
+async function handleAdminDeleteUser(request, env) {
+  try {
+    const { email } = await request.json();
+    if (!email) {
+      return json({ error: 'Email is required' }, 400);
+    }
+    const cleanEmail = email.toLowerCase().trim();
+    const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
+    if (!existingStr) {
+      return json({ error: 'User not found' }, 404);
+    }
+
+    const user = JSON.parse(existingStr);
+    
+    // Try to remove Discord roles immediately if user has Discord ID
+    if (user.discordUserId && env.DISCORD_BOT_TOKEN && env.DISCORD_GUILD_ID) {
+      try {
+        const rolesToRemove = [env.DISCORD_PRO_ROLE_ID, env.DISCORD_ELITE_ROLE_ID].filter(Boolean);
+        for (const roleId of rolesToRemove) {
+          await fetch(`https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${user.discordUserId}/roles/${roleId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bot ${env.DISCORD_BOT_TOKEN}` }
+          });
+        }
+      } catch(e) {
+        console.error("Discord roles removal on delete failed:", e);
+      }
+    }
+
+    await env.VICE_VAULT_KV.delete(`user:${cleanEmail}`);
+    return json({ success: true, message: 'User deleted successfully' });
   } catch (e) {
     return json({ error: e.message }, 500);
   }
