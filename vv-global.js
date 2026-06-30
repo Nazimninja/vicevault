@@ -851,6 +851,58 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     document.head.appendChild(style);
   }
 
+  const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
+    ? 'http://localhost:8787'
+    : 'https://vicevault.linkwa.in';
+
+  async function sendOTP(email) {
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/send-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      return data;
+    } catch (e) {
+      return { error: e.message };
+    }
+  }
+
+  async function verifyOTP(email, code, tierId) {
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/verify-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, code, tierId })
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+      }
+      return data;
+    } catch (e) {
+      return { error: e.message };
+    }
+  }
+
+  async function loginWithGoogle(token, tierId) {
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, tierId })
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+      }
+      return data;
+    } catch (e) {
+      return { error: e.message };
+    }
+  }
+
   // Export to window.VV
   window.VV = {
     ...VV,
@@ -858,7 +910,10 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     login,
     signup,
     logout,
-    checkAccess
+    checkAccess,
+    sendOTP,
+    verifyOTP,
+    loginWithGoogle
   };
 
   // ─── KEYBOARD CLOSE ──────────────────────────────────────

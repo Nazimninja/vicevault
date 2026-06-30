@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Join Vice Vault — GTA 6 Intelligence Hub</title>
 <meta name="robots" content="noindex,nofollow">
@@ -565,16 +566,101 @@ function processPayment(){
 }
 
 function handleLogin() {
+  // Backwards compatibility fallback if needed
+  handleLoginClick();
+}
+
+let isOTPMode = false;
+
+function toggleAuthMode(isOTP) {
+  isOTPMode = isOTP;
+  document.getElementById('passwordField').style.display = isOTP ? 'none' : 'block';
+  document.getElementById('otpField').style.display = isOTP ? 'block' : 'none';
+  document.getElementById('otpSendBtn').style.display = isOTP ? 'block' : 'none';
+  document.getElementById('signInSubmitBtn').textContent = isOTP ? 'Verify & Sign In →' : 'Sign in →';
+}
+
+async function sendOTPCode() {
   const email = document.getElementById('loginEmail').value;
-  const pass = document.getElementById('loginPassword').value;
-  if (!email || !pass) {
-    alert("Please enter both email and password.");
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert("Please enter a valid email address first.");
     return;
   }
-  const logged = VV.login(email, pass);
-  if (logged) {
-    window.location.href = 'dashboard.html';
+  const btn = document.getElementById('otpSendBtn');
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  
+  const res = await VV.sendOTP(email);
+  if (res.success) {
+    alert("Verification code sent to your email!");
+    let cooldown = 60;
+    const timer = setInterval(() => {
+      cooldown--;
+      if (cooldown <= 0) {
+        clearInterval(timer);
+        btn.disabled = false;
+        btn.textContent = "Send OTP";
+      } else {
+        btn.textContent = `${cooldown}s`;
+      }
+    }, 1000);
+  } else {
+    alert("Failed to send OTP: " + (res.error || "Unknown error"));
+    btn.disabled = false;
+    btn.textContent = "Send OTP";
   }
+}
+
+async function handleLoginClick() {
+  const email = document.getElementById('loginEmail').value;
+  if (isOTPMode) {
+    const code = document.getElementById('loginOTP').value;
+    if (!email || !code) {
+      alert("Please enter email and verification code.");
+      return;
+    }
+    let tierId = 'pro';
+    const params = new URLSearchParams(location.search);
+    if(params.get('tier')==='199') tierId = 'soldier';
+    if(params.get('tier')==='1199') tierId = 'elite';
+
+    const res = await VV.verifyOTP(email, code, tierId);
+    if (res.success) {
+      window.location.href = 'dashboard.html';
+    } else {
+      alert("Verification failed: " + (res.error || "Incorrect or expired code"));
+    }
+  } else {
+    const pass = document.getElementById('loginPassword').value;
+    if (!email || !pass) {
+      alert("Please enter email and password.");
+      return;
+    }
+    const logged = VV.login(email, pass);
+    if (logged) {
+      window.location.href = 'dashboard.html';
+    }
+  }
+}
+
+async function handleGoogleCredential(response) {
+  const token = response.credential;
+  let tierId = 'pro';
+  const params = new URLSearchParams(location.search);
+  if(params.get('tier')==='199') tierId = 'soldier';
+  if(params.get('tier')==='1199') tierId = 'elite';
+
+  const res = await VV.loginWithGoogle(token, tierId);
+  if (res.success) {
+    window.location.href = 'dashboard.html';
+  } else {
+    alert("Google Sign-In failed: " + (res.error || "Unknown token"));
+  }
+}
+
+function toggleLoginPass(){
+  const p=document.getElementById('loginPassword');
+  p.type=p.type==='password'?'text':'password';
 }
 
 // Pre-select from URL param
@@ -591,24 +677,54 @@ if(params.get('mode')==='login'){
     <div class="login-card">
       <div class="lc-title">Welcome back</div>
       <p class="lc-sub">Sign in to your Vice Vault account</p>
-      <div class="divider-or" style="margin-top:0">Continue with</div>
-      <div class="social-btns" style="margin-bottom:1.5rem">
-        <button class="social-btn" onclick="window.location='dashboard.html'"><span class="social-icon">G</span>Google</button>
-        <button class="social-btn" onclick="window.location='dashboard.html'"><span class="social-icon">🎮</span>Discord</button>
+      
+      <!-- Google Sign In button container -->
+      <div id="googleBtn" style="margin-bottom:1.5rem;display:flex;justify-content:center"></div>
+      
+      <div class="divider-or" style="margin-top:0">Or use email</div>
+      
+      <div id="emailField" class="field">
+        <label>Email address</label>
+        <div style="display:flex;gap:.5rem">
+          <input type="email" placeholder="you@email.com" id="loginEmail" style="flex:1">
+          <button id="otpSendBtn" class="btn-g" style="padding:.5rem 1.2rem;font-size:.7rem;display:none" onclick="sendOTPCode()" type="button">Send OTP</button>
+        </div>
       </div>
-      <div class="divider-or">Or use email</div>
-      <div class="field"><label>Email</label><input type="email" placeholder="you@email.com" id="loginEmail"></div>
-      <div class="field">
+      
+      <div id="passwordField" class="field">
         <label>Password</label>
-        <div class="pass-wrap"><input type="password" placeholder="Your password" id="loginPassword"><button class="pass-toggle" type="button">👁</button></div>
-        <a href="#" class="forgot">Forgot password?</a>
+        <div class="pass-wrap"><input type="password" placeholder="Your password" id="loginPassword"><button class="pass-toggle" type="button" onclick="toggleLoginPass()">👁</button></div>
+        <a href="#" class="forgot" onclick="toggleAuthMode(true); return false;" style="margin-bottom:0">Sign in with OTP instead</a>
       </div>
-      <button class="btn-g" style="width:100%;justify-content:center" onclick="handleLogin()">Sign in →</button>
+
+      <div id="otpField" class="field" style="display:none">
+        <label>Verification Code (OTP)</label>
+        <input type="text" placeholder="Enter 6-digit OTP" id="loginOTP" maxlength="6">
+        <a href="#" class="forgot" onclick="toggleAuthMode(false); return false;" style="margin-bottom:0">Sign in with Password instead</a>
+      </div>
+      
+      <button class="btn-g" style="width:100%;justify-content:center;margin-top:1.5rem" onclick="handleLoginClick()" id="signInSubmitBtn">Sign in →</button>
       <p class="lc-foot">No account yet? <a href="signup.html">Join Vice Vault</a></p>
     </div>
     <div class="trust-bar"><div class="trust-item">🔒 Secure login</div><div class="trust-item">⚡ Instant access</div></div>
   </div>`;
   document.querySelector('.wrapper').insertAdjacentHTML('beforeend',loginHTML);
+
+  // Render Google Button on load
+  setTimeout(() => {
+    try {
+      google.accounts.id.initialize({
+        client_id: "542385960412-25uab1l8p3m0742f9bcl89ae74jcbjcb.apps.googleusercontent.com",
+        callback: handleGoogleCredential
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("googleBtn"),
+        { theme: "filled_black", size: "large", text: "continue_with", width: 336 }
+      );
+    } catch (e) {
+      console.warn("Google SDK not ready:", e);
+    }
+  }, 200);
 }
 </script>
 <script src="vv-global.js"></script>

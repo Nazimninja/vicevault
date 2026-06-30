@@ -62,6 +62,12 @@ export default {
       response = await handleNewsletter(request, env);
     } else if (url.pathname === '/api/stats' && request.method === 'GET') {
       response = await handleStats(env);
+    } else if (url.pathname === '/api/auth/send-otp' && request.method === 'POST') {
+      response = await handleSendOTP(request, env);
+    } else if (url.pathname === '/api/auth/verify-otp' && request.method === 'POST') {
+      response = await handleVerifyOTP(request, env);
+    } else if (url.pathname === '/api/auth/google' && request.method === 'POST') {
+      response = await handleGoogleAuth(request, env);
     } else {
       response = json({ error: 'Not found' }, 404);
     }
@@ -368,4 +374,152 @@ function isValidEmail(email) {
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: CORS });
+}
+
+// ─── AUTHENTICATION HANDLERS ────────────────────────────────
+async function handleSendOTP(request, env) {
+  try {
+    const { email } = await request.json();
+    const cleanEmail = (email || '').toLowerCase().trim();
+    if (!isValidEmail(cleanEmail)) {
+      return json({ error: 'Invalid email address' }, 400);
+    }
+
+    // Generate random 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Save in KV with TTL 300 seconds (5 minutes)
+    await env.VICE_VAULT_KV.put(`otp:${cleanEmail}`, otp, { expirationTtl: 300 });
+
+    // Send email via Resend
+    if (env.RESEND_API_KEY) {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: env.FROM_EMAIL || 'noreply@vicevault.linkwa.in',
+          to: cleanEmail,
+          subject: `${otp} is your Vice Vault verification code`,
+          html: otpEmailHTML(otp),
+        }),
+      });
+    } else {
+      console.log(`Resend not configured. Generated OTP for ${cleanEmail}: ${otp}`);
+    }
+
+    return json({ success: true });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+async function handleVerifyOTP(request, env) {
+  try {
+    const { email, code, tierId } = await request.json();
+    const cleanEmail = (email || '').toLowerCase().trim();
+    const inputCode = (code || '').trim();
+
+    if (!cleanEmail || !inputCode) {
+      return json({ error: 'Missing email or code' }, 400);
+    }
+
+    const savedCode = await env.VICE_VAULT_KV.get(`otp:${cleanEmail}`);
+    if (!savedCode || savedCode !== inputCode) {
+      return json({ error: 'Invalid or expired verification code' }, 400);
+    }
+
+    // Delete code from KV
+    await env.VICE_VAULT_KV.delete(`otp:${cleanEmail}`);
+
+    let tier = 'pro';
+    if (tierId === '199' || tierId === 'soldier') tier = 'soldier';
+    if (tierId === '1199' || tierId === 'elite') tier = 'elite';
+
+    const user = {
+      email: cleanEmail,
+      firstName: cleanEmail.split('@')[0],
+      lastName: '',
+      tier,
+      subscribed: true,
+      joinedAt: new Date().toISOString()
+    };
+
+    return json({ success: true, user });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+async function handleGoogleAuth(request, env) {
+  try {
+    const { token, tierId } = await request.json();
+    if (!token) {
+      return json({ error: 'Missing Google credential token' }, 400);
+    }
+
+    // Call Google OAuth Tokeninfo API to verify the token signature
+    const googleRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${token}`);
+    if (!googleRes.ok) {
+      return json({ error: 'Invalid Google credential token' }, 400);
+    }
+    const payload = await googleRes.json();
+    
+    const email = (payload.email || '').toLowerCase().trim();
+    const firstName = payload.given_name || '';
+    const lastName = payload.family_name || '';
+
+    let tier = 'pro';
+    if (tierId === '199' || tierId === 'soldier') tier = 'soldier';
+    if (tierId === '1199' || tierId === 'elite') tier = 'elite';
+
+    const user = {
+      email,
+      firstName,
+      lastName,
+      tier,
+      subscribed: true,
+      joinedAt: new Date().toISOString()
+    };
+
+    return json({ success: true, user });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+function otpEmailHTML(otp) {
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body{margin:0;padding:0;background:#030308;font-family:'Barlow',Arial,sans-serif;color:#ede8df}
+  .wrap{max-width:480px;margin:0 auto;padding:40px 20px}
+  .logo{font-size:1.6rem;font-weight:900;letter-spacing:.14em;color:#d4a332;margin-bottom:2rem;font-family:Impact,sans-serif}
+  .logo span{color:#ede8df}
+  .card{background:#0d0d18;border:1px solid rgba(212,163,50,.2);border-radius:6px;padding:2.5rem;text-align:center;border-left:3px solid #d4a332}
+  .title{font-size:1.4rem;font-weight:800;color:#ede8df;margin-bottom:.5rem}
+  .sub{font-size:.88rem;color:#7a788a;line-height:1.7;margin-bottom:2rem}
+  .otp-box{background:#131320;border:1px dashed rgba(212,163,50,.3);border-radius:4px;padding:1.2rem;font-size:2rem;font-weight:800;letter-spacing:.2em;color:#d4a332;margin:1.5rem 0;display:inline-block;padding-left:1.4em}
+  .footer{font-size:.72rem;color:#2a2838;text-align:center;line-height:1.7;margin-top:2rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">VICE<span>VAULT</span></div>
+  <div class="card">
+    <div class="title">Verification Code</div>
+    <div class="sub">Use the code below to complete your sign-in to Vice Vault. This code is valid for 5 minutes.</div>
+    <div class="otp-box">${otp}</div>
+    <div class="sub" style="margin-top:1.5rem;font-size:.78rem">If you did not request this code, you can safely ignore this email.</div>
+  </div>
+  <div class="footer">
+    © 2025 Vice Vault · Not affiliated with Rockstar Games
+  </div>
+</div>
+</body>
+</html>`;
 }
