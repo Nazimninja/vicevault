@@ -14,7 +14,7 @@ preview_id = "f2c6cbddba344806aed74123479fa214"
 # ─── ROUTES ──────────────────────────────────────────────────
 [[routes]]
 pattern = "vicevault.linkwa.in/api/*"
-zone_name = "vicevault.linkwa.in"
+zone_name = "linkwa.in"
 
 # ─── ENVIRONMENT VARIABLES ───────────────────────────────────
 # Set secrets via CLI — do NOT put real values here:
