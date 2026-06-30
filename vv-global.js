@@ -759,8 +759,8 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   function signup(email, firstName, lastName, tierId) {
     if (!email) return false;
     let tier = 'pro';
-    if (tierId === '199' || tierId === 'soldier') tier = 'soldier';
-    if (tierId === '1199' || tierId === 'elite') tier = 'elite';
+    if (tierId === '199' || tierId === '299' || tierId === 'soldier') tier = 'soldier';
+    if (tierId === '1199' || tierId === '999' || tierId === 'elite') tier = 'elite';
 
     const user = {
       email,

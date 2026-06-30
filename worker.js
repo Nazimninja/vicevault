@@ -467,8 +467,8 @@ async function handleVerifyOTP(request, env) {
     await env.VICE_VAULT_KV.delete(`otp:${cleanEmail}`);
 
     let tier = 'pro';
-    if (tierId === '199' || tierId === 'soldier') tier = 'soldier';
-    if (tierId === '1199' || tierId === 'elite') tier = 'elite';
+    if (tierId === '199' || tierId === '299' || tierId === 'soldier') tier = 'soldier';
+    if (tierId === '1199' || tierId === '999' || tierId === 'elite') tier = 'elite';
 
     const user = {
       email: cleanEmail,
@@ -539,8 +539,8 @@ async function handleGoogleAuth(request, env) {
     const lastName = payload.family_name || '';
 
     let tier = 'pro';
-    if (tierId === '199' || tierId === 'soldier') tier = 'soldier';
-    if (tierId === '1199' || tierId === 'elite') tier = 'elite';
+    if (tierId === '199' || tierId === '299' || tierId === 'soldier') tier = 'soldier';
+    if (tierId === '1199' || tierId === '999' || tierId === 'elite') tier = 'elite';
 
     const user = {
       email,
@@ -674,8 +674,8 @@ async function handleDiscordAuth(request, env) {
 
     // 3. Map tier ID
     let tier = 'pro';
-    if (tierId === '199' || tierId === 'soldier') tier = 'soldier';
-    if (tierId === '1199' || tierId === 'elite') tier = 'elite';
+    if (tierId === '199' || tierId === '299' || tierId === 'soldier') tier = 'soldier';
+    if (tierId === '1199' || tierId === '999' || tierId === 'elite') tier = 'elite';
 
     const user = {
       email,
@@ -961,8 +961,8 @@ async function handleVerifyPayment(request, env) {
     // Payment is valid — activate subscription
     const cleanEmail = email.toLowerCase().trim();
     let tierName = 'pro';
-    if (tier === 'soldier' || tier === '199') tierName = 'soldier';
-    if (tier === 'elite' || tier === '1199') tierName = 'elite';
+    if (tier === 'soldier' || tier === '199' || tier === '299') tierName = 'soldier';
+    if (tier === 'elite' || tier === '1199' || tier === '999') tierName = 'elite';
 
     const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
     let user = existingStr ? JSON.parse(existingStr) : {};
