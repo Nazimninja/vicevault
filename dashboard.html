@@ -59,7 +59,7 @@ a{color:inherit;text-decoration:none}
   padding:.18rem .6rem;border-radius:2px;
 }
 
-.sb-nav{flex:1;overflow-y:auto;padding:.8rem 0}
+.sb-nav{flex:1;overflow-y:auto;padding:.8rem 0 3.5rem}
 .sb-nav::-webkit-scrollbar{width:4px}
 .sb-nav::-webkit-scrollbar-track{background:transparent}
 .sb-nav::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
@@ -371,6 +371,12 @@ a{color:inherit;text-decoration:none}
 .tour-skip:hover { color: var(--white); }
 .tour-next { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; background: var(--gold); color: var(--ink); border: none; padding: 0.4rem 1rem; border-radius: 2px; cursor: pointer; text-transform: uppercase; }
 .tour-next:hover { background: var(--gold2); }
+body.vv-bar-active {
+  padding-top: 44px !important;
+}
+body.vv-bar-active .tour-overlay {
+  top: 44px !important;
+}
 </style>
 </head>
 <body>
@@ -1110,17 +1116,27 @@ animProgress();
   }
 
   function positionTooltip(targetEl, tooltipEl) {
+    // Scroll sidebar target into view so it is fully visible before getting its rect
+    if (targetEl.closest('.sb-nav')) {
+      targetEl.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+    }
+
     const rect = targetEl.getBoundingClientRect();
     const screenWidth = window.innerWidth;
     
-    // Position to the right of the sidebar item
-    let left = rect.right + 20;
+    // Position to the right of the sidebar item (min 255px prevents overlapping sidebar)
+    const isSidebar = targetEl.closest('.sidebar');
+    let left = isSidebar ? 255 : (rect.right + 20);
     let top = rect.top + (rect.height / 2) - 80;
     
     if (left + 320 > screenWidth) {
       left = screenWidth - 340;
       top = rect.bottom + 20;
     }
+    
+    // Keep vertically in bounds
+    if (top < 15) top = 15;
+    if (top + 160 > window.innerHeight) top = window.innerHeight - 175;
     
     tooltipEl.style.left = left + 'px';
     tooltipEl.style.top = top + 'px';
