@@ -646,7 +646,9 @@ function handleDiscordLogin() {
 
 function handleDiscordSignup() {
   const tierId = selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
-  const redirectUri = encodeURIComponent(window.location.origin + '/signup.html?signup_discord=true&tier_id=' + tierId);
+  // Store tier in sessionStorage — Discord only accepts exact registered redirect URIs (no query params)
+  sessionStorage.setItem('vv_discord_signup_tier', tierId);
+  const redirectUri = encodeURIComponent(window.location.origin + '/signup.html');
   window.location.href = `https://discord.com/oauth2/authorize?client_id=1521435317129842728&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email%20guilds.join`;
 }
 
@@ -662,9 +664,10 @@ async function handleDiscordSignupCallback(code, tierId) {
     }
   }, 100);
 
-  const redirectUri = window.location.origin + '/signup.html?signup_discord=true&tier_id=' + tierId;
+  const redirectUri = window.location.origin + '/signup.html';
   const res = await VV.loginWithDiscord(code, redirectUri, tierId);
   if (res.success) {
+    sessionStorage.removeItem('vv_discord_signup_tier');
     if (res.user && res.user.subscribed) {
       window.location.href = 'dashboard.html';
     } else {
@@ -707,9 +710,19 @@ async function handleDiscordCallback(code) {
 const params=new URLSearchParams(location.search);
 const discordCode = params.get('code');
 if (discordCode) {
-  if (params.get('signup_discord') === 'true') {
-    handleDiscordSignupCallback(discordCode, params.get('tier_id') || 'pro');
+  // Check sessionStorage to determine if this is a signup flow or post-payment linking flow
+  const signupTier = sessionStorage.getItem('vv_discord_signup_tier');
+  const pendingTier = sessionStorage.getItem('vv_pending_tier');
+  
+  if (signupTier) {
+    // New user signing up via Discord
+    handleDiscordSignupCallback(discordCode, signupTier);
+  } else if (pendingTier) {
+    // Existing paid member linking Discord after payment
+    sessionStorage.removeItem('vv_pending_tier');
+    handleDiscordCallback(discordCode);
   } else {
+    // Default: login flow
     handleDiscordCallback(discordCode);
   }
 }

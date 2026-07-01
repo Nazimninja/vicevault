@@ -27,7 +27,7 @@ a{color:inherit;text-decoration:none}
   width:240px;flex-shrink:0;height:100vh;
   background:var(--deep);border-right:1px solid var(--border);
   display:flex;flex-direction:column;overflow:hidden;
-  position:relative;z-index:10;
+  position:sticky;top:0;z-index:9992;
 }
 .sb-logo{
   padding:1.4rem 1.6rem 1.2rem;
@@ -308,7 +308,7 @@ a{color:inherit;text-decoration:none}
 
 /* ONBOARDING TOUR styles */
 .tour-overlay {
-  position: fixed; inset: 0; background: rgba(3,3,8,0.7); z-index: 9990;
+  position: fixed; top: 0; right: 0; bottom: 0; left: 241px; background: rgba(3,3,8,0.75); z-index: 9990;
   opacity: 0; pointer-events: none; transition: opacity 0.3s;
 }
 .tour-overlay.active { opacity: 1; pointer-events: auto; }
@@ -906,8 +906,8 @@ animProgress();
     </div>
     
     <div style="display:flex;flex-direction:column;gap:.8rem">
-      <button class="btn-modal save" style="width:100%;padding:.85rem;font-size:.85rem" onclick="handleSuccessDiscord()">🎮 Connect Discord &amp; Get Roles</button>
-      <button class="btn-modal cancel" style="width:100%;padding:.85rem;font-size:.85rem;background:transparent;border:1px solid var(--border)" onclick="closeSuccessModal()">Go to Dashboard</button>
+      <button class="btn-modal save" style="width:100%;padding:.85rem;font-size:.85rem;background:linear-gradient(135deg,#5865F2,#4752C4);font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:3px;color:#fff;cursor:pointer;transition:all .2s" onclick="handleSuccessDiscord()" onmouseover="this.style.background='linear-gradient(135deg,#6d7aff,#5865F2)'" onmouseout="this.style.background='linear-gradient(135deg,#5865F2,#4752C4)'">🎮 Connect Discord &amp; Get Roles</button>
+      <button class="btn-modal cancel" style="width:100%;padding:.85rem;font-size:.85rem;background:transparent;border:1px solid var(--border)" onclick="closeSuccessModal()">Go to Dashboard →</button>
     </div>
   </div>
 </div>
@@ -927,13 +927,12 @@ animProgress();
   }
 
   function handleSuccessDiscord() {
+    // Use the exact redirect URI registered in the Discord Developer Portal
+    // Only the clean base URL without query params is accepted
+    const redirectUri = encodeURIComponent(window.location.origin + '/signup.html');
+    // Store tier in sessionStorage so signup.html can read it after redirect
     const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
-    let tierParam = '';
-    if (user && user.tier === 'soldier') tierParam = '?tier=299';
-    if (user && user.tier === 'elite') tierParam = '?tier=999';
-    if (user && user.tier === 'pro') tierParam = '?tier=699';
-    
-    const redirectUri = encodeURIComponent(window.location.origin + '/signup.html' + tierParam);
+    if (user && user.tier) sessionStorage.setItem('vv_pending_tier', user.tier);
     window.location.href = `https://discord.com/oauth2/authorize?client_id=1521435317129842728&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email%20guilds.join`;
   }
 
