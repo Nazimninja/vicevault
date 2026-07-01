@@ -681,9 +681,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 
   window.VV = {
     openPreorder() {
-      const overlay = document.getElementById('vv-modal-overlay');
-      if (overlay) overlay.classList.add('vv-open');
-      document.body.style.overflow = 'hidden';
+      window.location.href = 'preorder.html';
     },
     closePreorder() {
       const overlay = document.getElementById('vv-modal-overlay');
