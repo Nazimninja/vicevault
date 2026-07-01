@@ -696,8 +696,11 @@ async function handleDiscordCallback(code) {
   if(params.get('tier')==='299') tierId = 'soldier';
   if(params.get('tier')==='999') tierId = 'elite';
 
+  const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
+  const currentUserEmail = user?.email || '';
+
   const redirectUri = window.location.origin + '/signup.html';
-  const res = await VV.loginWithDiscord(code, redirectUri, tierId);
+  const res = await VV.loginWithDiscord(code, redirectUri, tierId, currentUserEmail);
   if (res.success) {
     window.location.href = 'dashboard.html';
   } else {

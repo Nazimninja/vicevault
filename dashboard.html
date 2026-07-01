@@ -509,6 +509,16 @@ a{color:inherit;text-decoration:none}
   <!-- SETTINGS VIEW -->
   <div class="dash-content" id="view-settings" style="display:none">
     <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:2rem;max-width:560px;margin-top:1rem">
+      
+      <!-- Discord Link Section -->
+      <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:.3rem;letter-spacing:.04em">Discord Integration</h3>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem">Link your Discord account to unlock private voice channels, roleplay lobbies, and co-op heist briefings.</p>
+        <div id="discord-connection-status">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
       <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:.3rem;letter-spacing:.04em">Subscription Settings</h3>
       <p style="font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem">Manage your membership status. Cancelling will <strong style="color:var(--white)">immediately revoke</strong> your private Discord crew channels access.</p>
       
@@ -630,6 +640,11 @@ const subs={dashboard:'Welcome back, Nazim',weekly:'Thursday drop — 5 new guid
 let currentView = 'dashboard';
 
 function showView(v){
+  // End onboarding tour overlay if navigating away
+  if (typeof cleanupTour === 'function') {
+    cleanupTour();
+  }
+
   currentView = v;
   // hide all
   document.querySelectorAll('[id^="view-"]').forEach(el=>el.style.display='none');
@@ -650,6 +665,9 @@ function showView(v){
     document.getElementById('view-settings').style.display='block';
     document.getElementById('pageTitle').textContent='Settings';
     document.getElementById('pageSub').textContent='Manage your subscription and account';
+    if (typeof renderDiscordSettings === 'function') {
+      renderDiscordSettings();
+    }
   } else {
     // generic section
     const sv=document.getElementById('view-section');
@@ -661,6 +679,9 @@ function showView(v){
 }
 
 function showArticle(title, cat, meta){
+  if (typeof cleanupTour === 'function') {
+    cleanupTour();
+  }
   document.querySelectorAll('[id^="view-"]').forEach(el=>el.style.display='none');
   document.getElementById('view-article').style.display='block';
   document.getElementById('pageTitle').textContent=title || 'Guide Article';
@@ -1095,6 +1116,31 @@ animProgress();
     }
   }
 
+  function renderDiscordSettings() {
+    const container = document.getElementById('discord-connection-status');
+    if (!container) return;
+    
+    const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
+    if (user.discordUserId) {
+      container.innerHTML = `
+        <div style="background:rgba(88,101,242,.08);border:1px solid rgba(88,101,242,.2);border-radius:4px;padding:1rem;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5865F2;margin-bottom:.2rem">Discord Status</div>
+            <div style="color:var(--white);font-size:.9rem;font-weight:700">✓ Connected (ID: ${user.discordUserId})</div>
+          </div>
+          <span style="font-size:1.5rem">🎮</span>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `
+        <button class="btn-modal save" style="width:100%;padding:.9rem;font-size:.85rem;background:linear-gradient(135deg,#5865F2,#4752C4);font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:3px;color:#fff;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:0.5rem" onclick="handleSuccessDiscord()" onmouseover="this.style.background='linear-gradient(135deg,#6d7aff,#5865F2)'" onmouseout="this.style.background='linear-gradient(135deg,#5865F2,#4752C4)'">
+          🎮 Connect Discord Profile &amp; Get Roles
+        </button>
+      `;
+    }
+  }
+
+  window.renderDiscordSettings = renderDiscordSettings;
   window.initOnboardingTour = initOnboardingTour;
 
   // Run tour on load

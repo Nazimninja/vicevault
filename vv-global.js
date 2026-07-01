@@ -966,12 +966,12 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     }
   }
 
-  async function loginWithDiscord(code, redirectUri, tierId) {
+  async function loginWithDiscord(code, redirectUri, tierId, currentUserEmail = '') {
     try {
       const res = await fetch(`${API_BASE}/api/auth/discord`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, redirectUri, tierId })
+        body: JSON.stringify({ code, redirectUri, tierId, currentUserEmail })
       });
       const data = await res.json();
       if (data.success && data.user) {
