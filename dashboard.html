@@ -272,12 +272,49 @@ a{color:inherit;text-decoration:none}
   .qa-grid{grid-template-columns:repeat(2,1fr)}
   .cheat-grid{grid-template-columns:repeat(2,1fr)}
 }
+
+/* Mobile hamburger button styles */
+.hamburger-btn {
+  display:none; background:none; border:none; color:var(--white);
+  font-size:1.4rem; cursor:pointer; margin-right:1rem; align-items:center;
+  justify-content:center;
+}
+.sb-close-btn {
+  display:none; background:none; border:none; color:var(--muted);
+  font-size:1.8rem; cursor:pointer; line-height:1; padding:0 0.5rem;
+}
+.sb-close-btn:hover { color:var(--white); }
+
 @media(max-width:768px){
-  .sidebar{display:none}
+  .hamburger-btn { display:inline-flex; }
+  .sb-close-btn { display:block; }
+  
+  .sidebar{
+    display:none;
+    position:fixed; top:0; left:0; bottom:0; z-index:10000;
+    width:250px; background:var(--deep);
+    border-right:1px solid var(--border);
+    animation:slideIn 0.25s ease-out;
+  }
+  .sidebar.mobile-active {
+    display:flex !important;
+  }
+  .sb-logo {
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .tour-overlay { left: 0 !important; }
+  
   html,body{overflow:auto}
   .main{height:auto}
   .recent-grid{grid-template-columns:1fr}
   .cats-dash{grid-template-columns:repeat(2,1fr)}
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
 /* SUCCESS MODAL */
 .modal-overlay{
   position:fixed;inset:0;background:rgba(3,3,8,.88);backdrop-filter:blur(5px);
@@ -340,7 +377,10 @@ a{color:inherit;text-decoration:none}
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
-  <div class="sb-logo"><span class="v">VICE</span>VAULT<span class="sb-dot"></span></div>
+  <div class="sb-logo">
+    <span><span class="v">VICE</span>VAULT<span class="sb-dot"></span></span>
+    <button class="sb-close-btn" onclick="toggleMobileSidebar(false)">×</button>
+  </div>
   <div class="sb-user">
     <div class="sb-avatar">N</div>
     <div class="sb-name">Nazim</div>
@@ -379,7 +419,8 @@ a{color:inherit;text-decoration:none}
 <!-- MAIN -->
 <main class="main" id="main">
   <div class="topbar">
-    <div class="topbar-left">
+    <div class="topbar-left" style="display:flex;align-items:center">
+      <button class="hamburger-btn" onclick="toggleMobileSidebar(true)">☰</button>
       <div>
         <div class="page-title" id="pageTitle">Dashboard</div>
         <div class="page-sub" id="pageSub">Welcome back, Nazim</div>
@@ -645,11 +686,22 @@ function showView(v){
     cleanupTour();
   }
 
+  // Close mobile sidebar drawer if open
+  if (typeof toggleMobileSidebar === 'function') {
+    toggleMobileSidebar(false);
+  }
+
   currentView = v;
   // hide all
   document.querySelectorAll('[id^="view-"]').forEach(el=>el.style.display='none');
-  // highlight sidebar
-  document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
+  // highlight sidebar matching active view
+  document.querySelectorAll('.sb-item').forEach(el => {
+    el.classList.remove('active');
+    const clickAttr = el.getAttribute('onclick') || '';
+    if (clickAttr.includes(`'${v}'`)) {
+      el.classList.add('active');
+    }
+  });
   // update topbar
   document.getElementById('pageTitle').textContent=views[v]||v;
   document.getElementById('pageSub').textContent=subs[v]||'Browse all guides in this section';
@@ -681,6 +733,9 @@ function showView(v){
 function showArticle(title, cat, meta){
   if (typeof cleanupTour === 'function') {
     cleanupTour();
+  }
+  if (typeof toggleMobileSidebar === 'function') {
+    toggleMobileSidebar(false);
   }
   document.querySelectorAll('[id^="view-"]').forEach(el=>el.style.display='none');
   document.getElementById('view-article').style.display='block';
@@ -1140,6 +1195,18 @@ animProgress();
     }
   }
 
+  function toggleMobileSidebar(open) {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+      if (open) {
+        sidebar.classList.add('mobile-active');
+      } else {
+        sidebar.classList.remove('mobile-active');
+      }
+    }
+  }
+
+  window.toggleMobileSidebar = toggleMobileSidebar;
   window.renderDiscordSettings = renderDiscordSettings;
   window.initOnboardingTour = initOnboardingTour;
 

@@ -726,7 +726,7 @@ function otpEmailHTML(otp) {
 
 async function handleDiscordAuth(request, env) {
   try {
-    const { code, redirectUri, tierId } = await request.json();
+    const { code, redirectUri, tierId, currentUserEmail } = await request.json();
     if (!code || !redirectUri) {
       return json({ error: 'Missing code or redirectUri' }, 400);
     }
@@ -762,7 +762,7 @@ async function handleDiscordAuth(request, env) {
     }
 
     const userData = await userResponse.json();
-    const email = (userData.email || '').toLowerCase().trim();
+    const email = currentUserEmail ? currentUserEmail.toLowerCase().trim() : (userData.email || '').toLowerCase().trim();
     const username = userData.username || '';
 
     if (!email) {
