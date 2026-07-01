@@ -29,7 +29,23 @@
 
   // ─── CONFIG ──────────────────────────────────────────────
   // UPDATE THIS to the actual GTA 6 / Vice Vault launch date
-  const LAUNCH_DATE = new Date('2025-09-26T06:00:00+05:30');
+  const LAUNCH_DATE = new Date('2027-10-26T06:00:00+05:30');
+
+  function setupCustomCursorHover(el) {
+    const cur = document.getElementById('cur');
+    const crng = document.getElementById('crng');
+    if (!cur || !crng || !el) return;
+    el.addEventListener('mouseenter', () => {
+      cur.style.width = '16px'; cur.style.height = '16px';
+      crng.style.width = '52px'; crng.style.height = '52px';
+      crng.style.opacity = '.9';
+    });
+    el.addEventListener('mouseleave', () => {
+      cur.style.width = '10px'; cur.style.height = '10px';
+      crng.style.width = '36px'; crng.style.height = '36px';
+      crng.style.opacity = '.5';
+    });
+  }
 
   // Google Analytics ID (e.g., 'G-XXXXXXXXXX')
   // Centralizes tracking: set this and GA4 is enabled across all pages automatically!
@@ -202,7 +218,7 @@
   transition: background 0.2s, transform 0.15s;
   white-space: nowrap;
   flex-shrink: 0;
-  margin-left: 1.2rem;
+  margin-left: 0;
 }
 .vv-bar-cta:hover { background: #f0c84a; transform: translateY(-1px); }
 
@@ -213,7 +229,7 @@
   font-size: 1rem;
   cursor: pointer;
   padding: 0.2rem 0.4rem;
-  margin-left: 0.8rem;
+  margin-left: 0;
   line-height: 1;
   transition: color 0.2s;
   flex-shrink: 0;
@@ -552,20 +568,28 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
           <span class="vv-bar-long">pre-order now & save 20%</span>
         </span>
       </div>
-      <div class="vv-countdown">
-        <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-d">00</div><div class="vv-cd-label">Days</div></div>
-        <span class="vv-cd-sep">:</span>
-        <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-h">00</div><div class="vv-cd-label">Hrs</div></div>
-        <span class="vv-cd-sep">:</span>
-        <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-m">00</div><div class="vv-cd-label">Min</div></div>
-        <span class="vv-cd-sep">:</span>
-        <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-s">00</div><div class="vv-cd-label">Sec</div></div>
+      <div class="vv-bar-right" style="display:flex;align-items:center;gap:1.2rem">
+        <div class="vv-countdown">
+          <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-d">00</div><div class="vv-cd-label">Days</div></div>
+          <span class="vv-cd-sep">:</span>
+          <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-h">00</div><div class="vv-cd-label">Hrs</div></div>
+          <span class="vv-cd-sep">:</span>
+          <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-m">00</div><div class="vv-cd-label">Min</div></div>
+          <span class="vv-cd-sep">:</span>
+          <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-s">00</div><div class="vv-cd-label">Sec</div></div>
+        </div>
+        <button class="vv-bar-cta" onclick="VV.openPreorder()">Pre-order — save 20%</button>
+        <button class="vv-bar-close" onclick="VV.closeBar()" aria-label="Close">✕</button>
       </div>
-      <button class="vv-bar-cta" onclick="VV.openPreorder()">Pre-order — save 20%</button>
-      <button class="vv-bar-close" onclick="VV.closeBar()" aria-label="Close">✕</button>
     `;
     document.body.insertBefore(bar, document.body.firstChild);
     document.body.classList.add('vv-bar-active');
+
+    // Attach custom cursor listeners to dynamically added buttons
+    const ctaBtn = bar.querySelector('.vv-bar-cta');
+    const closeBtn = bar.querySelector('.vv-bar-close');
+    if (ctaBtn) setupCustomCursorHover(ctaBtn);
+    if (closeBtn) setupCustomCursorHover(closeBtn);
   }
 
   // ─── BUILD MODAL ─────────────────────────────────────────
@@ -849,18 +873,13 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
         const logoutA = document.createElement('a');
         logoutA.href = '#';
         logoutA.textContent = 'Logout';
-        logoutA.style.fontFamily = "'Barlow Condensed', sans-serif";
-        logoutA.style.fontSize = ".78rem";
-        logoutA.style.fontWeight = "700";
-        logoutA.style.letterSpacing = ".16em";
-        logoutA.style.textTransform = "uppercase";
-        logoutA.style.color = "var(--muted)";
         logoutA.style.marginLeft = "1rem";
         logoutA.style.cursor = "pointer";
         logoutA.onclick = (e) => {
           e.preventDefault();
           logout();
         };
+        setupCustomCursorHover(logoutA);
         logoutLi.appendChild(logoutA);
         navLinks.appendChild(logoutLi);
       }

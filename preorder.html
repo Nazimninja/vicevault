@@ -38,10 +38,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-back:hover{color:var(--white)}
 
 /* HERO */
-.hero{position:relative;min-height:72vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 2rem 60px;overflow:hidden}
+.hero{position:relative;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 80px;overflow:hidden}
 .h-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 65% at 50% 40%,rgba(212,163,50,.08),transparent 65%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(255,61,110,.06),transparent 55%),linear-gradient(180deg,#030308,#07070f)}
 .h-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
-.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);background-size:60px 60px}
+.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
 .corner{position:absolute;width:60px;height:60px;pointer-events:none}
 .c-tl{top:80px;left:2rem;border-top:1.5px solid rgba(212,163,50,.3);border-left:1.5px solid rgba(212,163,50,.3)}
 .c-tr{top:80px;right:2rem;border-top:1.5px solid rgba(212,163,50,.3);border-right:1.5px solid rgba(212,163,50,.3)}
@@ -203,7 +203,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
 .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}
 
 @media(max-width:900px){.deals-grid,.wyg-grid{grid-template-columns:1fr}.deal-card.dc-hot{transform:none}.proof-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}section,.deals-sec,.wyg-sec,.proof-sec,.faq-sec,.fcta-sec{padding:60px 1.2rem}.proof-grid{grid-template-columns:1fr}.cd-num{min-width:60px;font-size:clamp(2.2rem,7vw,4rem)}.cd-sep{font-size:2.2rem}}
+@media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}section,.deals-sec,.wyg-sec,.proof-sec,.faq-sec,.fcta-sec{padding:60px 1.2rem}.proof-grid{grid-template-columns:1fr}.cd-num{min-width:60px;font-size:clamp(2.2rem,7vw,4rem)}.cd-sep{font-size:2.2rem}.hero{padding:100px 1.2rem 40px;min-height:85vh}}
 </style>
 </head>
 <body>
@@ -451,7 +451,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
 
 <script>
 // COUNTDOWN
-const LAUNCH = new Date('2025-09-26T06:00:00+05:30');
+const LAUNCH = new Date('2027-10-26T06:00:00+05:30');
 function tick(){
   const diff = LAUNCH - new Date();
   if(diff <= 0) return;
