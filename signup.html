@@ -450,25 +450,65 @@ function goStep(n){
   });
   document.getElementById('step'+n).style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
+  if (n === 2) {
+    setTimeout(renderGoogleSignupButton, 100);
+  }
 }
 
-function validateAndNext(){
+function renderGoogleSignupButton() {
+  try {
+    const signupG = document.getElementById("googleSignupBtn");
+    if (signupG && window.google) {
+      google.accounts.id.renderButton(signupG, { theme: "filled_black", size: "large", text: "continue_with", width: 336 });
+    }
+  } catch (e) {
+    console.warn("Google signup button render error:", e);
+  }
+}
+
+async function validateAndNext(){
   const email=document.getElementById('email');
   const valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-  if(!valid){email.classList.add('error');return}
+  if(!valid){
+    email.classList.add('error');
+    alert("Please enter a valid email address.");
+    return;
+  }
   email.classList.remove('error');
 
-  // Save credentials to localStorage as a cached signup before proceeding to step 3!
-  const user = {
-    email: email.value.trim(),
-    firstName: document.getElementById('fname').value.trim() || email.value.split('@')[0],
-    lastName: document.getElementById('lname').value.trim() || '',
-    tier: selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro'),
-    subscribed: false
-  };
-  localStorage.setItem('vv_user', JSON.stringify(user));
+  const password = document.getElementById('password').value;
+  if (!password || password.length < 8) {
+    document.getElementById('password').classList.add('error');
+    alert("Password must be at least 8 characters long.");
+    return;
+  }
+  document.getElementById('password').classList.remove('error');
 
-  goStep(3);
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const tierId = selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
+
+  const nextBtn = document.querySelector('button[onclick="validateAndNext()"]');
+  if (nextBtn) { nextBtn.disabled = true; nextBtn.textContent = 'Registering...'; }
+
+  const res = await VV.register(email.value.trim(), password, fname, lname, tierId);
+  
+  if (nextBtn) { nextBtn.disabled = false; nextBtn.textContent = 'Create account →'; }
+
+  if (res.success) {
+    // Save credentials to localStorage as a cached signup before proceeding to step 3!
+    const user = {
+      email: email.value.trim(),
+      firstName: fname || email.value.split('@')[0],
+      lastName: lname || '',
+      tier: selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro'),
+      subscribed: false
+    };
+    localStorage.setItem('vv_user', JSON.stringify(user));
+    goStep(3);
+  } else {
+    alert("Registration failed: " + res.error);
+  }
 }
 
 function togglePass(){
@@ -594,9 +634,27 @@ async function handleLoginClick() {
       alert("Please enter email and password.");
       return;
     }
-    const logged = VV.login(email, pass);
-    if (logged) {
-      window.location.href = 'dashboard.html';
+    
+    const nextBtn = document.getElementById('signInSubmitBtn');
+    if (nextBtn) { nextBtn.disabled = true; nextBtn.textContent = 'Verifying...'; }
+
+    const res = await VV.login(email, pass);
+    
+    if (nextBtn) { nextBtn.disabled = false; nextBtn.textContent = 'Sign in →'; }
+
+    if (res.success) {
+      if (res.user && res.user.subscribed) {
+        window.location.href = 'dashboard.html';
+      } else {
+        alert("Account found but subscription is inactive. Redirecting to payment step...");
+        let price = 699, name = 'Vault Pro';
+        if (res.user.tier === 'soldier') { price = 299; name = 'Soldier'; }
+        else if (res.user.tier === 'elite') { price = 999; name = 'Elite Crew'; }
+        selectTier(price, name);
+        goStep(3);
+      }
+    } else {
+      alert("Login failed: " + (res.error || "Incorrect email or password"));
     }
   }
 }

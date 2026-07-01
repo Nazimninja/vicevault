@@ -91,6 +91,10 @@ export default {
       response = await handleGoogleAuth(request, env);
     } else if (url.pathname === '/api/auth/discord' && request.method === 'POST') {
       response = await handleDiscordAuth(request, env);
+    } else if (url.pathname === '/api/auth/register' && request.method === 'POST') {
+      response = await handleRegister(request, env);
+    } else if (url.pathname === '/api/auth/login' && request.method === 'POST') {
+      response = await handleLogin(request, env);
     } else if (url.pathname === '/api/auth/cancel-subscription' && request.method === 'POST') {
       response = await handleCancelSubscription(request, env);
     } else if (url.pathname === '/api/pay/create-order' && request.method === 'POST') {
@@ -575,14 +579,17 @@ async function handleVerifyOTP(request, env) {
       joinedAt: new Date().toISOString()
     };
 
-    // Preserve existing Discord ID if present in KV
+    // Preserve existing Discord ID, password hash, and subscription status if present in KV
     const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
     if (existingStr) {
       try {
         const existing = JSON.parse(existingStr);
-        if (existing.discordUserId) {
-          user.discordUserId = existing.discordUserId;
-        }
+        user.subscribed = existing.subscribed !== undefined ? existing.subscribed : true;
+        if (existing.firstName) user.firstName = existing.firstName;
+        if (existing.lastName) user.lastName = existing.lastName;
+        if (existing.tier) user.tier = existing.tier;
+        if (existing.discordUserId) user.discordUserId = existing.discordUserId;
+        if (existing.passwordHash) user.passwordHash = existing.passwordHash;
       } catch(e) {}
     }
 
@@ -1283,6 +1290,94 @@ async function handleAdminDeleteUser(request, env) {
 
     await env.VICE_VAULT_KV.delete(`user:${cleanEmail}`);
     return json({ success: true, message: 'User deleted successfully' });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+async function hashPassword(password) {
+  const msgUint8 = new TextEncoder().encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function handleRegister(request, env) {
+  try {
+    const { email, password, firstName, lastName, tier } = await request.json();
+    const cleanEmail = (email || '').toLowerCase().trim();
+    if (!cleanEmail || !password || password.length < 8) {
+      return json({ error: 'Valid email and password (min 8 chars) are required' }, 400);
+    }
+    
+    // Check if user already exists
+    const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
+    if (existingStr) {
+      const existing = JSON.parse(existingStr);
+      if (existing.subscribed) {
+        return json({ error: 'This email is already registered and subscribed. Please sign in instead.' }, 400);
+      }
+    }
+    
+    const passwordHash = await hashPassword(password);
+    
+    let tierName = 'pro';
+    if (tier === 'soldier' || tier === '299') tierName = 'soldier';
+    if (tier === 'elite' || tier === '999') tierName = 'elite';
+
+    const user = {
+      email: cleanEmail,
+      passwordHash,
+      firstName: firstName || cleanEmail.split('@')[0],
+      lastName: lastName || '',
+      tier: tierName,
+      subscribed: false,
+      joinedAt: new Date().toISOString()
+    };
+    
+    await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
+    return json({ success: true, user: { email: user.email, firstName: user.firstName, lastName: user.lastName, tier: user.tier, subscribed: user.subscribed } });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+async function handleLogin(request, env) {
+  try {
+    const { email, password } = await request.json();
+    const cleanEmail = (email || '').toLowerCase().trim();
+    if (!cleanEmail || !password) {
+      return json({ error: 'Email and password are required' }, 400);
+    }
+    
+    const userStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
+    if (!userStr) {
+      return json({ error: 'Account not found. Please sign up first.' }, 404);
+    }
+    
+    const user = JSON.parse(userStr);
+    if (!user.passwordHash) {
+      return json({ error: 'This account was created via social login or OTP. Please sign in using the OTP link or Google/Discord.' }, 400);
+    }
+    
+    const inputHash = await hashPassword(password);
+    if (user.passwordHash !== inputHash) {
+      return json({ error: 'Incorrect password. Please try again.' }, 400);
+    }
+    
+    // Return user info (omit password hash for security)
+    return json({
+      success: true,
+      user: {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        tier: user.tier,
+        subscribed: user.subscribed,
+        discordUserId: user.discordUserId,
+        joinedAt: user.joinedAt
+      }
+    });
   } catch (e) {
     return json({ error: e.message }, 500);
   }

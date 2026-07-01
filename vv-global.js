@@ -55,8 +55,8 @@
     {
       id: 'soldier',
       name: 'Soldier',
-      price: 299,
-      originalPrice: null,
+      price: 199,
+      originalPrice: 299,
       period: 'month',
       badge: null,
       color: '#7a788a',
@@ -72,8 +72,8 @@
     {
       id: 'pro',
       name: 'Vault Pro',
-      price: 699,
-      originalPrice: null,
+      price: 399,
+      originalPrice: 499,
       period: 'month',
       badge: '⭐ Best value',
       color: '#d4a332',
@@ -94,7 +94,7 @@
       id: 'elite',
       name: 'Elite Crew',
       price: 999,
-      originalPrice: null,
+      originalPrice: 1199,
       period: 'year',
       badge: '💎 Founding member',
       color: '#9b59ff',
@@ -766,18 +766,41 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     }
   }
 
-  function login(email, password) {
-    if (!email) return false;
-    const user = {
-      email,
-      firstName: email.split('@')[0],
-      lastName: '',
-      tier: 'pro', // default to pro
-      subscribed: true,
-      joinedAt: new Date().toISOString()
-    };
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
-    return true;
+  async function login(email, password) {
+    if (!email || !password) return { success: false, error: 'Email and password are required' };
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+        return { success: true, user: data.user };
+      }
+      return { success: false, error: data.error || 'Login failed' };
+    } catch (e) {
+      return { success: false, error: e.message };
+    }
+  }
+
+  async function register(email, password, firstName, lastName, tier) {
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, firstName, lastName, tier })
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+        return { success: true, user: data.user };
+      }
+      return { success: false, error: data.error || 'Registration failed' };
+    } catch (e) {
+      return { success: false, error: e.message };
+    }
   }
 
   function signup(email, firstName, lastName, tierId) {
@@ -988,6 +1011,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     ...window.VV,
     getCurrentUser,
     login,
+    register,
     signup,
     logout,
     checkAccess,
