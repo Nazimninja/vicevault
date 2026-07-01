@@ -303,9 +303,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       <div class="fc-title">Account details <span class="fc-badge" id="selectedTierBadge">Vault Pro</span></div>
 
       <div class="divider-or" style="margin-top:0">Continue with</div>
-      <div class="social-btns" style="margin-bottom:1.5rem">
-        <button class="social-btn" onclick="goStep(3)"><span class="social-icon">G</span>Google</button>
-        <button class="social-btn" onclick="goStep(3)"><span class="social-icon">🎮</span>Discord</button>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;margin-bottom:1.5rem">
+        <div id="googleSignupBtn" style="display:flex;justify-content:center"></div>
+        <button class="social-btn" style="width:336px;height:40px;display:flex;align-items:center;justify-content:center" onclick="handleDiscordSignup()"><span class="social-icon">🎮</span>Continue with Discord</button>
       </div>
       <div class="divider-or">Or use email</div>
 
@@ -456,6 +456,17 @@ function validateAndNext(){
   const valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
   if(!valid){email.classList.add('error');return}
   email.classList.remove('error');
+
+  // Save credentials to localStorage as a cached signup before proceeding to step 3!
+  const user = {
+    email: email.value.trim(),
+    firstName: document.getElementById('fname').value.trim() || email.value.split('@')[0],
+    lastName: document.getElementById('lname').value.trim() || '',
+    tier: selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro'),
+    subscribed: false
+  };
+  localStorage.setItem('vv_user', JSON.stringify(user));
+
   goStep(3);
 }
 
@@ -598,7 +609,26 @@ async function handleGoogleCredential(response) {
 
   const res = await VV.loginWithGoogle(token, tierId);
   if (res.success) {
-    window.location.href = 'dashboard.html';
+    if (res.user && res.user.subscribed) {
+      window.location.href = 'dashboard.html';
+    } else {
+      // Pre-fill name and email in step 2 inputs
+      if (document.getElementById('email')) document.getElementById('email').value = res.user.email || '';
+      if (document.getElementById('fname')) document.getElementById('fname').value = res.user.firstName || '';
+      if (document.getElementById('lname')) document.getElementById('lname').value = res.user.lastName || '';
+      
+      // Save user to local cache
+      localStorage.setItem('vv_user', JSON.stringify({
+        email: res.user.email,
+        firstName: res.user.firstName || res.user.email.split('@')[0],
+        lastName: res.user.lastName || '',
+        tier: tierId,
+        subscribed: false
+      }));
+
+      // Go to Step 3
+      goStep(3);
+    }
   } else {
     alert("Google Sign-In failed: " + (res.error || "Unknown token"));
   }
@@ -612,6 +642,38 @@ function toggleLoginPass(){
 function handleDiscordLogin() {
   const redirectUri = encodeURIComponent(window.location.origin + '/signup.html');
   window.location.href = `https://discord.com/oauth2/authorize?client_id=1521435317129842728&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email%20guilds.join`;
+}
+
+function handleDiscordSignup() {
+  const tierId = selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
+  const redirectUri = encodeURIComponent(window.location.origin + '/signup.html?signup_discord=true&tier_id=' + tierId);
+  window.location.href = `https://discord.com/oauth2/authorize?client_id=1521435317129842728&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email%20guilds.join`;
+}
+
+async function handleDiscordSignupCallback(code, tierId) {
+  setTimeout(() => {
+    const wrap = document.querySelector('.wrapper');
+    if (wrap) {
+      wrap.innerHTML = `
+        <div style="background:var(--card);border:1px solid var(--border2);border-radius:6px;padding:3rem 2rem;text-align:center;max-width:400px;margin:4rem auto;animation:fadeUp .6s ease;border-left:3px solid var(--gold)">
+          <div style="font-size:1.6rem;font-weight:900;color:var(--gold);margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em">VERIFYING DISCORD...</div>
+          <p style="color:var(--muted);font-size:.88rem;line-height:1.7">Linking your Discord account. Please wait...</p>
+        </div>`;
+    }
+  }, 100);
+
+  const redirectUri = window.location.origin + '/signup.html?signup_discord=true&tier_id=' + tierId;
+  const res = await VV.loginWithDiscord(code, redirectUri, tierId);
+  if (res.success) {
+    if (res.user && res.user.subscribed) {
+      window.location.href = 'dashboard.html';
+    } else {
+      window.location.href = `signup.html?step=3&email=${encodeURIComponent(res.user.email)}&fname=${encodeURIComponent(res.user.firstName || '')}&lname=${encodeURIComponent(res.user.lastName || '')}&tier_id=${tierId}`;
+    }
+  } else {
+    alert("Discord registration failed: " + (res.error || "Unknown error"));
+    window.location.href = 'signup.html';
+  }
 }
 
 async function handleDiscordCallback(code) {
@@ -645,11 +707,43 @@ async function handleDiscordCallback(code) {
 const params=new URLSearchParams(location.search);
 const discordCode = params.get('code');
 if (discordCode) {
-  handleDiscordCallback(discordCode);
+  if (params.get('signup_discord') === 'true') {
+    handleDiscordSignupCallback(discordCode, params.get('tier_id') || 'pro');
+  } else {
+    handleDiscordCallback(discordCode);
+  }
 }
+
+const emailParam = params.get('email');
+const fnameParam = params.get('fname');
+const lnameParam = params.get('lname');
+const tierParam = params.get('tier_id');
+const stepParam = params.get('step');
+
+if (stepParam === '3') {
+  if (emailParam) document.getElementById('email').value = decodeURIComponent(emailParam);
+  if (fnameParam) document.getElementById('fname').value = decodeURIComponent(fnameParam);
+  if (lnameParam) document.getElementById('lname').value = decodeURIComponent(lnameParam);
+
+  const userObj = {
+    email: decodeURIComponent(emailParam),
+    firstName: decodeURIComponent(fnameParam || ''),
+    lastName: decodeURIComponent(lnameParam || ''),
+    tier: tierParam || 'pro',
+    subscribed: false
+  };
+  localStorage.setItem('vv_user', JSON.stringify(userObj));
+
+  if (tierParam === 'soldier') selectTier(299, 'Soldier');
+  else if (tierParam === 'elite') selectTier(999, 'Elite Crew');
+  else selectTier(699, 'Vault Pro');
+
+  goStep(3);
+} else {
   if(params.get('tier')==='299')selectTier(299,'Soldier');
   if(params.get('tier')==='699')selectTier(699,'Vault Pro');
   if(params.get('tier')==='999')selectTier(999,'Elite Crew');
+}
 
 // Login mode
 if(params.get('mode')==='login'){
@@ -705,10 +799,16 @@ if(params.get('mode')==='login'){
         client_id: "804858392117-7pmts3ffsa30f7to3jggnh4m49evc7a0.apps.googleusercontent.com",
         callback: handleGoogleCredential
       });
-      google.accounts.id.renderButton(
-        document.getElementById("googleBtn"),
-        { theme: "filled_black", size: "large", text: "continue_with", width: 336 }
-      );
+
+      const loginG = document.getElementById("googleBtn");
+      if (loginG) {
+        google.accounts.id.renderButton(loginG, { theme: "filled_black", size: "large", text: "continue_with", width: 336 });
+      }
+
+      const signupG = document.getElementById("googleSignupBtn");
+      if (signupG) {
+        google.accounts.id.renderButton(signupG, { theme: "filled_black", size: "large", text: "continue_with", width: 336 });
+      }
     } catch (e) {
       console.warn("Google SDK not ready:", e);
     }

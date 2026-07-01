@@ -305,6 +305,35 @@ a{color:inherit;text-decoration:none}
 .btn-modal.cancel:hover{color:var(--white)}
 .btn-modal.save{background:var(--gold);color:var(--ink)}
 .btn-modal.save:hover{background:var(--gold2)}
+
+/* ONBOARDING TOUR styles */
+.tour-overlay {
+  position: fixed; inset: 0; background: rgba(3,3,8,0.7); z-index: 9990;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.tour-overlay.active { opacity: 1; pointer-events: auto; }
+.tour-highlight {
+  position: relative; z-index: 9995 !important;
+  box-shadow: 0 0 0 4px var(--gold), 0 0 30px rgba(212,163,50,0.5);
+  border-radius: 4px; background: rgba(212,163,50,0.12) !important;
+  transition: all 0.3s;
+}
+.tour-tooltip {
+  position: fixed; z-index: 9996; background: var(--card);
+  border: 1px solid var(--border); border-left: 3px solid var(--gold);
+  border-radius: 6px; padding: 1.5rem; width: 320px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  opacity: 0; transform: translateY(10px); transition: all 0.3s;
+  pointer-events: none;
+}
+.tour-tooltip.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.tour-t { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 0.05em; color: var(--gold); margin-bottom: 0.5rem; }
+.tour-p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem; }
+.tour-btns { display: flex; justify-content: space-between; align-items: center; }
+.tour-skip { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; color: var(--dim); cursor: pointer; border: none; background: none; text-transform: uppercase; }
+.tour-skip:hover { color: var(--white); }
+.tour-next { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; background: var(--gold); color: var(--ink); border: none; padding: 0.4rem 1rem; border-radius: 2px; cursor: pointer; text-transform: uppercase; }
+.tour-next:hover { background: var(--gold2); }
 </style>
 </head>
 <body>
@@ -485,6 +514,7 @@ a{color:inherit;text-decoration:none}
       
       <div style="display:flex;flex-direction:column;gap:.8rem">
         <button class="btn-g" style="background:linear-gradient(135deg,#ff3d6e,#c4193b);border:none;padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer" onclick="VV.cancelSubscription()" id="cancelSubBtn">🚫 Cancel Subscription &amp; Revoke Discord Roles</button>
+        <button class="btn-o" style="padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer;border-color:var(--gold);background:rgba(212,163,50,.07)" onclick="initOnboardingTour(true)">🗺️ Restart Onboarding Guide Tour</button>
         <button class="btn-o" style="padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer" onclick="VV.logout()">← Sign Out</button>
       </div>
 
@@ -890,6 +920,10 @@ animProgress();
     url.searchParams.delete('payment');
     url.searchParams.delete('tier');
     window.history.replaceState({}, document.title, url);
+
+    setTimeout(() => {
+      initOnboardingTour(true);
+    }, 500);
   }
 
   function handleSuccessDiscord() {
@@ -916,6 +950,156 @@ animProgress();
     document.getElementById('successTierName').textContent = tierName;
     document.getElementById('successModal').classList.add('active');
   }
+
+  // Onboarding Tour functions
+  const tourSteps = [
+    {
+      selector: '.sb-item[onclick*="dashboard"]',
+      title: '🏠 Your Control Center',
+      desc: 'This is your main dashboard. Keep track of your reading progress, unlocked sections, and quick reference cheats.'
+    },
+    {
+      selector: '.sb-item[onclick*="weekly"]',
+      title: '📅 Weekly Drop Intel',
+      desc: 'Check here every Thursday. Our expert GTA analysts upload fresh story walkthroughs, heist maps, and weapon meta blueprints.'
+    },
+    {
+      selector: '.sb-item[onclick*="story"]',
+      title: '🔓 The Vault Blueprints',
+      desc: 'Explore 11 category vaults inside the sidebar to find detailed heist setups, vehicle spawn charts, and mission speedrun guides.'
+    },
+    {
+      selector: '.sb-item[onclick*="settings"]',
+      title: '⚙️ Settings & Discord',
+      desc: 'Link your Discord profile in the settings tab to instantly join our private crew server and receive your premium chat roles.'
+    }
+  ];
+
+  let currentTourStep = 0;
+
+  function initOnboardingTour(force = false) {
+    if (!force && localStorage.getItem('vv_tour_completed') === 'true') return;
+    if (!force && new URLSearchParams(window.location.search).get('payment') === 'success') return; // wait for success modal
+    
+    // Clean up any existing tour overlay/tooltip
+    const oldO = document.getElementById('tourOverlay');
+    const oldT = document.getElementById('tourTooltip');
+    if (oldO) oldO.remove();
+    if (oldT) oldT.remove();
+
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'tour-overlay';
+    overlay.id = 'tourOverlay';
+    document.body.appendChild(overlay);
+    
+    // Create tooltip
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tour-tooltip';
+    tooltip.id = 'tourTooltip';
+    tooltip.innerHTML = `
+      <div class="tour-t" id="tourTitle">🔒 Secure Vault Access</div>
+      <div class="tour-p" id="tourDesc">Welcome to Vice Vault! Let's take a quick 1-minute tour of your menu so you can navigate the intelligence vaults easily.</div>
+      <div class="tour-btns">
+        <button class="tour-skip" onclick="skipTour()">Skip Tour</button>
+        <button class="tour-next" id="tourNextBtn" onclick="startTourSteps()">Start Tour →</button>
+      </div>
+    `;
+    document.body.appendChild(tooltip);
+
+    showTourWelcome();
+  }
+
+  function showTourWelcome() {
+    const overlay = document.getElementById('tourOverlay');
+    const tooltip = document.getElementById('tourTooltip');
+    if (!overlay || !tooltip) return;
+    
+    overlay.classList.add('active');
+    
+    // Center welcome card
+    tooltip.style.left = '50%';
+    tooltip.style.top = '50%';
+    tooltip.style.transform = 'translate(-50%, -50%)';
+    tooltip.style.pointerEvents = 'auto';
+    tooltip.style.opacity = '1';
+  }
+
+  window.skipTour = function() {
+    localStorage.setItem('vv_tour_completed', 'true');
+    cleanupTour();
+  }
+
+  window.startTourSteps = function() {
+    showTourStep(0);
+  }
+
+  function positionTooltip(targetEl, tooltipEl) {
+    const rect = targetEl.getBoundingClientRect();
+    const screenWidth = window.innerWidth;
+    
+    // Position to the right of the sidebar item
+    let left = rect.right + 20;
+    let top = rect.top + (rect.height / 2) - 80;
+    
+    if (left + 320 > screenWidth) {
+      left = screenWidth - 340;
+      top = rect.bottom + 20;
+    }
+    
+    tooltipEl.style.left = left + 'px';
+    tooltipEl.style.top = top + 'px';
+  }
+
+  function showTourStep(idx) {
+    document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+    
+    if (idx >= tourSteps.length) {
+      localStorage.setItem('vv_tour_completed', 'true');
+      cleanupTour();
+      return;
+    }
+    
+    currentTourStep = idx;
+    const step = tourSteps[idx];
+    const targetEl = document.querySelector(step.selector);
+    const tooltip = document.getElementById('tourTooltip');
+    
+    document.getElementById('tourTitle').textContent = step.title;
+    document.getElementById('tourDesc').textContent = step.desc;
+    
+    const nextBtn = document.getElementById('tourNextBtn');
+    nextBtn.textContent = idx === tourSteps.length - 1 ? 'Finish' : 'Next →';
+    nextBtn.onclick = () => showTourStep(idx + 1);
+    
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile && targetEl) {
+      targetEl.classList.add('tour-highlight');
+      tooltip.style.transform = 'none';
+      positionTooltip(targetEl, tooltip);
+    } else {
+      // Center it on mobile/tablet or if target missing
+      tooltip.style.left = '50%';
+      tooltip.style.top = '50%';
+      tooltip.style.transform = 'translate(-50%, -50%)';
+    }
+  }
+
+  function cleanupTour() {
+    document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+    const overlay = document.getElementById('tourOverlay');
+    const tooltip = document.getElementById('tourTooltip');
+    if (overlay) overlay.classList.remove('active');
+    if (tooltip) {
+      tooltip.style.opacity = '0';
+      tooltip.style.pointerEvents = 'none';
+    }
+  }
+
+  window.initOnboardingTour = initOnboardingTour;
+
+  // Run tour on load
+  initOnboardingTour();
 </script>
 
 <script src="vv-global.js"></script>

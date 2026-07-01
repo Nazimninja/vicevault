@@ -994,7 +994,8 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     sendOTP,
     verifyOTP,
     loginWithGoogle,
-    loginWithDiscord
+    loginWithDiscord,
+    pay: initRazorpayPayment
   };
 
   // ─── KEYBOARD CLOSE ──────────────────────────────────────
@@ -1103,8 +1104,12 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 
   // ─── RAZORPAY CHECKOUT ─────────────────────────────────────
   async function initRazorpayPayment(tier) {
-    const user = getUser();
-    const email = user?.email || '';
+    const user = getCurrentUser();
+    let email = user?.email || '';
+    if (!email) {
+      const emailInput = document.getElementById('email');
+      if (emailInput) email = emailInput.value.trim();
+    }
 
     // Ensure Razorpay script is loaded
     if (!window.Razorpay) {
