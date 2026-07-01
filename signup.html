@@ -267,7 +267,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       <div class="tier-card" id="tc-999" onclick="selectTier(999,'Elite Crew')">
         <div class="tier-check">✓</div>
         <div class="tier-name">Elite Crew</div>
-        <div class="tier-tagline">Annual — maximum value + perks</div>
+        <div class="tier-tagline">Yearly — maximum value + perks</div>
         <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">999</span></div>
         <div class="tier-per">per year — saves ₹4,789</div>
         <ul class="tier-feats">
@@ -428,7 +428,7 @@ function selectTier(price,name){
   document.getElementById('selectedTierBadge').textContent=name;
 
   // update order summary
-  document.getElementById('os-tier-name').textContent=name+(price===999?' — Annual':' — Monthly');
+  document.getElementById('os-tier-name').textContent=name+(price===999?' — Yearly':' — Monthly');
   document.getElementById('os-price').textContent='₹'+price;
   document.getElementById('os-total').textContent='₹'+price;
   document.getElementById('pay-amount-label').textContent='₹'+price;

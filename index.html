@@ -49,14 +49,28 @@ nav.scrolled{background:rgba(3,3,8,.92);backdrop-filter:blur(20px);border-bottom
 .nav-cta:hover{background:var(--gold2)!important;transform:translateY(-1px)}
 
 /* HERO */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:4rem 2.5rem 6rem;overflow:hidden}
-.hero-bg{position:absolute;inset:0;z-index:1;background:
-  radial-gradient(ellipse 60% 70% at 80% 30%,rgba(0,212,170,.07) 0%,transparent 60%),
-  radial-gradient(ellipse 50% 60% at 10% 80%,rgba(255,61,110,.09) 0%,transparent 55%),
-  radial-gradient(ellipse 40% 50% at 50% 50%,rgba(212,163,50,.06) 0%,transparent 60%),
-  linear-gradient(180deg,#030308 0%,#07070f 100%)}
-.hero-scan{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.1) 3px,rgba(0,0,0,.1) 4px)}
-.hero-grid{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(212,163,50,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.03) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
+.hero{position:relative;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 80px;overflow:hidden;background:#030308}
+.h-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 65% at 50% 40%,rgba(212,163,50,.08),transparent 65%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(255,61,110,.06),transparent 55%),linear-gradient(180deg,#030308,#07070f)}
+.h-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
+.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.corner{position:absolute;width:60px;height:60px;pointer-events:none}
+.c-tl{top:80px;left:2rem;border-top:1.5px solid rgba(212,163,50,.3);border-left:1.5px solid rgba(212,163,50,.3)}
+.c-tr{top:80px;right:2rem;border-top:1.5px solid rgba(212,163,50,.3);border-right:1.5px solid rgba(212,163,50,.3)}
+.h-content{position:relative;z-index:5;max-width:780px}
+
+.offer-banner{display:inline-flex;align-items:center;gap:.7rem;background:rgba(212,163,50,.1);border:1px solid rgba(212,163,50,.3);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:.45rem 1.3rem;border-radius:2px;margin-bottom:1.8rem;animation:fup .7s .2s both}
+.ob-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pd 1.5s ease-in-out infinite}
+@keyframes fup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+.h-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,8rem);letter-spacing:.03em;line-height:.88;margin-bottom:1.2rem;animation:fup .8s .3s both}
+.h-title .g{color:var(--gold);text-shadow:0 0 80px rgba(212,163,50,.3)}
+.h-title .s{-webkit-text-stroke:1.5px rgba(255,255,255,.2);color:transparent}
+.h-sub{font-size:1rem;color:var(--muted);line-height:1.85;max-width:520px;margin:0 auto 2rem;animation:fup .8s .4s both}
+.h-sub strong{color:var(--white)}
+
+/* URGENCY */
+.urgency-strip{background:rgba(255,61,110,.08);border:1px solid rgba(255,61,110,.2);border-radius:3px;padding:.7rem 1.4rem;display:inline-flex;align-items:center;gap:.7rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:2.5rem;animation:fup .8s .6s both}
+.us-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 1.5s ease-in-out infinite;flex-shrink:0}
 
 /* animated particles */
 .particles{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
@@ -360,26 +374,28 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-scan"></div>
-  <div class="hero-grid"></div>
+  <div class="h-bg"></div>
+  <div class="h-scan"></div>
+  <div class="h-grid"></div>
   <div class="particles" id="particles"></div>
-  <svg class="hero-skyline" id="skyline" viewBox="0 0 1400 300" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="200" width="40" height="100" fill="#fff"/><rect x="45" y="155" width="30" height="145" fill="#fff"/><rect x="80" y="115" width="55" height="185" fill="#fff"/><rect x="140" y="175" width="28" height="125" fill="#fff"/><rect x="173" y="90" width="65" height="210" fill="#fff"/><rect x="243" y="135" width="38" height="165" fill="#fff"/><rect x="286" y="70" width="85" height="230" fill="#fff"/><rect x="376" y="155" width="42" height="145" fill="#fff"/><rect x="423" y="100" width="58" height="200" fill="#fff"/><rect x="486" y="55" width="75" height="245" fill="#fff"/><rect x="566" y="125" width="48" height="175" fill="#fff"/><rect x="619" y="80" width="95" height="220" fill="#fff"/><rect x="719" y="145" width="38" height="155" fill="#fff"/><rect x="762" y="60" width="68" height="240" fill="#fff"/><rect x="835" y="115" width="52" height="185" fill="#fff"/><rect x="892" y="45" width="85" height="255" fill="#fff"/><rect x="982" y="135" width="43" height="165" fill="#fff"/><rect x="1030" y="95" width="58" height="205" fill="#fff"/><rect x="1093" y="165" width="32" height="135" fill="#fff"/><rect x="1130" y="75" width="72" height="225" fill="#fff"/><rect x="1207" y="125" width="48" height="175" fill="#fff"/><rect x="1260" y="55" width="88" height="245" fill="#fff"/><rect x="1353" y="105" width="47" height="195" fill="#fff"/>
-  </svg>
-
-  <div class="hero-content">
-    <div class="hero-tag"><span class="tag-line"></span>GTA 6 · Vice City · Your Criminal Edge</div>
-    <h1>
-      <span class="h-out">VICE</span><br>
-      <span class="h-gold">VAULT</span><br>
-      <span class="h-pink">INTEL</span>
+  <div class="corner c-tl"></div>
+  <div class="corner c-tr"></div>
+  
+  <div class="h-content" style="margin: 0 auto; text-align: center;">
+    <div class="offer-banner"><span class="ob-dot"></span>Pre-launch exclusive · Ends at GTA 6 launch</div>
+    <h1 class="h-title">
+      <span class="s">Lock in</span><br>
+      <span class="g">20% off</span><br>
+      <span class="s">forever</span>
     </h1>
-    <p class="hero-p">Every GTA 6 guide you'll ever need — story walkthroughs, heist blueprints, money meta, cheat codes, vehicle guides, Easter eggs and more. Written by obsessive players. Updated every week.</p>
+    <p class="h-sub">
+      Pre-order Vice Vault before GTA 6 launches and your price is locked <strong>for life</strong>. Vault Pro at <strong>₹399/mo</strong> — saves you ₹1,200 every year, permanently. Price rises to ₹499 on launch day.
+    </p>
+
     <!-- Countdown Timer -->
-    <div class="countdown-hero" style="animation: none; margin-bottom: 2.2rem; text-align: left;">
+    <div class="countdown-hero" style="animation: none; margin-bottom: 2.2rem; text-align: center;">
       <div class="cd-label" style="font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem">LAUNCH COUNTDOWN</div>
-      <div class="cd-wrap" style="display:flex;gap:0.8rem;justify-content:flex-start;align-items:flex-end;flex-wrap:wrap">
+      <div class="cd-wrap" style="display:flex;gap:0.8rem;justify-content:center;align-items:flex-end;flex-wrap:wrap">
         <div class="cd-unit"><div class="cd-num" id="cd-d" style="font-size: 2.5rem; min-width: 60px;">000</div><div class="cd-lbl">Days</div></div>
         <div class="cd-sep" style="font-size: 2rem; margin-bottom: 0.8rem;">:</div>
         <div class="cd-unit"><div class="cd-num" id="cd-h" style="font-size: 2.5rem; min-width: 50px;">00</div><div class="cd-lbl">Hours</div></div>
@@ -391,19 +407,17 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
     </div>
 
     <!-- Waitlist Captures -->
-    <div class="fcta-form" style="justify-content: flex-start; margin-bottom: 1rem;">
+    <div class="fcta-form" style="justify-content: center; margin-bottom: 1rem;">
       <input type="email" class="fcta-email" id="hero-waitlist-email" placeholder="your@email.com" aria-label="Email" style="width: 250px;">
       <button class="btn-g" onclick="submitHeroWaitlist()">Lock in ₹399/mo →</button>
     </div>
-    <div class="fcta-note" id="hero-waitlist-note" style="font-size:.76rem;color:var(--dim)">No payment now · Price locked forever · Cancel anytime</div>
-  </div>
+    <div class="fcta-note" id="hero-waitlist-note" style="font-size:.76rem;color:var(--dim);margin-bottom:2rem">No payment now · Price locked forever · Cancel anytime</div>
 
-  <div class="hero-stats">
-    <div class="hst"><div class="hst-n">11</div><div class="hst-l">Content sections</div></div>
-    <div class="hst"><div class="hst-n">320+</div><div class="hst-l">Guides live</div></div>
-    <div class="hst"><div class="hst-n">Weekly</div><div class="hst-l">Meta drops</div></div>
+    <div class="urgency-strip">
+      <span class="us-dot"></span>
+      <span>Pre-order deal closes the moment GTA 6 launches — no extensions</span>
+    </div>
   </div>
-  <div class="scroll-hint"><span>Scroll</span><span class="scroll-bar"></span></div>
 </section>
 
 <!-- TICKER -->
