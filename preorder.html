@@ -212,64 +212,37 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
   <div class="nav-logo"><span class="logo-v">VICE</span>VAULT<span class="nav-dot"></span></div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="index.html#allguides">Guides</a></li>
-    <li><a href="coming-soon.html">Waitlist</a></li>
+    <li><a href="index.html#categories">Vault Preview</a></li>
   </ul>
-  <a href="index.html" class="nav-back">← Back to site</a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
 </nav>
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero" style="min-height: auto; padding: 120px 2.5rem 60px;">
   <div class="h-bg"></div><div class="h-scan"></div><div class="h-grid"></div>
-  <div class="corner c-tl"></div><div class="corner c-tr"></div>
-  <div class="h-content">
-    <div class="offer-banner"><span class="ob-dot"></span>Pre-launch exclusive · Ends at GTA 6 launch</div>
-    <h1 class="h-title">
-      <span class="s">Lock in</span><br>
-      <span class="g">20% off</span><br>
-      <span class="s">forever</span>
+  <div class="corner c-tl" style="top: 80px;"></div><div class="corner c-tr" style="top: 80px;"></div>
+  <div class="h-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+    <div class="offer-banner" style="animation: none;"><span class="ob-dot"></span>Pre-launch discount tiers</div>
+    <h1 class="h-title" style="animation: none; font-size: clamp(3rem, 7vw, 5.5rem);">
+      <span class="s">Choose your</span><br>
+      <span class="g">Pre-Order Tier</span>
     </h1>
-    <p class="h-sub">
-      Pre-order Vice Vault before GTA 6 launches and your price is locked <strong>for life</strong>. Vault Pro at <strong>₹399/mo</strong> — saves you ₹1,200 every year, permanently. Price rises to ₹499 on launch day.
+    <p class="h-sub" style="animation: none; max-width: 600px; margin-bottom: 0;">
+      Lock in your pre-launch lifetime discount rate today. No payment is required until GTA 6 launch day. Cancel or change tier any time.
     </p>
-
-    <div class="countdown-hero">
-      <div class="cd-label">Pre-order closes in</div>
-      <div class="cd-wrap">
-        <div class="cd-unit"><div class="cd-num" id="cd-d">00</div><div class="cd-lbl">Days</div></div>
-        <div class="cd-sep">:</div>
-        <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-lbl">Hours</div></div>
-        <div class="cd-sep">:</div>
-        <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-lbl">Mins</div></div>
-        <div class="cd-sep">:</div>
-        <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-lbl">Secs</div></div>
-      </div>
-    </div>
-
-    <div class="urgency-strip">
-      <span class="us-dot"></span>
-      <span>Pre-order deal closes the moment GTA 6 launches — no extensions</span>
-    </div>
-
-    <div class="hero-scroll"><span>See the deals</span><span class="hs-line"></span></div>
   </div>
 </div>
 
 <!-- DEALS -->
-<section class="deals-sec">
+<section class="deals-sec" style="padding-top: 20px;">
   <div class="container">
-    <div class="deals-hd rev">
-      <div class="eye">Pre-launch deals</div>
-      <h2 class="stitle">Three tiers.<br><span style="color:var(--gold)">All discounted.</span></h2>
-      <p class="ssub" style="margin:.8rem auto 0">No payment now. We email you on launch day with your locked checkout link.</p>
-    </div>
     <div class="deals-grid">
 
       <!-- SOLDIER -->
       <div class="deal-card dc-s rev d1">
         <div class="dc-body">
           <div class="dc-name">Soldier</div>
-          <div class="dc-was">&nbsp;</div>
+          <div class="dc-was">Standard: ₹299/mo</div>
           <div class="dc-price-row"><span class="dc-cur">₹</span><span class="dc-num">199</span></div>
           <div class="dc-per">per month · cancel anytime</div>
           <ul class="dc-feats">
@@ -282,7 +255,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
             <li class="locked">Hidden route unlocks</li>
             <li class="locked">Discord crew access</li>
           </ul>
-          <button class="dc-btn dc-btn-o" onclick="selectAndScroll('soldier')">Pre-order Soldier →</button>
+          <button class="dc-btn dc-btn-o" onclick="selectAndCheckout('soldier')">Pre-order Soldier →</button>
         </div>
         <div class="dc-foot"><div class="dc-foot-text">No payment now. Price locks on sign-up.</div></div>
       </div>
@@ -292,10 +265,10 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
         <div class="dc-top-badge">⭐ Best deal — most popular</div>
         <div class="dc-body">
           <div class="dc-name">Vault Pro</div>
-          <div class="dc-was">Was ₹499/mo — launches at ₹499</div>
+          <div class="dc-was">Standard: ₹699/mo</div>
           <div class="dc-price-row"><span class="dc-cur">₹</span><span class="dc-num">399</span></div>
           <div class="dc-per">per month · cancel anytime</div>
-          <div class="dc-saving">✓ Saves ₹1,200/year · locked forever</div>
+          <div class="dc-saving">✓ Saves ₹3,600/year · locked forever</div>
           <div class="dc-lock-note">Your ₹399 rate is locked the moment you pre-order — even if we raise prices later.</div>
           <ul class="dc-feats">
             <li>Unlimited access — all 11 sections</li>
@@ -307,9 +280,9 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
             <li>Properties & investment ROI</li>
             <li>Priority Discord crew channel</li>
           </ul>
-          <button class="dc-btn dc-btn-g" onclick="selectAndScroll('pro')">Pre-order — ₹399/mo →</button>
+          <button class="dc-btn dc-btn-g" onclick="selectAndCheckout('pro')">Pre-order Pro — ₹399/mo →</button>
         </div>
-        <div class="dc-foot"><div class="dc-foot-text">No payment now. Launches at ₹499 — lock ₹399 forever.</div></div>
+        <div class="dc-foot"><div class="dc-foot-text">No payment now. Launches at ₹699 — lock ₹399 forever.</div></div>
       </div>
 
       <!-- ELITE CREW -->
@@ -317,7 +290,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
         <div class="dc-top-badge" style="background:var(--purple)">💎 Founding member</div>
         <div class="dc-body">
           <div class="dc-name">Elite Crew</div>
-          <div class="dc-was">Was ₹1,199/yr</div>
+          <div class="dc-was">Standard: ₹1,199/yr</div>
           <div class="dc-price-row"><span class="dc-cur">₹</span><span class="dc-num">999</span></div>
           <div class="dc-per">per year · saves ₹200 on launch price</div>
           <div class="dc-founding">💎 Founding member status — exclusive badge, visible forever. Only available during pre-launch. Once GTA 6 is out, this is gone.</div>
@@ -331,113 +304,11 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
             <li>Direct line to our analysts</li>
             <li>Weekly personal meta briefing</li>
           </ul>
-          <button class="dc-btn dc-btn-p" onclick="selectAndScroll('elite')">Pre-order Elite — ₹999/yr →</button>
+          <button class="dc-btn dc-btn-p" onclick="selectAndCheckout('elite')">Pre-order Elite — ₹999/yr →</button>
         </div>
         <div class="dc-foot"><div class="dc-foot-text">No payment now. Founding member status never available again after launch.</div></div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- WHAT YOU GET -->
-<section class="wyg-sec">
-  <div class="container">
-    <div class="wyg-hd">
-      <div class="rev-l">
-        <div class="eye">Inside Vice Vault</div>
-        <h2 class="stitle">320+ guides<br><span style="color:var(--gold)">ready on day one</span></h2>
-      </div>
-      <p class="ssub rev-r">Every section fully stocked at launch. Updated every Thursday after.</p>
-    </div>
-    <div class="wyg-grid">
-      <div class="wyg-card rev d1"><span class="wyg-icon">🗺️</span><div class="wyg-name">Story Mode</div><div class="wyg-desc">All missions walkthrough, endings, missable content and dialogue choices that matter.</div><div class="wyg-count">62 guides</div></div>
-      <div class="wyg-card rev d2"><span class="wyg-icon">📋</span><div class="wyg-name">Heist Blueprints</div><div class="wyg-desc">Every heist. Every approach. Hidden routes, max take calculations and crew setups.</div><div class="wyg-count">48 guides</div></div>
-      <div class="wyg-card rev d3"><span class="wyg-icon">💰</span><div class="wyg-name">Money Meta</div><div class="wyg-desc">Fastest $/hr methods ranked. Business stacking, farm routes, investment timing.</div><div class="wyg-count">54 guides</div></div>
-      <div class="wyg-card rev d4"><span class="wyg-icon">🔑</span><div class="wyg-name">Cheat Codes</div><div class="wyg-desc">All 52 confirmed codes. PS5 and Xbox. Verified and updated with every patch.</div><div class="wyg-count">All codes</div></div>
-      <div class="wyg-card rev d1"><span class="wyg-icon">🌐</span><div class="wyg-name">Online Multiplayer</div><div class="wyg-desc">Lobby tactics, crew strategy, business protection, rank levelling, PvP meta.</div><div class="wyg-count">41 guides</div></div>
-      <div class="wyg-card rev d2"><span class="wyg-icon">🚗</span><div class="wyg-name">Vehicles</div><div class="wyg-desc">Speed rankings, hidden spawn locations, tuning guides and heist-optimal setups.</div><div class="wyg-count">36 guides</div></div>
-      <div class="wyg-card rev d3"><span class="wyg-icon">🥚</span><div class="wyg-name">Easter Eggs</div><div class="wyg-desc">All community-confirmed secrets. Coordinates, triggers and lore breakdowns.</div><div class="wyg-count">29 guides</div></div>
-      <div class="wyg-card rev d4"><span class="wyg-icon">🎯</span><div class="wyg-name">Character Builds</div><div class="wyg-desc">Skill trees, weapon loadouts, crew compositions for every heist type and playstyle.</div><div class="wyg-count">38 guides</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- SOCIAL PROOF -->
-<section class="proof-sec">
-  <div class="container">
-    <div class="proof-hd rev">
-      <div class="eye">What beta members say</div>
-      <h2 class="stitle">12,000+ players<br><span style="color:var(--gold)">already inside</span></h2>
-    </div>
-    <div class="proof-grid">
-      <div class="review rev d1">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">Got access to the beta vault last week. The cargo ship hidden route alone saved me 8 minutes per run. Worth every rupee.</div>
-        <div class="review-author"><div class="ra-avatar ra1">K</div><div><div class="ra-name">KingHeist99</div><div class="ra-tag">Vault Pro · Beta member</div></div></div>
-      </div>
-      <div class="review rev d2">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">Finally a GTA guide site that actually updates when Rockstar patches things. Every other site still has outdated info from week 1.</div>
-        <div class="review-author"><div class="ra-avatar ra2">S</div><div><div class="ra-name">SilentVault</div><div class="ra-tag">Elite Crew · Beta member</div></div></div>
-      </div>
-      <div class="review rev d3">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">The weekly drop format is different. I actually read every Thursday email. The money meta alone has made me ₹50,000 worth of in-game currency this week.</div>
-        <div class="review-author"><div class="ra-avatar ra3">R</div><div><div class="ra-name">RealSlick</div><div class="ra-tag">Vault Pro · Beta member</div></div></div>
-      </div>
-      <div class="review rev d1">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">Discord crew is actually useful. Found a 4-person heist crew in 10 minutes. We ran the cargo ship twice and cleared $4.4M combined.</div>
-        <div class="review-author"><div class="ra-avatar ra4">A</div><div><div class="ra-name">AceRunner</div><div class="ra-tag">Elite Crew · Beta member</div></div></div>
-      </div>
-      <div class="review rev d2">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">I've used IGN, GameFAQs, YouTube guides. Vice Vault is different. Actual depth, no filler, no 10-minute videos. Just the information I need.</div>
-        <div class="review-author"><div class="ra-avatar ra5">M</div><div><div class="ra-name">MaxPayne_V</div><div class="ra-tag">Vault Pro · Beta member</div></div></div>
-      </div>
-      <div class="review rev d3">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">Locked in at ₹399 because the beta quality was already better than anything free. The pre-order deal was a no-brainer. Price lock is the real value.</div>
-        <div class="review-author"><div class="ra-avatar ra6">T</div><div><div class="ra-name">TheCriminal</div><div class="ra-tag">Vault Pro · Pre-order</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq-sec">
-  <div class="faq-inner">
-    <div class="faq-hd rev">
-      <div class="eye">Questions</div>
-      <h2 class="stitle" style="font-size:2.5rem">Pre-order FAQ</h2>
-    </div>
-    <div class="faq-item rev"><div class="faq-q" onclick="toggleFaq(this)">Do I pay anything now?<span class="faq-arr">+</span></div><div class="faq-a"><p><strong>No.</strong> Pre-ordering is free. You give us your email and lock in your price. We send you a checkout link on launch day when Vice Vault goes live. You only pay then — and your card is never charged automatically without your action.</p></div></div>
-    <div class="faq-item rev"><div class="faq-q" onclick="toggleFaq(this)">What does "price locked forever" actually mean?<span class="faq-arr">+</span></div><div class="faq-a"><p>If you pre-order Vault Pro at ₹399/mo, you pay ₹399 every month for as long as you're subscribed — even if we raise the price to ₹599 or ₹799 in the future. Your rate is frozen at ₹399 permanently, documented in your account at signup.</p></div></div>
-    <div class="faq-item rev"><div class="faq-q" onclick="toggleFaq(this)">What if GTA 6 gets delayed?<span class="faq-arr">+</span></div><div class="faq-a"><p>Your pre-order lock stays valid regardless of GTA 6's release date. We launch Vice Vault the same day GTA 6 becomes publicly available. If GTA 6 is delayed, Vice Vault is delayed too — and your price lock extends with it. You're never charged until launch day.</p></div></div>
-    <div class="faq-item rev"><div class="faq-q" onclick="toggleFaq(this)">Can I cancel after subscribing?<span class="faq-arr">+</span></div><div class="faq-a"><p>Yes, anytime. Monthly subscriptions can be cancelled from your dashboard with no penalty. You keep access until the end of your billing period. Annual Elite Crew subscribers get a full refund if they cancel within 30 days of their first payment.</p></div></div>
-    <div class="faq-item rev"><div class="faq-q" onclick="toggleFaq(this)">What is the Founding Member badge?<span class="faq-arr">+</span></div><div class="faq-a"><p>The Founding Member badge is a permanent Discord and profile badge for Elite Crew pre-orders only. It marks you as someone who was there before launch. It is not available after GTA 6 launches — not for any price. This is the only way to get it.</p></div></div>
-    <div class="faq-item rev"><div class="faq-q" onclick="toggleFaq(this)">How is payment processed?<span class="faq-arr">+</span></div><div class="faq-a"><p>Payments are processed by Razorpay (India's leading payment platform). We accept UPI, all major debit/credit cards, net banking, and wallets including GPay, PhonePe, Paytm and Mobikwik. We never see or store your card details.</p></div></div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="fcta-sec">
-  <div class="fcta-glow"></div>
-  <div class="fcta-in rev">
-    <div class="eye">Last chance before launch</div>
-    <h2 class="stitle fcta-t">Pre-order now.<br><span style="color:var(--gold)">Pay on launch.</span></h2>
-    <p class="fcta-s">Lock in ₹399/mo Vault Pro — saves ₹1,200 every year forever. No payment until GTA 6 launches.</p>
-    <div class="fcta-form">
-      <input type="email" class="fcta-email" id="fcta-email" placeholder="your@email.com" aria-label="Email">
-      <button class="btn-g" onclick="submitFCTA()">Lock in ₹399/mo →</button>
-    </div>
-    <div class="fcta-note" id="fcta-note">No payment now · Price locked forever · Cancel anytime · <a href="terms.html">Terms</a></div>
-    <div class="guarantee">
-      <div class="gi"><span class="gi-icon">🔒</span>Razorpay secured</div>
-      <div class="gi"><span class="gi-icon">↩</span>Cancel anytime</div>
-      <div class="gi"><span class="gi-icon">📧</span>No spam ever</div>
-      <div class="gi"><span class="gi-icon">⚡</span>Instant access on launch</div>
     </div>
   </div>
 </section>
@@ -450,55 +321,18 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
 </footer>
 
 <script>
-// COUNTDOWN
-const LAUNCH = new Date('2026-11-19T06:00:00+05:30');
-function tick(){
-  const diff = LAUNCH - new Date();
-  if(diff <= 0) return;
-  const pad = n => String(Math.floor(n)).padStart(2,'0');
-  document.getElementById('cd-d').textContent = pad(diff/86400000);
-  document.getElementById('cd-h').textContent = pad((diff%86400000)/3600000);
-  document.getElementById('cd-m').textContent = pad((diff%3600000)/60000);
-  document.getElementById('cd-s').textContent = pad((diff%60000)/1000);
-}
-tick(); setInterval(tick,1000);
-
-// SELECT DEAL + SCROLL
-function selectAndScroll(tier){
-  document.getElementById('fcta-email').focus();
-  document.getElementById('fcta-email').scrollIntoView({behavior:'smooth',block:'center'});
-  window._selectedTier = tier;
-}
-
-// SUBMIT
-async function submitFCTA(){
-  const email = document.getElementById('fcta-email').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    document.getElementById('fcta-email').style.borderColor='var(--pink)';
-    setTimeout(()=>document.getElementById('fcta-email').style.borderColor='',2000);
-    return;
-  }
-  try{
-    await fetch('/api/waitlist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'preorder-page',tier:window._selectedTier||'pro'})});
-  }catch{}
-  document.getElementById('fcta-note').innerHTML='<span style="color:var(--teal)">✓ Rate locked! Check your email for confirmation. See you on launch day.</span>';
-  document.getElementById('fcta-email').value='';
-}
-
-// FAQ
-function toggleFaq(el){
-  const item = el.parentElement;
-  const was = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-  if(!was) item.classList.add('open');
+// SELECT TIER & CHECKOUT
+function selectAndCheckout(tier){
+  let priceVal = '399';
+  if (tier === 'soldier') priceVal = '199';
+  if (tier === 'elite') priceVal = '999';
+  window.location.href = `signup.html?tier=${priceVal}`;
 }
 
 // REVEAL
 const obs = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
 </script>
-
-<!-- Global countdown bar + preorder modal -->
 <script src="vv-global.js"></script>
 </body>
 </html>
