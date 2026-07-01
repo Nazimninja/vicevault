@@ -377,6 +377,14 @@ body.vv-bar-active {
 body.vv-bar-active .tour-overlay {
   top: 44px !important;
 }
+.back-to-dash-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+  font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); cursor: pointer; border: none; background: none;
+  margin-bottom: 1.2rem; transition: color 0.2s;
+}
+.back-to-dash-btn:hover { color: var(--gold); }
 </style>
 </head>
 <body>
@@ -555,6 +563,7 @@ body.vv-bar-active .tour-overlay {
   
   <!-- SETTINGS VIEW -->
   <div class="dash-content" id="view-settings" style="display:none">
+    <button class="back-to-dash-btn" onclick="showView('dashboard')">← Back to Dashboard</button>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:2rem;max-width:560px;margin-top:1rem">
       
       <!-- Discord Link Section -->
@@ -588,6 +597,7 @@ body.vv-bar-active .tour-overlay {
 
   <!-- WEEKLY DROP VIEW -->
   <div class="dash-content" id="view-weekly" style="display:none">
+    <button class="back-to-dash-btn" onclick="showView('dashboard')">← Back to Dashboard</button>
     <div class="week-banner" style="margin-bottom:2rem">
       <div class="wb-left"><div class="wb-badge">📅 This week</div><div><div class="wb-title">Thursday Drop — Week of June 26, 2025</div><div class="wb-sub">5 new guides across Heists, Money Meta, and Vehicles</div></div></div>
     </div>
@@ -605,6 +615,7 @@ body.vv-bar-active .tour-overlay {
 
   <!-- CHEAT CODE VIEW -->
   <div class="dash-content" id="view-cheat" style="display:none">
+    <button class="back-to-dash-btn" onclick="showView('dashboard')">← Back to Dashboard</button>
     <div class="cheat-ref" style="margin-bottom:2rem">
       <div class="cheat-hd"><h3>All Cheat Codes — PS5</h3></div>
       <div class="cheat-grid">
@@ -635,8 +646,16 @@ body.vv-bar-active .tour-overlay {
     </div>
   </div>
 
+  <!-- SEARCH RESULTS VIEW -->
+  <div class="dash-content" id="view-search" style="display:none">
+    <button class="back-to-dash-btn" onclick="showView('dashboard')">← Back to Dashboard</button>
+    <div class="section-hd"><h2>Search Results</h2></div>
+    <div class="bgrid" id="search-guides-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem"></div>
+  </div>
+
   <!-- GENERIC SECTION VIEW -->
   <div class="dash-content" id="view-section" style="display:none">
+    <button class="back-to-dash-btn" onclick="showView('dashboard')">← Back to Dashboard</button>
     <div class="section-hd"><h2 id="section-title">Section</h2></div>
     <div class="bgrid" id="section-guides" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem"></div>
   </div>
@@ -697,6 +716,13 @@ function showView(v){
     toggleMobileSidebar(false);
   }
 
+  // Clear search bar if navigating to any page other than search
+  if (v !== 'search') {
+    const searchInput = document.querySelector('.tb-search');
+    if (searchInput) searchInput.value = '';
+    currentSearchQuery = '';
+  }
+
   currentView = v;
   // hide all
   document.querySelectorAll('[id^="view-"]').forEach(el=>el.style.display='none');
@@ -725,6 +751,13 @@ function showView(v){
     document.getElementById('pageSub').textContent='Manage your subscription and account';
     if (typeof renderDiscordSettings === 'function') {
       renderDiscordSettings();
+    }
+  } else if(v==='search'){
+    document.getElementById('view-search').style.display='block';
+    document.getElementById('pageTitle').textContent='Search Results';
+    document.getElementById('pageSub').textContent=`Showing matches for "${currentSearchQuery}"`;
+    if (typeof renderSearchGuides === 'function') {
+      renderSearchGuides(currentSearchQuery);
     }
   } else {
     // generic section
@@ -1221,6 +1254,62 @@ animProgress();
       }
     }
   }
+
+  let currentSearchQuery = '';
+
+  function renderSearchGuides(query) {
+    const grid = document.getElementById('search-guides-grid');
+    if (!grid) return;
+    
+    // Gather all guides across all sections, avoiding duplicates
+    const allGuides = [];
+    for (const cat in guideData) {
+      if (Array.isArray(guideData[cat])) {
+        guideData[cat].forEach(g => {
+          if (!allGuides.some(existing => existing.title === g.title)) {
+            allGuides.push(g);
+          }
+        });
+      }
+    }
+    
+    const matches = allGuides.filter(g => 
+      g.title.toLowerCase().includes(query.toLowerCase()) || 
+      g.cat.toLowerCase().includes(query.toLowerCase())
+    );
+    
+    if (matches.length === 0) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.9rem">
+          🔍 No guides match your search query. Try another keyword.
+        </div>
+      `;
+      return;
+    }
+    
+    grid.innerHTML = matches.map(g => `
+      <div onclick="showArticle('${g.title.replace(/'/g, "\\'")}', '${g.cat.replace(/'/g, "\\'")}', '${g.meta.replace(/'/g, "\\'")}')" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .2s,transform .2s" onmouseenter="this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <div style="height:100px;background:${getCategoryGradient(g.cat)};display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.18em;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.2);border-bottom:1px solid var(--border)">${g.cat.toUpperCase()}</div>
+        <div style="padding:1rem 1.1rem 1.2rem;flex:1;display:flex;flex-direction:column">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;line-height:1.3;color:var(--white);flex:1;margin-bottom:.7rem">${g.title}</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">${g.meta}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Setup search input listeners
+  document.querySelectorAll('.tb-search').forEach(input => {
+    input.addEventListener('input', (e) => {
+      const query = e.target.value.trim();
+      currentSearchQuery = query;
+      if (query.length > 0) {
+        showView('search');
+      } else {
+        showView('dashboard');
+      }
+    });
+  });
 
   window.toggleMobileSidebar = toggleMobileSidebar;
   window.renderDiscordSettings = renderDiscordSettings;
