@@ -29,7 +29,7 @@
 
   // ─── CONFIG ──────────────────────────────────────────────
   // UPDATE THIS to the actual GTA 6 / Vice Vault launch date
-  const LAUNCH_DATE = new Date('2027-10-26T06:00:00+05:30');
+  const LAUNCH_DATE = new Date('2026-11-19T06:00:00+05:30');
 
   function setupCustomCursorHover(el) {
     const cur = document.getElementById('cur');
