@@ -188,10 +188,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
-.btn-g{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;border-radius:2px;border:none;cursor:pointer;transition:background .2s,transform .15s}
-.btn-g:hover{background:var(--gold2);transform:translateY(-2px)}
-.btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:border-color .2s,background .2s}
-.btn-o:hover{border-color:var(--gold);background:rgba(0,112,243,.07)}
+.btn-g{display:inline-flex;align-items:center;gap:.6rem;background:linear-gradient(90deg, var(--pink), var(--blue));color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;border-radius:2px;border:none;cursor:pointer;transition:opacity .2s,transform .15s,box-shadow .2s}
+.btn-g:hover{opacity:.85;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,112,243,.3)}
+.btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
+.btn-o:hover{border-color:var(--gold);background:rgba(0,112,243,.07);transform:translateY(-2px)}
 
 @media(max-width:700px){.tier-grid{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.payment-methods{flex-wrap:wrap}}
 </style>
