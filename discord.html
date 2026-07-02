@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vice Vault Discord — Join the Crew | GTA 6 Community</title>
 <meta name="description" content="Join the Vice Vault Discord — GTA 6's most organised crew. Heist teams, weekly drops, cheat codes, Easter egg discoveries and more. Free to join.">
 <meta property="og:title" content="Vice Vault Discord — Join the Crew">
@@ -22,31 +22,15 @@
 <link rel="canonical" href="https://vicevault.gg/discord">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
-
-html {
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-}
-@media (max-width: min(95vw, 480px)) {
-  html { font-size: 13.5px; }
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-  html { font-size: 14.5px; }
-}
-@media (min-width: 1025px) and (max-width: 1440px) {
-  html { font-size: 15.5px; }
-}
-@media (min-width: 1600px) {
-  html { font-size: 18px; }
-}
-@media (min-width: 2200px) {
-  html { font-size: 22px; }
-}
+/* RESPONSIVE FONT SCALING */
+@media (max-width: 480px) { html { font-size: 13.5px !important; } }
+@media (min-width: 481px) and (max-width: 768px) { html { font-size: 14px !important; } }
+@media (min-width: 769px) and (max-width: 1024px) { html { font-size: 14.5px !important; } }
+@media (min-width: 1025px) and (max-width: 1440px) { html { font-size: 15.5px !important; } }
+@media (min-width: 1600px) { html { font-size: 18px !important; } }
+@media (min-width: 2200px) { html { font-size: 22px !important; } }
 
 
-}
 
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
@@ -89,7 +73,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .h-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,7rem);letter-spacing:.04em;line-height:.9;margin-bottom:1rem;opacity:0;animation:fup .8s .4s forwards}
 .h-title .g{color:var(--gold)}
 .h-title .d{color:var(--discord)}
-.h-sub{font-size:1rem;color:var(--muted);line-height:1.85;max-width: min(95vw, 480px);margin:0 auto 2.5rem;opacity:0;animation:fup .8s .5s forwards}
+.h-sub{font-size:1rem;color:var(--muted);line-height:1.85;max-width: 480px;margin:0 auto 2.5rem;opacity:0;animation:fup .8s .5s forwards}
 
 /* LIVE COUNTER */
 .live-bar{display:flex;gap:2rem;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:2.5rem;opacity:0;animation:fup .8s .6s forwards}

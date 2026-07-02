@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pre-Order Vice Vault — Lock In 20% Off Before GTA 6 Launches</title>
 <meta name="description" content="Pre-order Vice Vault before GTA 6 launches and lock in 20% off forever. Vault Pro at ₹499/mo instead of ₹699. Price locks the moment you sign up.">
 <meta property="og:title" content="Pre-Order Vice Vault — 20% Off Launch Price">
@@ -23,6 +23,14 @@
 <link rel="canonical" href="https://vicevault.gg/preorder">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* RESPONSIVE FONT SCALING */
+@media (max-width: 480px) { html { font-size: 13.5px !important; } }
+@media (min-width: 481px) and (max-width: 768px) { html { font-size: 14px !important; } }
+@media (min-width: 769px) and (max-width: 1024px) { html { font-size: 14.5px !important; } }
+@media (min-width: 1025px) and (max-width: 1440px) { html { font-size: 15.5px !important; } }
+@media (min-width: 1600px) { html { font-size: 18px !important; } }
+@media (min-width: 2200px) { html { font-size: 22px !important; } }
+
 
 html {
   font-size: 16px;
@@ -30,7 +38,7 @@ html {
   -moz-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
-@media (max-width: min(95vw, 480px)) {
+@media (max-width: 480px) {
   html { font-size: 13.5px; }
 }
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -45,10 +53,6 @@ html {
 @media (min-width: 2200px) {
   html { font-size: 22px; }
 }
-
-
-}
-
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
   --pink:#ff3d9a;--purple:#c830ff;--blue:#0070f3;--white:#ede8df;
@@ -91,8 +95,8 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;border-bottom:1px solid rgba(2
 @keyframes fup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
 .h-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,8rem);letter-spacing:.03em;line-height:.88;margin-bottom:1.2rem;animation:fup .8s .3s both}
-.h-title .g{color:var(--gold);text-shadow:0 0 80px rgba(0,112,243,.3)}
-.h-title .s{-webkit-text-stroke:1.5px rgba(255,255,255,.2);color:transparent}
+.h-title .g{background:linear-gradient(135deg, var(--pink) 20%, var(--purple) 55%, var(--blue) 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 50px rgba(255,61,154,.45))}
+.h-title .s{-webkit-text-stroke:2px rgba(255,255,255,.65);color:rgba(255,255,255,.5)}
 .h-sub{font-size:1rem;color:var(--muted);line-height:1.85;max-width:520px;margin:0 auto 2rem;animation:fup .8s .4s both}
 .h-sub strong{color:var(--white)}
 
@@ -116,7 +120,7 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;border-bottom:1px solid rgba(2
 
 /* SECTIONS */
 section{padding:90px 2.5rem;position:relative;z-index:2}
-.container{max-width: min(90vw, 1100px);margin:0 auto}
+.container{max-width: 1100px;margin:0 auto}
 .eye{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
 .stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:.04em;line-height:.95;margin-bottom:.8rem}
 .ssub{font-size:.95rem;color:var(--muted);line-height:1.8;max-width:460px}
@@ -233,7 +237,7 @@ section{padding:90px 2.5rem;position:relative;z-index:2}
 .gi-icon{font-size:1rem}
 
 footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5rem}
-.fbot{max-width: min(90vw, 1100px);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.73rem;color:var(--muted)}
+.fbot{max-width: 1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.73rem;color:var(--muted)}
 .fleg{display:flex;gap:1.5rem}
 .fleg a{color:var(--muted);transition:color .2s}.fleg a:hover{color:var(--white)}
 
