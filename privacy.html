@@ -15,7 +15,7 @@
 <link rel="canonical" href="https://vicevault.gg/privacy">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--gold:#d4a332;--gold2:#f0c84a;--pink:#d4a332;--white:#ede8df;--muted:#7a788a;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14)}
+:root{--ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--gold:#bfa364;--gold2:#d4b874;--pink:#bfa364;--white:#ede8df;--muted:#7a788a;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
@@ -25,7 +25,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
 .logo-v{color:var(--gold)}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite}
-@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(212,163,50,.7)}50%{box-shadow:0 0 0 6px rgba(212,163,50,0)}}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(191,163,100,.7)}50%{box-shadow:0 0 0 6px rgba(191,163,100,0)}}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--white);text-decoration:none}
@@ -58,8 +58,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:28px 2.
 @media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}.hero,.doc{padding-left:1.2rem;padding-right:1.2rem}}
 </style>
 <style>
-.cur{position:fixed;width:10px;height:10px;background:#d4a332;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,163,50,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+.cur{position:fixed;width:10px;height:10px;background:#bfa364;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(191,163,100,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
 nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
 @media(max-width:600px){.cur,.cur-ring{display:none}}
 </style>
@@ -69,7 +69,7 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
 <div class="cur-ring" id="crng"></div>
 
 <nav id="nav">
-  <div class="nav-logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:44px;width:44px;object-fit:contain;border-radius:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;margin-left:.5rem">VICE<span style="background:linear-gradient(90deg,#d4a332,#f0c84a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span><span class="nav-dot"></span></div>
+  <div class="nav-logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:44px;width:44px;object-fit:contain;border-radius:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;margin-left:.5rem">VICE<span style="background:linear-gradient(90deg,#bfa364,#d4b874);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span><span class="nav-dot"></span></div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="index.html#allguides">Guides</a></li>

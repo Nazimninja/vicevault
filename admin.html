@@ -15,7 +15,7 @@
 <style>
   :root{
     --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;--border2:#24243a;
-    --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#d4a332;--orange:#e05c1a;--blue:#4a9eff;
+    --gold:#bfa364;--gold2:#d4b874;--teal:#00d4aa;--pink:#bfa364;--orange:#e05c1a;--blue:#4a9eff;
     --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,0.07);--borderl:rgba(255,255,255,.13);
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -34,12 +34,12 @@
   }
   .logo .v{color:var(--gold)}
   .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--pink);animation:pdot 2s ease-in-out infinite}
-  @keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(212,163,50,.7)}50%{box-shadow:0 0 0 8px rgba(212,163,50,0)}}
+  @keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(191,163,100,.7)}50%{box-shadow:0 0 0 8px rgba(191,163,100,0)}}
   
   .header-actions{display:flex;align-items:center;gap:1.5rem}
   .admin-badge{
     font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
-    background:rgba(212,163,50,.12);color:var(--pink);border:1px solid rgba(212,163,50,.3);
+    background:rgba(191,163,100,.12);color:var(--pink);border:1px solid rgba(191,163,100,.3);
     padding:.2rem .7rem;border-radius:2px;
   }
   .btn-signout{
@@ -86,7 +86,7 @@
   .tab-badge{
     font-size:.65rem;background:var(--lift);color:var(--muted);padding:.1rem .4rem;border-radius:10px;
   }
-  .tab.active .tab-badge{background:rgba(212,163,50,.15);color:var(--gold)}
+  .tab.active .tab-badge{background:rgba(191,163,100,.15);color:var(--gold)}
 
   /* CONTROLS */
   .controls-row{display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
@@ -125,7 +125,7 @@
     padding:.15rem .5rem;border-radius:2px;display:inline-block;
   }
   .badge-tier.soldier{background:rgba(122,120,138,.12);color:var(--muted);border:1px solid rgba(122,120,138,.3)}
-  .badge-tier.pro{background:rgba(212,163,50,.12);color:var(--gold);border:1px solid rgba(212,163,50,.3)}
+  .badge-tier.pro{background:rgba(191,163,100,.12);color:var(--gold);border:1px solid rgba(191,163,100,.3)}
   .badge-tier.elite{background:rgba(155,89,255,.12);color:#ab7dff;border:1px solid rgba(155,89,255,.3)}
   
   .badge-status{
@@ -142,7 +142,7 @@
     font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
   }
   .btn-action:hover{color:var(--white);border-color:var(--muted)}
-  .btn-action.delete:hover{color:var(--pink);border-color:var(--pink);background:rgba(212,163,50,.05)}
+  .btn-action.delete:hover{color:var(--pink);border-color:var(--pink);background:rgba(191,163,100,.05)}
 
   /* MODAL */
   .modal-overlay{

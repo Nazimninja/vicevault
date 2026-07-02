@@ -76,7 +76,7 @@
       originalPrice: 499,
       period: 'month',
       badge: '⭐ Best value',
-      color: '#d4a332',
+      color: '#bfa364',
       hot: true,
       features: [
         'Unlimited access — all 11 sections',
@@ -97,7 +97,7 @@
       originalPrice: 1199,
       period: 'year',
       badge: '💎 Founding member',
-      color: '#f0c84a',
+      color: '#d4b874',
       features: [
         'Everything in Vault Pro',
         'Custom blueprint requests (2/month)',
@@ -121,7 +121,7 @@
   top: 0; left: 0; right: 0;
   z-index: 9000;
   background: linear-gradient(90deg, #0d0d18, #131320, #0d0d18);
-  border-bottom: 1px solid rgba(212,163,50,0.25);
+  border-bottom: 1px solid rgba(191,163,100,0.25);
   height: 44px;
   display: flex;
   align-items: center;
@@ -144,13 +144,13 @@
 .vv-bar-pulse {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: #d4a332;
+  background: #bfa364;
   animation: vv-pulse 2s ease-in-out infinite;
   flex-shrink: 0;
 }
 @keyframes vv-pulse {
-  0%,100%{ box-shadow: 0 0 0 0 rgba(212,163,50,0.7); }
-  50%{ box-shadow: 0 0 0 6px rgba(212,163,50,0); }
+  0%,100%{ box-shadow: 0 0 0 0 rgba(191,163,100,0.7); }
+  50%{ box-shadow: 0 0 0 6px rgba(191,163,100,0); }
 }
 .vv-bar-label {
   font-family: 'Barlow Condensed', sans-serif;
@@ -161,7 +161,7 @@
   color: #ede8df;
   white-space: nowrap;
 }
-.vv-bar-label .vv-bl-accent { color: #d4a332; }
+.vv-bar-label .vv-bl-accent { color: #bfa364; }
 
 .vv-countdown {
   display: flex;
@@ -179,9 +179,9 @@
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.1rem;
   line-height: 1;
-  color: #d4a332;
-  background: rgba(212,163,50,0.08);
-  border: 1px solid rgba(212,163,50,0.2);
+  color: #bfa364;
+  background: rgba(191,163,100,0.08);
+  border: 1px solid rgba(191,163,100,0.2);
   border-radius: 3px;
   padding: 0.1rem 0.4rem;
   min-width: 32px;
@@ -199,7 +199,7 @@
 .vv-cd-sep {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1rem;
-  color: rgba(212,163,50,0.4);
+  color: rgba(191,163,100,0.4);
   margin-bottom: 8px;
 }
 
@@ -209,7 +209,7 @@
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  background: #d4a332;
+  background: #bfa364;
   color: #030308;
   border: none;
   padding: 0.38rem 1rem;
@@ -220,7 +220,7 @@
   flex-shrink: 0;
   margin-left: 0;
 }
-.vv-bar-cta:hover { background: #f0c84a; transform: translateY(-1px); }
+.vv-bar-cta:hover { background: #d4b874; transform: translateY(-1px); }
 
 .vv-bar-close {
   background: none;
@@ -263,7 +263,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 }
 #vv-modal {
   background: #0d0d18;
-  border: 1px solid rgba(212,163,50,0.25);
+  border: 1px solid rgba(191,163,100,0.25);
   border-radius: 8px;
   width: 100%;
   max-width: 840px;
@@ -305,7 +305,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   font-weight: 800;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #d4a332;
+  color: #bfa364;
   margin-bottom: 0.4rem;
   display: flex;
   align-items: center;
@@ -314,7 +314,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 .vvm-eye-dot {
   width: 5px; height: 5px;
   border-radius: 50%;
-  background: #d4a332;
+  background: #bfa364;
   animation: vv-pulse 1.5s ease-in-out infinite;
 }
 .vvm-title {
@@ -338,8 +338,8 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   flex-wrap: wrap;
 }
 .vvm-cd-unit {
-  background: rgba(212,163,50,0.07);
-  border: 1px solid rgba(212,163,50,0.18);
+  background: rgba(191,163,100,0.07);
+  border: 1px solid rgba(191,163,100,0.18);
   border-radius: 4px;
   padding: 0.5rem 0.8rem;
   text-align: center;
@@ -348,7 +348,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 .vvm-cd-num {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.6rem;
-  color: #d4a332;
+  color: #bfa364;
   line-height: 1;
 }
 .vvm-cd-label {
@@ -380,7 +380,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 .vvm-deal:hover { background: #131320; }
 .vvm-deal.selected {
   background: #131320;
-  box-shadow: inset 0 0 0 2px var(--deal-color, #d4a332);
+  box-shadow: inset 0 0 0 2px var(--deal-color, #bfa364);
 }
 .vvm-deal-badge {
   font-family: 'Barlow Condensed', sans-serif;
@@ -388,7 +388,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--deal-color, #d4a332);
+  color: var(--deal-color, #bfa364);
   margin-bottom: 0.6rem;
   min-height: 1.2rem;
 }
@@ -396,7 +396,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.3rem;
   letter-spacing: 0.08em;
-  color: var(--deal-color, #d4a332);
+  color: var(--deal-color, #bfa364);
   margin-bottom: 0.3rem;
 }
 .vvm-deal-price-row {
@@ -454,7 +454,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   gap: 0.45rem;
   line-height: 1.5;
 }
-.vvm-feats li::before { content: '✓'; color: #d4a332; flex-shrink: 0; margin-top: 1px; font-weight: 700; }
+.vvm-feats li::before { content: '✓'; color: #bfa364; flex-shrink: 0; margin-top: 1px; font-weight: 700; }
 .vvm-feats li.vvm-locked { color: #7a788a; opacity: 0.45; }
 .vvm-feats li.vvm-locked::before { content: '×'; color: #2a2838; }
 .vvm-select-check {
@@ -462,7 +462,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   top: 0.8rem; right: 0.8rem;
   width: 20px; height: 20px;
   border-radius: 50%;
-  background: var(--deal-color, #d4a332);
+  background: var(--deal-color, #bfa364);
   display: flex; align-items: center; justify-content: center;
   font-size: 0.7rem; color: #030308;
   opacity: 0;
@@ -496,9 +496,9 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   transition: border-color 0.2s;
 }
 .vvm-email::placeholder { color: #7a788a; }
-.vvm-email:focus { border-color: #d4a332; }
+.vvm-email:focus { border-color: #bfa364; }
 .vvm-submit {
-  background: #d4a332;
+  background: #bfa364;
   color: #030308;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.88rem;
@@ -512,14 +512,14 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   transition: background 0.2s, transform 0.15s;
   white-space: nowrap;
 }
-.vvm-submit:hover { background: #f0c84a; transform: translateY(-1px); }
+.vvm-submit:hover { background: #d4b874; transform: translateY(-1px); }
 .vvm-submit:disabled { opacity: 0.5; pointer-events: none; }
 .vvm-terms {
   font-size: 0.72rem;
   color: #7a788a;
   line-height: 1.6;
 }
-.vvm-terms a { color: #d4a332; }
+.vvm-terms a { color: #bfa364; }
 
 /* Success */
 .vvm-success {
@@ -647,7 +647,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
         <div class="vvm-success" id="vvm-success">
           <div class="vvm-success-icon">🔐</div>
           <div class="vvm-success-title">Rate locked in.</div>
-          <div class="vvm-success-sub">Check your email for confirmation. On launch day we'll send you a direct checkout link with your locked price. You're <span id="vvm-pos" style="color:#d4a332;font-weight:700">#12,849</span> in line.</div>
+          <div class="vvm-success-sub">Check your email for confirmation. On launch day we'll send you a direct checkout link with your locked price. You're <span id="vvm-pos" style="color:#bfa364;font-weight:700">#12,849</span> in line.</div>
         </div>
       </div>
     `;
@@ -712,7 +712,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
       const email = emailEl ? emailEl.value.trim() : '';
 
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        if (emailEl) { emailEl.style.borderColor = '#d4a332'; setTimeout(() => emailEl.style.borderColor = '', 2000); }
+        if (emailEl) { emailEl.style.borderColor = '#bfa364'; setTimeout(() => emailEl.style.borderColor = '', 2000); }
         return;
       }
 
@@ -1102,7 +1102,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 
   // ─── INIT ────────────────────────────────────────────────
   function init() {
-    buildBar();
+    // buildBar(); // Top countdown banner removed as requested
     buildModal();
     tick();
     setInterval(tick, 1000);

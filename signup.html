@@ -10,13 +10,13 @@
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
-  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#d4a332;--orange:#e05c1a;
+  --gold:#bfa364;--gold2:#d4b874;--teal:#00d4aa;--pink:#bfa364;--orange:#e05c1a;
   --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
   --red:#c0281e;
-  --cur-pink:#d4a332;
+  --cur-pink:#bfa364;
 }
 .cur{position:fixed;width:10px;height:10px;background:var(--cur-pink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,163,50,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(191,163,100,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
 @media(max-width:600px){.cur,.cur-ring{display:none}}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -29,11 +29,11 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 /* BG */
 .page-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 60% 50% at 80% 20%,rgba(212,163,50,.07) 0%,transparent 60%),
-    radial-gradient(ellipse 50% 60% at 10% 80%,rgba(212,163,50,.08) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 50% at 80% 20%,rgba(191,163,100,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 10% 80%,rgba(191,163,100,.08) 0%,transparent 55%),
     linear-gradient(180deg,#030308 0%,#07070f 100%)}
 .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(191,163,100,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(191,163,100,.025) 1px,transparent 1px);
   background-size:70px 70px}
 
 /* NAV */
@@ -41,7 +41,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
 .logo-v{color:var(--gold)}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite}
-@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(212,163,50,.7)}50%{box-shadow:0 0 0 6px rgba(212,163,50,0)}}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(191,163,100,.7)}50%{box-shadow:0 0 0 6px rgba(191,163,100,0)}}
 .nav-back{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.4rem;transition:color .2s}
 .nav-back:hover{color:var(--white)}
 
@@ -85,20 +85,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .tier-feats li.no::before{content:'×';color:var(--dim)}
 
 .tier-continue{display:block;width:100%;max-width:360px;margin:0 auto;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:3px;border:none;cursor:pointer;text-align:center;transition:background .2s,transform .15s,box-shadow .2s}
-.tier-continue:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,163,50,.3)}
+.tier-continue:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(191,163,100,.3)}
 .tier-continue:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
 
 /* FORM (STEP 2) */
 .form-section{width:100%;max-width:480px;animation:fadeUp .6s ease forwards}
 .form-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2.2rem;margin-bottom:1.5rem}
 .fc-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between}
-.fc-badge{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:rgba(212,163,50,.1);color:var(--gold);border:1px solid rgba(212,163,50,.25);padding:.22rem .7rem;border-radius:2px}
+.fc-badge{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:rgba(191,163,100,.1);color:var(--gold);border:1px solid rgba(191,163,100,.25);padding:.22rem .7rem;border-radius:2px}
 
 .field{margin-bottom:1.2rem}
 .field label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
 .field input,.field select{width:100%;background:var(--card);border:1px solid var(--border2);color:var(--white);font-family:'Barlow',sans-serif;font-size:.9rem;padding:.85rem 1rem;border-radius:3px;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none}
 .field input::placeholder{color:var(--dim)}
-.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,163,50,.1)}
+.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(191,163,100,.1)}
 .field input.error{border-color:var(--red)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .field-err{font-size:.75rem;color:var(--red);margin-top:.35rem;display:none}
@@ -134,7 +134,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .payment-methods{display:flex;gap:.75rem;margin-bottom:1.5rem}
 .pm{flex:1;background:var(--card);border:1.5px solid var(--border);border-radius:4px;padding:.8rem;text-align:center;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:all .2s}
 .pm:hover{border-color:var(--border2);color:var(--white)}
-.pm.active{border-color:var(--gold);color:var(--gold);background:rgba(212,163,50,.06)}
+.pm.active{border-color:var(--gold);color:var(--gold);background:rgba(191,163,100,.06)}
 .pm-icon{font-size:1.2rem;display:block;margin-bottom:.3rem}
 
 .card-field{background:var(--card);border:1px solid var(--border2);border-radius:3px;padding:.85rem 1rem;color:var(--white);font-family:'Barlow',sans-serif;font-size:.9rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
@@ -192,7 +192,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .btn-g{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;border-radius:2px;border:none;cursor:pointer;transition:background .2s,transform .15s}
 .btn-g:hover{background:var(--gold2);transform:translateY(-2px)}
 .btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:border-color .2s,background .2s}
-.btn-o:hover{border-color:var(--gold);background:rgba(212,163,50,.07)}
+.btn-o:hover{border-color:var(--gold);background:rgba(191,163,100,.07)}
 
 @media(max-width:700px){.tier-grid{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.payment-methods{flex-wrap:wrap}}
 </style>
@@ -208,7 +208,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 <nav>
   <div class="nav-logo">
     <img src="assets/logo-master.png" alt="Vice Vault" style="height:36px;width:36px;object-fit:contain;border-radius:4px">
-    <span style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;margin-left:.4rem">VICE<span style="background:linear-gradient(90deg,#d4a332,#f0c84a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;margin-left:.4rem">VICE<span style="background:linear-gradient(90deg,#bfa364,#d4b874);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span>
     <span class="nav-dot"></span>
   </div>
   <a href="index.html" class="nav-back">← Back to site</a>
@@ -535,7 +535,7 @@ function checkStrength(val){
   if(/[A-Z]/.test(val))score++;
   if(/[0-9]/.test(val))score++;
   if(/[^A-Za-z0-9]/.test(val))score++;
-  const colors=['#c0281e','#e05c1a','#d4a332','#00d4aa'];
+  const colors=['#c0281e','#e05c1a','#bfa364','#00d4aa'];
   const labels=['Too short','Weak','Good','Strong'];
   bar.style.width=(score*25)+'%';
   bar.style.background=colors[score-1]||'var(--dim)';

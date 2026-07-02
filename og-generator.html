@@ -13,7 +13,7 @@
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#030308;--gold:#d4a332;--pink:#d4a332;--teal:#00d4aa;--white:#ede8df;--muted:#7a788a}
+:root{--ink:#030308;--gold:#bfa364;--pink:#bfa364;--teal:#00d4aa;--white:#ede8df;--muted:#7a788a}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0a0a12;color:var(--white);font-family:'Barlow Condensed',sans-serif;padding:2rem;min-height:100vh}
 h1{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem}
@@ -25,10 +25,10 @@ canvas{width:100%;height:100%;display:block}
 .og-footer{padding:.8rem 1rem;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between}
 .og-name{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .dl-btn{background:var(--gold);color:#030308;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;border-radius:2px;border:none;cursor:pointer;transition:background .2s}
-.dl-btn:hover{background:#f0c84a}
+.dl-btn:hover{background:#d4b874}
 .dl-all{display:block;background:var(--gold);color:#030308;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:1rem 2rem;border-radius:3px;border:none;cursor:pointer;transition:background .2s;margin-bottom:2rem;width:fit-content}
-.dl-all:hover{background:#f0c84a}
-.note{background:#131320;border:1px solid rgba(212,163,50,.2);border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.5rem;font-size:.84rem;color:var(--muted);line-height:1.7}
+.dl-all:hover{background:#d4b874}
+.note{background:#131320;border:1px solid rgba(191,163,100,.2);border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.5rem;font-size:.84rem;color:var(--muted);line-height:1.7}
 .note strong{color:var(--white)}
 </style>
 </head>
@@ -52,7 +52,7 @@ const OGs = [
     title: 'VICE VAULT',
     sub: 'THE ULTIMATE GTA 6\nINTELLIGENCE HUB',
     tag: 'GTA 6 · 320+ GUIDES · UPDATED WEEKLY',
-    accent: '#d4a332',
+    accent: '#bfa364',
     bg1: '#0a0500', bg2: '#050010',
   },
   {
@@ -60,7 +60,7 @@ const OGs = [
     title: 'VAULT OPENS',
     sub: 'LAUNCHING WITH\nGTA 6',
     tag: 'JOIN 12,000+ ON THE WAITLIST · VICEVAULT.GG',
-    accent: '#d4a332',
+    accent: '#bfa364',
     bg1: '#0a0005', bg2: '#050010',
   },
   {
@@ -76,7 +76,7 @@ const OGs = [
     title: 'CHEAT VAULT',
     sub: 'ALL 52 GTA 6\nCHEAT CODES',
     tag: 'PS5 & XBOX · ALL VERIFIED · UPDATED JUNE 2025',
-    accent: '#d4a332',
+    accent: '#bfa364',
     bg1: '#0a0800', bg2: '#000008',
   },
   {
@@ -92,7 +92,7 @@ const OGs = [
     title: '25 SECRETS',
     sub: 'THINGS GTA 6\nDOESN\'T TELL YOU',
     tag: 'HIDDEN MECHANICS · BURIED FEATURES · COMMUNITY CONFIRMED',
-    accent: '#f0c84a',
+    accent: '#d4b874',
     bg1: '#050010', bg2: '#100008',
   },
   {
@@ -100,7 +100,7 @@ const OGs = [
     title: '12 MISTAKES',
     sub: 'EVERY PLAYER\nMAKES',
     tag: 'FIRST 10 HOURS · AND HOW TO FIX THEM · VICE VAULT',
-    accent: '#d4a332',
+    accent: '#bfa364',
     bg1: '#0a0005', bg2: '#050008',
   },
   {
@@ -108,7 +108,7 @@ const OGs = [
     title: '$2.2M',
     sub: 'CARGO SHIP\nHEIST GUIDE',
     tag: 'HIDDEN VAULT ROUTE · MAX TAKE · ALL 3 APPROACHES',
-    accent: '#d4a332',
+    accent: '#bfa364',
     bg1: '#0a0800', bg2: '#000508',
   },
 ];
@@ -184,7 +184,7 @@ function drawOG(canvas, og) {
   // Dot after logo
   ctx.beginPath();
   ctx.arc(90 + ctx.measureText('VICEVAULT ').width + 14, 66, 4, 0, Math.PI * 2);
-  ctx.fillStyle = '#d4a332';
+  ctx.fillStyle = '#bfa364';
   ctx.fill();
 
   // BIG NUMBER / HERO TEXT
