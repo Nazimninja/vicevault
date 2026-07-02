@@ -76,7 +76,7 @@
       originalPrice: 499,
       period: 'month',
       badge: '⭐ Best value',
-      color: '#0070f3',
+      color: 'var(--blue)',
       hot: true,
       features: [
         'Unlimited access — all 11 sections',
@@ -97,7 +97,7 @@
       originalPrice: 1199,
       period: 'year',
       badge: '💎 Founding member',
-      color: '#00a3ff',
+      color: 'var(--pink)',
       features: [
         'Everything in Vault Pro',
         'Custom blueprint requests (2/month)',

@@ -27,8 +27,9 @@
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
-  --gold:#0070f3;--gold2:#00a3ff;--teal:#00d4aa;--pink:#0070f3;--orange:#e05c1a;--purple:#00a3ff;
-  --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+  --pink:#ff3d9a;--purple:#c830ff;--blue:#0070f3;--white:#ede8df;
+  --gold:var(--blue);--gold2:var(--pink);--teal:#00d4aa;--orange:#e05c1a;
+  --muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -47,13 +48,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 nav.scrolled{background:rgba(3,3,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .nav-logo{display:flex;align-items:center;gap:.6rem;cursor:pointer}
 .nav-logo img{height:44px;width:44px;object-fit:contain;border-radius:4px}
-.nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;background:linear-gradient(90deg,#0070f3,#00a3ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;background:linear-gradient(90deg, var(--white), var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav-dot{width:7px;height:7px;border-radius:50%;background:var(--pink);animation:pdot 2s ease-in-out infinite;flex-shrink:0}
 @keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(0,112,243,.7)}50%{box-shadow:0 0 0 8px rgba(0,112,243,0)}}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--white)}
-.nav-cta{background:linear-gradient(90deg,#0070f3,#00a3ff)!important;color:#fff!important;padding:.5rem 1.4rem;border-radius:2px;font-weight:800!important;transition:opacity .2s,transform .15s!important}
+.nav-cta{background:linear-gradient(90deg, var(--pink), var(--blue))!important;color:#fff!important;padding:.5rem 1.4rem;border-radius:2px;font-weight:800!important;transition:opacity .2s,transform .15s!important}
 .nav-cta:hover{opacity:.85!important;transform:translateY(-1px)}
 .nav-preorder{color:var(--gold)!important}
 
@@ -91,12 +92,13 @@ nav.scrolled{background:rgba(3,3,8,.95);backdrop-filter:blur(20px);border-bottom
 /* HERO TITLE */
 .hero-title{font-family:'Bebas Neue',sans-serif;line-height:.88;letter-spacing:.04em;margin-bottom:1.5rem}
 .ht-1{display:block;font-size:clamp(3.5rem,8vw,7rem);color:rgba(255,255,255,.15);-webkit-text-stroke:1px rgba(255,255,255,.2);opacity:0;animation:fadeup .9s .4s forwards}
-.ht-2{display:block;font-size:clamp(5rem,14vw,12rem);color:var(--gold);text-shadow:0 0 120px rgba(0,112,243,.3),0 0 240px rgba(0,112,243,.15);opacity:0;animation:fadeup .9s .5s forwards}
-.ht-3{display:block;font-size:clamp(3.5rem,8vw,7rem);color:var(--pink);text-shadow:0 0 80px rgba(0,112,243,.4);opacity:0;animation:fadeup .9s .6s forwards}
+.ht-2{display:block;font-size:clamp(5rem,14vw,12rem);background:linear-gradient(135deg, var(--pink) 15%, var(--purple) 50%, var(--blue) 85%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 45px rgba(200,48,255,0.25));opacity:0;animation:fadeup .9s .5s forwards}
+.ht-3{display:block;font-size:clamp(3.5rem,8vw,7rem);color:var(--white);text-shadow:0 0 80px rgba(255,255,255,.15);opacity:0;animation:fadeup .9s .6s forwards}
 
 /* TAGLINE */
 .tagline{font-size:clamp(.9rem,2vw,1.1rem);color:var(--muted);line-height:1.85;max-width:520px;margin:0 auto 2.5rem;opacity:0;animation:fadeup .9s .7s forwards}
 
+/* COUNTDOWN */
 /* COUNTDOWN */
 .countdown-wrap{margin-bottom:3rem;opacity:0;animation:fadeup .9s .8s forwards}
 .countdown-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
@@ -113,18 +115,17 @@ nav.scrolled{background:rgba(3,3,8,.95);backdrop-filter:blur(20px);border-bottom
 .email-input{flex:1;min-width:240px;background:var(--surface);border:1px solid var(--border2);color:var(--white);font-family:'Barlow',sans-serif;font-size:.92rem;padding:1rem 1.3rem;border-radius:3px;outline:none;transition:border-color .2s,box-shadow .2s}
 .email-input::placeholder{color:var(--muted)}
 .email-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(0,112,243,.1)}
-.join-btn{background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:3px;border:none;cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s;white-space:nowrap}
-.join-btn:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,112,243,.3)}
+.join-btn{background:linear-gradient(90deg, var(--pink), var(--blue));color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:3px;border:none;cursor:pointer;transition:transform .15s,box-shadow .2s;white-space:nowrap;box-shadow:0 4px 15px rgba(0,112,243,.25)}
+.join-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,61,154,.45)}
 .form-note{font-size:.75rem;color:var(--dim);margin-top:.7rem;text-align:center}
 .form-note span{color:var(--muted)}
 
 /* SUCCESS STATE */
-.success-state{display:none;text-align:center;padding:1.2rem;background:rgba(0,212,170,.07);border:1px solid rgba(0,212,170,.2);border-radius:4px}
+.success-state{display:none;text-align:center;padding:1.2rem;background:rgba(0,112,243,.07);border:1px solid rgba(0,112,243,.2);border-radius:4px}
 .ss-icon{font-size:1.8rem;margin-bottom:.4rem}
 .ss-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.08em;color:var(--teal);margin-bottom:.3rem}
 .ss-sub{font-size:.84rem;color:var(--muted);line-height:1.7}
 .ss-num{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold)}
-
 /* WAITLIST COUNTER */
 .wl-counter{display:flex;align-items:center;gap:.8rem;justify-content:center;margin-bottom:2.5rem;opacity:0;animation:fadeup .9s 1s forwards}
 .wl-avatars{display:flex}
@@ -144,7 +145,7 @@ nav.scrolled{background:rgba(3,3,8,.95);backdrop-filter:blur(20px);border-bottom
 @keyframes spulse{0%,100%{opacity:.7}50%{opacity:.2}}
 
 /* TICKER */
-.ticker{overflow:hidden;background:linear-gradient(90deg,#0070f3,#00a3ff);padding:.6rem 0;position:relative;z-index:20}
+.ticker{overflow:hidden;background:linear-gradient(90deg, var(--pink), var(--blue));padding:.6rem 0;position:relative;z-index:20}
 .ticker-t{display:flex;white-space:nowrap;animation:trun 32s linear infinite}
 .ticker-t span{display:inline-flex;align-items:center;gap:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;padding:0 1.5rem;flex-shrink:0}
 .td{color:rgba(255,255,255,.3)}
@@ -225,7 +226,7 @@ section{padding:110px 2.5rem;position:relative}
 .blog-section{background:var(--deep)}
 .fbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:2.2rem 0}
 .fb-btn{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.48rem 1.1rem;border-radius:2px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
-.fb-btn:hover,.fb-btn.on{background:linear-gradient(90deg,#0070f3,#00a3ff);color:#fff;border-color:transparent}
+.fb-btn:hover,.fb-btn.on{background:linear-gradient(90deg, var(--pink), var(--blue));color:#fff;border-color:transparent}
 .bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .bc{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .3s,transform .3s}
 .bc:hover{border-color:var(--gold);transform:translateY(-4px)}
@@ -287,8 +288,8 @@ section{padding:110px 2.5rem;position:relative}
 .pc:hover{transform:translateY(-4px);border-color:var(--border2)}
 .pc.hot{border-color:var(--gold);background:var(--card);transform:scale(1.035);box-shadow:0 0 0 1px var(--gold),0 30px 80px rgba(0,0,0,.5)}
 .pc.hot:hover{transform:scale(1.035) translateY(-4px)}
-.pbadge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#0070f3,#00a3ff);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.63rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.26rem 1.2rem;border-radius:0 0 4px 4px}
-.ptier{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.08em;background:linear-gradient(90deg,#0070f3,#00a3ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.2rem}
+.pbadge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg, var(--pink), var(--blue));color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.63rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.26rem 1.2rem;border-radius:0 0 4px 4px}
+.ptier{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.08em;background:linear-gradient(90deg, var(--pink), var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.2rem}
 .pdesc{font-size:.82rem;color:var(--muted);margin-bottom:2rem}
 .pprice{display:flex;align-items:baseline;gap:.3rem;margin-bottom:.25rem}
 .pcur{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--muted)}
@@ -315,7 +316,7 @@ section{padding:110px 2.5rem;position:relative}
 /* FOOTER */
 footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.5rem 30px}
 .fg{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-.fb-brand .flogo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.12em;background:linear-gradient(90deg,#0070f3,#00a3ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.8rem}
+.fb-brand .flogo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.12em;background:linear-gradient(90deg, var(--pink), var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.8rem}
 .fb-brand p{font-size:.84rem;color:var(--muted);line-height:1.75;max-width:260px}
 .fc h4{font-family:'Barlow Condensed',sans-serif;font-size:.63rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
 .fc ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
@@ -586,7 +587,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
   <div class="cta-glow"></div>
   <div class="cta-in rev">
     <div class="eye">Free. Every Thursday.</div>
-    <h2 class="stitle cta-t">The weekly<br><span style="background:linear-gradient(90deg,#0070f3,#00a3ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Vice drop</span></h2>
+    <h2 class="stitle cta-t">The weekly<br><span style="background:linear-gradient(90deg, var(--pink), var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Vice drop</span></h2>
     <p class="cta-s">Best money routes, new cheat codes, and heist updates discovered that week. No spam, ever.</p>
     <div class="cta-form"><input type="email" class="email-i" id="nl-email" placeholder="your@email.com" aria-label="Email"><button class="btn-g" onclick="subscribeNL()">Get intel</button></div>
   </div>
