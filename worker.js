@@ -574,8 +574,8 @@ async function handleVerifyOTP(request, env) {
       firstName: cleanEmail.split('@')[0],
       lastName: '',
       tier,
-      subscribed: true,
-      subscriptionExpiresAt: new Date(Date.now() + 30 * 86400 * 1000).toISOString(),
+      subscribed: false,
+      subscriptionExpiresAt: '',
       joinedAt: new Date().toISOString()
     };
 
@@ -584,12 +584,13 @@ async function handleVerifyOTP(request, env) {
     if (existingStr) {
       try {
         const existing = JSON.parse(existingStr);
-        user.subscribed = existing.subscribed !== undefined ? existing.subscribed : true;
+        user.subscribed = existing.subscribed !== undefined ? existing.subscribed : false;
         if (existing.firstName) user.firstName = existing.firstName;
         if (existing.lastName) user.lastName = existing.lastName;
         if (existing.tier) user.tier = existing.tier;
         if (existing.discordUserId) user.discordUserId = existing.discordUserId;
         if (existing.passwordHash) user.passwordHash = existing.passwordHash;
+        if (existing.subscriptionExpiresAt) user.subscriptionExpiresAt = existing.subscriptionExpiresAt;
       } catch(e) {}
     }
 
@@ -645,24 +646,29 @@ async function handleGoogleAuth(request, env) {
     if (tierId === '199' || tierId === '299' || tierId === 'soldier') tier = 'soldier';
     if (tierId === '1199' || tierId === '999' || tierId === 'elite') tier = 'elite';
 
-    const user = {
+    let user = {
       email,
       firstName,
       lastName,
       tier,
-      subscribed: true,
-      subscriptionExpiresAt: new Date(Date.now() + 30 * 86400 * 1000).toISOString(),
+      subscribed: false,
+      subscriptionExpiresAt: '',
       joinedAt: new Date().toISOString()
     };
 
-    // Preserve existing Discord ID if present in KV
+    // Preserve existing Discord ID, password hash, and subscription status if present in KV
     const existingStr = await env.VICE_VAULT_KV.get(`user:${email}`);
     if (existingStr) {
       try {
         const existing = JSON.parse(existingStr);
-        if (existing.discordUserId) {
-          user.discordUserId = existing.discordUserId;
-        }
+        user = {
+          ...existing,
+          firstName: existing.firstName || user.firstName,
+          lastName: existing.lastName || user.lastName,
+          tier: existing.tier || user.tier,
+          subscribed: existing.subscribed !== undefined ? existing.subscribed : false,
+          joinedAt: existing.joinedAt || user.joinedAt
+        };
       } catch(e) {}
     }
 
@@ -786,8 +792,8 @@ async function handleDiscordAuth(request, env) {
       firstName: username,
       lastName: '',
       tier,
-      subscribed: true,
-      subscriptionExpiresAt: new Date(Date.now() + 30 * 86400 * 1000).toISOString(),
+      subscribed: false,
+      subscriptionExpiresAt: '',
       discordUserId: userData.id,
       joinedAt: new Date().toISOString()
     };
@@ -802,7 +808,7 @@ async function handleDiscordAuth(request, env) {
           firstName: existing.firstName || user.firstName,
           lastName: existing.lastName || user.lastName,
           tier: existing.tier || user.tier,
-          subscribed: existing.subscribed !== undefined ? existing.subscribed : user.subscribed,
+          subscribed: existing.subscribed !== undefined ? existing.subscribed : false,
           subscriptionExpiresAt: existing.subscriptionExpiresAt || user.subscriptionExpiresAt,
           joinedAt: existing.joinedAt || user.joinedAt
         };

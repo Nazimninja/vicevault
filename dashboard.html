@@ -2,10 +2,22 @@
 <html lang="en">
 <head>
 <script>
-  if (!localStorage.getItem('vv_user')) {
-    window.location.replace('signup.html?mode=login');
-  } else {
+  // Promote user to subscribed if redirecting from a successful payment
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('payment') === 'success') {
     const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
+    if (user && user.email) {
+      user.subscribed = true;
+      localStorage.setItem('vv_user', JSON.stringify(user));
+    }
+  }
+
+  const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
+  if (!user || !user.email) {
+    window.location.replace('signup.html?mode=login');
+  } else if (!user.subscribed) {
+    window.location.replace(`signup.html?step=3&email=${encodeURIComponent(user.email)}&fname=${encodeURIComponent(user.firstName || '')}&lname=${encodeURIComponent(user.lastName || '')}&tier_id=${user.tier || 'pro'}`);
+  } else {
     if (user && user.email) {
       document.addEventListener('DOMContentLoaded', () => {
         // Determine tier details
@@ -99,16 +111,15 @@
 <meta name="robots" content="noindex,nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
+
+
 /* RESPONSIVE FONT SCALING */
 @media (max-width: 480px) { html { font-size: 13.5px !important; } }
 @media (min-width: 481px) and (max-width: 768px) { html { font-size: 14px !important; } }
 @media (min-width: 769px) and (max-width: 1024px) { html { font-size: 14.5px !important; } }
 @media (min-width: 1025px) and (max-width: 1440px) { html { font-size: 15.5px !important; } }
 @media (min-width: 1600px) { html { font-size: 18px !important; } }
-@media (min-width: 2200px) { html { font-size: 22px !important; } }
-
-
-
+@media (min-width: 2200px) { html { font-size: 22px !important; } 
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
   --pink:#ff3d9a;--purple:#c830ff;--blue:#0070f3;--white:#ede8df;
