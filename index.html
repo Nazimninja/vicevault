@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vice Vault — GTA 6 Guides, Heist Blueprints, Cheat Codes & More</title>
 <meta name="description" content="Vice Vault is the ultimate GTA 6 intelligence hub. Story walkthroughs, heist blueprints, cheat codes, money meta, vehicle guides, Easter eggs and more — updated every week.">
@@ -9,7 +13,11 @@
 <meta property="og:title" content="Vice Vault — GTA 6 Intelligence Hub">
 <meta property="og:description" content="Every GTA 6 guide you'll ever need. Heists, money meta, cheats, story mode, Easter eggs, vehicles and more.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://vicevault.linkwa.in/og/homepage.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://vicevault.linkwa.in/og/homepage.jpg">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://vicevault.linkwa.in">
 <script type="application/ld+json">
@@ -19,79 +27,96 @@
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
-  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;
-  --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --gold:#ff3d9a;--gold2:#c830ff;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--purple:#9b3dff;
+  --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 
-/* CURSOR */
+/* CUSTOM CURSOR */
 .cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,163,50,0.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
 
 /* NOISE */
 body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:66px;transition:background .4s,border-bottom .4s}
-nav.scrolled{background:rgba(3,3,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.6rem}
-.logo-v{color:var(--gold);text-shadow:0 0 30px rgba(212,163,50,.5)}
-.logo-rest{color:var(--white)}
+nav.scrolled{background:rgba(3,3,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:.6rem;cursor:pointer}
+.nav-logo img{height:44px;width:44px;object-fit:contain;border-radius:4px}
+.nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;background:linear-gradient(90deg,#ff3d9a,#c830ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav-dot{width:7px;height:7px;border-radius:50%;background:var(--pink);animation:pdot 2s ease-in-out infinite;flex-shrink:0}
 @keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 8px rgba(255,61,110,0)}}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--white)}
-.nav-cta{background:var(--gold);color:var(--ink)!important;padding:.5rem 1.4rem;border-radius:2px;font-weight:800!important;transition:background .2s,transform .15s!important}
-.nav-cta:hover{background:var(--gold2)!important;transform:translateY(-1px)}
+.nav-cta{background:linear-gradient(90deg,#ff3d9a,#c830ff)!important;color:#fff!important;padding:.5rem 1.4rem;border-radius:2px;font-weight:800!important;transition:opacity .2s,transform .15s!important}
+.nav-cta:hover{opacity:.85!important;transform:translateY(-1px)}
+.nav-preorder{color:var(--gold)!important}
 
 /* HERO */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:4rem 2.5rem 6rem;overflow:hidden}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:0 2.5rem;overflow:hidden}
 .hero-bg{position:absolute;inset:0;z-index:1;background:
-  radial-gradient(ellipse 60% 70% at 80% 30%,rgba(0,212,170,.07) 0%,transparent 60%),
-  radial-gradient(ellipse 50% 60% at 10% 80%,rgba(255,61,110,.09) 0%,transparent 55%),
-  radial-gradient(ellipse 40% 50% at 50% 50%,rgba(212,163,50,.06) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 70% at 80% 30%,rgba(200,48,255,.08) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 60% at 10% 80%,rgba(255,61,154,.1) 0%,transparent 55%),
+  radial-gradient(ellipse 40% 50% at 50% 50%,rgba(155,61,255,.06) 0%,transparent 60%),
   linear-gradient(180deg,#030308 0%,#07070f 100%)}
 .hero-scan{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.1) 3px,rgba(0,0,0,.1) 4px)}
-.hero-grid{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(212,163,50,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.03) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
+.hero-grid{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(255,61,154,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,61,154,.03) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
 
-/* animated particles */
+/* PARTICLES */
 .particles{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
-.particle{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;animation:float-up var(--dur,8s) var(--del,0s) ease-in infinite;opacity:0}
-@keyframes float-up{0%{opacity:0;transform:translateY(100vh) translateX(0)}10%{opacity:.6}90%{opacity:.2}100%{opacity:0;transform:translateY(-10vh) translateX(calc(sin(1rad)*40px))}}
+.particle{position:absolute;width:2px;height:2px;border-radius:50%;animation:float-up var(--dur,8s) var(--del,0s) ease-in infinite;opacity:0}
+@keyframes float-up{0%{opacity:0;transform:translateY(100vh)}10%{opacity:.7}90%{opacity:.2}100%{opacity:0;transform:translateY(-10vh)}}
 
-.hero-skyline{position:absolute;bottom:0;left:0;right:0;height:40%;pointer-events:none;z-index:2;opacity:.08;will-change:transform}
+/* SKYLINE PARALLAX */
+.hero-skyline{position:absolute;bottom:0;left:0;right:0;height:42%;pointer-events:none;z-index:2;opacity:.06;will-change:transform;transition:transform .05s linear}
+
 .hero-content{position:relative;z-index:10;max-width:820px}
 .hero-tag{display:inline-flex;align-items:center;gap:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:1.8rem;opacity:0;animation:fup .8s .2s forwards}
 .tag-line{width:28px;height:1px;background:var(--teal)}
-.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5.5rem,14vw,11rem);letter-spacing:.03em;line-height:.88;margin-bottom:2rem;opacity:0;animation:fup .9s .4s forwards}
-.h-gold{color:var(--gold);text-shadow:0 0 100px rgba(212,163,50,.35),0 0 200px rgba(212,163,50,.15)}
-.h-pink{color:var(--pink);-webkit-text-stroke:0px;text-shadow:0 0 80px rgba(255,61,110,.45)}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5.5rem,14vw,11rem);letter-spacing:.03em;line-height:.88;margin-bottom:1.6rem;opacity:0;animation:fup .9s .4s forwards}
+.h-gold{background:linear-gradient(135deg,#ff3d9a,#c830ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 40px rgba(255,61,154,.4))}
+.h-pink{color:#ff3d6e;text-shadow:0 0 80px rgba(255,61,110,.45)}
 .h-out{-webkit-text-stroke:1.5px rgba(255,255,255,.2);color:transparent}
-.hero-p{font-size:1.05rem;color:var(--muted);max-width:480px;line-height:1.85;margin-bottom:2.8rem;opacity:0;animation:fup .9s .6s forwards}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fup .9s .8s forwards}
-.btn-g{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;border-radius:2px;border:none;cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s}
-.btn-g:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,163,50,.3)}
+.hero-p{font-size:1.05rem;color:var(--muted);max-width:480px;line-height:1.85;margin-bottom:2rem;opacity:0;animation:fup .9s .6s forwards}
+
+/* HERO COUNTDOWN */
+.hero-countdown{display:flex;flex-direction:column;gap:.7rem;margin-bottom:2.5rem;opacity:0;animation:fup .9s .7s forwards}
+.hcd-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.hcd-units{display:flex;gap:.8rem;align-items:flex-end;flex-wrap:wrap}
+.hcd-unit{display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.hcd-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);line-height:1;color:var(--white);background:var(--surface);border:1px solid rgba(255,61,154,.3);border-radius:4px;padding:.2rem .8rem;min-width:72px;text-align:center;position:relative;box-shadow:0 0 20px rgba(255,61,154,.1)}
+.hcd-num::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,255,.06)}
+.hcd-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hcd-sep{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(255,61,154,.4);line-height:1.2;margin-bottom:1.4rem}
+
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fup .9s .85s forwards}
+.btn-g{display:inline-flex;align-items:center;gap:.6rem;background:linear-gradient(90deg,#ff3d9a,#c830ff);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;border-radius:2px;border:none;cursor:pointer;transition:opacity .2s,transform .15s,box-shadow .2s}
+.btn-g:hover{opacity:.85;transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,61,154,.3)}
 .btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
-.btn-o:hover{border-color:var(--gold);background:rgba(212,163,50,.07);transform:translateY(-2px)}
+.btn-o:hover{border-color:var(--gold);background:rgba(255,61,154,.07);transform:translateY(-2px)}
+
 .hero-stats{position:absolute;right:3.5rem;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:2.5rem;opacity:0;animation:fleft 1s 1s forwards}
 .hst{text-align:right;padding-right:1.2rem;border-right:2px solid var(--gold)}
-.hst-n{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:var(--gold);line-height:1}
+.hst-n{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;background:linear-gradient(135deg,#ff3d9a,#c830ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
 .hst-l{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
 .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fup .8s 1.4s forwards}
 .scroll-bar{width:1px;height:38px;background:linear-gradient(to bottom,var(--gold),transparent);animation:spulse 2s ease-in-out infinite}
+
 @keyframes fup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes fleft{from{opacity:0;transform:translateY(-50%) translateX(16px)}to{opacity:1;transform:translateY(-50%)}}
 @keyframes spulse{0%,100%{opacity:.7}50%{opacity:.2}}
 
 /* TICKER */
-.ticker{overflow:hidden;background:var(--gold);padding:.6rem 0;position:relative;z-index:20}
+.ticker{overflow:hidden;background:linear-gradient(90deg,#ff3d9a,#c830ff);padding:.6rem 0;position:relative;z-index:20}
 .ticker-t{display:flex;white-space:nowrap;animation:trun 32s linear infinite}
-.ticker-t span{display:inline-flex;align-items:center;gap:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);padding:0 1.5rem;flex-shrink:0}
-.td{color:rgba(3,3,8,.3)}
+.ticker-t span{display:inline-flex;align-items:center;gap:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;padding:0 1.5rem;flex-shrink:0}
+.td{color:rgba(255,255,255,.3)}
 @keyframes trun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* MARQUEE */
@@ -107,7 +132,7 @@ section{padding:110px 2.5rem;position:relative}
 .stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5vw,4.5rem);letter-spacing:.04em;line-height:.95}
 .ssub{font-size:.98rem;color:var(--muted);line-height:1.8;max-width:460px}
 
-/* CONTENT CATEGORIES */
+/* CATEGORIES */
 .cats-section{background:var(--deep)}
 .cats-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;gap:2rem;flex-wrap:wrap}
 .cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden}
@@ -115,15 +140,17 @@ section{padding:110px 2.5rem;position:relative}
 .cat-card:hover{background:var(--card)}
 .cat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.4,0,.2,1)}
 .cat-card:hover::after{transform:scaleX(1)}
-.cc1::after{background:var(--gold)} .cc2::after{background:var(--teal)} .cc3::after{background:var(--pink)}
-.cc4::after{background:var(--orange)} .cc5::after{background:var(--gold)} .cc6::after{background:var(--teal)}
-.cc7::after{background:var(--pink)} .cc8::after{background:var(--orange)} .cc9::after{background:var(--gold)} .cc10::after{background:var(--teal)} .cc11::after{background:var(--pink)}
+.cc1::after,.cc5::after,.cc9::after{background:var(--gold)}
+.cc2::after,.cc6::after,.cc10::after{background:var(--teal)}
+.cc3::after,.cc7::after,.cc11::after{background:var(--pink)}
+.cc4::after,.cc8::after{background:var(--orange)}
 .cat-num{position:absolute;bottom:-8px;right:4px;font-family:'Bebas Neue',sans-serif;font-size:4.5rem;color:rgba(255,255,255,.03);pointer-events:none;user-select:none;line-height:1}
 .cat-icon{font-size:1.5rem;margin-bottom:1rem;display:block}
 .cat-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;margin-bottom:.4rem}
-.cc1 .cat-name{color:var(--gold)} .cc2 .cat-name{color:var(--teal)} .cc3 .cat-name{color:var(--pink)}
-.cc4 .cat-name{color:var(--orange)} .cc5 .cat-name{color:var(--gold)} .cc6 .cat-name{color:var(--teal)}
-.cc7 .cat-name{color:var(--pink)} .cc8 .cat-name{color:var(--orange)} .cc9 .cat-name{color:var(--gold)} .cc10 .cat-name{color:var(--teal)} .cc11 .cat-name{color:var(--pink)}
+.cc1 .cat-name,.cc5 .cat-name,.cc9 .cat-name{color:var(--gold)}
+.cc2 .cat-name,.cc6 .cat-name,.cc10 .cat-name{color:var(--teal)}
+.cc3 .cat-name,.cc7 .cat-name,.cc11 .cat-name{color:var(--pink)}
+.cc4 .cat-name,.cc8 .cat-name{color:var(--orange)}
 .cat-desc{font-size:.8rem;color:var(--muted);line-height:1.6}
 .cat-count{margin-top:1.2rem;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 
@@ -132,12 +159,12 @@ section{padding:110px 2.5rem;position:relative}
 .feat-grid{display:grid;grid-template-columns:1fr 360px;gap:1.5rem;margin-top:3rem}
 .feat-hero{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .3s}
 .feat-hero:hover{border-color:var(--gold)}
-.feat-thumb{height:280px;position:relative;overflow:hidden;background:var(--deep);display:flex;align-items:center;justify-content:center}
-.ft-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0500,#050010,#00100a)}
-.ft-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 80%,rgba(212,163,50,.12) 0%,transparent 70%)}
+.feat-thumb{height:280px;position:relative;overflow:hidden;background:var(--deep)}
+.ft-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0005,#050010,#00050a)}
+.ft-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 80%,rgba(255,61,154,.12) 0%,transparent 70%)}
 .ft-city{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:flex-end;gap:2px;padding:0 16px;height:160px}
 .fb{background:var(--lift);flex-shrink:0;position:relative}
-.fb::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:rgba(212,163,50,.25)}
+.fb::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:rgba(255,61,154,.25)}
 .bl{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;animation:blnk var(--d,2s) var(--dl,0s) ease-in-out infinite}
 @keyframes blnk{0%,100%{opacity:1}50%{opacity:.08}}
 .ft-badge{position:absolute;top:1.2rem;left:1.2rem;z-index:5;background:var(--pink);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.28rem .8rem;border-radius:2px}
@@ -158,7 +185,7 @@ section{padding:110px 2.5rem;position:relative}
 
 /* TAGS */
 .tag{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.22rem .7rem;border-radius:2px;background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)}
-.tg{background:rgba(212,163,50,.1);color:var(--gold);border-color:rgba(212,163,50,.3)}
+.tg{background:rgba(255,61,154,.1);color:var(--gold);border-color:rgba(255,61,154,.3)}
 .tp{background:rgba(255,61,110,.12);color:var(--pink);border-color:rgba(255,61,110,.3)}
 .tn{background:rgba(255,61,110,.8);color:#fff;border:none}
 .tt{background:rgba(0,212,170,.1);color:var(--teal);border-color:rgba(0,212,170,.3)}
@@ -167,11 +194,13 @@ section{padding:110px 2.5rem;position:relative}
 .blog-section{background:var(--deep)}
 .fbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:2.2rem 0}
 .fb-btn{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.48rem 1.1rem;border-radius:2px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
-.fb-btn:hover,.fb-btn.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.fb-btn:hover,.fb-btn.on{background:linear-gradient(90deg,#ff3d9a,#c830ff);color:#fff;border-color:transparent}
 .bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .bc{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .3s,transform .3s}
 .bc:hover{border-color:var(--gold);transform:translateY(-4px)}
 .bct{height:148px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.bct img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.bc:hover .bct img{transform:scale(1.06)}
 .bct-bg{position:absolute;inset:0}
 .bt1 .bct-bg{background:linear-gradient(135deg,#1a1000,#200808)}
 .bt2 .bct-bg{background:linear-gradient(135deg,#00100a,#001018)}
@@ -179,15 +208,15 @@ section{padding:110px 2.5rem;position:relative}
 .bt4 .bct-bg{background:linear-gradient(135deg,#0a1200,#001010)}
 .bt5 .bct-bg{background:linear-gradient(135deg,#1a0800,#180018)}
 .bt6 .bct-bg{background:linear-gradient(135deg,#000818,#180008)}
-.bct-word{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:.05em;color:rgba(255,255,255,.04);user-select:none}
-.bct-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;z-index:1;border:1px solid rgba(212,163,50,.35);padding:.25rem .75rem;border-radius:2px;background:rgba(212,163,50,.06);color:var(--gold)}
+.bct-word{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:.05em;color:rgba(255,255,255,.04);user-select:none;z-index:1}
+.bct-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;z-index:2;border:1px solid rgba(255,61,154,.4);padding:.25rem .75rem;border-radius:2px;background:rgba(255,61,154,.08);color:var(--gold)}
 .bb{padding:1.2rem 1.4rem 1.4rem;flex:1;display:flex;flex-direction:column}
 .bt{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;line-height:1.3;color:var(--white);margin-bottom:.55rem}
 .bex{font-size:.82rem;color:var(--muted);line-height:1.65;flex:1}
 .bf{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .ba{color:var(--gold)}
 
-/* PREVIEW ARTICLE */
+/* ARTICLE PREVIEW */
 .art-sec{background:var(--ink)}
 .art-wrap{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-top:3rem}
 .art-hd{padding:2.5rem 3rem 2rem;border-bottom:1px solid var(--border)}
@@ -196,10 +225,10 @@ section{padding:110px 2.5rem;position:relative}
 .art-h1{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:800;line-height:1.15;margin-bottom:.8rem}
 .art-lead{font-size:.95rem;color:var(--muted);line-height:1.8;max-width:640px}
 .art-body{padding:2rem 3rem;display:grid;grid-template-columns:1fr 230px;gap:3rem}
-.ac h2{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;color:var(--gold);margin:1.8rem 0 .7rem;letter-spacing:.02em}
+.ac h2{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;color:var(--gold);margin:1.8rem 0 .7rem}
 .ac h2:first-child{margin-top:0}
 .ac p{font-size:.9rem;color:#9a98aa;line-height:1.9;margin-bottom:.9rem}
-.tipbox{background:rgba(212,163,50,.06);border-left:3px solid var(--gold);padding:1rem 1.2rem;border-radius:0 3px 3px 0;margin:1.2rem 0}
+.tipbox{background:rgba(255,61,154,.06);border-left:3px solid var(--gold);padding:1rem 1.2rem;border-radius:0 3px 3px 0;margin:1.2rem 0}
 .tipbox-l{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
 .tipbox p{margin:0;font-size:.84rem;color:var(--muted)}
 .sl{counter-reset:s;list-style:none;display:flex;flex-direction:column;gap:.8rem;margin:1rem 0}
@@ -227,8 +256,8 @@ section{padding:110px 2.5rem;position:relative}
 .pc:hover{transform:translateY(-4px);border-color:var(--border2)}
 .pc.hot{border-color:var(--gold);background:var(--card);transform:scale(1.035);box-shadow:0 0 0 1px var(--gold),0 30px 80px rgba(0,0,0,.5)}
 .pc.hot:hover{transform:scale(1.035) translateY(-4px)}
-.pbadge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:.63rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.26rem 1.2rem;border-radius:0 0 4px 4px}
-.ptier{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.08em;color:var(--gold);margin-bottom:.2rem}
+.pbadge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#ff3d9a,#c830ff);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.63rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.26rem 1.2rem;border-radius:0 0 4px 4px}
+.ptier{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.08em;background:linear-gradient(90deg,#ff3d9a,#c830ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.2rem}
 .pdesc{font-size:.82rem;color:var(--muted);margin-bottom:2rem}
 .pprice{display:flex;align-items:baseline;gap:.3rem;margin-bottom:.25rem}
 .pcur{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--muted)}
@@ -243,7 +272,7 @@ section{padding:110px 2.5rem;position:relative}
 
 /* CTA */
 .cta-sec{background:var(--ink);padding:100px 2.5rem;position:relative;overflow:hidden}
-.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(212,163,50,.05) 0%,transparent 70%);pointer-events:none}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(255,61,154,.06) 0%,transparent 70%);pointer-events:none}
 .cta-in{max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:2}
 .cta-t{font-size:clamp(2.5rem,6vw,4.5rem)}
 .cta-s{font-size:.98rem;color:var(--muted);margin:1rem auto 2.5rem;max-width:400px;line-height:1.8}
@@ -255,7 +284,7 @@ section{padding:110px 2.5rem;position:relative}
 /* FOOTER */
 footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.5rem 30px}
 .fg{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-.fb-brand .flogo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.12em;color:var(--gold);margin-bottom:.8rem}
+.fb-brand .flogo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.12em;background:linear-gradient(90deg,#ff3d9a,#c830ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.8rem}
 .fb-brand p{font-size:.84rem;color:var(--muted);line-height:1.75;max-width:260px}
 .fc h4{font-family:'Barlow Condensed',sans-serif;font-size:.63rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
 .fc ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
@@ -273,9 +302,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
 .rev.in,.rev-l.in,.rev-r.in{opacity:1;transform:none}
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
 
-/* RESPONSIVE */
 @media(max-width:1000px){.cats-grid{grid-template-columns:repeat(3,1fr)}.feat-grid{grid-template-columns:1fr}.pgrid{grid-template-columns:1fr}.pc.hot{transform:none}.art-body{grid-template-columns:1fr}.asd{display:none}.hero-stats{display:none}.bgrid{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){nav{padding:0 1.2rem}.nav-links{display:none}section{padding:70px 1.2rem}.hero{padding:0 1.2rem}.cats-grid{grid-template-columns:1fr 1fr}.bgrid{grid-template-columns:1fr}.art-hd,.art-body{padding:1.5rem}.fg{grid-template-columns:1fr;gap:2rem}.cur,.cur-ring{display:none}}
+@media(max-width:640px){nav{padding:0 1.2rem}.nav-links{display:none}section{padding:70px 1.2rem}.hero{padding:0 1.2rem}.cats-grid{grid-template-columns:1fr 1fr}.bgrid{grid-template-columns:1fr}.art-hd,.art-body{padding:1.5rem}.fg{grid-template-columns:1fr;gap:2rem}.cur,.cur-ring{display:none}.hcd-num{min-width:56px;font-size:2rem}}
 </style>
 </head>
 <body>
@@ -285,13 +313,17 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo"><span class="logo-v">VICE</span><span class="logo-rest">VAULT</span><span class="nav-dot"></span></div>
+  <div class="nav-logo" onclick="scrollTo({top:0,behavior:'smooth'})">
+    <img src="assets/logo-master.png" alt="Vice Vault logo">
+    <span class="nav-logo-text">VICE VAULT</span>
+    <span class="nav-dot"></span>
+  </div>
   <ul class="nav-links">
     <li><a href="#categories">Vault</a></li>
-    <li><a href="#guides">Guides</a></li>
+    <li><a href="#allguides">Guides</a></li>
     <li><a href="#preview">Preview</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="preorder.html" style="color:#d4a332">Pre-order</a></li>
+    <li><a href="preorder.html" class="nav-preorder">Pre-order</a></li>
     <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
   </ul>
 </nav>
@@ -302,6 +334,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
   <div class="hero-scan"></div>
   <div class="hero-grid"></div>
   <div class="particles" id="particles"></div>
+
+  <!-- SVG Skyline for parallax -->
   <svg class="hero-skyline" id="skyline" viewBox="0 0 1400 300" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="200" width="40" height="100" fill="#fff"/><rect x="45" y="155" width="30" height="145" fill="#fff"/><rect x="80" y="115" width="55" height="185" fill="#fff"/><rect x="140" y="175" width="28" height="125" fill="#fff"/><rect x="173" y="90" width="65" height="210" fill="#fff"/><rect x="243" y="135" width="38" height="165" fill="#fff"/><rect x="286" y="70" width="85" height="230" fill="#fff"/><rect x="376" y="155" width="42" height="145" fill="#fff"/><rect x="423" y="100" width="58" height="200" fill="#fff"/><rect x="486" y="55" width="75" height="245" fill="#fff"/><rect x="566" y="125" width="48" height="175" fill="#fff"/><rect x="619" y="80" width="95" height="220" fill="#fff"/><rect x="719" y="145" width="38" height="155" fill="#fff"/><rect x="762" y="60" width="68" height="240" fill="#fff"/><rect x="835" y="115" width="52" height="185" fill="#fff"/><rect x="892" y="45" width="85" height="255" fill="#fff"/><rect x="982" y="135" width="43" height="165" fill="#fff"/><rect x="1030" y="95" width="58" height="205" fill="#fff"/><rect x="1093" y="165" width="32" height="135" fill="#fff"/><rect x="1130" y="75" width="72" height="225" fill="#fff"/><rect x="1207" y="125" width="48" height="175" fill="#fff"/><rect x="1260" y="55" width="88" height="245" fill="#fff"/><rect x="1353" y="105" width="47" height="195" fill="#fff"/>
   </svg>
@@ -314,9 +348,24 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
       <span class="h-pink">INTEL</span>
     </h1>
     <p class="hero-p">Every GTA 6 guide you'll ever need — story walkthroughs, heist blueprints, money meta, cheat codes, vehicle guides, Easter eggs and more. Written by obsessive players. Updated every week.</p>
+
+    <!-- LAUNCH COUNTDOWN -->
+    <div class="hero-countdown">
+      <div class="hcd-label">🔐 Vault opens in</div>
+      <div class="hcd-units">
+        <div class="hcd-unit"><div class="hcd-num" id="hcd-d">00</div><div class="hcd-lbl">Days</div></div>
+        <div class="hcd-sep">:</div>
+        <div class="hcd-unit"><div class="hcd-num" id="hcd-h">00</div><div class="hcd-lbl">Hours</div></div>
+        <div class="hcd-sep">:</div>
+        <div class="hcd-unit"><div class="hcd-num" id="hcd-m">00</div><div class="hcd-lbl">Mins</div></div>
+        <div class="hcd-sep">:</div>
+        <div class="hcd-unit"><div class="hcd-num" id="hcd-s">00</div><div class="hcd-lbl">Secs</div></div>
+      </div>
+    </div>
+
     <div class="hero-btns">
       <a href="#categories" class="btn-g">Explore the vault ↓</a>
-      <a href="#pricing" class="btn-o">Join Vice Vault</a>
+      <a href="preorder.html" class="btn-o">Pre-order — save 20%</a>
     </div>
   </div>
 
@@ -331,26 +380,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-t">
-    <span>GTA 6 Story Walkthrough <span class="td">◆</span></span>
-    <span>Heist Blueprints <span class="td">◆</span></span>
-    <span>Money Meta Weekly <span class="td">◆</span></span>
-    <span>Cheat Codes PS5 &amp; Xbox <span class="td">◆</span></span>
-    <span>Vehicle &amp; Car Culture <span class="td">◆</span></span>
-    <span>Easter Eggs &amp; Secrets <span class="td">◆</span></span>
-    <span>Properties &amp; Investments <span class="td">◆</span></span>
-    <span>Wanted Level Escape <span class="td">◆</span></span>
-    <span>Online Multiplayer Guides <span class="td">◆</span></span>
-    <span>Character &amp; Weapon Builds <span class="td">◆</span></span>
-    <span>GTA 6 Story Walkthrough <span class="td">◆</span></span>
-    <span>Heist Blueprints <span class="td">◆</span></span>
-    <span>Money Meta Weekly <span class="td">◆</span></span>
-    <span>Cheat Codes PS5 &amp; Xbox <span class="td">◆</span></span>
-    <span>Vehicle &amp; Car Culture <span class="td">◆</span></span>
-    <span>Easter Eggs &amp; Secrets <span class="td">◆</span></span>
-    <span>Properties &amp; Investments <span class="td">◆</span></span>
-    <span>Wanted Level Escape <span class="td">◆</span></span>
-    <span>Online Multiplayer Guides <span class="td">◆</span></span>
-    <span>Character &amp; Weapon Builds <span class="td">◆</span></span>
+    <span>GTA 6 Story Walkthrough <span class="td">◆</span></span><span>Heist Blueprints <span class="td">◆</span></span><span>Money Meta Weekly <span class="td">◆</span></span><span>Cheat Codes PS5 &amp; Xbox <span class="td">◆</span></span><span>Vehicle &amp; Car Culture <span class="td">◆</span></span><span>Easter Eggs &amp; Secrets <span class="td">◆</span></span><span>Properties &amp; Investments <span class="td">◆</span></span><span>Wanted Level Escape <span class="td">◆</span></span><span>Online Multiplayer Guides <span class="td">◆</span></span><span>Character &amp; Weapon Builds <span class="td">◆</span></span>
+    <span>GTA 6 Story Walkthrough <span class="td">◆</span></span><span>Heist Blueprints <span class="td">◆</span></span><span>Money Meta Weekly <span class="td">◆</span></span><span>Cheat Codes PS5 &amp; Xbox <span class="td">◆</span></span><span>Vehicle &amp; Car Culture <span class="td">◆</span></span><span>Easter Eggs &amp; Secrets <span class="td">◆</span></span><span>Properties &amp; Investments <span class="td">◆</span></span><span>Wanted Level Escape <span class="td">◆</span></span><span>Online Multiplayer Guides <span class="td">◆</span></span><span>Character &amp; Weapon Builds <span class="td">◆</span></span>
   </div>
 </div>
 
@@ -358,10 +389,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
 <section class="cats-section" id="categories">
   <div class="container">
     <div class="cats-hd">
-      <div class="rev-l">
-        <div class="eye">Everything inside</div>
-        <h2 class="stitle">11 sections.<br>One vault.</h2>
-      </div>
+      <div class="rev-l"><div class="eye">Everything inside</div><h2 class="stitle">11 sections.<br>One vault.</h2></div>
       <p class="ssub rev-r">Every dimension of GTA 6 covered — from the first story mission to the deepest online grind.</p>
     </div>
     <div class="cats-grid rev">
@@ -369,7 +397,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
       <div class="cat-card cc2 d2"><span class="cat-num">02</span><span class="cat-icon">💰</span><div class="cat-name">Money Meta</div><p class="cat-desc">Fastest $/hour methods ranked. Businesses, investments, farm routes — updated weekly.</p><div class="cat-count">54 guides</div></div>
       <div class="cat-card cc3 d3"><span class="cat-num">03</span><span class="cat-icon">📋</span><div class="cat-name">Heist Blueprints</div><p class="cat-desc">Step-by-step heist walkthroughs. Every approach, guard route, hidden path, max take.</p><div class="cat-count">48 guides</div></div>
       <div class="cat-card cc4 d4"><span class="cat-num">04</span><span class="cat-icon">🔑</span><div class="cat-name">Cheat Codes</div><p class="cat-desc">Every verified cheat code for PS5 and Xbox. Weapons, money, vehicles, wanted level, invincibility.</p><div class="cat-count">All codes verified</div></div>
-      <div class="cat-card cc5 d1"><span class="cat-num">05</span><span class="cat-icon">🌐</span><div class="cat-name">Online Multiplayer</div><p class="cat-desc">GTA Online for GTA 6 — lobbies, business, PvP tactics, crew strategy, and rank levelling.</p><div class="cat-count">41 guides</div></div>
+      <div class="cat-card cc5 d1"><span class="cat-num">05</span><span class="cat-icon">🌐</span><div class="cat-name">Online Multiplayer</div><p class="cat-desc">GTA Online — lobbies, business, PvP tactics, crew strategy, and rank levelling.</p><div class="cat-count">41 guides</div></div>
       <div class="cat-card cc6 d2"><span class="cat-num">06</span><span class="cat-icon">🎯</span><div class="cat-name">Character &amp; Weapon Builds</div><p class="cat-desc">Skill builds for every playstyle. Best weapons by category, upgrade priority, loadout setups.</p><div class="cat-count">38 guides</div></div>
       <div class="cat-card cc7 d3"><span class="cat-num">07</span><span class="cat-icon">🥚</span><div class="cat-name">Easter Eggs &amp; Secrets</div><p class="cat-desc">Hidden missions, secret locations, developer references, and lore deep-dives. All confirmed.</p><div class="cat-count">29 guides</div></div>
       <div class="cat-card cc8 d4"><span class="cat-num">08</span><span class="cat-icon">🏠</span><div class="cat-name">Properties &amp; Investments</div><p class="cat-desc">Which properties to buy, when, and in what order. Business ROI rankings and passive income maps.</p><div class="cat-count">24 guides</div></div>
@@ -383,7 +411,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
 <!-- MARQUEE -->
 <div class="mqd" aria-hidden="true">
   <div class="mq-t">
-    <span>VICE VAULT</span><span class="mhi">◆</span><span>GTA 6 INTEL</span><span class="mhi">◆</span><span>STORY MODE</span><span class="mhi">◆</span><span>HEIST BLUEPRINTS</span><span class="mhi">◆</span><span>MONEY META</span><span class="mhi">◆</span><span>CHEAT VAULT</span><span class="mhi">◆</span><span>ONLINE GUIDE</span><span class="mhi">◆</span><span>VEHICLE CULTURE</span><span class="mhi">◆</span><span>EASTER EGGS</span><span class="mhi">◆</span><span>VICE VAULT</span><span class="mhi">◆</span><span>GTA 6 INTEL</span><span class="mhi">◆</span><span>STORY MODE</span><span class="mhi">◆</span><span>HEIST BLUEPRINTS</span><span class="mhi">◆</span><span>MONEY META</span><span class="mhi">◆</span><span>CHEAT VAULT</span><span class="mhi">◆</span><span>ONLINE GUIDE</span><span class="mhi">◆</span><span>VEHICLE CULTURE</span><span class="mhi">◆</span><span>EASTER EGGS</span><span class="mhi">◆</span>
+    <span>VICE VAULT</span><span class="mhi">◆</span><span>GTA 6 INTEL</span><span class="mhi">◆</span><span>STORY MODE</span><span class="mhi">◆</span><span>HEIST BLUEPRINTS</span><span class="mhi">◆</span><span>MONEY META</span><span class="mhi">◆</span><span>CHEAT VAULT</span><span class="mhi">◆</span><span>ONLINE GUIDE</span><span class="mhi">◆</span><span>VEHICLE CULTURE</span><span class="mhi">◆</span><span>EASTER EGGS</span><span class="mhi">◆</span>
+    <span>VICE VAULT</span><span class="mhi">◆</span><span>GTA 6 INTEL</span><span class="mhi">◆</span><span>STORY MODE</span><span class="mhi">◆</span><span>HEIST BLUEPRINTS</span><span class="mhi">◆</span><span>MONEY META</span><span class="mhi">◆</span><span>CHEAT VAULT</span><span class="mhi">◆</span><span>ONLINE GUIDE</span><span class="mhi">◆</span><span>VEHICLE CULTURE</span><span class="mhi">◆</span><span>EASTER EGGS</span><span class="mhi">◆</span>
   </div>
 </div>
 
@@ -441,20 +470,20 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
       <button class="fb-btn" onclick="filt(this,'easter')">Easter Eggs</button>
     </div>
     <div class="bgrid rev" id="bgrid">
-      <article class="bc bt1" data-cat="heist"><div class="bct"><div class="bct-bg"></div><span class="bct-word">HEIST</span><span class="bct-lbl">Heist Blueprint</span></div><div class="bb"><h3 class="bt">GTA 6 Airport Raid: All 3 approaches + max take breakdown</h3><p class="bex">The airport job pays $3.1M at ceiling. We map every approach, loot priority, and the guard blind spot that makes the silent run possible solo.</p><div class="bf"><span>Jun 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt2" data-cat="money"><div class="bct"><div class="bct-bg"></div><span class="bct-word">MONEY</span><span class="bct-lbl">Money Meta</span></div><div class="bb"><h3 class="bt">$800K/hr passive: GTA 6 business stacking method explained</h3><p class="bex">Run four businesses simultaneously using the resupply timing trick. Zero active play once established. Money prints while you sleep.</p><div class="bf"><span>Jun 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt3" data-cat="cheat"><div class="bct"><div class="bct-bg"></div><span class="bct-word">CODES</span><span class="bct-lbl">Cheat Vault</span></div><div class="bb"><h3 class="bt">All GTA 6 cheat codes PS5 &amp; Xbox — weapons, health, vehicles</h3><p class="bex">Every confirmed cheat code organized by category. Money, ammo, wanted clears, invincibility, and 40+ vehicle spawns all verified.</p><div class="bf"><span>May 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt4" data-cat="story"><div class="bct"><div class="bct-bg"></div><span class="bct-word">STORY</span><span class="bct-lbl">Story Mode</span></div><div class="bb"><h3 class="bt">GTA 6 story missions in order — full walkthrough &amp; best approach for each</h3><p class="bex">All story missions with recommended approach, hidden cutscenes, and the dialogue choices that affect your ending. No spoilers in titles.</p><div class="bf"><span>May 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt5" data-cat="vehicle"><div class="bct"><div class="bct-bg"></div><span class="bct-word">CARS</span><span class="bct-lbl">Vehicles</span></div><div class="bb"><h3 class="bt">Top 15 fastest cars in GTA 6 — speed tested &amp; ranked by class</h3><p class="bex">We ran every car on the same track at max tune. Full rankings by class, best upgrade order, and where to find each car for free.</p><div class="bf"><span>May 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt6" data-cat="easter"><div class="bct"><div class="bct-bg"></div><span class="bct-word">EGGS</span><span class="bct-lbl">Easter Eggs</span></div><div class="bb"><h3 class="bt">23 GTA 6 Easter eggs in Leonida — all locations &amp; how to trigger</h3><p class="bex">Abandoned film set, alien encounter at 412.7, the mural that changes with weather — every community-confirmed Easter egg with video proof.</p><div class="bf"><span>Apr 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt1" data-cat="online"><div class="bct"><div class="bct-bg"></div><span class="bct-word">ONLINE</span><span class="bct-lbl">Online Multiplayer</span></div><div class="bb"><h3 class="bt">GTA 6 Online: how to level fast, make money &amp; dominate lobbies early</h3><p class="bex">First 30 days in GTA Online for GTA 6 — rank grinding route, business unlock order, and the PvP tactics that protect your cargo.</p><div class="bf"><span>Apr 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt2" data-cat="story"><div class="bct"><div class="bct-bg"></div><span class="bct-word">BUILD</span><span class="bct-lbl">Character Build</span></div><div class="bb"><h3 class="bt">Best gunman build for GTA 6 heists — weapons, stats &amp; upgrades ranked</h3><p class="bex">Gunman role is make-or-break in loud heists. Full weapon rankings, which stat boosts actually matter, and the loadout IGN skips.</p><div class="bf"><span>Apr 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt3" data-cat="money"><div class="bct"><div class="bct-bg"></div><span class="bct-word">INVEST</span><span class="bct-lbl">Properties</span></div><div class="bb"><h3 class="bt">GTA 6 property investment guide — what to buy, when, and ROI ranked</h3><p class="bex">Not all properties are equal. This guide ranks every purchasable property by ROI, unlock order that maximises early-game income, and resale value.</p><div class="bf"><span>Mar 2025</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt1" data-cat="heist" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/heist-airport-raid.jpg" alt="Airport Raid heist blueprint" loading="lazy"><span class="bct-lbl">Heist Blueprint</span></div><div class="bb"><h3 class="bt">GTA 6 Airport Raid: All 3 approaches + max take breakdown</h3><p class="bex">The airport job pays $3.1M at ceiling. We map every approach, loot priority, and the guard blind spot that makes the silent run possible solo.</p><div class="bf"><span>Jun 2025</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt2" data-cat="money" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/money-business-stack.jpg" alt="Money meta business stacking" loading="lazy"><span class="bct-lbl">Money Meta</span></div><div class="bb"><h3 class="bt">$800K/hr passive: GTA 6 business stacking method explained</h3><p class="bex">Run four businesses simultaneously using the resupply timing trick. Zero active play once established. Money prints while you sleep.</p><div class="bf"><span>Jun 2025</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt3" data-cat="cheat" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/cheat-all-codes.jpg" alt="GTA 6 cheat codes" loading="lazy"><span class="bct-lbl">Cheat Vault</span></div><div class="bb"><h3 class="bt">All GTA 6 cheat codes PS5 &amp; Xbox — weapons, health, vehicles</h3><p class="bex">Every confirmed cheat code organized by category. Money, ammo, wanted clears, invincibility, and 40+ vehicle spawns all verified.</p><div class="bf"><span>May 2025</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt4" data-cat="story" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/story-endings.jpg" alt="GTA 6 story mode endings" loading="lazy"><span class="bct-lbl">Story Mode</span></div><div class="bb"><h3 class="bt">GTA 6 story missions in order — full walkthrough &amp; best approach for each</h3><p class="bex">All story missions with recommended approach, hidden cutscenes, and the dialogue choices that affect your ending. No spoilers in titles.</p><div class="bf"><span>May 2025</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt5" data-cat="vehicle" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/vehicle-fastest-cars.jpg" alt="Fastest cars GTA 6" loading="lazy"><span class="bct-lbl">Vehicles</span></div><div class="bb"><h3 class="bt">Top 15 fastest cars in GTA 6 — speed tested &amp; ranked by class</h3><p class="bex">We ran every car on the same track at max tune. Full rankings by class, best upgrade order, and where to find each car for free.</p><div class="bf"><span>May 2025</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt6" data-cat="easter" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/easter-eggs-leonida.jpg" alt="Easter eggs GTA 6" loading="lazy"><span class="bct-lbl">Easter Eggs</span></div><div class="bb"><h3 class="bt">23 GTA 6 Easter eggs in Leonida — all locations &amp; how to trigger</h3><p class="bex">Abandoned film set, alien encounter at 412.7, the mural that changes with weather — every community-confirmed Easter egg with video proof.</p><div class="bf"><span>Apr 2025</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt1" data-cat="online" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/online-cargo-wars.jpg" alt="GTA 6 online multiplayer" loading="lazy"><span class="bct-lbl">Online Multiplayer</span></div><div class="bb"><h3 class="bt">GTA 6 Online: how to level fast, make money &amp; dominate lobbies early</h3><p class="bex">First 30 days in GTA Online for GTA 6 — rank grinding route, business unlock order, and the PvP tactics that protect your cargo.</p><div class="bf"><span>Apr 2025</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt2" data-cat="story" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/vehicle-hidden-spawns.jpg" alt="Character builds GTA 6" loading="lazy"><span class="bct-lbl">Character Build</span></div><div class="bb"><h3 class="bt">Best gunman build for GTA 6 heists — weapons, stats &amp; upgrades ranked</h3><p class="bex">Gunman role is make-or-break in loud heists. Full weapon rankings, which stat boosts actually matter, and the loadout IGN skips.</p><div class="bf"><span>Apr 2025</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt3" data-cat="money" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/money-property.jpg" alt="GTA 6 property investment" loading="lazy"><span class="bct-lbl">Properties</span></div><div class="bb"><h3 class="bt">GTA 6 property investment guide — what to buy, when, and ROI ranked</h3><p class="bex">Not all properties are equal. This guide ranks every purchasable property by ROI, unlock order that maximises early-game income, and resale value.</p><div class="bf"><span>Mar 2025</span><span class="ba">→</span></div></div></article>
     </div>
   </div>
 </section>
 
-<!-- PREVIEW ARTICLE -->
+<!-- ARTICLE PREVIEW -->
 <section class="art-sec" id="preview">
   <div class="container">
     <div class="rev"><div class="eye">Free preview</div><h2 class="stitle">Inside a blueprint</h2></div>
@@ -476,8 +505,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
             <li>Eliminate the two port-side guards before climbing. Suppressed pistol only. Loud weapons instantly switch the mission to Hard Mode.</li>
             <li>Hack the cargo manifest terminal on Deck 2 within 90 seconds. Use the Vice Vault code generator for today's rotating access code.</li>
           </ol>
-          <div class="paywall" data-required-tier="pro">
-            <div class="pw-blur"><h2>The hidden vault route (saves 8 minutes)</h2><p>Most players take the main stairwell to reach the vault, which triggers three additional guard spawns. The hidden maintenance shaft bypasses all of them. Here's exactly how to find the entrance hatch, what item you need to open the secondary door, and the fastest extraction route after the vault clears. Plus the secondary cargo crate locations and the per-player max take calculator...</p></div>
+          <div class="paywall">
+            <div class="pw-blur"><h2>The hidden vault route (saves 8 minutes)</h2><p>Most players take the main stairwell to reach the vault, which triggers three additional guard spawns. The hidden maintenance shaft bypasses all of them...</p></div>
             <div class="pw-gate">
               <div class="pw-l">Members only</div>
               <div class="pw-t">Unlock the full blueprint</div>
@@ -507,15 +536,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
         <div class="pprice"><span class="pcur">₹</span><span class="pnum">299</span></div>
         <p class="pper">per month · cancel anytime</p>
         <ul class="pfl">
-          <li>10 heist blueprints per month</li>
-          <li>Full cheat code vault (all platforms)</li>
-          <li>Weekly money meta summary</li>
-          <li>Basic story mission walkthroughs</li>
-          <li>Wanted level escape guides</li>
-          <li class="no">Unlimited guide access</li>
-          <li class="no">Hidden route unlocks</li>
-          <li class="no">Online multiplayer deep-dives</li>
-          <li class="no">Discord crew access</li>
+          <li>10 heist blueprints per month</li><li>Full cheat code vault (all platforms)</li><li>Weekly money meta summary</li><li>Basic story mission walkthroughs</li><li>Wanted level escape guides</li>
+          <li class="no">Unlimited guide access</li><li class="no">Hidden route unlocks</li><li class="no">Discord crew access</li>
         </ul>
         <a href="signup.html?tier=299" class="btn-o" style="text-align:center;justify-content:center">Start at ₹299</a>
       </div>
@@ -527,14 +549,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
         <p class="pper">per month · cancel anytime</p>
         <div class="pchoice">⭐ 80% of members choose this</div>
         <ul class="pfl">
-          <li>Unlimited access to all 11 sections</li>
-          <li>Full heist blueprints + hidden routes</li>
-          <li>Weekly money meta deep-dives</li>
-          <li>Full story walkthrough vault</li>
-          <li>Vehicle speed tests &amp; tuning guides</li>
-          <li>Online multiplayer strategy</li>
-          <li>Properties &amp; investment ROI rankings</li>
-          <li>Priority Discord crew channels (Heist, RP, Lobbies)</li>
+          <li>Unlimited access to all 11 sections</li><li>Full heist blueprints + hidden routes</li><li>Weekly money meta deep-dives</li><li>Full story walkthrough vault</li><li>Vehicle speed tests &amp; tuning guides</li><li>Online multiplayer strategy</li><li>Properties &amp; investment ROI rankings</li><li>Priority Discord crew channels</li>
           <li class="no">Custom blueprint requests</li>
         </ul>
         <a href="signup.html?tier=699" class="btn-g" style="text-align:center;justify-content:center">Join for ₹699/mo</a>
@@ -545,15 +560,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
         <div class="pprice"><span class="pcur">₹</span><span class="pnum">999</span></div>
         <p class="pper">per year — saves ₹4,789 vs monthly</p>
         <ul class="pfl">
-          <li>Everything in Vault Pro</li>
-          <li>Custom blueprint requests (2/month)</li>
-          <li>Early access — guides before public</li>
-          <li>Monthly live strategy session</li>
-          <li>Private Elite HQ Channels &amp; VIP Voice Lounge</li>
-          <li>Founding member badge</li>
-          <li>Direct line to our analysts</li>
-          <li>Weekly personal meta briefing</li>
-          <li>Priority guide requests voted on</li>
+          <li>Everything in Vault Pro</li><li>Custom blueprint requests (2/month)</li><li>Early access — guides before public</li><li>Monthly live strategy session</li><li>Private Elite HQ Channels</li><li>Founding member badge</li><li>Direct line to our analysts</li><li>Weekly personal meta briefing</li><li>Priority guide requests</li>
         </ul>
         <a href="signup.html?tier=999" class="btn-o" style="text-align:center;justify-content:center">Join Elite Crew</a>
       </div>
@@ -566,64 +573,104 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
   <div class="cta-glow"></div>
   <div class="cta-in rev">
     <div class="eye">Free. Every Thursday.</div>
-    <h2 class="stitle cta-t">The weekly<br><span style="color:var(--gold)">Vice drop</span></h2>
+    <h2 class="stitle cta-t">The weekly<br><span style="background:linear-gradient(90deg,#ff3d9a,#c830ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Vice drop</span></h2>
     <p class="cta-s">Best money routes, new cheat codes, and heist updates discovered that week. No spam, ever.</p>
-    <div class="cta-form"><input type="email" class="email-i" placeholder="your@email.com" aria-label="Email"><button class="btn-g">Get intel</button></div>
+    <div class="cta-form"><input type="email" class="email-i" id="nl-email" placeholder="your@email.com" aria-label="Email"><button class="btn-g" onclick="subscribeNL()">Get intel</button></div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="fg">
-    <div class="fb-brand"><div class="flogo">Vice Vault</div><p>The most complete GTA 6 intelligence hub. 11 content sections, 320+ guides, updated every week. Not affiliated with Rockstar Games or Take-Two Interactive.</p></div>
-    <div class="fc"><h4>The Vault</h4><ul><li><a href="#">Story Mode</a></li><li><a href="#">Heist Blueprints</a></li><li><a href="#">Money Meta</a></li><li><a href="#">Cheat Codes</a></li><li><a href="#">Online Multiplayer</a></li></ul></div>
-    <div class="fc"><h4>More Guides</h4><ul><li><a href="#">Vehicles &amp; Cars</a></li><li><a href="#">Character Builds</a></li><li><a href="#">Easter Eggs</a></li><li><a href="#">Properties</a></li><li><a href="#">Wanted Level</a></li></ul></div>
-    <div class="fc"><h4>Membership</h4><ul><li><a href="#">Join Vice Vault</a></li><li><a href="#">Pricing</a></li><li><a href="dashboard.html">Member Login</a></li><li><a href="#">Discord</a></li><li><a href="#">About</a></li></ul></div>
+    <div class="fb-brand">
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem">
+        <img src="assets/logo-master.png" alt="Vice Vault" style="height:48px;width:48px;object-fit:contain;border-radius:4px">
+        <div class="flogo">Vice Vault</div>
+      </div>
+      <p>The most complete GTA 6 intelligence hub. 11 content sections, 320+ guides, updated every week. Not affiliated with Rockstar Games or Take-Two Interactive.</p>
+    </div>
+    <div class="fc"><h4>The Vault</h4><ul><li><a href="#categories">Story Mode</a></li><li><a href="#categories">Heist Blueprints</a></li><li><a href="#categories">Money Meta</a></li><li><a href="#categories">Cheat Codes</a></li><li><a href="#categories">Online Multiplayer</a></li></ul></div>
+    <div class="fc"><h4>More Guides</h4><ul><li><a href="#categories">Vehicles &amp; Cars</a></li><li><a href="#categories">Character Builds</a></li><li><a href="#categories">Easter Eggs</a></li><li><a href="#categories">Properties</a></li><li><a href="#categories">Wanted Level</a></li></ul></div>
+    <div class="fc"><h4>Membership</h4><ul><li><a href="preorder.html">Pre-order — 20% off</a></li><li><a href="#pricing">Pricing</a></li><li><a href="dashboard.html">Member Login</a></li><li><a href="discord.html">Discord</a></li><li><a href="about.html">About</a></li></ul></div>
   </div>
   <div class="fbot">
     <span>© 2025 Vice Vault — Independent gaming guide site. Not affiliated with Rockstar Games or Take-Two Interactive.</span>
-    <div class="fleg"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="about.html#legal-sec">Disclaimer</a></div>
+    <div class="fleg"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="about.html">About</a></div>
   </div>
 </footer>
 
 <script>
-// CURSOR
+// ── CUSTOM CURSOR ────────────────────────────────
 const cur=document.getElementById('cur'),crng=document.getElementById('crng');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
 (function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.left=rx+'px';crng.style.top=ry+'px';requestAnimationFrame(anim)})();
 document.querySelectorAll('a,button,.cat-card,.bc,.feat-hero,.mini,.pc').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';crng.style.width='52px';crng.style.height='52px';crng.style.opacity='.9'});
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';crng.style.width='52px';crng.style.height='52px';crng.style.opacity='.9'});
   el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';crng.style.width='36px';crng.style.height='36px';crng.style.opacity='.5'});
 });
 
-// NAV
+// ── NAV SCROLL ───────────────────────────────────
 const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
 
-// PARTICLES
+// ── PARTICLES ────────────────────────────────────
 const pc=document.getElementById('particles');
-for(let i=0;i<18;i++){
+const pcols=['#ff3d9a','#c830ff','#00d4aa','#ff3d6e'];
+for(let i=0;i<22;i++){
   const p=document.createElement('div');p.className='particle';
-  p.style.cssText=`left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--del:${Math.random()*8}s`;
+  p.style.cssText=`left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--del:${Math.random()*9}s;background:${pcols[Math.floor(Math.random()*pcols.length)]}`;
   pc.appendChild(p);
 }
 
-// PARALLAX
+// ── PARALLAX ─────────────────────────────────────
+const skyline=document.getElementById('skyline');
+let ticking=false;
 window.addEventListener('scroll',()=>{
-  const sl=document.getElementById('skyline');
-  if(sl)sl.style.transform=`translateY(${scrollY*.14}px)`;
-});
+  if(!ticking){
+    requestAnimationFrame(()=>{
+      if(skyline) skyline.style.transform=`translateY(${scrollY*.14}px)`;
+      ticking=false;
+    });
+    ticking=true;
+  }
+},{passive:true});
 
-// REVEAL
+// ── HERO COUNTDOWN ───────────────────────────────
+const LAUNCH=new Date('2025-09-26T06:00:00+05:30');
+function tickHero(){
+  const diff=LAUNCH-new Date();
+  if(diff<=0){['hcd-d','hcd-h','hcd-m','hcd-s'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='00'});return}
+  const pad=n=>String(Math.floor(n)).padStart(2,'0');
+  document.getElementById('hcd-d').textContent=pad(diff/86400000);
+  document.getElementById('hcd-h').textContent=pad((diff%86400000)/3600000);
+  document.getElementById('hcd-m').textContent=pad((diff%3600000)/60000);
+  document.getElementById('hcd-s').textContent=pad((diff%60000)/1000);
+}
+tickHero();setInterval(tickHero,1000);
+
+// ── REVEAL ON SCROLL ─────────────────────────────
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.rev,.rev-l,.rev-r').forEach(el=>obs.observe(el));
 
-// FILTER
+// ── FILTER ───────────────────────────────────────
 function filt(btn,cat){
   document.querySelectorAll('.fb-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  document.querySelectorAll('.bc').forEach(c=>c.style.display=cat==='all'||c.dataset.cat===cat?'flex':'none');
+  document.querySelectorAll('.bc').forEach(c=>{
+    const show=cat==='all'||c.dataset.cat===cat;
+    c.style.display=show?'flex':'none';
+  });
+}
+
+// ── NEWSLETTER ───────────────────────────────────
+async function subscribeNL(){
+  const email=document.getElementById('nl-email').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('nl-email').style.borderColor='#ff3d6e';return;}
+  try{await fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'homepage-cta'})});}catch(e){}
+  document.getElementById('nl-email').value='';
+  document.getElementById('nl-email').placeholder='✓ You\'re in. See you Thursday.';
+  document.getElementById('nl-email').style.borderColor='var(--teal)';
 }
 </script>
 <script src="vv-global.js"></script>

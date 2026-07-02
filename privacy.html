@@ -2,14 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — Vice Vault</title>
 <meta name="description" content="Vice Vault privacy policy — how we collect, use and protect your data.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://vicevault.linkwa.in/privacy">
+<link rel="canonical" href="https://vicevault.gg/privacy">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--gold:#d4a332;--gold2:#f0c84a;--pink:#ff3d6e;--white:#ede8df;--muted:#7a788a;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14)}
+:root{--ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--gold:#ff3d9a;--gold2:#c830ff;--pink:#ff3d6e;--white:#ede8df;--muted:#7a788a;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
@@ -51,10 +57,19 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:28px 2.
 
 @media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}.hero,.doc{padding-left:1.2rem;padding-right:1.2rem}}
 </style>
+<style>
+.cur{position:fixed;width:10px;height:10px;background:#ff3d9a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
+@media(max-width:600px){.cur,.cur-ring{display:none}}
+</style>
 </head>
 <body>
-<nav>
-  <div class="nav-logo"><span class="logo-v">VICE</span>VAULT<span class="nav-dot"></span></div>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="crng"></div>
+
+<nav id="nav">
+  <div class="nav-logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:44px;width:44px;object-fit:contain;border-radius:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;margin-left:.5rem">VICE<span style="background:linear-gradient(90deg,#ff3d9a,#9b3dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span><span class="nav-dot"></span></div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="index.html#allguides">Guides</a></li>
@@ -77,7 +92,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:28px 2.
   </div>
 
   <h2>1. Who we are</h2>
-  <p>Vice Vault ("we", "us", "our") is an independent gaming guide website operating at vicevault.linkwa.in. We are not affiliated with Rockstar Games, Take-Two Interactive, or any game publisher. For questions about this policy, contact us at <a href="mailto:support@vicevault.linkwa.in">support@vicevault.linkwa.in</a>.</p>
+  <p>Vice Vault ("we", "us", "our") is an independent gaming guide website operating at vicevault.gg. We are not affiliated with Rockstar Games, Take-Two Interactive, or any game publisher. For questions about this policy, contact us at <a href="mailto:support@vicevault.gg">support@vicevault.gg</a>.</p>
 
   <h2>2. What data we collect</h2>
   <h3>2.1 Data you give us</h3>
@@ -108,7 +123,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:28px 2.
   <h2>4. Data storage and retention</h2>
   <p>Email addresses and account data are stored in Cloudflare KV — a globally distributed key-value store operated by Cloudflare, Inc. Data is stored in data centres within the EU and US.</p>
   <p>We retain your data for as long as your account or newsletter subscription is active, plus 90 days after deletion or unsubscription, to allow for recovery if a deletion was accidental.</p>
-  <p>You can request deletion of your data at any time by emailing <a href="mailto:support@vicevault.linkwa.in">support@vicevault.linkwa.in</a>. We will process deletion requests within 30 days.</p>
+  <p>You can request deletion of your data at any time by emailing <a href="mailto:support@vicevault.gg">support@vicevault.gg</a>. We will process deletion requests within 30 days.</p>
 
   <h2>5. Cookies</h2>
   <p>Vice Vault uses the following cookies:</p>
@@ -138,7 +153,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:28px 2.
     <li><strong>Objection</strong> — object to how we process your data</li>
     <li><strong>Unsubscribe</strong> — every email includes an unsubscribe link</li>
   </ul>
-  <p>To exercise any of these rights, email <a href="mailto:support@vicevault.linkwa.in">support@vicevault.linkwa.in</a> with the subject line "Data Request".</p>
+  <p>To exercise any of these rights, email <a href="mailto:support@vicevault.gg">support@vicevault.gg</a> with the subject line "Data Request".</p>
 
   <h2>8. Children's privacy</h2>
   <p>Vice Vault is not directed at children under 13 years of age. We do not knowingly collect personal data from children under 13. If you believe a child has provided us with personal data, contact us and we will delete it immediately.</p>
@@ -150,7 +165,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:28px 2.
   <h2>10. Contact</h2>
   <p>For any privacy-related questions or requests:</p>
   <ul>
-    <li>Email: <a href="mailto:support@vicevault.linkwa.in">support@vicevault.linkwa.in</a></li>
+    <li>Email: <a href="mailto:support@vicevault.gg">support@vicevault.gg</a></li>
     <li>Subject line: "Privacy Request"</li>
     <li>Response time: within 30 days</li>
   </ul>
@@ -167,6 +182,27 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:28px 2.
     </div>
   </div>
 </footer>
+
+<script>
+// CUSTOM CURSOR
+(function(){
+  const cur=document.getElementById('cur'),crng=document.getElementById('crng');
+  if(!cur||!crng)return;
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.left=rx+'px';crng.style.top=ry+'px';requestAnimationFrame(a)})();
+  document.querySelectorAll('a,button,.cat-card,.bc,.deal-card,.rc,.mistake,.secret,.day-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';crng.style.width='52px';crng.style.height='52px';crng.style.opacity='.9'});
+    el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';crng.style.width='36px';crng.style.height='36px';crng.style.opacity='.5'});
+  });
+  // Nav scroll
+  const nav=document.getElementById('nav');
+  if(nav)window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+  // Parallax hero bg
+  const hbg=document.getElementById('hero-parallax');
+  if(hbg){let t=false;window.addEventListener('scroll',()=>{if(!t){requestAnimationFrame(()=>{hbg.style.transform='translateY('+scrollY*.18+'px)';t=false});t=true}},{passive:true});}
+})();
+</script>
 <script src="vv-global.js"></script>
 </body>
 </html>

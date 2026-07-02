@@ -1,0 +1,34 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#131320"/>
+      <stop offset="100%" stop-color="#030308"/>
+    </linearGradient>
+    <linearGradient id="vgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c84a"/>
+      <stop offset="100%" stop-color="#d4a332"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+
+  <!-- outer vault ring -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="url(#vgrad)" stroke-width="10"/>
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#d4a332" stroke-width="3" opacity="0.35"/>
+
+  <!-- bolts -->
+  <circle cx="256" cy="60" r="10" fill="#d4a332"/>
+  <circle cx="256" cy="452" r="10" fill="#d4a332"/>
+  <circle cx="60" cy="256" r="10" fill="#d4a332"/>
+  <circle cx="452" cy="256" r="10" fill="#d4a332"/>
+  <circle cx="113" cy="113" r="7" fill="#d4a332" opacity="0.7"/>
+  <circle cx="399" cy="113" r="7" fill="#d4a332" opacity="0.7"/>
+  <circle cx="113" cy="399" r="7" fill="#d4a332" opacity="0.7"/>
+  <circle cx="399" cy="399" r="7" fill="#d4a332" opacity="0.7"/>
+
+  <!-- V cut -->
+  <path d="M165 165 L256 360 L347 165" fill="none" stroke="url(#vgrad)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- center pink dot (lock) -->
+  <circle cx="256" cy="256" r="16" fill="#ff3d6e"/>
+</svg>

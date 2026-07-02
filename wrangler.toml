@@ -1,4 +1,3 @@
-# Trigger Pages Build: 2026-06-30
 name = "vice-vault-api"
 main = "worker.js"
 compatibility_date = "2025-06-26"
@@ -9,15 +8,13 @@ compatibility_flags = ["nodejs_compat"]
 # Paste the returned ID below
 [[kv_namespaces]]
 binding = "VICE_VAULT_KV"
-id = "31d5ed49d5ee4891a890ad47f4aad99a"
-preview_id = "f2c6cbddba344806aed74123479fa214"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_YOUR_KV_PREVIEW_ID"
 
 # ─── ROUTES ──────────────────────────────────────────────────
-# Commented out to prevent zone resolution issues during git deployment.
-# You can bind this worker to vicevault.linkwa.in under the "Triggers" tab in the Cloudflare Workers dashboard.
-# [[routes]]
-# pattern = "vicevault.linkwa.in/api/*"
-# zone_name = "linkwa.in"
+[[routes]]
+pattern = "vicevault.gg/api/*"
+zone_name = "vicevault.gg"
 
 # ─── ENVIRONMENT VARIABLES ───────────────────────────────────
 # Set secrets via CLI — do NOT put real values here:
@@ -35,7 +32,7 @@ ENVIRONMENT = "production"
 # 4. wrangler secret put RESEND_API_KEY
 #    → paste your key from resend.com
 # 5. wrangler secret put FROM_EMAIL
-#    → type: noreply@vicevault.linkwa.in
+#    → type: noreply@vicevault.gg
 # 6. wrangler secret put ADMIN_EMAIL
 #    → type your personal email for admin notifications
 # 7. wrangler deploy
@@ -45,6 +42,3 @@ ENVIRONMENT = "production"
 #   curl -X POST http://localhost:8787/api/waitlist \
 #     -H "Content-Type: application/json" \
 #     -d '{"email":"test@example.com","source":"website"}'
-
-[triggers]
-crons = ["0 * * * *"] # Run hourly to sync subscription states and Discord roles

@@ -1,6 +1,6 @@
 ═══════════════════════════════════════════════════════════════
 VICE VAULT — COMPLETE DEPLOYMENT CHECKLIST
-Go-live guide for vicevault.linkwa.in
+Go-live guide for vicevault.gg
 Last updated: June 26, 2025
 ═══════════════════════════════════════════════════════════════
 
@@ -12,9 +12,9 @@ Work through this in order — steps depend on each other.
 PHASE 1 — DOMAIN & HOSTING (Day 1)
 ───────────────────────────────────────────────────────────────
 
-□ 1.1  Register vicevault.linkwa.in on Namecheap (~$12/year)
+□ 1.1  Register vicevault.gg on Namecheap (~$12/year)
         → https://namecheap.com
-        → Search: vicevault.linkwa.in
+        → Search: vicevault.gg
         → Add to cart + checkout
         → Enable WhoisGuard (privacy protection) — it's free
 
@@ -23,7 +23,7 @@ PHASE 1 — DOMAIN & HOSTING (Day 1)
         → Sign up with your email
 
 □ 1.3  Add domain to Cloudflare
-        → Cloudflare dashboard → Add a Site → vicevault.linkwa.in
+        → Cloudflare dashboard → Add a Site → vicevault.gg
         → Select Free plan
         → Cloudflare will give you 2 nameservers (e.g. ada.ns.cloudflare.com)
         → Go back to Namecheap → Domain list → Manage → Nameservers
@@ -31,7 +31,7 @@ PHASE 1 — DOMAIN & HOSTING (Day 1)
         → Wait 10–30 minutes for propagation
 
 □ 1.4  Verify domain is on Cloudflare
-        → Cloudflare dashboard should show vicevault.linkwa.in as "Active"
+        → Cloudflare dashboard should show vicevault.gg as "Active"
 
 
 ───────────────────────────────────────────────────────────────
@@ -74,12 +74,12 @@ PHASE 2 — DEPLOY SITE (Day 1–2)
 
 □ 2.4  Connect custom domain to Pages
         → Pages project → Custom domains → Add custom domain
-        → Enter: vicevault.linkwa.in
-        → Also add: www.vicevault.linkwa.in (redirect to vicevault.linkwa.in)
+        → Enter: vicevault.gg
+        → Also add: www.vicevault.gg (redirect to vicevault.gg)
         → Cloudflare handles SSL automatically
 
 □ 2.5  Verify deployment
-        → Visit https://vicevault.linkwa.in
+        → Visit https://vicevault.gg
         → Check padlock (HTTPS)
         → Check all pages load correctly
         → Test on mobile
@@ -106,7 +106,7 @@ PHASE 3 — CLOUDFLARE WORKER (Newsletter API) (Day 2)
 
 □ 3.4  Set up Resend for emails (free — 3000 emails/month)
         → https://resend.com → Sign up
-        → Add domain: vicevault.linkwa.in
+        → Add domain: vicevault.gg
         → Follow DNS verification steps in Cloudflare
         → Create API key → copy it
 
@@ -115,7 +115,7 @@ PHASE 3 — CLOUDFLARE WORKER (Newsletter API) (Day 2)
         → Paste your Resend API key when prompted
 
         wrangler secret put FROM_EMAIL
-        → Type: noreply@vicevault.linkwa.in
+        → Type: noreply@vicevault.gg
 
         wrangler secret put ADMIN_EMAIL
         → Type your personal email
@@ -124,7 +124,7 @@ PHASE 3 — CLOUDFLARE WORKER (Newsletter API) (Day 2)
         wrangler deploy
 
 □ 3.7  Test the Worker endpoints
-        curl -X POST https://vicevault.linkwa.in/api/waitlist \
+        curl -X POST https://vicevault.gg/api/waitlist \
           -H "Content-Type: application/json" \
           -d '{"email":"test@example.com","source":"test"}'
 
@@ -164,26 +164,26 @@ PHASE 4 — SEO SETUP (Day 2–3)
 
 □ 4.1  Submit sitemap to Google Search Console
         → https://search.google.com/search-console
-        → Add property → Domain → vicevault.linkwa.in
+        → Add property → Domain → vicevault.gg
         → Verify via Cloudflare DNS TXT record
-        → Sitemaps → Submit: https://vicevault.linkwa.in/sitemap.xml
+        → Sitemaps → Submit: https://vicevault.gg/sitemap.xml
 
 □ 4.2  Submit to Bing Webmaster Tools
         → https://www.bing.com/webmasters
-        → Add site → vicevault.linkwa.in
+        → Add site → vicevault.gg
         → Submit sitemap
 
 □ 4.3  Verify robots.txt is accessible
-        → Visit: https://vicevault.linkwa.in/robots.txt
+        → Visit: https://vicevault.gg/robots.txt
         → Should see the robots.txt file content
 
 □ 4.4  Set up Google Analytics 4
         → https://analytics.google.com → Create property
         → Property name: Vice Vault
         → Copy the G-XXXXXXXXXX tracking ID
-        → Open vv-global.js and paste the ID into GA_TRACKING_ID constant:
-          const GA_TRACKING_ID = 'G-XXXXXXXXXX';
-        → (No need to edit HTML pages — vv-global.js handles script loading automatically)
+        → Add to every HTML page <head>:
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+          <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 
 □ 4.5  Set up Cloudflare Web Analytics (free, privacy-friendly)
         → Cloudflare dashboard → Web Analytics → Add site
@@ -196,18 +196,18 @@ PHASE 5 — EMAIL SETUP (Day 3)
 
 □ 5.1  Set up email forwarding on Cloudflare
         → Cloudflare dashboard → Email → Email Routing
-        → Create route: support@vicevault.linkwa.in → your Gmail
-        → Create route: press@vicevault.linkwa.in → your Gmail
-        → Create route: noreply@vicevault.linkwa.in → Resend handles sending
+        → Create route: support@vicevault.gg → your Gmail
+        → Create route: press@vicevault.gg → your Gmail
+        → Create route: noreply@vicevault.gg → Resend handles sending
 
 □ 5.2  Verify email forwarding works
-        → Send test email to support@vicevault.linkwa.in
+        → Send test email to support@vicevault.gg
         → Confirm it arrives in your Gmail
 
-□ 5.3  Set up SPF, DKIM, DMARC records for vicevault.linkwa.in
+□ 5.3  Set up SPF, DKIM, DMARC records for vicevault.gg
         These are needed for Resend to send authenticated emails.
         Resend will give you the DNS records to add in Cloudflare.
-        → Resend dashboard → Domains → vicevault.linkwa.in → DNS Records
+        → Resend dashboard → Domains → vicevault.gg → DNS Records
         → Add each record in Cloudflare DNS
 
 
@@ -326,12 +326,12 @@ PHASE 9 — FINAL CHECKS (Day before launch)
 ───────────────────────────────────────────────────────────────
 
 □ 9.1  All pages load correctly
-        □ https://vicevault.linkwa.in (coming-soon page)
-        □ https://vicevault.linkwa.in/about.html
-        □ https://vicevault.linkwa.in/discord.html
-        □ https://vicevault.linkwa.in/blog1.html
-        □ https://vicevault.linkwa.in/blog2.html
-        □ https://vicevault.linkwa.in/blog3.html
+        □ https://vicevault.gg (coming-soon page)
+        □ https://vicevault.gg/about.html
+        □ https://vicevault.gg/discord.html
+        □ https://vicevault.gg/blog1.html
+        □ https://vicevault.gg/blog2.html
+        □ https://vicevault.gg/blog3.html
 
 □ 9.2  Mobile check (all pages)
         □ Navigation collapses correctly
@@ -349,7 +349,7 @@ PHASE 9 — FINAL CHECKS (Day before launch)
         □ Events firing correctly
 
 □ 9.5  Speed test
-        □ https://pagespeed.web.dev → test vicevault.linkwa.in
+        □ https://pagespeed.web.dev → test vicevault.gg
         □ Score should be 80+ mobile, 90+ desktop
         □ Images served via Cloudflare CDN (automatic)
 
@@ -386,7 +386,7 @@ PHASE 10 — LAUNCH DAY
 □ 10.4  Send launch email to waitlist
          Send via Resend to all waitlist emails in KV
          Subject: "The vault is open 🔐"
-         Link: https://vicevault.linkwa.in
+         Link: https://vicevault.gg
 
 □ 10.5  Enable Razorpay live payments
 

@@ -2,20 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pre-Order Vice Vault — Lock In 20% Off Before GTA 6 Launches</title>
 <meta name="description" content="Pre-order Vice Vault before GTA 6 launches and lock in 20% off forever. Vault Pro at ₹399/mo instead of ₹499. Price locks the moment you sign up.">
 <meta property="og:title" content="Pre-Order Vice Vault — 20% Off Launch Price">
 <meta property="og:description" content="Lock in ₹399/mo Vault Pro before GTA 6 drops. Price rises to ₹499 on launch day. Pre-order now, pay on launch.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://vicevault.linkwa.in/preorder">
+<meta property="og:image" content="https://vicevault.gg/og/coming-soon.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://vicevault.gg/og/coming-soon.jpg">
+<meta property="og:url" content="https://vicevault.gg/preorder">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://vicevault.linkwa.in/preorder">
+<link rel="canonical" href="https://vicevault.gg/preorder">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
-  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--purple:#9b59ff;
+  --gold:#ff3d9a;--gold2:#c830ff;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--purple:#9b59ff;
   --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -38,10 +48,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-back:hover{color:var(--white)}
 
 /* HERO */
-.hero{position:relative;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 80px;overflow:hidden}
+.hero{position:relative;min-height:72vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 2rem 60px;overflow:hidden}
 .h-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 65% at 50% 40%,rgba(212,163,50,.08),transparent 65%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(255,61,110,.06),transparent 55%),linear-gradient(180deg,#030308,#07070f)}
 .h-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
-.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);background-size:60px 60px}
 .corner{position:absolute;width:60px;height:60px;pointer-events:none}
 .c-tl{top:80px;left:2rem;border-top:1.5px solid rgba(212,163,50,.3);border-left:1.5px solid rgba(212,163,50,.3)}
 .c-tr{top:80px;right:2rem;border-top:1.5px solid rgba(212,163,50,.3);border-right:1.5px solid rgba(212,163,50,.3)}
@@ -203,13 +213,22 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
 .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}
 
 @media(max-width:900px){.deals-grid,.wyg-grid{grid-template-columns:1fr}.deal-card.dc-hot{transform:none}.proof-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}section,.deals-sec,.wyg-sec,.proof-sec,.faq-sec,.fcta-sec{padding:60px 1.2rem}.proof-grid{grid-template-columns:1fr}.cd-num{min-width:60px;font-size:clamp(2.2rem,7vw,4rem)}.cd-sep{font-size:2.2rem}.hero{padding:100px 1.2rem 40px;min-height:85vh}}
+@media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}section,.deals-sec,.wyg-sec,.proof-sec,.faq-sec,.fcta-sec{padding:60px 1.2rem}.proof-grid{grid-template-columns:1fr}.cd-num{min-width:60px;font-size:clamp(2.2rem,7vw,4rem)}.cd-sep{font-size:2.2rem}}
+</style>
+<style>
+.cur{position:fixed;width:10px;height:10px;background:#ff3d9a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
+@media(max-width:600px){.cur,.cur-ring{display:none}}
 </style>
 </head>
 <body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="crng"></div>
 
-<nav>
-  <div class="nav-logo"><span class="logo-v">VICE</span>VAULT<span class="nav-dot"></span></div>
+
+<nav id="nav">
+  <div class="nav-logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:44px;width:44px;object-fit:contain;border-radius:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;margin-left:.5rem">VICE<span style="background:linear-gradient(90deg,#ff3d9a,#9b3dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span><span class="nav-dot"></span></div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="index.html#allguides">Guides</a></li>
@@ -451,7 +470,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
 
 <script>
 // COUNTDOWN
-const LAUNCH = new Date('2026-11-19T06:00:00+05:30');
+const LAUNCH = new Date('2025-09-26T06:00:00+05:30');
 function tick(){
   const diff = LAUNCH - new Date();
   if(diff <= 0) return;
@@ -499,6 +518,27 @@ document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
 </script>
 
 <!-- Global countdown bar + preorder modal -->
+
+<script>
+// CUSTOM CURSOR
+(function(){
+  const cur=document.getElementById('cur'),crng=document.getElementById('crng');
+  if(!cur||!crng)return;
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.left=rx+'px';crng.style.top=ry+'px';requestAnimationFrame(a)})();
+  document.querySelectorAll('a,button,.cat-card,.bc,.deal-card,.rc,.mistake,.secret,.day-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';crng.style.width='52px';crng.style.height='52px';crng.style.opacity='.9'});
+    el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';crng.style.width='36px';crng.style.height='36px';crng.style.opacity='.5'});
+  });
+  // Nav scroll
+  const nav=document.getElementById('nav');
+  if(nav)window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+  // Parallax hero bg
+  const hbg=document.getElementById('hero-parallax');
+  if(hbg){let t=false;window.addEventListener('scroll',()=>{if(!t){requestAnimationFrame(()=>{hbg.style.transform='translateY('+scrollY*.18+'px)';t=false});t=true}},{passive:true});}
+})();
+</script>
 <script src="vv-global.js"></script>
 </body>
 </html>

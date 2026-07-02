@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OG Image Generator — Vice Vault</title>
 <meta name="robots" content="noindex">
@@ -46,14 +52,14 @@ const OGs = [
     title: 'VICE VAULT',
     sub: 'THE ULTIMATE GTA 6\nINTELLIGENCE HUB',
     tag: 'GTA 6 · 320+ GUIDES · UPDATED WEEKLY',
-    accent: '#d4a332',
+    accent: '#ff3d9a',
     bg1: '#0a0500', bg2: '#050010',
   },
   {
     file: 'coming-soon',
     title: 'VAULT OPENS',
     sub: 'LAUNCHING WITH\nGTA 6',
-    tag: 'JOIN 12,000+ ON THE WAITLIST · VICEVAULT.LINKWA.IN',
+    tag: 'JOIN 12,000+ ON THE WAITLIST · VICEVAULT.GG',
     accent: '#ff3d6e',
     bg1: '#0a0005', bg2: '#050010',
   },
@@ -70,7 +76,7 @@ const OGs = [
     title: 'CHEAT VAULT',
     sub: 'ALL 52 GTA 6\nCHEAT CODES',
     tag: 'PS5 & XBOX · ALL VERIFIED · UPDATED JUNE 2025',
-    accent: '#d4a332',
+    accent: '#ff3d9a',
     bg1: '#0a0800', bg2: '#000008',
   },
   {
@@ -102,7 +108,7 @@ const OGs = [
     title: '$2.2M',
     sub: 'CARGO SHIP\nHEIST GUIDE',
     tag: 'HIDDEN VAULT ROUTE · MAX TAKE · ALL 3 APPROACHES',
-    accent: '#d4a332',
+    accent: '#ff3d9a',
     bg1: '#0a0800', bg2: '#000508',
   },
 ];
@@ -207,11 +213,11 @@ function drawOG(canvas, og) {
   ctx.font = `700 20px 'Barlow Condensed', sans-serif`;
   ctx.fillText(og.tag, 88, H - 68);
 
-  // vicevault.linkwa.in bottom right
+  // vicevault.gg bottom right
   ctx.textAlign = 'right';
   ctx.fillStyle = `${og.accent}80`;
   ctx.font = `800 22px 'Barlow Condensed', sans-serif`;
-  ctx.fillText('VICEVAULT.LINKWA.IN', W - 90, H - 68);
+  ctx.fillText('VICEVAULT.GG', W - 90, H - 68);
   ctx.textAlign = 'left';
 }
 

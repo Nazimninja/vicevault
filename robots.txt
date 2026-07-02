@@ -1,5 +1,5 @@
 # Vice Vault — robots.txt
-# https://vicevault.linkwa.in
+# https://vicevault.gg
 
 User-agent: *
 Allow: /
@@ -32,7 +32,7 @@ Allow: /guides/wanted-level/
 Allow: /guides/pro-plays/
 
 # Sitemap location
-Sitemap: https://vicevault.linkwa.in/sitemap.xml
+Sitemap: https://vicevault.gg/sitemap.xml
 
 # Crawl delay (be respectful to bots)
 Crawl-delay: 2

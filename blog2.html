@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GTA 6 Beginner Money Guide: Make $1 Million in Your First Week | Vice Vault</title>
 <meta name="description" content="New to GTA 6? Here's exactly how to make your first million in under 7 days — no heists, no grinding, just the smartest route through the early game. Step-by-step with exact amounts.">
@@ -9,20 +15,20 @@
 <meta property="og:title" content="GTA 6 Beginner Money Guide: $1M in Your First Week | Vice Vault">
 <meta property="og:description" content="No grinding, no heists. The smartest early-game money route in GTA 6 — step by step with exact amounts.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://vicevault.linkwa.in/blog/gta6-make-money-fast-beginners">
-<meta property="og:image" content="https://vicevault.linkwa.in/og/beginner-money.jpg">
+<meta property="og:url" content="https://vicevault.gg/blog/gta6-make-money-fast-beginners">
+<meta property="og:image" content="https://vicevault.gg/og/beginner-money.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="GTA 6 Beginner Money Guide: $1M First Week | Vice Vault">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://vicevault.linkwa.in/blog/gta6-make-money-fast-beginners">
+<link rel="canonical" href="https://vicevault.gg/blog/gta6-make-money-fast-beginners">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"GTA 6 Beginner Money Guide: Make $1 Million in Your First Week","datePublished":"2025-06-26","dateModified":"2025-06-26","author":{"@type":"Organization","name":"Vice Vault"},"publisher":{"@type":"Organization","name":"Vice Vault","logo":{"@type":"ImageObject","url":"https://vicevault.linkwa.in/logo.png"}},"description":"Step-by-step GTA 6 money guide for beginners — how to make your first $1 million in under 7 days without heists or grinding.","mainEntityOfPage":{"@type":"WebPage","@id":"https://vicevault.linkwa.in/blog/gta6-make-money-fast-beginners"}}
+{"@context":"https://schema.org","@type":"Article","headline":"GTA 6 Beginner Money Guide: Make $1 Million in Your First Week","datePublished":"2025-06-26","dateModified":"2025-06-26","author":{"@type":"Organization","name":"Vice Vault"},"publisher":{"@type":"Organization","name":"Vice Vault","logo":{"@type":"ImageObject","url":"https://vicevault.gg/logo.png"}},"description":"Step-by-step GTA 6 money guide for beginners — how to make your first $1 million in under 7 days without heists or grinding.","mainEntityOfPage":{"@type":"WebPage","@id":"https://vicevault.gg/blog/gta6-make-money-fast-beginners"}}
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
-  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--purple:#9b59ff;
+  --gold:#ff3d9a;--gold2:#c830ff;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--purple:#9b59ff;
   --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -170,11 +176,20 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:30px 2.
 @media(max-width:860px){.post-layout{grid-template-columns:1fr}.sidebar-col{display:none}.rel-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}.breadcrumb,.post-hero,.post-layout{padding-left:1.2rem;padding-right:1.2rem}.related,.cta-strip{padding:40px 1.2rem}.rel-grid{grid-template-columns:1fr}.comp-table{font-size:.78rem}}
 </style>
+<style>
+.cur{position:fixed;width:10px;height:10px;background:#ff3d9a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
+@media(max-width:600px){.cur,.cur-ring{display:none}}
+</style>
 </head>
 <body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="crng"></div>
+
 <div class="rbar" id="rbar"></div>
-<nav>
-  <div class="nav-logo"><span class="logo-v">VICE</span>VAULT<span class="nav-dot"></span></div>
+<nav id="nav">
+  <div class="nav-logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:44px;width:44px;object-fit:contain;border-radius:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;margin-left:.5rem">VICE<span style="background:linear-gradient(90deg,#ff3d9a,#9b3dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span><span class="nav-dot"></span></div>
   <ul class="nav-links">
     <li><a href="index.html#categories">Vault</a></li>
     <li><a href="index.html#allguides">Guides</a></li>
@@ -413,6 +428,27 @@ const secs=['s1','s2','s3','s4','s5','s6','s7'];
 window.addEventListener('scroll',()=>{let cur='s1';secs.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<140)cur=id;});document.querySelectorAll('.toc a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));});
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+</script>
+
+<script>
+// CUSTOM CURSOR
+(function(){
+  const cur=document.getElementById('cur'),crng=document.getElementById('crng');
+  if(!cur||!crng)return;
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.left=rx+'px';crng.style.top=ry+'px';requestAnimationFrame(a)})();
+  document.querySelectorAll('a,button,.cat-card,.bc,.deal-card,.rc,.mistake,.secret,.day-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';crng.style.width='52px';crng.style.height='52px';crng.style.opacity='.9'});
+    el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';crng.style.width='36px';crng.style.height='36px';crng.style.opacity='.5'});
+  });
+  // Nav scroll
+  const nav=document.getElementById('nav');
+  if(nav)window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+  // Parallax hero bg
+  const hbg=document.getElementById('hero-parallax');
+  if(hbg){let t=false;window.addEventListener('scroll',()=>{if(!t){requestAnimationFrame(()=>{hbg.style.transform='translateY('+scrollY*.18+'px)';t=false});t=true}},{passive:true});}
+})();
 </script>
 <script src="vv-global.js"></script>
 </body>

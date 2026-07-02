@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vice Vault — Coming Soon | The GTA 6 Intelligence Hub</title>
 <meta name="description" content="Vice Vault launches with GTA 6. The most complete GTA 6 guide, heist blueprints, cheat codes and money meta — all in one place. Join the waitlist for early access.">
@@ -9,19 +15,19 @@
 <meta property="og:title" content="Vice Vault is Coming — The GTA 6 Intelligence Hub">
 <meta property="og:description" content="Heist blueprints, money meta, cheat codes, Easter eggs and more. Launching with GTA 6. Join the waitlist now.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://vicevault.linkwa.in">
-<meta property="og:image" content="https://vicevault.linkwa.in/og/coming-soon.jpg">
+<meta property="og:url" content="https://vicevault.gg">
+<meta property="og:image" content="https://vicevault.gg/og/coming-soon.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Vice Vault is Coming — The GTA 6 Intelligence Hub">
 <meta name="twitter:description" content="Launching with GTA 6. Join 12,000+ on the waitlist.">
-<meta name="twitter:image" content="https://vicevault.linkwa.in/og/coming-soon.jpg">
+<meta name="twitter:image" content="https://vicevault.gg/og/coming-soon.jpg">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://vicevault.linkwa.in">
+<link rel="canonical" href="https://vicevault.gg">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
-  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;
+  --gold:#ff3d9a;--gold2:#c830ff;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;
   --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -241,8 +247,17 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 
 @media(max-width:700px){.tp-grid{grid-template-columns:1fr}.wyg-grid{grid-template-columns:repeat(2,1fr)}.as-grid{grid-template-columns:1fr}.countdown{gap:.8rem}.cd-num{min-width:70px;font-size:clamp(2.2rem,8vw,4rem)}.cd-sep{font-size:2.5rem}.top-bar{padding:1rem 1.2rem}.c-tl,.c-tr,.c-bl,.c-br{width:40px;height:40px}.bottom-bar{gap:1rem;padding:.8rem 1.2rem}}
 </style>
+<style>
+.cur{position:fixed;width:10px;height:10px;background:#ff3d9a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
+@media(max-width:600px){.cur,.cur-ring{display:none}}
+</style>
 </head>
 <body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="crng"></div>
+
 
 <!-- BG LAYERS -->
 <div class="bg-layer">
@@ -262,7 +277,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 
 <!-- TOP BAR -->
 <div class="top-bar">
-  <div class="logo"><span class="logo-v">VICE</span>VAULT<span class="logo-dot"></span></div>
+  <div class="logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:40px;width:40px;object-fit:contain;border-radius:4px;margin-right:.5rem"> <span class="logo-v">VICE</span>VAULT<span class="logo-dot"></span></div>
   <div class="top-social">
     <span class="tsoc" onclick="share('twitter')">𝕏 Twitter</span>
     <span class="tsoc" onclick="share('discord')">Discord</span>
@@ -495,7 +510,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 <div class="pre-footer">
   <div class="pf-logo">Vice Vault</div>
   <div class="pf-note">© 2025 Vice Vault — Not affiliated with Rockstar Games or Take-Two Interactive</div>
-  <div class="pf-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:support@vicevault.linkwa.in">Contact</a></div>
+  <div class="pf-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:support@vicevault.gg">Contact</a></div>
 </div>
 
 <!-- BOTTOM STATUS BAR -->
@@ -516,7 +531,7 @@ for(let i=0;i<22;i++){
 }
 
 // COUNTDOWN — set your GTA 6 launch date here
-const LAUNCH=new Date('2026-11-19T06:00:00+05:30');
+const LAUNCH=new Date('2025-09-26T00:00:00');
 function updateCountdown(){
   const now=new Date();
   const diff=LAUNCH-now;
@@ -557,7 +572,7 @@ function joinWaitlist(){
 
 // SHARE
 function share(platform){
-  const url='https://vicevault.linkwa.in';
+  const url='https://vicevault.gg';
   const text='Vice Vault is launching with GTA 6 — the most complete GTA 6 guide site. Heist blueprints, money meta, cheat codes and more. Join the waitlist:';
   if(platform==='twitter')window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,'_blank');
   else if(platform==='whatsapp')window.open(`https://wa.me/?text=${encodeURIComponent(text+' '+url)}`,'_blank');
@@ -594,6 +609,27 @@ function animateCounter(){
   requestAnimationFrame(step);
 }
 setTimeout(animateCounter,1200);
+</script>
+
+<script>
+// CUSTOM CURSOR
+(function(){
+  const cur=document.getElementById('cur'),crng=document.getElementById('crng');
+  if(!cur||!crng)return;
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.left=rx+'px';crng.style.top=ry+'px';requestAnimationFrame(a)})();
+  document.querySelectorAll('a,button,.cat-card,.bc,.deal-card,.rc,.mistake,.secret,.day-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';crng.style.width='52px';crng.style.height='52px';crng.style.opacity='.9'});
+    el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';crng.style.width='36px';crng.style.height='36px';crng.style.opacity='.5'});
+  });
+  // Nav scroll
+  const nav=document.getElementById('nav');
+  if(nav)window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+  // Parallax hero bg
+  const hbg=document.getElementById('hero-parallax');
+  if(hbg){let t=false;window.addEventListener('scroll',()=>{if(!t){requestAnimationFrame(()=>{hbg.style.transform='translateY('+scrollY*.18+'px)';t=false});t=true}},{passive:true});}
+})();
 </script>
 <script src="vv-global.js"></script>
 </body>

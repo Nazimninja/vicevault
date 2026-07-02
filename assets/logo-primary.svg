@@ -1,0 +1,34 @@
+<svg width="480" height="160" viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c84a"/>
+      <stop offset="100%" stop-color="#d4a332"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ICON: stylized vault door with V cut -->
+  <g transform="translate(20,20)">
+    <circle cx="60" cy="60" r="58" fill="#0d0d18" stroke="url(#goldGrad)" stroke-width="2.5"/>
+    <circle cx="60" cy="60" r="46" fill="none" stroke="#d4a332" stroke-width="1" opacity="0.4"/>
+    <!-- V shape cut into vault -->
+    <path d="M38 38 L60 86 L82 38" fill="none" stroke="url(#goldGrad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- bolts around rim -->
+    <circle cx="60" cy="10" r="3" fill="#d4a332"/>
+    <circle cx="60" cy="110" r="3" fill="#d4a332"/>
+    <circle cx="10" cy="60" r="3" fill="#d4a332"/>
+    <circle cx="110" cy="60" r="3" fill="#d4a332"/>
+    <circle cx="25" cy="25" r="2.5" fill="#d4a332" opacity="0.7"/>
+    <circle cx="95" cy="25" r="2.5" fill="#d4a332" opacity="0.7"/>
+    <circle cx="25" cy="95" r="2.5" fill="#d4a332" opacity="0.7"/>
+    <circle cx="95" cy="95" r="2.5" fill="#d4a332" opacity="0.7"/>
+    <!-- handle dot center -->
+    <circle cx="60" cy="60" r="4" fill="#ff3d6e"/>
+  </g>
+
+  <!-- WORDMARK -->
+  <text x="165" y="80" font-family="'Bebas Neue', Impact, sans-serif" font-size="46" letter-spacing="2" fill="#ede8df">VICE</text>
+  <text x="165" y="125" font-family="'Bebas Neue', Impact, sans-serif" font-size="46" letter-spacing="2" fill="url(#goldGrad)">VAULT</text>
+
+  <!-- pink accent dot -->
+  <circle cx="345" cy="116" r="5" fill="#ff3d6e"/>
+</svg>

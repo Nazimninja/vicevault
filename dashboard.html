@@ -14,7 +14,7 @@
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;--border2:#24243a;
-  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--blue:#4a9eff;
+  --gold:#ff3d9a;--gold2:#c830ff;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--blue:#4a9eff;
   --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--borderl:rgba(255,255,255,.13);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -385,14 +385,22 @@ body.vv-bar-active .tour-overlay {
   margin-bottom: 1.2rem; transition: color 0.2s;
 }
 .back-to-dash-btn:hover { color: var(--gold); }
+.cur{position:fixed;width:10px;height:10px;background:#ff3d9a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+@media(max-width:600px){.cur,.cur-ring{display:none}}
 </style>
 </head>
 <body>
 
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="crng"></div>
+
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sb-logo">
-    <span><span class="v">VICE</span>VAULT<span class="sb-dot"></span></span>
+    <img src="assets/logo-master.png" alt="Vice Vault" style="height:32px;width:32px;object-fit:contain;border-radius:4px">
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.1em;margin-left:.25rem">VICE<span style="background:linear-gradient(90deg,#ff3d9a,#9b3dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span>
+    <span class="sb-dot"></span>
     <button class="sb-close-btn" onclick="toggleMobileSidebar(false)">×</button>
   </div>
   <div class="sb-user">
@@ -980,15 +988,40 @@ const guideData={
   ]
 };
 
+const sectionThumb = {
+  story:      {img:'thumbs/story-endings.jpg',      accent:'#9b59ff'},
+  heist:      {img:'thumbs/heist-bank-job.jpg',     accent:'#ff3d9a'},
+  money:      {img:'thumbs/money-business-stack.jpg',accent:'#00d4aa'},
+  online:     {img:'thumbs/online-cargo-wars.jpg',  accent:'#00d4aa'},
+  vehicles:   {img:'thumbs/vehicle-fastest-cars.jpg',accent:'#ff3d9a'},
+  easter:     {img:'thumbs/easter-eggs-leonida.jpg',accent:'#9b59ff'},
+  builds:     {img:'thumbs/heist-mansion.jpg',      accent:'#e05c1a'},
+  properties: {img:'thumbs/money-property.jpg',     accent:'#00d4aa'},
+  wanted:     {img:'thumbs/wanted-escape-routes.jpg',accent:'#ff3d9a'},
+  pro:        {img:'thumbs/vehicle-hidden-spawns.jpg',accent:'#9b59ff'},
+};
+
 function renderSectionGuides(v){
   const grid=document.getElementById('section-guides');
   const guides=guideData[v]||[];
+  const th = sectionThumb[v] || {img:'', accent:'#ff3d9a'};
+  grid.style.gridTemplateColumns = 'repeat(auto-fill,minmax(260px,1fr))';
   grid.innerHTML=guides.map(g=>`
-    <div onclick="showArticle('${g.title.replace(/'/g, "\\'")}', '${g.cat.replace(/'/g, "\\'")}', '${g.meta.replace(/'/g, "\\'")}')" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .2s,transform .2s" onmouseenter="this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
-      <div style="height:100px;background:${getCategoryGradient(g.cat)};display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.18em;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.2);border-bottom:1px solid var(--border)">${g.cat.toUpperCase()}</div>
+    <div onclick="showArticle('${g.title.replace(/'/g, "\\'")}', '${g.cat.replace(/'/g, "\\'")}', '${g.meta.replace(/'/g, "\\'")}')" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .25s,transform .2s;position:relative"
+      onmouseenter="this.style.borderColor='${th.accent}';this.style.transform='translateY(-3px)'"
+      onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
+      <div style="height:110px;position:relative;overflow:hidden;background:#131320">
+        ${th.img ? `<img src="${th.img}" alt="${g.cat}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.55">` : ''}
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.6),transparent)"></div>
+        <div style="position:absolute;bottom:.6rem;left:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:${th.accent};background:rgba(0,0,0,.5);padding:.15rem .5rem;border-radius:2px;border:1px solid ${th.accent}44">${g.cat}</div>
+        ${g.meta.includes('New') ? `<div style="position:absolute;top:.6rem;right:.6rem;background:${th.accent};color:#030308;font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.15rem .5rem;border-radius:2px">NEW</div>` : ''}
+      </div>
       <div style="padding:1rem 1.1rem 1.2rem;flex:1;display:flex;flex-direction:column">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;line-height:1.3;color:var(--white);flex:1;margin-bottom:.7rem">${g.title}</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">${g.meta}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.97rem;font-weight:800;line-height:1.35;color:var(--white);flex:1;margin-bottom:.7rem">${g.title}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">${g.meta}</div>
+          <span style="color:${th.accent};font-size:.9rem">→</span>
+        </div>
       </div>
     </div>
   `).join('');
@@ -1267,7 +1300,7 @@ animProgress();
       if (Array.isArray(guideData[cat])) {
         guideData[cat].forEach(g => {
           if (!allGuides.some(existing => existing.title === g.title)) {
-            allGuides.push(g);
+            allGuides.push({ ...g, sectionKey: cat });
           }
         });
       }
@@ -1287,15 +1320,28 @@ animProgress();
       return;
     }
     
-    grid.innerHTML = matches.map(g => `
-      <div onclick="showArticle('${g.title.replace(/'/g, "\\'")}', '${g.cat.replace(/'/g, "\\'")}', '${g.meta.replace(/'/g, "\\'")}')" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .2s,transform .2s" onmouseenter="this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
-        <div style="height:100px;background:${getCategoryGradient(g.cat)};display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.18em;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.2);border-bottom:1px solid var(--border)">${g.cat.toUpperCase()}</div>
-        <div style="padding:1rem 1.1rem 1.2rem;flex:1;display:flex;flex-direction:column">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;line-height:1.3;color:var(--white);flex:1;margin-bottom:.7rem">${g.title}</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">${g.meta}</div>
+    grid.innerHTML = matches.map(g => {
+      const th = sectionThumb[g.sectionKey] || {img:'', accent:'#ff3d9a'};
+      return `
+        <div onclick="showArticle('${g.title.replace(/'/g, "\\'")}', '${g.cat.replace(/'/g, "\\'")}', '${g.meta.replace(/'/g, "\\'")}')" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .25s,transform .2s;position:relative"
+          onmouseenter="this.style.borderColor='${th.accent}';this.style.transform='translateY(-3px)'"
+          onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
+          <div style="height:110px;position:relative;overflow:hidden;background:#131320">
+            ${th.img ? `<img src="${th.img}" alt="${g.cat}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.55">` : ''}
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:.6rem;left:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:${th.accent};background:rgba(0,0,0,.5);padding:.15rem .5rem;border-radius:2px;border:1px solid ${th.accent}44">${g.cat}</div>
+            ${g.meta.includes('New') ? `<div style="position:absolute;top:.6rem;right:.6rem;background:${th.accent};color:#030308;font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.15rem .5rem;border-radius:2px">NEW</div>` : ''}
+          </div>
+          <div style="padding:1rem 1.1rem 1.2rem;flex:1;display:flex;flex-direction:column">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:.97rem;font-weight:800;line-height:1.35;color:var(--white);flex:1;margin-bottom:.7rem">${g.title}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">${g.meta}</div>
+              <span style="color:${th.accent};font-size:.9rem">→</span>
+            </div>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   // Setup search input listeners
@@ -1317,6 +1363,19 @@ animProgress();
 
   // Run tour on load
   initOnboardingTour();
+
+  // CUSTOM CURSOR
+  (function(){
+    const cur=document.getElementById('cur'),crng=document.getElementById('crng');
+    if(!cur||!crng)return;
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+    (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.left=rx+'px';crng.style.top=ry+'px';requestAnimationFrame(a)})();
+    document.querySelectorAll('a,button,.sb-item,.card-item,.drop-item,.cheat-item').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';crng.style.width='52px';crng.style.height='52px';crng.style.opacity='.9'});
+      el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';crng.style.width='36px';crng.style.height='36px';crng.style.opacity='.5'});
+    });
+  })();
 </script>
 
 <script src="vv-global.js"></script>

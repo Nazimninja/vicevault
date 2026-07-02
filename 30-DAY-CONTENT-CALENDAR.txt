@@ -1,0 +1,496 @@
+═══════════════════════════════════════════════════════════════
+VICE VAULT — 30-DAY PRE-LAUNCH CONTENT CALENDAR
+Every day mapped. Copy-paste ready. Canva prompts included.
+═══════════════════════════════════════════════════════════════
+
+HOW TO USE THIS FILE
+─────────────────────
+Each day has: platform, post copy, and a Canva prompt.
+To generate the visual: open Canva, use "Magic Design" or paste
+the prompt into Canva's AI design generator (or ask Claude to
+run Canva:generate-design with that exact prompt — takes ~20 sec).
+
+Already generated for you (see chat above):
+  ✓ Day 1 — Announcement post
+  ✓ Day 7 — Cheat codes carousel
+  ✓ Day 14 — Money guide post
+
+CANVA REUSABLE BASE PROMPT (use this structure for any new post):
+"[POST TOPIC], dark cinematic background near-black, gold (#d4a332)
+and pink (#ff3d6e) accent colors, bold condensed display typography,
+Vice Vault branding bottom corner, GTA-style Vice City premium
+gaming aesthetic, no Rockstar logos or copyrighted game assets"
+
+
+═══════════════════════════════════════════════════════════════
+WEEK 1 — ANNOUNCE (Days 1–7)
+═══════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────
+DAY 1 — MONDAY — Twitter/X + Instagram
+──────────────────────────────────────────
+COPY (Twitter/X):
+GTA 6 is almost here.
+
+Most players will spend 40 hours figuring out what obsessive
+players figured out in 4.
+
+We built Vice Vault so you don't have to start from zero.
+
+320+ guides. 11 sections. Updated every week.
+
+Vault opens launch day — vicevault.gg
+
+CANVA PROMPT:
+"Vice Vault GTA 6 announcement post, dark cinematic gold and pink
+gaming aesthetic, bold VICE VAULT headline, vault icon, city
+skyline silhouette, premium dark luxury crime brand" [GENERATED]
+
+──────────────────────────────────────────
+DAY 2 — TUESDAY — Instagram Story
+──────────────────────────────────────────
+COPY: "We're building something for GTA 6 players. Link in bio"
+CANVA PROMPT: "Teaser story graphic, dark background, single gold
+question mark, text 'Something is coming for GTA 6 players', minimal"
+
+──────────────────────────────────────────
+DAY 3 — WEDNESDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+What's actually inside Vice Vault:
+
+Story Mode — 62 guides
+Heist Blueprints — 48 guides
+Money Meta — 54 guides
+Cheat Vault — all codes verified
+Online Multiplayer — 41 guides
+Vehicles — 36 guides
+Easter Eggs — 29 guides
+
+11 sections. 320+ guides. Launch day.
+
+vicevault.gg
+
+CANVA PROMPT:
+"Content sections grid graphic, 11 numbered category icons (map,
+clipboard, money, key, globe, car, egg), dark gold background,
+Vice Vault branding, gaming UI aesthetic"
+
+──────────────────────────────────────────
+DAY 4 — THURSDAY — Instagram Carousel
+──────────────────────────────────────────
+COPY:
+Swipe to see everything inside Vice Vault.
+Link in bio to join the waitlist before launch.
+#GTA6 #GTA6Guide #ViceVault
+
+CANVA PROMPT (5-slide carousel):
+Slide 1: "WHAT'S INSIDE VICE VAULT" title slide, dark gold
+Slide 2: "Story Mode + Heist Blueprints" two icon panel
+Slide 3: "Money Meta + Cheat Vault" two icon panel
+Slide 4: "Online + Vehicles + Easter Eggs" three icon panel
+Slide 5: "Join the waitlist — vicevault.gg" CTA slide
+
+──────────────────────────────────────────
+DAY 5 — FRIDAY — Reddit + Twitter/X
+──────────────────────────────────────────
+COPY (Reddit r/GTA6):
+Built a complete GTA 6 guide site launching day one — heist
+blueprints, money meta, cheat codes, Easter eggs. Here's what's
+inside. (Full post text in social-media-kit.txt)
+
+CANVA PROMPT: Not needed — text-only Reddit post
+
+──────────────────────────────────────────
+DAY 6 — SATURDAY — light day
+──────────────────────────────────────────
+Repost Day 1 announcement to Stories with "in case you missed
+it" sticker. No new design needed.
+
+──────────────────────────────────────────
+DAY 7 — SUNDAY — Twitter/X Thread + Instagram
+──────────────────────────────────────────
+COPY (Thread):
+5 things GTA 6 doesn't tell you that will save you hours:
+(Full thread text in social-media-kit.txt)
+Full list of 25: vicevault.gg/blog/gta6-things-you-didnt-know
+
+CANVA PROMPT:
+"GTA 6 cheat codes carousel cover, dark background gold accent
+text ALL GTA 6 CHEAT CODES CONFIRMED, controller button icons,
+Vice Vault branding corner, bold condensed typography" [GENERATED]
+
+
+═══════════════════════════════════════════════════════════════
+WEEK 2 — VALUE & PROOF (Days 8–14)
+═══════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────
+DAY 8 — MONDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+GTA 6 tip most players don't know:
+
+Your phone battery actually drains in GTA 6. Leave GPS or
+flashlight on too long and it dies — you lose your map waypoints.
+
+Charge it at any convenience store ($12) or sit in a car with
+the engine running for 2 minutes.
+
+More hidden mechanics: vicevault.gg
+
+CANVA PROMPT:
+"Single GTA 6 tip graphic, phone battery icon illustration, dark
+background, gold accent text, minimal informative gaming tip post"
+
+──────────────────────────────────────────
+DAY 9 — TUESDAY — Instagram Reel concept
+──────────────────────────────────────────
+COPY: "3 GTA 6 mistakes that cost you hours (Part 1)"
+VISUAL: Screen-recording style mockup, no Canva needed — record
+gameplay-style explainer instead
+
+──────────────────────────────────────────
+DAY 10 — WEDNESDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+NPCs remember you in GTA 6.
+
+Assault someone twice and they react differently the third time.
+Gang members share intel within their group.
+
+Need to rob the same store twice? Change your outfit between
+visits. The recognition system is partly appearance-based.
+
+vicevault.gg/blog/gta6-things-you-didnt-know
+
+CANVA PROMPT:
+"NPC memory system illustration, dark gold gaming tip graphic,
+character silhouette icon, Vice Vault branded tip card"
+
+──────────────────────────────────────────
+DAY 11 — THURSDAY — Weekly Drop Format Tease
+──────────────────────────────────────────
+COPY:
+Every Thursday after launch, Vice Vault drops new intel.
+
+This is what it'll look like:
+New heist blueprints. Updated money meta. Fresh cheat codes.
+Community Easter egg finds.
+
+First real drop: launch day. Join the waitlist.
+
+CANVA PROMPT:
+"Weekly drop preview mockup, dark dashboard UI screenshot style,
+gold highlight badges 'NEW' tags, Vice Vault branding, premium
+SaaS dashboard aesthetic"
+
+──────────────────────────────────────────
+DAY 12 — FRIDAY — Instagram + Twitter/X
+──────────────────────────────────────────
+COPY:
+12,000+ players already on the Vice Vault waitlist.
+
+They're going to start GTA 6 knowing the fastest $1M route,
+every cheat code, and the 12 mistakes 90% of players make.
+
+Link in bio if you want in before launch.
+
+CANVA PROMPT:
+"Social proof graphic, large number 12,000+ in gold, subtitle
+'players on the waitlist', avatar circle icons row, dark
+background, Vice Vault branding"
+
+──────────────────────────────────────────
+DAY 13 — SATURDAY — light day
+──────────────────────────────────────────
+Repost best performer from the week.
+
+──────────────────────────────────────────
+DAY 14 — SUNDAY — Twitter/X + Instagram
+──────────────────────────────────────────
+COPY:
+How to make your first $1,000,000 in GTA 6 — in 7 days.
+
+No grinding. No heists required until Day 5.
+
+Full day-by-day breakdown free on the blog:
+vicevault.gg/blog/gta6-make-money-fast-beginners
+
+CANVA PROMPT:
+"GTA 6 money guide social post, dark cinematic background, bold
+text $1,000,000 IN YOUR FIRST WEEK, money stack icon, teal gold
+gradient, Vice Vault watermark" [GENERATED]
+
+
+═══════════════════════════════════════════════════════════════
+WEEK 3 — MOMENTUM & MILESTONES (Days 15–21)
+═══════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────
+DAY 15 — MONDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+Heist guides most sites get wrong:
+
+They tell you the main vault route. They never mention the
+hidden secondary route that adds $1.4M to your take and skips
+3 guard spawns.
+
+That's the difference between a guide and an actual blueprint.
+
+vicevault.gg
+
+CANVA PROMPT:
+"Heist blueprint diagram style graphic, dark background, dotted
+route lines, gold vault icon, 'hidden route' label, tactical
+gaming map aesthetic"
+
+──────────────────────────────────────────
+DAY 16 — TUESDAY — Instagram Carousel
+──────────────────────────────────────────
+COPY: "The $800K/hour method (save this)"
+5-slide carousel walking through the business stacking method
+
+CANVA PROMPT (5 slides):
+Slide 1: "$800K/HR — NO HEIST REQUIRED" title
+Slide 2: "Step 1: Buy 4 businesses in 3 zones"
+Slide 3: "Step 2: Time your resupply runs"
+Slide 4: "Step 3: Stack and repeat"
+Slide 5: "Full guide at vicevault.gg" CTA
+
+──────────────────────────────────────────
+DAY 17 — WEDNESDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+20,000 players on the Vice Vault waitlist.
+
+5,000 spots left before we close early access pricing.
+
+vicevault.gg
+
+CANVA PROMPT:
+"Milestone celebration graphic, large 20,000 number, progress
+bar showing near-full, gold and dark theme, urgency messaging,
+Vice Vault branding"
+
+──────────────────────────────────────────
+DAY 18 — THURSDAY — Instagram + Twitter/X
+──────────────────────────────────────────
+COPY:
+GTA 6 cheat codes — confirmed so far.
+
+Swipe for PS5 and Xbox codes.
+
+Save this post. You'll want it on launch day.
+
+CANVA PROMPT: Use the existing cheat-codes thumbnail style —
+6-slide carousel, one cheat code per slide with controller icons
+
+──────────────────────────────────────────
+DAY 19 — FRIDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+Things that don't work in most GTA guides:
+
+Written by someone who played 6 hours.
+Never updated after publish.
+Padded to hit a word count.
+10-minute video for 90 seconds of info.
+
+Vice Vault is built different. vicevault.gg
+
+CANVA PROMPT:
+"Comparison graphic, X marks vs checkmarks list, dark background,
+pink X icons and gold checkmarks, 'what doesn't work' vs Vice Vault"
+
+──────────────────────────────────────────
+DAY 20 — SATURDAY — light day
+──────────────────────────────────────────
+
+──────────────────────────────────────────
+DAY 21 — SUNDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+GTA 6 mistake most players make:
+
+Buying a luxury apartment in Week 1. It costs $480,000 — the
+exact amount that could've bought you 2 passive income
+businesses generating $11,700/day.
+
+11 more mistakes (and the fixes):
+vicevault.gg/blog/gta6-mistakes-every-player-makes
+
+CANVA PROMPT:
+"Single mistake callout graphic, dark background, pink warning
+accent, apartment icon crossed out, money comparison visual,
+Vice Vault tip card style"
+
+
+═══════════════════════════════════════════════════════════════
+WEEK 4 — FINAL PUSH (Days 22–30)
+═══════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────
+DAY 22 — MONDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+The Vice Vault Discord crew is already 8,000+ members.
+
+247 people online right now finding heist crews, sharing cheat
+codes, and hunting Easter eggs together.
+
+Free to join: discord.gg/vicevault
+
+CANVA PROMPT:
+"Discord community graphic, dark background, member count 8,000+
+in gold, online indicator dots, Discord-style UI elements, Vice
+Vault branding"
+
+──────────────────────────────────────────
+DAY 23 — TUESDAY — Instagram
+──────────────────────────────────────────
+COPY: Beta member testimonial graphic — pick best quote from
+social-media-kit.txt reviews section
+CANVA PROMPT:
+"Testimonial quote card, dark background, 5 gold stars, quote
+text large, member avatar circle, 'Beta member' badge"
+
+──────────────────────────────────────────
+DAY 24 — WEDNESDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+Pre-order Vice Vault now and lock in 20% off forever.
+
+Vault Pro: ₹399/mo instead of ₹499. Locked permanently from
+the moment you pre-order.
+
+No payment until launch day. vicevault.gg/preorder
+
+CANVA PROMPT:
+"Pre-order deal graphic, dark background, price comparison ₹499
+crossed out to ₹399, '20% OFF FOREVER' badge, countdown timer
+visual, gold CTA button mockup"
+
+──────────────────────────────────────────
+DAY 25 — THURSDAY — Instagram Carousel
+──────────────────────────────────────────
+COPY: "Why pre-order beats waiting (swipe)"
+4-slide carousel explaining price lock benefit
+
+CANVA PROMPT (4 slides):
+Slide 1: "Pre-order vs wait — what's the difference?"
+Slide 2: "Pre-order: ₹399/mo locked forever"
+Slide 3: "Wait: ₹499/mo from day one, no lock"
+Slide 4: "Lock your rate — vicevault.gg/preorder"
+
+──────────────────────────────────────────
+DAY 26 — FRIDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+1 week until the vault opens.
+
+If you're not on the waitlist, you're starting GTA 6 without:
+The $4.2M bank heist blueprint.
+$800K/hr passive income setup.
+52 verified cheat codes.
+
+vicevault.gg
+
+CANVA PROMPT:
+"Countdown urgency graphic, '7 DAYS' large gold text, dark
+background, what-you're-missing checklist, Vice Vault branding"
+
+──────────────────────────────────────────
+DAY 27 — SATURDAY — Instagram Story sequence
+──────────────────────────────────────────
+COPY: Multi-story countdown — "7 days" "6 days" etc through launch
+CANVA PROMPT: "Countdown story template, large number center,
+dark background, swipe-up CTA, minimal gold accent"
+
+──────────────────────────────────────────
+DAY 28 — SUNDAY — Twitter/X
+──────────────────────────────────────────
+COPY:
+3 days.
+
+The vault opens.
+
+Last chance for early access pricing before launch day.
+
+vicevault.gg
+
+CANVA PROMPT:
+"3 days countdown graphic, bold gold number, urgency dark red
+accent, Vice Vault branding, final warning style"
+
+──────────────────────────────────────────
+DAY 29 — MONDAY — All platforms
+──────────────────────────────────────────
+COPY:
+24 hours.
+
+Vice Vault opens tomorrow.
+
+Waitlist members get in first. Early access pricing locks in
+permanently.
+
+See you inside.
+
+CANVA PROMPT:
+"24 hours countdown, massive number, dark intense background,
+final countdown urgency, Vice Vault branding, launch eve aesthetic"
+
+──────────────────────────────────────────
+DAY 30 — TUESDAY — LAUNCH DAY (all platforms)
+──────────────────────────────────────────
+COPY (Twitter/X):
+GTA 6 is live.
+
+So is Vice Vault.
+
+320 guides. 11 sections. All cheat codes.
+Your first $1M route. Every heist blueprint.
+Waiting for you right now.
+
+vicevault.gg
+
+CANVA PROMPT:
+"Launch day celebration graphic, 'THE VAULT IS OPEN' massive
+gold text, confetti or particle effect, dark cinematic
+background, Vice Vault branding, triumphant launch aesthetic"
+
+(Full launch day posts for all platforms in social-media-kit.txt)
+
+
+═══════════════════════════════════════════════════════════════
+QUICK REFERENCE — POSTING RHYTHM
+═══════════════════════════════════════════════════════════════
+
+Mon — Free tip / hidden mechanic (high value, builds trust)
+Tue — Carousel or visual content (higher engagement format)
+Wed — Mid-week tip or milestone update
+Thu — Weekly drop format tease / community content
+Fri — Social proof or feature highlight
+Sat — Light day, repost best performer from the week
+Sun — Thread or longer-form value post
+
+POSTING TIMES (IST):
+Twitter/X: 9 AM or 6 PM (peak gaming audience online)
+Instagram: 6 PM to 8 PM
+Reddit: 10 AM to 12 PM (algorithm favors morning posts)
+Discord announcements: anytime, pin important ones
+
+
+═══════════════════════════════════════════════════════════════
+NEED MORE VISUALS?
+═══════════════════════════════════════════════════════════════
+
+For any day above, the Canva prompt is ready to paste directly
+into Canva's AI generator, or ask Claude:
+
+"Generate the Canva design for Day [X]" using the exact prompt
+text provided for that day. Takes about 20 seconds per design.
+
+For bulk generation, batch 4-5 days at a time per request to
+keep things fast and let you review and adjust direction as you go.
