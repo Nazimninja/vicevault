@@ -25,7 +25,7 @@
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
-  --gold:#ff3d9a;--gold2:#c830ff;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--blue:#4a9eff;--purple:#9b59ff;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#d4a332;--orange:#e05c1a;--blue:#4a9eff;--purple:#f0c84a;
   --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -43,7 +43,7 @@ nav.scrolled{background:rgba(3,3,8,.94);backdrop-filter:blur(20px);border-bottom
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
 .logo-v{color:var(--gold)}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite}
-@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(212,163,50,.7)}50%{box-shadow:0 0 0 6px rgba(212,163,50,0)}}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--white)}
@@ -55,7 +55,7 @@ nav.scrolled{background:rgba(3,3,8,.94);backdrop-filter:blur(20px);border-bottom
 .dh-bg{position:absolute;inset:0;z-index:1;
   background:
     radial-gradient(ellipse 70% 60% at 50% 50%,rgba(212,163,50,.08) 0%,transparent 65%),
-    radial-gradient(ellipse 40% 50% at 10% 80%,rgba(255,61,110,.07) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 50% at 10% 80%,rgba(212,163,50,.07) 0%,transparent 55%),
     radial-gradient(ellipse 40% 40% at 90% 20%,rgba(0,212,170,.05) 0%,transparent 50%),
     linear-gradient(180deg,#030308 0%,#07070f 100%)}
 .dh-scan{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px)}
@@ -113,7 +113,7 @@ section{padding:80px 2.5rem;position:relative;z-index:2}
 .fd-badge-row{display:flex;gap:.5rem;flex-wrap:wrap}
 .tag{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .65rem;border-radius:2px}
 .tg{background:rgba(212,163,50,.1);color:var(--gold);border:1px solid rgba(212,163,50,.3)}
-.tn{background:rgba(255,61,110,.8);color:#fff}
+.tn{background:rgba(212,163,50,.8);color:#fff}
 .tt{background:rgba(0,212,170,.1);color:var(--teal);border:1px solid rgba(0,212,170,.3)}
 .to{background:rgba(224,92,26,.1);color:var(--orange);border:1px solid rgba(224,92,26,.3)}
 .tb{background:rgba(74,158,255,.1);color:var(--blue);border:1px solid rgba(74,158,255,.3)}
@@ -144,7 +144,7 @@ section{padding:80px 2.5rem;position:relative;z-index:2}
 .di-6::before{background:var(--purple)}
 .di-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--border2);line-height:1;flex-shrink:0;width:2.2rem;text-align:right}
 .di-icon{width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.ic1{background:rgba(212,163,50,.12)} .ic2{background:rgba(0,212,170,.12)} .ic3{background:rgba(255,61,110,.12)}
+.ic1{background:rgba(212,163,50,.12)} .ic2{background:rgba(0,212,170,.12)} .ic3{background:rgba(212,163,50,.12)}
 .ic4{background:rgba(224,92,26,.12)} .ic5{background:rgba(74,158,255,.12)} .ic6{background:rgba(155,89,255,.12)}
 .di-body{flex:1;min-width:0}
 .di-cat{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem}
@@ -256,8 +256,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:40px 2.
 @media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}section,.week-hero-drop,.past-sec,.cheat-sec,.meta-sec,.egg-sec,.nl-sec{padding:60px 1.2rem}.past-grid{grid-template-columns:1fr}.cheat-grid{grid-template-columns:1fr}.fd-body{grid-template-columns:1fr}.dh-stats{gap:1.5rem}}
 </style>
 <style>
-.cur{position:fixed;width:10px;height:10px;background:#ff3d9a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+.cur{position:fixed;width:10px;height:10px;background:#d4a332;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,163,50,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
 nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
 @media(max-width:600px){.cur,.cur-ring{display:none}}
 </style>
@@ -269,13 +269,12 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:44px;width:44px;object-fit:contain;border-radius:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;margin-left:.5rem">VICE<span style="background:linear-gradient(90deg,#ff3d9a,#9b3dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span><span class="nav-dot"></span></div>
+  <div class="nav-logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:44px;width:44px;object-fit:contain;border-radius:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;margin-left:.5rem">VICE<span style="background:linear-gradient(90deg,#d4a332,#f0c84a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span><span class="nav-dot"></span></div>
   <ul class="nav-links">
     <li><a href="index.html#categories">Vault</a></li>
     <li><a href="index.html#allguides">Guides</a></li>
-    <li><a href="index.html#pricing">Pricing</a></li>
-    <li><a href="preorder.html" style="color:#d4a332">Pre-order</a></li>
-    <li><a href="signup.html" class="nav-cta">Join Now</a></li>
+    <li><a href="index.html#waitlist" style="color:var(--gold)">Join Waitlist</a></li>
+    <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
   </ul>
 </nav>
 
@@ -519,7 +518,7 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
         <div class="mc-footer"><span>Money Meta</span><span class="mc-read">Full guide →</span></div>
       </div>
       <div class="meta-card rev-r">
-        <div class="mc-header"><span class="mc-cat">📉 Nerfed this week</span><span class="mc-badge" style="color:var(--pink);background:rgba(255,61,110,.1);border-color:rgba(255,61,110,.25)">Patched</span></div>
+        <div class="mc-header"><span class="mc-cat">📉 Nerfed this week</span><span class="mc-badge" style="color:var(--pink);background:rgba(212,163,50,.1);border-color:rgba(212,163,50,.25)">Patched</span></div>
         <div class="mc-body">
           <div class="mc-title">Import/Export glitch patched in v1.04 — move on</div>
           <ul class="mc-list">
@@ -673,7 +672,7 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
     <span>© 2025 Vice Vault — Independent GTA 6 guide site. Not affiliated with Rockstar Games or Take-Two Interactive.</span>
     <div class="fleg">
       <a href="index.html">Home</a>
-      <a href="index.html#pricing">Join</a>
+      <a href="index.html#waitlist">Join Waitlist</a>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
     </div>

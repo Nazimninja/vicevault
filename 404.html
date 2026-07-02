@@ -13,7 +13,7 @@
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#030308;--deep:#07070f;--surface:#0d0d18;--gold:#ff3d9a;--gold2:#c830ff;--pink:#ff3d6e;--teal:#00d4aa;--white:#ede8df;--muted:#7a788a;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14)}
+:root{--ink:#030308;--deep:#07070f;--surface:#0d0d18;--gold:#d4a332;--gold2:#f0c84a;--pink:#d4a332;--teal:#00d4aa;--white:#ede8df;--muted:#7a788a;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;overflow:hidden}
 a{color:inherit;text-decoration:none}
@@ -21,7 +21,7 @@ a{color:inherit;text-decoration:none}
 /* BG */
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 .bg-g1{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(212,163,50,.06),transparent 70%);top:-100px;left:-100px;animation:d1 16s ease-in-out infinite}
-.bg-g2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,61,110,.06),transparent 70%);bottom:-100px;right:-100px;animation:d2 20s ease-in-out infinite}
+.bg-g2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(212,163,50,.06),transparent 70%);bottom:-100px;right:-100px;animation:d2 20s ease-in-out infinite}
 @keyframes d1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,40px)}}
 @keyframes d2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-40px)}}
 .bg-scan{position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px)}
@@ -61,8 +61,8 @@ a{color:inherit;text-decoration:none}
 @media(max-width:500px){.quick-links{grid-template-columns:1fr}}
 </style>
 <style>
-.cur{position:fixed;width:10px;height:10px;background:#ff3d9a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+.cur{position:fixed;width:10px;height:10px;background:#d4a332;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,163,50,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
 nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
 @media(max-width:600px){.cur,.cur-ring{display:none}}
 </style>
@@ -106,9 +106,9 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
       <span class="ql-icon">📅</span>
       <div class="ql-text"><div class="ql-title">Weekly drop</div><div class="ql-sub">This week's intel</div></div>
     </a>
-    <a href="index.html#pricing" class="ql">
+    <a href="index.html#waitlist" class="ql">
       <span class="ql-icon">🔑</span>
-      <div class="ql-text"><div class="ql-title">Join Vice Vault</div><div class="ql-sub">From ₹199/month</div></div>
+      <div class="ql-text"><div class="ql-title">Join Waitlist</div><div class="ql-sub">Lock in early access</div></div>
     </a>
     <a href="blog1.html" class="ql">
       <span class="ql-icon">🥚</span>

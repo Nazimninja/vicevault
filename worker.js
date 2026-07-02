@@ -461,7 +461,7 @@ function newsletterEmailHTML() {
 function premiumEmailHTML(tier) {
   const tierName = tier === 'elite' ? 'Elite Crew' : (tier === 'soldier' ? 'Soldier' : 'Vault Pro');
   const priceLabel = tier === 'elite' ? '₹999/yr' : (tier === 'soldier' ? '₹299/mo' : '₹699/mo');
-  const badgeColor = tier === 'elite' ? '#9b59ff' : (tier === 'soldier' ? '#7a788a' : '#d4a332');
+  const badgeColor = tier === 'elite' ? '#f0c84a' : (tier === 'soldier' ? '#7a788a' : '#d4a332');
 
   return `
 <!DOCTYPE html>

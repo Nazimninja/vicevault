@@ -10,13 +10,13 @@
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
-  --gold:#ff3d9a;--gold2:#c830ff;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#d4a332;--orange:#e05c1a;
   --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
   --red:#c0281e;
-  --cur-pink:#ff3d9a;
+  --cur-pink:#d4a332;
 }
 .cur{position:fixed;width:10px;height:10px;background:var(--cur-pink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,163,50,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
 @media(max-width:600px){.cur,.cur-ring{display:none}}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -30,7 +30,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .page-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
     radial-gradient(ellipse 60% 50% at 80% 20%,rgba(212,163,50,.07) 0%,transparent 60%),
-    radial-gradient(ellipse 50% 60% at 10% 80%,rgba(255,61,110,.08) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 60% at 10% 80%,rgba(212,163,50,.08) 0%,transparent 55%),
     linear-gradient(180deg,#030308 0%,#07070f 100%)}
 .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(rgba(212,163,50,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,163,50,.025) 1px,transparent 1px);
@@ -41,7 +41,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
 .logo-v{color:var(--gold)}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite}
-@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(212,163,50,.7)}50%{box-shadow:0 0 0 6px rgba(212,163,50,0)}}
 .nav-back{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.4rem;transition:color .2s}
 .nav-back:hover{color:var(--white)}
 
@@ -208,7 +208,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 <nav>
   <div class="nav-logo">
     <img src="assets/logo-master.png" alt="Vice Vault" style="height:36px;width:36px;object-fit:contain;border-radius:4px">
-    <span style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;margin-left:.4rem">VICE<span style="background:linear-gradient(90deg,#ff3d9a,#9b3dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;margin-left:.4rem">VICE<span style="background:linear-gradient(90deg,#d4a332,#f0c84a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span>
     <span class="nav-dot"></span>
   </div>
   <a href="index.html" class="nav-back">← Back to site</a>

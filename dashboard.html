@@ -14,7 +14,7 @@
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;--border2:#24243a;
-  --gold:#ff3d9a;--gold2:#c830ff;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;--blue:#4a9eff;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#d4a332;--orange:#e05c1a;--blue:#4a9eff;
   --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--borderl:rgba(255,255,255,.13);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -37,7 +37,7 @@ a{color:inherit;text-decoration:none}
 }
 .sb-logo .v{color:var(--gold)}
 .sb-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite;flex-shrink:0}
-@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(212,163,50,.7)}50%{box-shadow:0 0 0 6px rgba(212,163,50,0)}}
 
 .sb-user{
   padding:1.2rem 1.6rem;border-bottom:1px solid var(--border);flex-shrink:0;
@@ -167,7 +167,7 @@ a{color:inherit;text-decoration:none}
 .cat-d:hover .cat-d-glow{opacity:1}
 .cg1 .cat-d-glow{background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(212,163,50,.06),transparent)}
 .cg2 .cat-d-glow{background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(0,212,170,.06),transparent)}
-.cg3 .cat-d-glow{background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(255,61,110,.06),transparent)}
+.cg3 .cat-d-glow{background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(212,163,50,.06),transparent)}
 .cg4 .cat-d-glow{background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(224,92,26,.06),transparent)}
 .cat-d-icon{font-size:1.3rem;margin-bottom:.2rem}
 .cat-d-name{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;color:var(--white)}
@@ -217,7 +217,7 @@ a{color:inherit;text-decoration:none}
 .drop-item:last-child{border:none}
 .di-num{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--border2);width:2rem;flex-shrink:0;text-align:right;line-height:1}
 .di-icon{width:32px;height:32px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
-.ic1{background:rgba(212,163,50,.12)} .ic2{background:rgba(0,212,170,.12)} .ic3{background:rgba(255,61,110,.12)} .ic4{background:rgba(224,92,26,.12)} .ic5{background:rgba(74,158,255,.12)}
+.ic1{background:rgba(212,163,50,.12)} .ic2{background:rgba(0,212,170,.12)} .ic3{background:rgba(212,163,50,.12)} .ic4{background:rgba(224,92,26,.12)} .ic5{background:rgba(74,158,255,.12)}
 .di-body{flex:1;min-width:0}
 .di-cat{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.15rem}
 .di-title{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -385,8 +385,8 @@ body.vv-bar-active .tour-overlay {
   margin-bottom: 1.2rem; transition: color 0.2s;
 }
 .back-to-dash-btn:hover { color: var(--gold); }
-.cur{position:fixed;width:10px;height:10px;background:#ff3d9a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+.cur{position:fixed;width:10px;height:10px;background:#d4a332;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,163,50,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
 @media(max-width:600px){.cur,.cur-ring{display:none}}
 </style>
 </head>
@@ -399,7 +399,7 @@ body.vv-bar-active .tour-overlay {
 <aside class="sidebar">
   <div class="sb-logo">
     <img src="assets/logo-master.png" alt="Vice Vault" style="height:32px;width:32px;object-fit:contain;border-radius:4px">
-    <span style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.1em;margin-left:.25rem">VICE<span style="background:linear-gradient(90deg,#ff3d9a,#9b3dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.1em;margin-left:.25rem">VICE<span style="background:linear-gradient(90deg,#d4a332,#f0c84a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span>
     <span class="sb-dot"></span>
     <button class="sb-close-btn" onclick="toggleMobileSidebar(false)">×</button>
   </div>
@@ -434,7 +434,7 @@ body.vv-bar-active .tour-overlay {
   <div class="sb-upgrade">
     <div class="sb-upgrade-t">Upgrade to Elite</div>
     <p>Custom blueprint requests, early access + private Discord crew.</p>
-    <a href="index.html#pricing" class="sb-upgrade-btn">Upgrade — ₹1199/yr</a>
+    <a href="signup.html?tier=999" class="sb-upgrade-btn">Upgrade — ₹999/yr</a>
   </div>
 </aside>
 
@@ -587,13 +587,13 @@ body.vv-bar-active .tour-overlay {
       <p style="font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem">Manage your membership status. Cancelling will <strong style="color:var(--white)">immediately revoke</strong> your private Discord crew channels access.</p>
       
       <div style="display:flex;flex-direction:column;gap:.8rem">
-        <button class="btn-g" style="background:linear-gradient(135deg,#ff3d6e,#c4193b);border:none;padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer" onclick="VV.cancelSubscription()" id="cancelSubBtn">🚫 Cancel Subscription &amp; Revoke Discord Roles</button>
+        <button class="btn-g" style="background:linear-gradient(135deg,#d4a332,#c4193b);border:none;padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer" onclick="VV.cancelSubscription()" id="cancelSubBtn">🚫 Cancel Subscription &amp; Revoke Discord Roles</button>
         <button class="btn-o" style="padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer;border-color:var(--gold);background:rgba(212,163,50,.07)" onclick="initOnboardingTour(true)">🗺️ Restart Onboarding Guide Tour</button>
         <button class="btn-o" style="padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer" onclick="VV.logout()">← Sign Out</button>
       </div>
 
-      <div style="margin-top:2rem;padding:1rem;background:rgba(255,61,110,.06);border-left:3px solid #ff3d6e;border-radius:0 4px 4px 0">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#ff3d6e;margin-bottom:.4rem">What happens when you cancel</div>
+      <div style="margin-top:2rem;padding:1rem;background:rgba(212,163,50,.06);border-left:3px solid #d4a332;border-radius:0 4px 4px 0">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#d4a332;margin-bottom:.4rem">What happens when you cancel</div>
         <ul style="font-size:.82rem;color:var(--muted);line-height:1.9;list-style:none;padding:0;margin:0">
           <li>✗ Vault Pro / Elite Crew Discord roles removed immediately</li>
           <li>✗ Access to private channels (Heist, RP, Multiplayer) revoked</li>
@@ -809,13 +809,13 @@ function getCategoryGradient(cat) {
   if (c.includes('money') || c.includes('roi')) {
     return 'linear-gradient(135deg, rgba(0,212,170,0.15), rgba(212,163,50,0.15))';
   } else if (c.includes('heist') || c.includes('blueprint')) {
-    return 'linear-gradient(135deg, rgba(224,92,26,0.15), rgba(255,61,110,0.15))';
+    return 'linear-gradient(135deg, rgba(224,92,26,0.15), rgba(212,163,50,0.15))';
   } else if (c.includes('vehicle') || c.includes('car') || c.includes('speed')) {
     return 'linear-gradient(135deg, rgba(74,158,255,0.15), rgba(0,212,170,0.15))';
   } else if (c.includes('cheat') || c.includes('code')) {
-    return 'linear-gradient(135deg, rgba(155,89,255,0.15), rgba(255,61,110,0.15))';
+    return 'linear-gradient(135deg, rgba(155,89,255,0.15), rgba(212,163,50,0.15))';
   } else if (c.includes('wanted') || c.includes('escape')) {
-    return 'linear-gradient(135deg, rgba(255,61,110,0.2), rgba(3,3,8,0.3))';
+    return 'linear-gradient(135deg, rgba(212,163,50,0.2), rgba(3,3,8,0.3))';
   }
   return 'linear-gradient(135deg, rgba(212,163,50,0.08), rgba(255,255,255,0.03))';
 }
@@ -989,22 +989,22 @@ const guideData={
 };
 
 const sectionThumb = {
-  story:      {img:'thumbs/story-endings.jpg',      accent:'#9b59ff'},
-  heist:      {img:'thumbs/heist-bank-job.jpg',     accent:'#ff3d9a'},
+  story:      {img:'thumbs/story-endings.jpg',      accent:'#f0c84a'},
+  heist:      {img:'thumbs/heist-bank-job.jpg',     accent:'#d4a332'},
   money:      {img:'thumbs/money-business-stack.jpg',accent:'#00d4aa'},
   online:     {img:'thumbs/online-cargo-wars.jpg',  accent:'#00d4aa'},
-  vehicles:   {img:'thumbs/vehicle-fastest-cars.jpg',accent:'#ff3d9a'},
-  easter:     {img:'thumbs/easter-eggs-leonida.jpg',accent:'#9b59ff'},
+  vehicles:   {img:'thumbs/vehicle-fastest-cars.jpg',accent:'#d4a332'},
+  easter:     {img:'thumbs/easter-eggs-leonida.jpg',accent:'#f0c84a'},
   builds:     {img:'thumbs/heist-mansion.jpg',      accent:'#e05c1a'},
   properties: {img:'thumbs/money-property.jpg',     accent:'#00d4aa'},
-  wanted:     {img:'thumbs/wanted-escape-routes.jpg',accent:'#ff3d9a'},
-  pro:        {img:'thumbs/vehicle-hidden-spawns.jpg',accent:'#9b59ff'},
+  wanted:     {img:'thumbs/wanted-escape-routes.jpg',accent:'#d4a332'},
+  pro:        {img:'thumbs/vehicle-hidden-spawns.jpg',accent:'#f0c84a'},
 };
 
 function renderSectionGuides(v){
   const grid=document.getElementById('section-guides');
   const guides=guideData[v]||[];
-  const th = sectionThumb[v] || {img:'', accent:'#ff3d9a'};
+  const th = sectionThumb[v] || {img:'', accent:'#d4a332'};
   grid.style.gridTemplateColumns = 'repeat(auto-fill,minmax(260px,1fr))';
   grid.innerHTML=guides.map(g=>`
     <div onclick="showArticle('${g.title.replace(/'/g, "\\'")}', '${g.cat.replace(/'/g, "\\'")}', '${g.meta.replace(/'/g, "\\'")}')" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .25s,transform .2s;position:relative"
@@ -1321,7 +1321,7 @@ animProgress();
     }
     
     grid.innerHTML = matches.map(g => {
-      const th = sectionThumb[g.sectionKey] || {img:'', accent:'#ff3d9a'};
+      const th = sectionThumb[g.sectionKey] || {img:'', accent:'#d4a332'};
       return `
         <div onclick="showArticle('${g.title.replace(/'/g, "\\'")}', '${g.cat.replace(/'/g, "\\'")}', '${g.meta.replace(/'/g, "\\'")}')" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .25s,transform .2s;position:relative"
           onmouseenter="this.style.borderColor='${th.accent}';this.style.transform='translateY(-3px)'"

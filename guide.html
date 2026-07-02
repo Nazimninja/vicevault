@@ -28,7 +28,7 @@
 <style>
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
-  --gold:#ff3d9a;--gold2:#c830ff;--teal:#00d4aa;--pink:#ff3d6e;--orange:#e05c1a;
+  --gold:#d4a332;--gold2:#f0c84a;--teal:#00d4aa;--pink:#d4a332;--orange:#e05c1a;
   --white:#ede8df;--muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -41,7 +41,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.5rem}
 .logo-v{color:var(--gold)}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pd 2s ease-in-out infinite}
-@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(255,61,110,.7)}50%{box-shadow:0 0 0 6px rgba(255,61,110,0)}}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(212,163,50,.7)}50%{box-shadow:0 0 0 6px rgba(212,163,50,0)}}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--white)}
@@ -61,9 +61,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .art-eyebrow{display:flex;gap:.8rem;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap}
 .tag{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.22rem .7rem;border-radius:2px}
 .tg{background:rgba(212,163,50,.1);color:var(--gold);border:1px solid rgba(212,163,50,.3)}
-.tp{background:rgba(255,61,110,.12);color:var(--pink);border:1px solid rgba(255,61,110,.3)}
+.tp{background:rgba(212,163,50,.12);color:var(--pink);border:1px solid rgba(212,163,50,.3)}
 .tt{background:rgba(0,212,170,.1);color:var(--teal);border:1px solid rgba(0,212,170,.3)}
-.tn{background:rgba(255,61,110,.8);color:#fff;border:none}
+.tn{background:rgba(212,163,50,.8);color:#fff;border:none}
 .art-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.1;margin-bottom:1rem;max-width:800px}
 .art-lead{font-size:1rem;color:var(--muted);line-height:1.85;max-width:680px;margin-bottom:1.5rem}
 .art-meta-bar{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;padding:1rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:0;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -102,7 +102,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .tipbox-l{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.45rem}
 .tipbox p{margin:0;font-size:.87rem;color:var(--muted)}
 
-.warnbox{background:rgba(255,61,110,.06);border-left:3px solid var(--pink);padding:1.1rem 1.3rem;border-radius:0 4px 4px 0;margin:1.5rem 0}
+.warnbox{background:rgba(212,163,50,.06);border-left:3px solid var(--pink);padding:1.1rem 1.3rem;border-radius:0 4px 4px 0;margin:1.5rem 0}
 .warnbox-l{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);margin-bottom:.45rem}
 .warnbox p{margin:0;font-size:.87rem;color:var(--muted)}
 
@@ -219,8 +219,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:40px 2.
 @media(max-width:600px){nav{padding:0 1.2rem}.nav-links{display:none}.art-hero,.art-layout,.breadcrumb{padding-left:1.2rem;padding-right:1.2rem}.rel-grid{grid-template-columns:1fr}.related-sec,.cta-strip{padding:40px 1.2rem}}
 </style>
 <style>
-.cur{position:fixed;width:10px;height:10px;background:#ff3d9a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,154,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+.cur{position:fixed;width:10px;height:10px;background:#d4a332;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,163,50,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
 nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
 @media(max-width:600px){.cur,.cur-ring{display:none}}
 </style>
@@ -234,11 +234,11 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:44px;width:44px;object-fit:contain;border-radius:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;margin-left:.5rem">VICE<span style="background:linear-gradient(90deg,#ff3d9a,#9b3dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span><span class="nav-dot"></span></div>
+  <div class="nav-logo"><img src="assets/logo-master.png" alt="Vice Vault" style="height:44px;width:44px;object-fit:contain;border-radius:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;margin-left:.5rem">VICE<span style="background:linear-gradient(90deg,#d4a332,#f0c84a);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VAULT</span></span><span class="nav-dot"></span></div>
   <ul class="nav-links">
     <li><a href="index.html#categories">Vault</a></li>
     <li><a href="index.html#allguides">Guides</a></li>
-    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="index.html#waitlist" style="color:var(--gold)">Join Waitlist</a></li>
     <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
   </ul>
 </nav>
@@ -388,8 +388,8 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
           <span class="pw-perk">Crew positioning</span>
         </div>
         <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center">
-          <a href="index.html#pricing" class="btn-g">Join for ₹499/mo</a>
-          <a href="signup.html" class="btn-o">Start at ₹199</a>
+          <a href="index.html#waitlist" class="btn-g">Join Waitlist — It's Free</a>
+          <a href="dashboard.html" class="btn-o">Member Login</a>
         </div>
       </div>
     </div>
@@ -440,7 +440,7 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
       <div class="usw-t">Vice Vault Pro</div>
       <div class="usw-heading">Unlock everything</div>
       <p class="usw-p">Hidden vault route, secondary cargo map, crew positioning guide, and 320+ more guides across all 11 sections.</p>
-      <a href="index.html#pricing" class="btn-g" style="width:100%;justify-content:center;font-size:.8rem;padding:.8rem 1rem">Join for ₹499/mo</a>
+      <a href="index.html#waitlist" class="btn-g" style="width:100%;justify-content:center;font-size:.8rem;padding:.8rem 1rem">Join Waitlist — It's Free</a>
     </div>
   </aside>
 
@@ -475,9 +475,9 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
   <div class="cta-strip-in rev">
     <div class="cs-eye">320+ guides · 11 sections · Updated weekly</div>
     <h2 class="cs-t">Want the full vault?</h2>
-    <p class="cs-s">Join Vice Vault Pro for unlimited access to every guide, hidden route, money meta deep-dive, cheat code, and weekly drop — from ₹499/month.</p>
+    <p class="cs-s">Join the waitlist today for early access to every guide, hidden route, money meta, cheat code, and weekly drop the day GTA 6 drops.</p>
     <div class="cs-btns">
-      <a href="index.html#pricing" class="btn-g">Join Vice Vault →</a>
+      <a href="index.html#waitlist" class="btn-g">Join Waitlist →</a>
       <a href="index.html" class="btn-o">Browse free guides</a>
     </div>
   </div>

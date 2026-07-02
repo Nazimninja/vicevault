@@ -13,7 +13,7 @@
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#030308;--gold:#d4a332;--pink:#ff3d6e;--teal:#00d4aa;--white:#ede8df;--muted:#7a788a}
+:root{--ink:#030308;--gold:#d4a332;--pink:#d4a332;--teal:#00d4aa;--white:#ede8df;--muted:#7a788a}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0a0a12;color:var(--white);font-family:'Barlow Condensed',sans-serif;padding:2rem;min-height:100vh}
 h1{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem}
@@ -52,7 +52,7 @@ const OGs = [
     title: 'VICE VAULT',
     sub: 'THE ULTIMATE GTA 6\nINTELLIGENCE HUB',
     tag: 'GTA 6 · 320+ GUIDES · UPDATED WEEKLY',
-    accent: '#ff3d9a',
+    accent: '#d4a332',
     bg1: '#0a0500', bg2: '#050010',
   },
   {
@@ -60,7 +60,7 @@ const OGs = [
     title: 'VAULT OPENS',
     sub: 'LAUNCHING WITH\nGTA 6',
     tag: 'JOIN 12,000+ ON THE WAITLIST · VICEVAULT.GG',
-    accent: '#ff3d6e',
+    accent: '#d4a332',
     bg1: '#0a0005', bg2: '#050010',
   },
   {
@@ -76,7 +76,7 @@ const OGs = [
     title: 'CHEAT VAULT',
     sub: 'ALL 52 GTA 6\nCHEAT CODES',
     tag: 'PS5 & XBOX · ALL VERIFIED · UPDATED JUNE 2025',
-    accent: '#ff3d9a',
+    accent: '#d4a332',
     bg1: '#0a0800', bg2: '#000008',
   },
   {
@@ -92,7 +92,7 @@ const OGs = [
     title: '25 SECRETS',
     sub: 'THINGS GTA 6\nDOESN\'T TELL YOU',
     tag: 'HIDDEN MECHANICS · BURIED FEATURES · COMMUNITY CONFIRMED',
-    accent: '#9b59ff',
+    accent: '#f0c84a',
     bg1: '#050010', bg2: '#100008',
   },
   {
@@ -100,7 +100,7 @@ const OGs = [
     title: '12 MISTAKES',
     sub: 'EVERY PLAYER\nMAKES',
     tag: 'FIRST 10 HOURS · AND HOW TO FIX THEM · VICE VAULT',
-    accent: '#ff3d6e',
+    accent: '#d4a332',
     bg1: '#0a0005', bg2: '#050008',
   },
   {
@@ -108,7 +108,7 @@ const OGs = [
     title: '$2.2M',
     sub: 'CARGO SHIP\nHEIST GUIDE',
     tag: 'HIDDEN VAULT ROUTE · MAX TAKE · ALL 3 APPROACHES',
-    accent: '#ff3d9a',
+    accent: '#d4a332',
     bg1: '#0a0800', bg2: '#000508',
   },
 ];
@@ -184,7 +184,7 @@ function drawOG(canvas, og) {
   // Dot after logo
   ctx.beginPath();
   ctx.arc(90 + ctx.measureText('VICEVAULT ').width + 14, 66, 4, 0, Math.PI * 2);
-  ctx.fillStyle = '#ff3d6e';
+  ctx.fillStyle = '#d4a332';
   ctx.fill();
 
   // BIG NUMBER / HERO TEXT
