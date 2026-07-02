@@ -426,39 +426,72 @@ let selectedTier={price:699,name:'Vault Pro'};
 
 function selectTier(price,name){
   selectedTier={price,name};
-  document.querySelectorAll('.tier-card').forEach(c=>{c.classList.remove('selected');c.querySelector('.tier-check').style.opacity='0';c.querySelector('.tier-check').style.transform='scale(.5)'});
-  const card=document.getElementById('tc-'+price);
-  card.classList.add('selected');
-  const chk=card.querySelector('.tier-check');
-  chk.style.opacity='1';chk.style.transform='scale(1)';
+  document.querySelectorAll('.tier-card').forEach(c=>{
+    c.classList.remove('selected');
+    const chk = c.querySelector('.tier-check');
+    if (chk) { chk.style.opacity='0'; chk.style.transform='scale(.5)'; }
+  });
+
+  // Map preorder price to HTML card ID
+  let cardId = 'tc-' + price;
+  if (price === 199) cardId = 'tc-299';
+  if (price === 399) cardId = 'tc-699';
+  
+  const card=document.getElementById(cardId);
+  if (card) {
+    card.classList.add('selected');
+    const chk=card.querySelector('.tier-check');
+    if (chk) { chk.style.opacity='1'; chk.style.transform='scale(1)'; }
+  }
+
+  // Update card text if preorder prices are used
+  if (price === 199 || price === 399) {
+    const sCardPrice = document.querySelector('#tc-299 .tier-num');
+    if (sCardPrice) sCardPrice.textContent = '199';
+    const pCardPrice = document.querySelector('#tc-699 .tier-num');
+    if (pCardPrice) pCardPrice.textContent = '399';
+  }
 
   const btn=document.getElementById('tierContinue');
-  if(price===999){btn.textContent=`Continue with ${name} — ₹${price}/yr →`}
-  else{btn.textContent=`Continue with ${name} — ₹${price}/mo →`}
-  document.getElementById('selectedTierBadge').textContent=name;
+  if (btn) {
+    if(price===999){btn.textContent=`Continue with ${name} — ₹${price}/yr →`}
+    else{btn.textContent=`Continue with ${name} — ₹${price}/mo →`}
+  }
+  const badge = document.getElementById('selectedTierBadge');
+  if (badge) badge.textContent=name;
 
   // update order summary
-  document.getElementById('os-tier-name').textContent=name+(price===999?' — Annual':' — Monthly');
-  document.getElementById('os-price').textContent='₹'+price;
-  document.getElementById('os-total').textContent='₹'+price;
-  document.getElementById('pay-amount-label').textContent='₹'+price;
+  const tierNameEl = document.getElementById('os-tier-name');
+  if (tierNameEl) tierNameEl.textContent=name+(price===999?' — Annual':' — Monthly');
+  const osPriceEl = document.getElementById('os-price');
+  if (osPriceEl) osPriceEl.textContent='₹'+price;
+  const osTotalEl = document.getElementById('os-total');
+  if (osTotalEl) osTotalEl.textContent='₹'+price;
+  const payLabel = document.getElementById('pay-amount-label');
+  if (payLabel) payLabel.textContent='₹'+price;
 
   // success features
   const sf1=document.getElementById('sf1');
   const sfD=document.getElementById('sf-discord');
-  if(price===299){sf1.textContent='10 heist blueprints per month';sfD.style.display='none'}
-  else{sf1.textContent='Unlimited guide access across all 11 sections';sfD.style.display='flex'}
+  if (sf1) {
+    if(price===199 || price===299){sf1.textContent='10 heist blueprints per month'; if(sfD) sfD.style.display='none'}
+    else{sf1.textContent='Unlimited guide access across all 11 sections'; if(sfD) sfD.style.display='flex'}
+  }
 }
 
 function goStep(n){
   [1,2,3,4].forEach(i=>{
-    document.getElementById('step'+i).style.display='none';
+    const stepEl = document.getElementById('step'+i);
+    if (stepEl) stepEl.style.display='none';
     const ind=document.getElementById('step'+i+'-ind');
-    ind.classList.remove('active','done');
-    if(i<n)ind.classList.add('done');
-    if(i===n)ind.classList.add('active');
+    if (ind) {
+      ind.classList.remove('active','done');
+      if(i<n)ind.classList.add('done');
+      if(i===n)ind.classList.add('active');
+    }
   });
-  document.getElementById('step'+n).style.display='block';
+  const currentStepEl = document.getElementById('step'+n);
+  if (currentStepEl) currentStepEl.style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
   if (n === 2) {
     setTimeout(renderGoogleSignupButton, 100);
@@ -496,7 +529,7 @@ async function validateAndNext(){
 
   const fname = document.getElementById('fname').value.trim();
   const lname = document.getElementById('lname').value.trim();
-  const tierId = selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
+  const tierId = (selectedTier.price === 199 || selectedTier.price === 299) ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
 
   const nextBtn = document.querySelector('button[onclick="validateAndNext()"]');
   if (nextBtn) { nextBtn.disabled = true; nextBtn.textContent = 'Registering...'; }
@@ -511,7 +544,7 @@ async function validateAndNext(){
       email: email.value.trim(),
       firstName: fname || email.value.split('@')[0],
       lastName: lname || '',
-      tier: selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro'),
+      tier: tierId,
       subscribed: false
     };
     localStorage.setItem('vv_user', JSON.stringify(user));
@@ -536,10 +569,12 @@ function checkStrength(val){
   if(/[^A-Za-z0-9]/.test(val))score++;
   const colors=['#c0281e','#e05c1a','#0070f3','#00d4aa'];
   const labels=['Too short','Weak','Good','Strong'];
-  bar.style.width=(score*25)+'%';
-  bar.style.background=colors[score-1]||'var(--dim)';
-  txt.textContent=score>0?labels[score-1]:'Use 8+ characters with a number and symbol';
-  txt.style.color=colors[score-1]||'var(--muted)';
+  if (bar) bar.style.width=(score*25)+'%';
+  if (bar) bar.style.background=colors[score-1]||'var(--dim)';
+  if (txt) {
+    txt.textContent=score>0?labels[score-1]:'Use 8+ characters with a number and symbol';
+    txt.style.color=colors[score-1]||'var(--muted)';
+  }
 }
 
 function setPM(el,type){
@@ -552,7 +587,7 @@ function setPM(el,type){
 async function launchRazorpay(){
   // Determine tier string
   let tierId = 'pro';
-  if (selectedTier.price === 299) tierId = 'soldier';
+  if (selectedTier.price === 199 || selectedTier.price === 299) tierId = 'soldier';
   if (selectedTier.price === 999) tierId = 'elite';
 
   // Save registration details to KV before payment
@@ -802,32 +837,51 @@ if (discordCode) {
 const emailParam = params.get('email');
 const fnameParam = params.get('fname');
 const lnameParam = params.get('lname');
-const tierParam = params.get('tier_id');
+const tierParam = params.get('tier_id') || params.get('tier');
 const stepParam = params.get('step');
 
-if (stepParam === '3') {
-  if (emailParam) document.getElementById('email').value = decodeURIComponent(emailParam);
-  if (fnameParam) document.getElementById('fname').value = decodeURIComponent(fnameParam);
-  if (lnameParam) document.getElementById('lname').value = decodeURIComponent(lnameParam);
+// Pre-fill fields if passed
+if (emailParam) {
+  const emailEl = document.getElementById('email');
+  if (emailEl) emailEl.value = decodeURIComponent(emailParam);
+  const loginEmailEl = document.getElementById('loginEmail');
+  if (loginEmailEl) loginEmailEl.value = decodeURIComponent(emailParam);
+}
+if (fnameParam) {
+  const fnameEl = document.getElementById('fname');
+  if (fnameEl) fnameEl.value = decodeURIComponent(fnameParam);
+}
+if (lnameParam) {
+  const lnameEl = document.getElementById('lname');
+  if (lnameEl) lnameEl.value = decodeURIComponent(lnameParam);
+}
 
+// Select tier with support for pre-order discounts
+let initialTierPrice = 699;
+let initialTierName = 'Vault Pro';
+
+if (tierParam === '199' || tierParam === 'soldier_discount') { initialTierPrice = 199; initialTierName = 'Soldier'; }
+else if (tierParam === '399' || tierParam === 'pro_discount') { initialTierPrice = 399; initialTierName = 'Vault Pro'; }
+else if (tierParam === '299' || tierParam === 'soldier') { initialTierPrice = 299; initialTierName = 'Soldier'; }
+else if (tierParam === '999' || tierParam === 'elite') { initialTierPrice = 999; initialTierName = 'Elite Crew'; }
+else if (tierParam === '699' || tierParam === 'pro') { initialTierPrice = 699; initialTierName = 'Vault Pro'; }
+
+selectTier(initialTierPrice, initialTierName);
+
+if (stepParam === '3') {
   const userObj = {
-    email: decodeURIComponent(emailParam),
+    email: decodeURIComponent(emailParam || ''),
     firstName: decodeURIComponent(fnameParam || ''),
     lastName: decodeURIComponent(lnameParam || ''),
-    tier: tierParam || 'pro',
+    tier: (initialTierPrice === 199 || initialTierPrice === 299) ? 'soldier' : (initialTierPrice === 999 ? 'elite' : 'pro'),
     subscribed: false
   };
   localStorage.setItem('vv_user', JSON.stringify(userObj));
-
-  if (tierParam === 'soldier') selectTier(299, 'Soldier');
-  else if (tierParam === 'elite') selectTier(999, 'Elite Crew');
-  else selectTier(699, 'Vault Pro');
-
   goStep(3);
+} else if (stepParam === '2' || emailParam) {
+  goStep(2);
 } else {
-  if(params.get('tier')==='299')selectTier(299,'Soldier');
-  if(params.get('tier')==='699')selectTier(699,'Vault Pro');
-  if(params.get('tier')==='999')selectTier(999,'Elite Crew');
+  goStep(1);
 }
 
 // Login mode
