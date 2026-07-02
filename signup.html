@@ -253,12 +253,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       </div>
 
       <!-- VAULT PRO -->
-      <div class="tier-card selected" id="tc-699" onclick="selectTier(699,'Vault Pro')">
+      <div class="tier-card selected" id="tc-499" onclick="selectTier(499,'Vault Pro')">
         <div class="tier-popular">Best value</div>
         <div class="tier-check" style="opacity:1;transform:scale(1)">✓</div>
         <div class="tier-name">Vault Pro</div>
         <div class="tier-tagline">For players who want every edge</div>
-        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">699</span></div>
+        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">499</span></div>
         <div class="tier-per">per month · cancel anytime</div>
         <div class="tier-save">⭐ 80% of members choose this</div>
         <ul class="tier-feats">
@@ -277,9 +277,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       <div class="tier-card" id="tc-999" onclick="selectTier(999,'Elite Crew')">
         <div class="tier-check">✓</div>
         <div class="tier-name">Elite Crew</div>
-        <div class="tier-tagline">Annual — maximum value + perks</div>
+        <div class="tier-tagline">Exclusive perks for dedicated players</div>
         <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">999</span></div>
-        <div class="tier-per">per year — saves ₹4,789</div>
+        <div class="tier-per">per month · cancel anytime</div>
         <ul class="tier-feats">
           <li>Everything in Vault Pro</li>
           <li>Custom blueprint requests (2/month)</li>
@@ -293,7 +293,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       </div>
     </div>
 
-    <button class="tier-continue" id="tierContinue" onclick="goStep(2)">Continue with Vault Pro — ₹699/mo →</button>
+    <button class="tier-continue" id="tierContinue" onclick="goStep(2)">Continue with Vault Pro — ₹499/mo →</button>
 
     <div class="trust-bar">
       <div class="trust-item">🔒 Secure checkout</div>
@@ -422,7 +422,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 <script src="vv-global.js"></script>
 <script>
-let selectedTier={price:699,name:'Vault Pro'};
+let selectedTier={price:499,name:'Vault Pro'};
 
 function selectTier(price,name){
   selectedTier={price,name};
@@ -432,10 +432,11 @@ function selectTier(price,name){
     if (chk) { chk.style.opacity='0'; chk.style.transform='scale(.5)'; }
   });
 
-  // Map preorder price to HTML card ID
-  let cardId = 'tc-' + price;
-  if (price === 199) cardId = 'tc-299';
-  if (price === 399) cardId = 'tc-699';
+  // Map price to card ID
+  let cardId = 'tc-499';
+  if (price === 299 || price === 399) cardId = 'tc-299';
+  else if (price === 499 || price === 699) cardId = 'tc-499';
+  else if (price === 999 || price === 1199) cardId = 'tc-999';
   
   const card=document.getElementById(cardId);
   if (card) {
@@ -444,25 +445,28 @@ function selectTier(price,name){
     if (chk) { chk.style.opacity='1'; chk.style.transform='scale(1)'; }
   }
 
-  // Update card text if preorder prices are used
-  if (price === 199 || price === 399) {
-    const sCardPrice = document.querySelector('#tc-299 .tier-num');
-    if (sCardPrice) sCardPrice.textContent = '199';
-    const pCardPrice = document.querySelector('#tc-699 .tier-num');
-    if (pCardPrice) pCardPrice.textContent = '399';
+  // Update card numbers dynamically to match the price passed (preorder discount or standard launch price)
+  if (price === 299 || price === 399) {
+    const el = document.querySelector('#tc-299 .tier-num');
+    if (el) el.textContent = price;
+  } else if (price === 499 || price === 699) {
+    const el = document.querySelector('#tc-499 .tier-num');
+    if (el) el.textContent = price;
+  } else if (price === 999 || price === 1199) {
+    const el = document.querySelector('#tc-999 .tier-num');
+    if (el) el.textContent = price;
   }
 
   const btn=document.getElementById('tierContinue');
   if (btn) {
-    if(price===999){btn.textContent=`Continue with ${name} — ₹${price}/yr →`}
-    else{btn.textContent=`Continue with ${name} — ₹${price}/mo →`}
+    btn.textContent=`Continue with ${name} — ₹${price}/mo →`;
   }
   const badge = document.getElementById('selectedTierBadge');
   if (badge) badge.textContent=name;
 
   // update order summary
   const tierNameEl = document.getElementById('os-tier-name');
-  if (tierNameEl) tierNameEl.textContent=name+(price===999?' — Annual':' — Monthly');
+  if (tierNameEl) tierNameEl.textContent=name+' — Monthly';
   const osPriceEl = document.getElementById('os-price');
   if (osPriceEl) osPriceEl.textContent='₹'+price;
   const osTotalEl = document.getElementById('os-total');
@@ -474,7 +478,7 @@ function selectTier(price,name){
   const sf1=document.getElementById('sf1');
   const sfD=document.getElementById('sf-discord');
   if (sf1) {
-    if(price===199 || price===299){sf1.textContent='10 heist blueprints per month'; if(sfD) sfD.style.display='none'}
+    if(price===299 || price===399){sf1.textContent='10 heist blueprints per month'; if(sfD) sfD.style.display='none'}
     else{sf1.textContent='Unlimited guide access across all 11 sections'; if(sfD) sfD.style.display='flex'}
   }
 }
@@ -529,7 +533,7 @@ async function validateAndNext(){
 
   const fname = document.getElementById('fname').value.trim();
   const lname = document.getElementById('lname').value.trim();
-  const tierId = (selectedTier.price === 199 || selectedTier.price === 299) ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
+  const tierId = (selectedTier.price === 299 || selectedTier.price === 399) ? 'soldier' : (selectedTier.price === 999 || selectedTier.price === 1199 ? 'elite' : 'pro');
 
   const nextBtn = document.querySelector('button[onclick="validateAndNext()"]');
   if (nextBtn) { nextBtn.disabled = true; nextBtn.textContent = 'Registering...'; }
@@ -587,8 +591,8 @@ function setPM(el,type){
 async function launchRazorpay(){
   // Determine tier string
   let tierId = 'pro';
-  if (selectedTier.price === 199 || selectedTier.price === 299) tierId = 'soldier';
-  if (selectedTier.price === 999) tierId = 'elite';
+  if (selectedTier.price === 299 || selectedTier.price === 399) tierId = 'soldier';
+  if (selectedTier.price === 999 || selectedTier.price === 1199) tierId = 'elite';
 
   // Save registration details to KV before payment
   try {
@@ -857,14 +861,15 @@ if (lnameParam) {
 }
 
 // Select tier with support for pre-order discounts
-let initialTierPrice = 699;
+let initialTierPrice = 499;
 let initialTierName = 'Vault Pro';
 
-if (tierParam === '199' || tierParam === 'soldier_discount') { initialTierPrice = 199; initialTierName = 'Soldier'; }
-else if (tierParam === '399' || tierParam === 'pro_discount') { initialTierPrice = 399; initialTierName = 'Vault Pro'; }
-else if (tierParam === '299' || tierParam === 'soldier') { initialTierPrice = 299; initialTierName = 'Soldier'; }
-else if (tierParam === '999' || tierParam === 'elite') { initialTierPrice = 999; initialTierName = 'Elite Crew'; }
+if (tierParam === '299' || tierParam === 'soldier_discount') { initialTierPrice = 299; initialTierName = 'Soldier'; }
+else if (tierParam === '399' || tierParam === 'soldier') { initialTierPrice = 399; initialTierName = 'Soldier'; }
+else if (tierParam === '499' || tierParam === 'pro_discount') { initialTierPrice = 499; initialTierName = 'Vault Pro'; }
 else if (tierParam === '699' || tierParam === 'pro') { initialTierPrice = 699; initialTierName = 'Vault Pro'; }
+else if (tierParam === '999' || tierParam === 'elite_discount' || tierParam === 'elite') { initialTierPrice = 999; initialTierName = 'Elite Crew'; }
+else if (tierParam === '1199' || tierParam === 'elite_normal') { initialTierPrice = 1199; initialTierName = 'Elite Crew'; }
 
 selectTier(initialTierPrice, initialTierName);
 
@@ -873,7 +878,7 @@ if (stepParam === '3') {
     email: decodeURIComponent(emailParam || ''),
     firstName: decodeURIComponent(fnameParam || ''),
     lastName: decodeURIComponent(lnameParam || ''),
-    tier: (initialTierPrice === 199 || initialTierPrice === 299) ? 'soldier' : (initialTierPrice === 999 ? 'elite' : 'pro'),
+    tier: (initialTierPrice === 299 || initialTierPrice === 399) ? 'soldier' : (initialTierPrice === 999 || initialTierPrice === 1199 ? 'elite' : 'pro'),
     subscribed: false
   };
   localStorage.setItem('vv_user', JSON.stringify(userObj));
