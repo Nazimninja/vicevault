@@ -31,6 +31,9 @@ html {
   html { font-size: 22px; }
 }
 
+
+}
+
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
   --pink:#ff3d9a;--purple:#c830ff;--blue:#0070f3;--white:#ede8df;
@@ -392,13 +395,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   <div id="step3" class="pay-section" style="display:none">
     <div class="section-eye">Step 3 of 3</div>
     <h2 class="section-title" style="font-size:2rem">Complete payment</h2>
-    <p class="section-sub" style="margin-bottom:1.5rem">Instant access after payment. Cancel anytime.</p>
+    <p class="section-sub" style="margin-bottom:1.5rem">First monthly payment collected today to lock rate. Your billing cycle & content access start on launch day.</p>
 
     <!-- ORDER SUMMARY -->
     <div class="order-summary">
       <div class="os-title">Order summary</div>
-      <div class="os-row"><span class="os-label" id="os-tier-name">Vault Pro — Monthly</span><span class="os-val" id="os-price">₹699</span></div>
-      <div class="os-row"><span class="os-label" style="font-weight:800">Total due today</span><span class="os-total-val" id="os-total">₹699</span></div>
+      <div class="os-row"><span class="os-label" id="os-tier-name">Vault Pro — Monthly</span><span class="os-val" id="os-price">₹499</span></div>
+      <div class="os-row"><span class="os-label" style="font-weight:800">Total due today</span><span class="os-total-val" id="os-total">₹499</span></div>
     </div>
 
     <!-- WHAT RAZORPAY SUPPORTS -->
@@ -413,10 +416,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
     <div class="secure-note"><span class="lock">🔒</span>Secured by Razorpay · 256-bit SSL encryption · PCI DSS compliant</div>
 
     <button class="pay-btn" id="payBtn" onclick="launchRazorpay()">
-      <span id="payBtnText">Pay <span id="pay-amount-label">₹699</span> — Get instant access</span>
+      <span id="payBtnText">Pay <span id="pay-amount-label">₹499</span> — Confirm Pre-order</span>
     </button>
 
-    <p class="pay-terms">By completing this purchase you agree to our <a href="#">Terms of Service</a>. Subscriptions auto-renew until cancelled. Cancel anytime from your dashboard with no penalty.</p>
+    <p class="pay-terms">By completing this purchase you agree to our <a href="#">Terms of Service</a>. Subscriptions auto-renew monthly starting from launch day. Cancel anytime from your dashboard with no penalty.</p>
 
     <div style="margin-top:1rem"><button class="btn-o" onclick="goStep(2)" style="width:100%;justify-content:center;font-size:.8rem">← Back to account</button></div>
   </div>
@@ -424,8 +427,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   <!-- STEP 4: SUCCESS -->
   <div id="step4" class="success-section" style="display:none">
     <div class="success-icon">🎉</div>
-    <h2 class="success-title">Access granted.</h2>
-    <p class="success-sub">Welcome to Vice Vault. Your account is live and your dashboard is ready. Let's get you your first win.</p>
+    <h2 class="success-title">Pre-order confirmed.</h2>
+    <p class="success-sub">Your place on the paid pre-launch list is secured. Content unlocks on launch day. First payment completed successfully.</p>
 
     <div class="success-features">
       <div class="sf-title">What you have access to right now</div>

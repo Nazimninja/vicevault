@@ -48,6 +48,9 @@ html {
   html { font-size: 22px; }
 }
 
+
+}
+
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
   --pink:#ff3d9a;--purple:#c830ff;--blue:#0070f3;--white:#ede8df;
@@ -378,7 +381,6 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
     <li><a href="#allguides">Guides</a></li>
     <li><a href="weekly.html">Weekly Drop</a></li>
     <li><a href="preorder.html" style="color:var(--gold2)">Pre-order</a></li>
-    <li><a href="#waitlist" class="nav-preorder">Join Waitlist</a></li>
     <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
   </ul>
 </nav>
@@ -440,19 +442,14 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
       <div class="wl-text"><strong id="wl-count">12,847</strong> players already on the waitlist</div>
     </div>
     
-    <!-- EMAIL FORM / SUCCESS STATE -->
+    <!-- EMAIL FORM -->
     <div class="email-section" id="waitlist">
       <div class="email-form" id="emailForm">
         <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" aria-label="Email">
-        <button class="join-btn" onclick="joinWaitlist()">Join Waitlist – It's Free</button>
+        <button class="join-btn" onclick="submitHomePreorder()">Pre-order & Join Waitlist →</button>
       </div>
-      <div style="margin-top:1.2rem;font-size:.82rem;color:var(--muted)">Want immediate access? <a href="preorder.html" style="color:var(--gold2);text-decoration:underline;font-weight:700">Pre-order now & lock 20% off →</a></div>
-      <div class="success-state" id="successState" style="display:none">
-        <div class="ss-icon">🎉</div>
-        <div class="ss-title">You're on the list!</div>
-        <div class="ss-sub">Welcome to the crew. You are member <strong class="ss-num" id="memberNum">#12,848</strong>. We will notify you the day GTA 6 drops.</div>
-      </div>
-      <div class="form-note">No credit card required. <span>Zero spam. Unsubscribe anytime.</span></div>
+      <div style="margin-top:1.2rem;font-size:.82rem;color:var(--muted)">Lock in 20% off forever. First payment collected today. Membership starts on launch day.</div>
+      <div class="form-note">🔒 Secured by Razorpay · Cancel anytime · Instant activation on launch day</div>
     </div>
   </div>
 </div>
@@ -687,8 +684,7 @@ updateCountdown();
 setInterval(updateCountdown,1000);
 
 // ── WAITLIST JOIN ────────────────────────────────
-let wlCount=12847;
-async function joinWaitlist(){
+function submitHomePreorder(){
   const emailInput=document.getElementById('emailInput');
   const email=emailInput.value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
@@ -696,16 +692,7 @@ async function joinWaitlist(){
     setTimeout(()=>emailInput.style.borderColor='var(--border2)',2000);
     return;
   }
-  const btn=document.querySelector('.join-btn');
-  if(btn){btn.disabled=true;btn.textContent='Joining...';}
-  try{
-    await fetch('/api/waitlist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'homepage-waitlist',tier:'pro'})});
-  }catch(e){}
-  wlCount++;
-  document.getElementById('emailForm').style.display='none';
-  document.getElementById('successState').style.display='block';
-  document.getElementById('memberNum').textContent='#'+wlCount.toLocaleString();
-  document.getElementById('wl-count').textContent=wlCount.toLocaleString();
+  window.location.href = `signup.html?tier=499&email=${encodeURIComponent(email)}`;
 }
 
 // WAITLIST COUNTER ANIMATION
