@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>GTA 6 Cargo Ship Heist Guide: Full Walkthrough & $2.2M Max Take | Vice Vault</title>
 <meta name="description" content="Complete GTA 6 Cargo Ship heist guide. All three approaches, hidden vault route, crew compositions and $2.2M max take strategy. Updated June 2025.">
 <meta name="keywords" content="GTA 6 cargo ship heist, GTA 6 heist guide, GTA 6 max money, GTA VI walkthrough, GTA 6 hidden route">
@@ -26,6 +26,29 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+@media (max-width: min(95vw, 480px)) {
+  html { font-size: 13.5px; }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  html { font-size: 14.5px; }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  html { font-size: 15.5px; }
+}
+@media (min-width: 1600px) {
+  html { font-size: 18px; }
+}
+@media (min-width: 2200px) {
+  html { font-size: 22px; }
+}
+
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
   --pink:#ff3d9a;--purple:#c830ff;--blue:#0070f3;--white:#ede8df;
@@ -50,7 +73,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-cta:hover{opacity:.85!important;transform:translateY(-1px)}
 
 /* BREADCRUMB */
-.breadcrumb{padding:90px 2.5rem 0;max-width:1120px;margin:0 auto}
+.breadcrumb{padding:90px 2.5rem 0;max-width: min(92vw, 1120px);margin:0 auto}
 .bc-inner{display:flex;align-items:center;gap:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .bc-inner a{color:var(--muted);transition:color .2s}
 .bc-inner a:hover{color:var(--gold)}
@@ -58,7 +81,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .bc-cur{color:var(--white)}
 
 /* HERO HEADER */
-.art-hero{padding:2rem 2.5rem 0;max-width:1120px;margin:0 auto}
+.art-hero{padding:2rem 2.5rem 0;max-width: min(92vw, 1120px);margin:0 auto}
 .art-eyebrow{display:flex;gap:.8rem;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap}
 .tag{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.22rem .7rem;border-radius:2px}
 .tg{background:rgba(0,112,243,.1);color:var(--gold);border:1px solid rgba(0,112,243,.3)}
@@ -87,7 +110,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .at-label h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.06em;color:var(--white);text-shadow:0 2px 20px rgba(0,0,0,.8)}
 
 /* MAIN LAYOUT */
-.art-layout{max-width:1120px;margin:0 auto;padding:2.5rem 2.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;align-items:start}
+.art-layout{max-width: min(92vw, 1120px);margin:0 auto;padding:2.5rem 2.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;align-items:start}
 
 /* ARTICLE BODY */
 .ac{max-width:680px}
@@ -176,7 +199,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 /* RELATED */
 .related-sec{background:var(--deep);padding:60px 2.5rem}
-.container{max-width:1120px;margin:0 auto}
+.container{max-width: min(92vw, 1120px);margin:0 auto}
 .rel-hd{margin-bottom:1.8rem}
 .rel-hd .eye{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
 .rel-hd h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em}
@@ -204,7 +227,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 /* FOOTER */
 footer{background:var(--deep);border-top:1px solid var(--border);padding:40px 2.5rem 24px}
-.fbot{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.73rem;color:var(--muted)}
+.fbot{max-width: min(92vw, 1120px);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.73rem;color:var(--muted)}
 .fleg{display:flex;gap:1.5rem}
 .fleg a{color:var(--muted);transition:color .2s}
 .fleg a:hover{color:var(--white)}
