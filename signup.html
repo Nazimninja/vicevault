@@ -224,11 +224,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
     <div class="tier-grid">
       <!-- SOLDIER -->
-      <div class="tier-card" id="tc-199" onclick="selectTier(199,'Soldier')">
-        <div class="tier-check"></div>
+      <div class="tier-card" id="tc-299" onclick="selectTier(299,'Soldier')">
+        <div class="tier-check">✓</div>
         <div class="tier-name">Soldier</div>
         <div class="tier-tagline">Essential access for casual players</div>
-        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">199</span></div>
+        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">299</span></div>
         <div class="tier-per">per month · cancel anytime</div>
         <ul class="tier-feats">
           <li>10 heist blueprints per month</li>
@@ -243,12 +243,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       </div>
 
       <!-- VAULT PRO -->
-      <div class="tier-card selected" id="tc-399" onclick="selectTier(399,'Vault Pro')">
+      <div class="tier-card selected" id="tc-699" onclick="selectTier(699,'Vault Pro')">
         <div class="tier-popular">Best value</div>
         <div class="tier-check" style="opacity:1;transform:scale(1)">✓</div>
         <div class="tier-name">Vault Pro</div>
         <div class="tier-tagline">For players who want every edge</div>
-        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">399</span></div>
+        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">699</span></div>
         <div class="tier-per">per month · cancel anytime</div>
         <div class="tier-save">⭐ 80% of members choose this</div>
         <ul class="tier-feats">
@@ -267,7 +267,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       <div class="tier-card" id="tc-999" onclick="selectTier(999,'Elite Crew')">
         <div class="tier-check">✓</div>
         <div class="tier-name">Elite Crew</div>
-        <div class="tier-tagline">Yearly — maximum value + perks</div>
+        <div class="tier-tagline">Annual — maximum value + perks</div>
         <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">999</span></div>
         <div class="tier-per">per year — saves ₹4,789</div>
         <ul class="tier-feats">
@@ -283,7 +283,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       </div>
     </div>
 
-    <button class="tier-continue" id="tierContinue" onclick="goStep(2)">Continue with Vault Pro — ₹399/mo →</button>
+    <button class="tier-continue" id="tierContinue" onclick="goStep(2)">Continue with Vault Pro — ₹699/mo →</button>
 
     <div class="trust-bar">
       <div class="trust-item">🔒 Secure checkout</div>
@@ -356,13 +356,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   <div id="step3" class="pay-section" style="display:none">
     <div class="section-eye">Step 3 of 3</div>
     <h2 class="section-title" style="font-size:2rem">Complete payment</h2>
-    <p class="section-sub" style="margin-bottom:1.5rem">Access starts November 1st. Cancel anytime.</p>
+    <p class="section-sub" style="margin-bottom:1.5rem">Instant access after payment. Cancel anytime.</p>
 
     <!-- ORDER SUMMARY -->
     <div class="order-summary">
       <div class="os-title">Order summary</div>
-      <div class="os-row"><span class="os-label" id="os-tier-name">Vault Pro — Monthly</span><span class="os-val" id="os-price">₹399</span></div>
-      <div class="os-row"><span class="os-label" style="font-weight:800">Total due today</span><span class="os-total-val" id="os-total">₹399</span></div>
+      <div class="os-row"><span class="os-label" id="os-tier-name">Vault Pro — Monthly</span><span class="os-val" id="os-price">₹699</span></div>
+      <div class="os-row"><span class="os-label" style="font-weight:800">Total due today</span><span class="os-total-val" id="os-total">₹699</span></div>
     </div>
 
     <!-- WHAT RAZORPAY SUPPORTS -->
@@ -377,7 +377,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
     <div class="secure-note"><span class="lock">🔒</span>Secured by Razorpay · 256-bit SSL encryption · PCI DSS compliant</div>
 
     <button class="pay-btn" id="payBtn" onclick="launchRazorpay()">
-      <span id="payBtnText">Pay <span id="pay-amount-label">₹399</span> — Lock lifetime rate</span>
+      <span id="payBtnText">Pay <span id="pay-amount-label">₹699</span> — Get instant access</span>
     </button>
 
     <p class="pay-terms">By completing this purchase you agree to our <a href="#">Terms of Service</a>. Subscriptions auto-renew until cancelled. Cancel anytime from your dashboard with no penalty.</p>
@@ -388,11 +388,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   <!-- STEP 4: SUCCESS -->
   <div id="step4" class="success-section" style="display:none">
     <div class="success-icon">🎉</div>
-    <h2 class="success-title">Pre-Order Confirmed!</h2>
-    <p class="success-sub">Welcome to the crew. Your pre-order is confirmed and your lifetime rate is locked. Premium vault and dashboard access will start on November 1st.</p>
+    <h2 class="success-title">Access granted.</h2>
+    <p class="success-sub">Welcome to Vice Vault. Your account is live and your dashboard is ready. Let's get you your first win.</p>
 
     <div class="success-features">
-      <div class="sf-title">What you get access to on November 1st</div>
+      <div class="sf-title">What you have access to right now</div>
       <div class="sf-item" id="sf1">Unlimited guide access across all 11 sections</div>
       <div class="sf-item">Full heist blueprints + hidden routes</div>
       <div class="sf-item">All 52 cheat codes — PS5 & Xbox</div>
@@ -400,7 +400,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       <div class="sf-item" id="sf-discord">Priority Discord crew channel</div>
     </div>
 
-    <a href="dashboard.html" class="btn-dash">Go to Dashboard →</a>
+    <a href="dashboard.html" class="btn-dash">Enter your dashboard →</a>
 
     <div class="trust-bar" style="margin-top:1.5rem">
       <div class="trust-item">📧 Check your email for receipt</div>
@@ -412,7 +412,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 <script src="vv-global.js"></script>
 <script>
-let selectedTier={price:399,name:'Vault Pro'};
+let selectedTier={price:699,name:'Vault Pro'};
 
 function selectTier(price,name){
   selectedTier={price,name};
@@ -420,7 +420,7 @@ function selectTier(price,name){
   const card=document.getElementById('tc-'+price);
   card.classList.add('selected');
   const chk=card.querySelector('.tier-check');
-  if (chk) { chk.style.opacity='1';chk.style.transform='scale(1)'; }
+  chk.style.opacity='1';chk.style.transform='scale(1)';
 
   const btn=document.getElementById('tierContinue');
   if(price===999){btn.textContent=`Continue with ${name} — ₹${price}/yr →`}
@@ -428,7 +428,7 @@ function selectTier(price,name){
   document.getElementById('selectedTierBadge').textContent=name;
 
   // update order summary
-  document.getElementById('os-tier-name').textContent=name+(price===999?' — Yearly':' — Monthly');
+  document.getElementById('os-tier-name').textContent=name+(price===999?' — Annual':' — Monthly');
   document.getElementById('os-price').textContent='₹'+price;
   document.getElementById('os-total').textContent='₹'+price;
   document.getElementById('pay-amount-label').textContent='₹'+price;
@@ -436,7 +436,7 @@ function selectTier(price,name){
   // success features
   const sf1=document.getElementById('sf1');
   const sfD=document.getElementById('sf-discord');
-  if(price===199){sf1.textContent='10 heist blueprints per month';sfD.style.display='none'}
+  if(price===299){sf1.textContent='10 heist blueprints per month';sfD.style.display='none'}
   else{sf1.textContent='Unlimited guide access across all 11 sections';sfD.style.display='flex'}
 }
 
@@ -486,7 +486,7 @@ async function validateAndNext(){
 
   const fname = document.getElementById('fname').value.trim();
   const lname = document.getElementById('lname').value.trim();
-  const tierId = selectedTier.price === 199 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
+  const tierId = selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
 
   const nextBtn = document.querySelector('button[onclick="validateAndNext()"]');
   if (nextBtn) { nextBtn.disabled = true; nextBtn.textContent = 'Registering...'; }
@@ -501,7 +501,7 @@ async function validateAndNext(){
       email: email.value.trim(),
       firstName: fname || email.value.split('@')[0],
       lastName: lname || '',
-      tier: selectedTier.price === 199 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro'),
+      tier: selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro'),
       subscribed: false
     };
     localStorage.setItem('vv_user', JSON.stringify(user));
@@ -542,7 +542,7 @@ function setPM(el,type){
 async function launchRazorpay(){
   // Determine tier string
   let tierId = 'pro';
-  if (selectedTier.price === 199) tierId = 'soldier';
+  if (selectedTier.price === 299) tierId = 'soldier';
   if (selectedTier.price === 999) tierId = 'elite';
 
   // Save registration details to KV before payment
@@ -619,7 +619,7 @@ async function handleLoginClick() {
     }
     let tierId = 'pro';
     const params = new URLSearchParams(location.search);
-    if(params.get('tier')==='199' || params.get('tier')==='299') tierId = 'soldier';
+    if(params.get('tier')==='299') tierId = 'soldier';
     if(params.get('tier')==='999') tierId = 'elite';
 
     const res = await VV.verifyOTP(email, code, tierId);
@@ -647,8 +647,8 @@ async function handleLoginClick() {
         window.location.href = 'dashboard.html';
       } else {
         alert("Account found but subscription is inactive. Redirecting to payment step...");
-        let price = 399, name = 'Vault Pro';
-        if (res.user.tier === 'soldier') { price = 199; name = 'Soldier'; }
+        let price = 699, name = 'Vault Pro';
+        if (res.user.tier === 'soldier') { price = 299; name = 'Soldier'; }
         else if (res.user.tier === 'elite') { price = 999; name = 'Elite Crew'; }
         selectTier(price, name);
         goStep(3);
@@ -663,7 +663,7 @@ async function handleGoogleCredential(response) {
   const token = response.credential;
   let tierId = 'pro';
   const params = new URLSearchParams(location.search);
-  if(params.get('tier')==='199' || params.get('tier')==='299') tierId = 'soldier';
+  if(params.get('tier')==='299') tierId = 'soldier';
   if(params.get('tier')==='999') tierId = 'elite';
 
   const res = await VV.loginWithGoogle(token, tierId);
@@ -704,7 +704,7 @@ function handleDiscordLogin() {
 }
 
 function handleDiscordSignup() {
-  const tierId = selectedTier.price === 199 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
+  const tierId = selectedTier.price === 299 ? 'soldier' : (selectedTier.price === 999 ? 'elite' : 'pro');
   // Store tier in sessionStorage — Discord only accepts exact registered redirect URIs (no query params)
   sessionStorage.setItem('vv_discord_signup_tier', tierId);
   const redirectUri = encodeURIComponent(window.location.origin + '/signup.html');
@@ -752,7 +752,7 @@ async function handleDiscordCallback(code) {
 
   let tierId = 'pro';
   const params = new URLSearchParams(location.search);
-  if(params.get('tier')==='199' || params.get('tier')==='299') tierId = 'soldier';
+  if(params.get('tier')==='299') tierId = 'soldier';
   if(params.get('tier')==='999') tierId = 'elite';
 
   const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
@@ -809,14 +809,14 @@ if (stepParam === '3') {
   };
   localStorage.setItem('vv_user', JSON.stringify(userObj));
 
-  if (tierParam === 'soldier') selectTier(199, 'Soldier');
+  if (tierParam === 'soldier') selectTier(299, 'Soldier');
   else if (tierParam === 'elite') selectTier(999, 'Elite Crew');
-  else selectTier(399, 'Vault Pro');
+  else selectTier(699, 'Vault Pro');
 
   goStep(3);
 } else {
-  if(params.get('tier')==='199' || params.get('tier')==='299')selectTier(199,'Soldier');
-  if(params.get('tier')==='399' || params.get('tier')==='699')selectTier(399,'Vault Pro');
+  if(params.get('tier')==='299')selectTier(299,'Soldier');
+  if(params.get('tier')==='699')selectTier(699,'Vault Pro');
   if(params.get('tier')==='999')selectTier(999,'Elite Crew');
 }
 

@@ -607,7 +607,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
           <span class="vvm-deal-price">${d.price}</span>
           ${d.originalPrice ? `<span class="vvm-deal-orig">₹${d.originalPrice}</span>` : ''}
         </div>
-        <div class="vvm-deal-per">per ${d.period} ${d.period === 'year' ? '· billed yearly' : '· cancel anytime'}</div>
+        <div class="vvm-deal-per">per ${d.period} ${d.period === 'year' ? '· billed annually' : '· cancel anytime'}</div>
         ${d.note ? `<div class="vvm-deal-note">${d.note}</div>` : ''}
         <ul class="vvm-feats">
           ${d.features.map(f => `<li>${f}</li>`).join('')}
@@ -681,7 +681,9 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 
   window.VV = {
     openPreorder() {
-      window.location.href = 'preorder.html';
+      const overlay = document.getElementById('vv-modal-overlay');
+      if (overlay) overlay.classList.add('vv-open');
+      document.body.style.overflow = 'hidden';
     },
     closePreorder() {
       const overlay = document.getElementById('vv-modal-overlay');
