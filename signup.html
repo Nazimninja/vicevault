@@ -202,18 +202,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .btn-o:hover{border-color:var(--gold);background:rgba(0,112,243,.07);transform:translateY(-2px)}
 
 @media(max-width:700px){
-  .tier-grid{grid-template-columns:1fr}
+  .tier-grid{grid-template-columns:1fr;gap:.9rem}
   .field-row{grid-template-columns:1fr}
-  .payment-methods{flex-wrap:wrap}
+  .payment-methods{flex-wrap:wrap;gap:.6rem}
   .wrapper{padding:80px 1rem 50px}
-  .login-card,.step-card{padding:1.8rem 1.2rem}
+  .login-card,.step-card{padding:1.6rem 1rem}
+  .form-card{padding:1.6rem 1rem}
   nav{padding:0 1rem;height:56px}
-  .nav-logo{font-size:1.1rem}
-  .social-btn{width:100%!important;min-width:0}
+  .nav-logo{font-size:1rem;gap:.3rem}
+  nav img{height:28px!important;width:28px!important}
+  .nav-back{font-size:.68rem;letter-spacing:.1em}
+  .social-btn{width:100%!important;min-width:0;justify-content:center}
   #googleBtn > div{width:100%!important}
-  .step-title{font-size:1.5rem}
-  .btn-g,.btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
+  .step-title{font-size:1.4rem}
+  .btn-g{width:100%;justify-content:center;padding:.9rem 1rem}
+  .btn-o{width:100%;justify-content:center;padding:.9rem 1rem}
   .pm-wrap{flex-direction:column}
+  .steps-bar{gap:0;overflow-x:auto;padding-bottom:.5rem;justify-content:center;flex-wrap:wrap}
+  .step{font-size:.6rem;letter-spacing:.1em}
+  .step-connector{width:20px;margin:0 .25rem}
+  .section-title{font-size:clamp(1.8rem,8vw,2.8rem)}
+  .tier-card{padding:1.4rem 1.2rem}
+  .tier-name{font-size:1.3rem}
+  .tier-num{font-size:2.5rem}
+  .tier-continue{padding:.9rem 1.5rem}
 }
 
 
