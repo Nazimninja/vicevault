@@ -31,12 +31,7 @@
 @media (min-width: 769px) and (max-width: 1024px) { html { font-size: 14.5px !important; } }
 @media (min-width: 1025px) and (max-width: 1440px) { html { font-size: 15.5px !important; } }
 @media (min-width: 1600px) { html { font-size: 18px !important; } }
-@media (min-width: 2200px) { html { font-size: 22px !important; } }
-
-
-
-
-
+@media (min-width: 2200px) { html { font-size: 22px !important; 
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
   --pink:#ff3d9a;--purple:#c830ff;--blue:#0070f3;--white:#ede8df;
@@ -359,11 +354,17 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
   .ht-2{font-size:clamp(3rem,16vw,6rem)}
   .ht-3{font-size:clamp(2rem,10vw,3.5rem)}
   .tagline{font-size:.88rem;padding:0 .5rem}
+  
   .email-section{flex-direction:column;gap:.75rem}
-  .email-input{width:100%;min-width:0}
+  .email-form{flex-direction:column!important;width:100%!important;max-width:400px;margin:0 auto;gap:.8rem!important}
+  .email-input{width:100%!important;text-align:center!important;padding:.85rem 1.2rem!important}
+  .join-btn{width:100%!important;justify-content:center!important;padding:.85rem 1.2rem!important}
+  
   .hero-cta-wrap{flex-direction:column;align-items:center;gap:.75rem}
   .hero-cta-wrap a,.hero-cta-wrap button{width:100%;text-align:center;justify-content:center}
-  .cats-grid{grid-template-columns:1fr}
+  
+  .cats-grid{grid-template-columns:1fr!important}
+  .cat-card{padding:1.5rem 1.2rem!important}
   .bgrid{grid-template-columns:1fr}
   .art-hd,.art-body{padding:1.2rem}
   .fg{grid-template-columns:1fr;gap:1.5rem}
@@ -371,11 +372,11 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
   .cur,.cur-ring{display:none}
   .hcd-num{min-width:52px;font-size:1.8rem}
   .ticker-inner{animation-duration:20s}
-  .countdown{gap:.4rem!important;flex-wrap:nowrap!important}
+  
+  .countdown{gap:.35rem!important;flex-wrap:nowrap!important}
   .cd-num{min-width:54px!important;font-size:clamp(1.8rem,6vw,2.8rem)!important;padding:.25rem .5rem!important}
   .cd-sep{font-size:2rem!important;margin-bottom:1rem!important;opacity:.3!important}
-  .cats-grid{grid-template-columns:repeat(2,1fr)!important}
-  .cat-card{padding:1.5rem 1rem!important}
+  
   .container{padding:0 1rem}
   .cta-sec{padding:60px 1rem}
   .stt{font-size:clamp(1.6rem,7vw,2.5rem)}
