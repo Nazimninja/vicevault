@@ -17,8 +17,6 @@
 @media (min-width: 2200px) { html { font-size: 22px !important; } }
 
 
-@media (min-width: 2200px) {
-  html { font-size: 22px; }
 
 :root{
   --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
@@ -205,7 +203,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .btn-o{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2rem;border-radius:2px;border:1px solid var(--border2);cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
 .btn-o:hover{border-color:var(--gold);background:rgba(0,112,243,.07);transform:translateY(-2px)}
 
-@media(max-width:700px){.tier-grid{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.payment-methods{flex-wrap:wrap}}
+@media(max-width:700px){
+  .tier-grid{grid-template-columns:1fr}
+  .field-row{grid-template-columns:1fr}
+  .payment-methods{flex-wrap:wrap}
+  .wrapper{padding:80px 1rem 50px}
+  .login-card,.step-card{padding:1.8rem 1.2rem}
+  nav{padding:0 1rem;height:56px}
+  .nav-logo{font-size:1.1rem}
+  .social-btn{width:100%!important;min-width:0}
+  #googleBtn > div{width:100%!important}
+  .step-title{font-size:1.5rem}
+  .btn-g,.btn-o{width:100%;justify-content:center}
+  .pm-wrap{flex-direction:column}
+}
 </style>
 </head>
 <body>
