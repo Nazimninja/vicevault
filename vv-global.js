@@ -1166,7 +1166,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
       }
 
       // Price labels for display
-      const LABELS = { soldier: '₹299/mo', pro: '₹699/mo', elite: '₹999/yr' };
+      const LABELS = { soldier: '₹299/mo', pro: '₹499/mo', elite: '₹999/yr' };
       const NAMES  = { soldier: 'Vault Soldier', pro: 'Vault Pro', elite: 'Elite Crew' };
 
       // 2. Open Razorpay checkout modal
