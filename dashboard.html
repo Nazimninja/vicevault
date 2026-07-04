@@ -2,22 +2,34 @@
 <html lang="en">
 <head>
 <script>
-  // Promote user to subscribed if redirecting from a successful payment
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('payment') === 'success') {
-    const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
-    if (user && user.email) {
-      user.subscribed = true;
-      localStorage.setItem('vv_user', JSON.stringify(user));
-    }
-  }
-
   const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
   if (!user || !user.email) {
     window.location.replace('signup.html?mode=login');
   } else if (!user.subscribed) {
     window.location.replace(`signup.html?step=3&email=${encodeURIComponent(user.email)}&fname=${encodeURIComponent(user.firstName || '')}&lname=${encodeURIComponent(user.lastName || '')}&tier_id=${user.tier || 'pro'}`);
   } else {
+    // Asynchronously verify subscription status with server to prevent local storage bypass
+    fetch('/api/auth/status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        if (!data.subscribed) {
+          user.subscribed = false;
+          localStorage.setItem('vv_user', JSON.stringify(user));
+          window.location.replace(`signup.html?step=3&email=${encodeURIComponent(user.email)}&fname=${encodeURIComponent(user.firstName || '')}&lname=${encodeURIComponent(user.lastName || '')}&tier_id=${user.tier || 'pro'}`);
+        } else {
+          user.subscribed = true;
+          user.tier = data.tier;
+          localStorage.setItem('vv_user', JSON.stringify(user));
+        }
+      }
+    })
+    .catch(err => console.warn("Status check failed:", err));
+
     if (user && user.email) {
       document.addEventListener('DOMContentLoaded', () => {
         // Determine tier details

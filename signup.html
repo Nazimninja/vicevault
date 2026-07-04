@@ -570,20 +570,11 @@ function goStep(n){
   if (currentStepEl) currentStepEl.style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
   if (n === 2) {
-    setTimeout(renderGoogleSignupButton, 100);
+    setTimeout(renderGoogleButtons, 100);
   }
 }
 
-function renderGoogleSignupButton() {
-  try {
-    const signupG = document.getElementById("googleSignupBtn");
-    if (signupG && window.google) {
-      google.accounts.id.renderButton(signupG, { theme: "filled_black", size: "large", text: "continue_with", width: 336 });
-    }
-  } catch (e) {
-    console.warn("Google signup button render error:", e);
-  }
-}
+
 
 async function validateAndNext(){
   const email=document.getElementById('email');
@@ -882,7 +873,11 @@ async function handleDiscordCallback(code) {
   const redirectUri = window.location.origin + '/signup.html';
   const res = await VV.loginWithDiscord(code, redirectUri, tierId, currentUserEmail);
   if (res.success) {
-    window.location.href = 'dashboard.html';
+    if (res.user && res.user.subscribed) {
+      window.location.href = 'dashboard.html';
+    } else {
+      window.location.href = `signup.html?step=3&email=${encodeURIComponent(res.user.email)}&fname=${encodeURIComponent(res.user.firstName || '')}&lname=${encodeURIComponent(res.user.lastName || '')}&tier_id=${res.user.tier || tierId}`;
+    }
   } else {
     alert("Discord login failed: " + (res.error || "Unknown error"));
     window.location.href = 'signup.html?mode=login';
@@ -1008,14 +1003,26 @@ if(params.get('mode')==='login'){
   </div>`;
   document.querySelector('.wrapper').insertAdjacentHTML('beforeend',loginHTML);
 
-  // Render Google Button on load
-  setTimeout(() => {
-    try {
+// Global Google Sign-In initialization helper
+function initGoogleSignIn() {
+  try {
+    if (window.google && google.accounts && google.accounts.id) {
       google.accounts.id.initialize({
         client_id: "804858392117-7pmts3ffsa30f7to3jggnh4m49evc7a0.apps.googleusercontent.com",
         callback: handleGoogleCredential
       });
+      renderGoogleButtons();
+    } else {
+      setTimeout(initGoogleSignIn, 100);
+    }
+  } catch (e) {
+    console.warn("Google SDK not ready yet, retrying...", e);
+  }
+}
 
+function renderGoogleButtons() {
+  try {
+    if (window.google && google.accounts && google.accounts.id) {
       const loginG = document.getElementById("googleBtn");
       if (loginG) {
         google.accounts.id.renderButton(loginG, { theme: "filled_black", size: "large", text: "continue_with", width: 336 });
@@ -1025,11 +1032,14 @@ if(params.get('mode')==='login'){
       if (signupG) {
         google.accounts.id.renderButton(signupG, { theme: "filled_black", size: "large", text: "continue_with", width: 336 });
       }
-    } catch (e) {
-      console.warn("Google SDK not ready:", e);
     }
-  }, 200);
+  } catch (e) {
+    console.warn("Google render buttons error:", e);
+  }
 }
+
+// Initialize on page load
+initGoogleSignIn();
 
 // CUSTOM CURSOR
 (function(){

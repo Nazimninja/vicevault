@@ -97,6 +97,8 @@ export default {
       response = await handleLogin(request, env);
     } else if (url.pathname === '/api/auth/cancel-subscription' && request.method === 'POST') {
       response = await handleCancelSubscription(request, env);
+    } else if (url.pathname === '/api/auth/status' && request.method === 'POST') {
+      response = await handleUserStatus(request, env);
     } else if (url.pathname === '/api/pay/create-order' && request.method === 'POST') {
       response = await handleCreateOrder(request, env);
     } else if (url.pathname === '/api/pay/verify' && request.method === 'POST') {
@@ -1383,6 +1385,28 @@ async function handleLogin(request, env) {
         discordUserId: user.discordUserId,
         joinedAt: user.joinedAt
       }
+    });
+  } catch (e) {
+    return json({ error: e.message }, 500);
+  }
+}
+
+async function handleUserStatus(request, env) {
+  try {
+    const { email } = await request.json();
+    const cleanEmail = (email || '').toLowerCase().trim();
+    if (!cleanEmail) {
+      return json({ error: 'Email is required' }, 400);
+    }
+    const userStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
+    if (!userStr) {
+      return json({ error: 'User not found' }, 404);
+    }
+    const user = JSON.parse(userStr);
+    return json({
+      success: true,
+      subscribed: !!user.subscribed,
+      tier: user.tier || 'pro'
     });
   } catch (e) {
     return json({ error: e.message }, 500);

@@ -814,7 +814,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
       firstName: firstName || email.split('@')[0],
       lastName: lastName || '',
       tier,
-      subscribed: true,
+      subscribed: false,
       joinedAt: new Date().toISOString()
     };
     localStorage.setItem(USER_KEY, JSON.stringify(user));
