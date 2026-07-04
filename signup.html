@@ -556,6 +556,14 @@ function selectTier(price,name){
 }
 
 function goStep(n){
+  // Hide login section if visible
+  const loginSec = document.querySelector('.login-section');
+  if (loginSec) loginSec.style.display = 'none';
+
+  // Ensure stepsBar is visible
+  const stepsBar = document.getElementById('stepsBar');
+  if (stepsBar) stepsBar.style.display = 'flex';
+
   [1,2,3,4].forEach(i=>{
     const stepEl = document.getElementById('step'+i);
     if (stepEl) stepEl.style.display='none';
