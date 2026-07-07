@@ -5,14 +5,14 @@
 
   <!-- CORE PAGES -->
   <url>
-    <loc>https://vicevault.gg/</loc>
+    <loc>https://vicevault.linkwa.in/</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/weekly</loc>
+    <loc>https://vicevault.linkwa.in/weekly</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -27,56 +27,56 @@
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides</loc>
+    <loc>https://vicevault.linkwa.in/guides</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/pricing</loc>
+    <loc>https://vicevault.linkwa.in/pricing</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/cheat-codes</loc>
+    <loc>https://vicevault.linkwa.in/cheat-codes</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/about</loc>
+    <loc>https://vicevault.linkwa.in/about</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/preorder</loc>
+    <loc>https://vicevault.linkwa.in/preorder</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/discord</loc>
+    <loc>https://vicevault.linkwa.in/discord</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/privacy</loc>
+    <loc>https://vicevault.linkwa.in/privacy</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/terms</loc>
+    <loc>https://vicevault.linkwa.in/terms</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
@@ -84,77 +84,77 @@
 
   <!-- CATEGORY PAGES -->
   <url>
-    <loc>https://vicevault.gg/guides/story-mode</loc>
+    <loc>https://vicevault.linkwa.in/guides/story-mode</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/heist-blueprints</loc>
+    <loc>https://vicevault.linkwa.in/guides/heist-blueprints</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/money-meta</loc>
+    <loc>https://vicevault.linkwa.in/guides/money-meta</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/cheat-codes</loc>
+    <loc>https://vicevault.linkwa.in/guides/cheat-codes</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/online-multiplayer</loc>
+    <loc>https://vicevault.linkwa.in/guides/online-multiplayer</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/character-builds</loc>
+    <loc>https://vicevault.linkwa.in/guides/character-builds</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/easter-eggs</loc>
+    <loc>https://vicevault.linkwa.in/guides/easter-eggs</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/properties-investments</loc>
+    <loc>https://vicevault.linkwa.in/guides/properties-investments</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/vehicles</loc>
+    <loc>https://vicevault.linkwa.in/guides/vehicles</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/wanted-level</loc>
+    <loc>https://vicevault.linkwa.in/guides/wanted-level</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/pro-plays</loc>
+    <loc>https://vicevault.linkwa.in/guides/pro-plays</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
@@ -162,7 +162,7 @@
 
   <!-- BLOG POSTS — HEIST BLUEPRINTS -->
   <url>
-    <loc>https://vicevault.gg/guides/heist-blueprints/cargo-ship-heist-gta6-walkthrough</loc>
+    <loc>https://vicevault.linkwa.in/guides/heist-blueprints/cargo-ship-heist-gta6-walkthrough</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -174,7 +174,7 @@
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/heist-blueprints/vice-city-bank-job-silent-approach</loc>
+    <loc>https://vicevault.linkwa.in/guides/heist-blueprints/vice-city-bank-job-silent-approach</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -186,14 +186,14 @@
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/heist-blueprints/airport-raid-all-approaches</loc>
+    <loc>https://vicevault.linkwa.in/guides/heist-blueprints/airport-raid-all-approaches</loc>
     <lastmod>2025-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/heist-blueprints/mansion-heist-solo-guide</loc>
+    <loc>https://vicevault.linkwa.in/guides/heist-blueprints/mansion-heist-solo-guide</loc>
     <lastmod>2025-05-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -201,7 +201,7 @@
 
   <!-- BLOG POSTS — MONEY META -->
   <url>
-    <loc>https://vicevault.gg/guides/money-meta/800k-per-hour-business-stacking</loc>
+    <loc>https://vicevault.linkwa.in/guides/money-meta/800k-per-hour-business-stacking</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -213,14 +213,14 @@
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/money-meta/property-investment-roi-ranked</loc>
+    <loc>https://vicevault.linkwa.in/guides/money-meta/property-investment-roi-ranked</loc>
     <lastmod>2025-06-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/money-meta/gta6-stock-market-guide</loc>
+    <loc>https://vicevault.linkwa.in/guides/money-meta/gta6-stock-market-guide</loc>
     <lastmod>2025-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -228,7 +228,7 @@
 
   <!-- BLOG POSTS — CHEAT CODES -->
   <url>
-    <loc>https://vicevault.gg/guides/cheat-codes/all-gta6-cheat-codes-ps5</loc>
+    <loc>https://vicevault.linkwa.in/guides/cheat-codes/all-gta6-cheat-codes-ps5</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -240,7 +240,7 @@
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/cheat-codes/all-gta6-cheat-codes-xbox</loc>
+    <loc>https://vicevault.linkwa.in/guides/cheat-codes/all-gta6-cheat-codes-xbox</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -248,7 +248,7 @@
 
   <!-- BLOG POSTS — VEHICLES -->
   <url>
-    <loc>https://vicevault.gg/guides/vehicles/fastest-cars-gta6-ranked</loc>
+    <loc>https://vicevault.linkwa.in/guides/vehicles/fastest-cars-gta6-ranked</loc>
     <lastmod>2025-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.88</priority>
@@ -261,7 +261,7 @@
 
   <!-- BLOG POSTS — EASTER EGGS -->
   <url>
-    <loc>https://vicevault.gg/guides/easter-eggs/all-gta6-easter-eggs-leonida</loc>
+    <loc>https://vicevault.linkwa.in/guides/easter-eggs/all-gta6-easter-eggs-leonida</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
@@ -273,7 +273,7 @@
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/easter-eggs/lighthouse-morse-code-secret</loc>
+    <loc>https://vicevault.linkwa.in/guides/easter-eggs/lighthouse-morse-code-secret</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -281,14 +281,14 @@
 
   <!-- BLOG POSTS — STORY -->
   <url>
-    <loc>https://vicevault.gg/guides/story-mode/gta6-all-endings-how-to-unlock</loc>
+    <loc>https://vicevault.linkwa.in/guides/story-mode/gta6-all-endings-how-to-unlock</loc>
     <lastmod>2025-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.87</priority>
   </url>
 
   <url>
-    <loc>https://vicevault.gg/guides/story-mode/missable-missions-dont-skip</loc>
+    <loc>https://vicevault.linkwa.in/guides/story-mode/missable-missions-dont-skip</loc>
     <lastmod>2025-06-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.82</priority>
@@ -296,7 +296,7 @@
 
   <!-- VIRAL BLOG POSTS -->
   <url>
-    <loc>https://vicevault.gg/blog/gta6-things-you-didnt-know</loc>
+    <loc>https://vicevault.linkwa.in/blog/gta6-things-you-didnt-know</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.88</priority>
@@ -308,7 +308,7 @@
   </url>
 
   <url>
-    <loc>https://vicevault.gg/blog/gta6-make-money-fast-beginners</loc>
+    <loc>https://vicevault.linkwa.in/blog/gta6-make-money-fast-beginners</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -320,7 +320,7 @@
   </url>
 
   <url>
-    <loc>https://vicevault.gg/blog/gta6-mistakes-every-player-makes</loc>
+    <loc>https://vicevault.linkwa.in/blog/gta6-mistakes-every-player-makes</loc>
     <lastmod>2025-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.87</priority>
