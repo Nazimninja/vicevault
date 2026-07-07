@@ -756,10 +756,43 @@ function copyCheat(el,code){
 }
 
 // NEWSLETTER
-function subscribeNL(btn){
-  btn.textContent='Subscribed! ✓';
-  btn.style.background='var(--teal)';
-  btn.disabled=true;
+async function subscribeNL(btn){
+  const container = btn.closest('.nl-form');
+  const emailInput = container ? container.querySelector('.nl-input') : null;
+  const email = emailInput ? emailInput.value.trim() : '';
+
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    if (emailInput) {
+      emailInput.style.borderColor='var(--pink)';
+      setTimeout(()=>emailInput.style.borderColor='', 2000);
+    }
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+
+  try {
+    const res = await fetch('/api/newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await res.json();
+    if (data.success) {
+      btn.textContent = 'Subscribed! ✓';
+      btn.style.background = 'var(--teal)';
+      if (emailInput) emailInput.disabled = true;
+    } else {
+      alert(data.error || 'Failed to subscribe. Please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Subscribe free';
+    }
+  } catch (err) {
+    alert('Error connecting to newsletter server. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Subscribe free';
+  }
 }
 </script>
 
