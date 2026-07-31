@@ -669,13 +669,11 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 }
 
 /* LENIS OVERRIDES FOR FLUID SMOOTHNESS */
-html.lenis, html.lenis body {
+html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
   height: auto;
-}
-.lenis-smooth {
   scroll-behavior: auto !important;
 }
-.lenis-smooth [data-lenis-prevent] {
+.lenis-smooth [data-lenis-prevent], html.lenis [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
 .lenis-stopped {
