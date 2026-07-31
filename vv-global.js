@@ -547,6 +547,143 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 @media (max-width: 480px) {
   .vv-countdown { display: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM EFFECTS (INSPIRA & ANIMATE UI STYLE)
+   ═══════════════════════════════════════════════════════════ */
+
+/* DOUBLE-GLOW DYNAMIC CARD BORDERS */
+.bc, .cheat-card, .rc, .deal-card, .tag, .mistake, .secret, .day-card, .tier-card {
+  position: relative;
+  background-clip: padding-box !important;
+  border: 1px solid transparent !important;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+}
+/* Glowing Border (Underneath) */
+.bc::before, .cheat-card::before, .rc::before, .deal-card::before, .tag::before, .mistake::before, .secret::before, .day-card::before, .tier-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(180px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(0, 112, 243, 0.45), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+/* Inner Light Spotlight */
+.bc::after, .cheat-card::after, .rc::after, .deal-card::after, .tag::after, .mistake::after, .secret::after, .day-card::after, .tier-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(0, 112, 243, 0.14), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+.bc:hover::before, .cheat-card:hover::before, .rc:hover::before, .deal-card:hover::before, .tag:hover::before, .mistake:hover::before, .secret:hover::before, .day-card:hover::before, .tier-card:hover::before,
+.bc:hover::after, .cheat-card:hover::after, .rc:hover::after, .deal-card:hover::after, .tag:hover::after, .mistake:hover::after, .secret:hover::after, .day-card:hover::after, .tier-card:hover::after {
+  opacity: 1;
+}
+
+/* SHIMMER TEXTS */
+.text-shimmer {
+  background: linear-gradient(90deg, #ede8df 0%, #7a788a 25%, #ede8df 50%, #7a788a 75%, #ede8df 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer-run 5s linear infinite;
+}
+.text-shimmer-brand {
+  background: linear-gradient(90deg, var(--pink) 0%, var(--purple) 30%, #fff 50%, var(--purple) 70%, var(--pink) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer-run 5s linear infinite;
+}
+@keyframes text-shimmer-run {
+  to { background-position: 200% center; }
+}
+
+/* BORDER BEAM EFFECT */
+.border-beam-container {
+  position: relative;
+}
+.border-beam-line {
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  pointer-events: none;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  background: linear-gradient(90deg, var(--pink), var(--blue), var(--teal), var(--pink));
+  background-size: 200% 200%;
+  animation: border-beam-anim 4s linear infinite;
+  z-index: 10;
+}
+@keyframes border-beam-anim {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* DYNAMIC SHOOTING METEORS */
+.vv-meteor {
+  position: absolute;
+  height: 2px;
+  width: 2px;
+  background-color: #64748b;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform: rotate(215deg);
+  animation: vv-meteor-anim 6s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+.vv-meteor::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(100, 116, 139, 0.4), transparent);
+}
+@keyframes vv-meteor-anim {
+  0% {
+    transform: rotate(215deg) translateX(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(215deg) translateX(-600px);
+    opacity: 0;
+  }
+}
+
+/* LENIS OVERRIDES FOR FLUID SMOOTHNESS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis-stopped {
+  overflow: hidden;
+}
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
 `;
 
   const style = document.createElement('style');
@@ -597,8 +734,9 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     if (document.getElementById('vv-modal-overlay')) return;
 
     const dealsHTML = PREORDER_DEALS.map((d, i) => `
-      <div class="vvm-deal ${i === 1 ? 'selected' : ''}" data-id="${d.id}"
+      <div class="vvm-deal ${i === 1 ? 'selected border-beam-container' : ''}" data-id="${d.id}"
            style="--deal-color:${d.color}" onclick="VV.selectDeal('${d.id}')">
+        ${i === 1 ? '<div class="border-beam-line"></div>' : ''}
         <div class="vvm-select-check">✓</div>
         <div class="vvm-deal-badge">${d.badge || '&nbsp;'}</div>
         <div class="vvm-deal-name">${d.name}</div>
@@ -1101,6 +1239,113 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
   }
 
   // ─── INIT ────────────────────────────────────────────────
+  // ─── CANVAS PARTICLES GENERATOR CLASS ────────────────────
+  class ParticlesBg {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.container = canvas.parentElement;
+      this.ctx = canvas.getContext('2d');
+      this.circles = [];
+      this.mouse = { x: 0, y: 0 };
+      this.canvasSize = { w: 0, h: 0 };
+      this.quantity = parseInt(canvas.dataset.quantity) || 80;
+      this.staticity = parseInt(canvas.dataset.staticity) || 50;
+      this.ease = parseInt(canvas.dataset.ease) || 50;
+      this.color = canvas.dataset.color || '255, 255, 255';
+      this.pixelRatio = window.devicePixelRatio || 1;
+      this.animationId = null;
+      this.init();
+    }
+    init() {
+      this.resize();
+      this.createParticles();
+      this.animate();
+      window.addEventListener('resize', () => this.resize());
+      this.container.addEventListener('mousemove', (e) => {
+        const rect = this.canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left - this.canvasSize.w / 2;
+        const y = e.clientY - rect.top - this.canvasSize.h / 2;
+        const inside = x < this.canvasSize.w / 2 && x > -this.canvasSize.w / 2 && y < this.canvasSize.h / 2 && y > -this.canvasSize.h / 2;
+        if (inside) { this.mouse.x = x; this.mouse.y = y; }
+      });
+      this.container.addEventListener('mouseleave', () => { this.mouse.x = 0; this.mouse.y = 0; });
+    }
+    resize() {
+      this.circles = [];
+      this.canvasSize.w = this.container.offsetWidth;
+      this.canvasSize.h = this.container.offsetHeight;
+      this.canvas.width = this.canvasSize.w * this.pixelRatio;
+      this.canvas.height = this.canvasSize.h * this.pixelRatio;
+      this.canvas.style.width = `${this.canvasSize.w}px`;
+      this.canvas.style.height = `${this.canvasSize.h}px`;
+      this.ctx.scale(this.pixelRatio, this.pixelRatio);
+    }
+    createParticles() {
+      this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h);
+      for (let i = 0; i < this.quantity; i++) {
+        const circle = this.circleParams();
+        this.drawCircle(circle);
+      }
+    }
+    circleParams() {
+      const x = Math.floor(Math.random() * this.canvasSize.w);
+      const y = Math.floor(Math.random() * this.canvasSize.h);
+      const size = Math.floor(Math.random() * 2) + 0.6;
+      const targetAlpha = parseFloat((Math.random() * 0.4 + 0.08).toFixed(2));
+      return {
+        x, y, translateX: 0, translateY: 0, size, alpha: 0, targetAlpha,
+        dx: (Math.random() - 0.5) * 0.15,
+        dy: (Math.random() - 0.5) * 0.15,
+        magnetism: 0.1 + Math.random() * 3
+      };
+    }
+    drawCircle(circle, update = false) {
+      const { x, y, translateX, translateY, size, alpha } = circle;
+      this.ctx.translate(translateX, translateY);
+      this.ctx.beginPath();
+      this.ctx.arc(x, y, size, 0, 2 * Math.PI);
+      this.ctx.fillStyle = `rgba(${this.color}, ${alpha})`;
+      this.ctx.fill();
+      this.ctx.setTransform(this.pixelRatio, 0, 0, this.pixelRatio, 0, 0);
+      if (!update) { this.circles.push(circle); }
+    }
+    remapValue(value, start1, end1, start2, end2) {
+      const remapped = ((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
+      return remapped > 0 ? remapped : 0;
+    }
+    animate() {
+      this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h);
+      this.circles.forEach((circle, i) => {
+        const edge = [
+          circle.x + circle.translateX - circle.size,
+          this.canvasSize.w - circle.x - circle.translateX - circle.size,
+          circle.y + circle.translateY - circle.size,
+          this.canvasSize.h - circle.y - circle.translateY - circle.size,
+        ];
+        const closestEdge = edge.reduce((a, b) => Math.min(a, b));
+        const remapClosestEdge = parseFloat(this.remapValue(closestEdge, 0, 20, 0, 1).toFixed(2));
+        if (remapClosestEdge > 1) {
+          circle.alpha += 0.02;
+          if (circle.alpha > circle.targetAlpha) circle.alpha = circle.targetAlpha;
+        } else {
+          circle.alpha = circle.targetAlpha * remapClosestEdge;
+        }
+        circle.x += circle.dx;
+        circle.y += circle.dy;
+        circle.translateX += (this.mouse.x / (this.staticity / circle.magnetism) - circle.translateX) / this.ease;
+        circle.translateY += (this.mouse.y / (this.staticity / circle.magnetism) - circle.translateY) / this.ease;
+        if (circle.x < -circle.size || circle.x > this.canvasSize.w + circle.size || circle.y < -circle.size || circle.y > this.canvasSize.h + circle.size) {
+          this.circles.splice(i, 1);
+          const newCircle = this.circleParams();
+          this.drawCircle(newCircle);
+        } else {
+          this.drawCircle({ ...circle, x: circle.x, y: circle.y, translateX: circle.translateX, translateY: circle.translateY, alpha: circle.alpha }, true);
+        }
+      });
+      this.animationId = requestAnimationFrame(() => this.animate());
+    }
+  }
+
   function init() {
     // buildBar(); // Top countdown banner removed as requested
     buildModal();
@@ -1113,6 +1358,78 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
     updateNavigationUI();
     processContentGating();
     setupDashboardUI();
+
+    // ─── DYNAMIC SMOOTH SCROLL (LENIS) ──────────────────────
+    if (!window.Lenis && window.innerWidth > 480) {
+      const s = document.createElement('script');
+      s.src = 'https://unpkg.com/lenis@1.1.13/dist/lenis.min.js';
+      s.onload = () => {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          smoothTouch: false
+        });
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+        window.lenisInstance = lenis;
+      };
+      document.head.appendChild(s);
+    }
+
+    // ─── ANCHOR SMOOTH SCROLL ROUTER ────────────────────────
+    document.addEventListener('click', e => {
+      const link = e.target.closest('a[href*="#"]');
+      if (link && window.lenisInstance) {
+        const url = new URL(link.href, window.location.href);
+        if (url.pathname === window.location.pathname) {
+          const targetId = url.hash;
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            window.lenisInstance.scrollTo(targetEl, {
+              offset: -80,
+              duration: 1.5,
+              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
+          }
+        }
+      }
+    });
+
+    // ─── RADIAL HOVER GLOW VARIABLE TRACKER ────────────────
+    document.addEventListener('mousemove', e => {
+      const card = e.target.closest('.bc, .cheat-card, .rc, .deal-card, .tag, .mistake, .secret, .day-card, .tier-card');
+      if (card) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      }
+    });
+
+    // ─── AUTO-INIT CANVAS PARTICLES ────────────────────────
+    document.querySelectorAll('.particles-bg').forEach(canvas => {
+      new ParticlesBg(canvas);
+    });
+
+    // ─── AUTO-INIT SHOOTING METEORS ────────────────────────
+    document.querySelectorAll('.vv-meteors').forEach(container => {
+      const count = parseInt(container.dataset.count) || 20;
+      for (let i = 0; i < count; i++) {
+        const span = document.createElement('span');
+        span.className = 'vv-meteor';
+        span.style.top = `${Math.floor(Math.random() * 80) - 20}%`;
+        span.style.left = `${Math.floor(Math.random() * 80) + 10}%`;
+        span.style.animationDelay = `${Math.random() * 6 + 0.2}s`;
+        span.style.animationDuration = `${Math.floor(Math.random() * 6) + 3}s`;
+        container.appendChild(span);
+      }
+    });
   }
 
   if (document.readyState === 'loading') {

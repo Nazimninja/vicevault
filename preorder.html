@@ -340,6 +340,8 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
 <!-- HERO -->
 <div class="hero">
   <div class="h-bg"></div><div class="h-scan"></div><div class="h-grid"></div>
+  <canvas class="particles-bg" data-color="0, 112, 243" data-quantity="80" style="position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.35"></canvas>
+  <div class="vv-meteors" data-count="8" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1"></div>
   <div class="corner c-tl"></div><div class="corner c-tr"></div>
   <div class="h-content">
     <div class="offer-banner"><span class="ob-dot"></span>Pre-launch exclusive · Ends at GTA 6 launch</div>
@@ -407,7 +409,8 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:28px 2.5
       </div>
 
       <!-- VAULT PRO -->
-      <div class="deal-card dc-p dc-hot rev d2">
+      <div class="deal-card dc-p dc-hot rev d2 border-beam-container">
+        <div class="border-beam-line"></div>
         <div class="dc-top-badge">⭐ Best deal — most popular</div>
         <div class="dc-body">
           <div class="dc-name">Vault Pro</div>
