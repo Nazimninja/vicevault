@@ -486,7 +486,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
     <!-- TITLE -->
     <h1 class="hero-title">
       <span class="ht-1">The Ultimate</span>
-      <span class="ht-2 text-shimmer-brand">Vice Vault</span>
+      <span class="ht-2"><span class="text-shimmer-brand">Vice Vault</span></span>
       <span class="ht-3">Intelligence Hub</span>
     </h1>
     
@@ -739,11 +739,13 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60)
 
 // ── PARTICLES ────────────────────────────────────
 const pc=document.getElementById('particles');
-const pcols=['#0070f3','#00a3ff','#00d4aa','#0070f3'];
-for(let i=0;i<22;i++){
-  const p=document.createElement('div');p.className='particle';
-  p.style.cssText=`left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--del:${Math.random()*9}s;background:${pcols[Math.floor(Math.random()*pcols.length)]}`;
-  pc.appendChild(p);
+if (pc) {
+  const pcols=['#0070f3','#00a3ff','#00d4aa','#0070f3'];
+  for(let i=0;i<22;i++){
+    const p=document.createElement('div');p.className='particle';
+    p.style.cssText=`left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--del:${Math.random()*9}s;background:${pcols[Math.floor(Math.random()*pcols.length)]}`;
+    pc.appendChild(p);
+  }
 }
 
 // ── HERO COUNTDOWN ───────────────────────────────
