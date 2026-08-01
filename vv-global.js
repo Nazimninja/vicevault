@@ -905,13 +905,14 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
             </button>
           </div>
           <div class="vvm-terms">
-            No payment now. We'll email you on launch day with your checkout link. Your price is locked from the moment you pre-order. <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
+            First payment collected today to join. Active billing cycle starts only on GTA 6 launch day. Price is locked forever. <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
           </div>
         </div>
         <div class="vvm-success" id="vvm-success">
-          <div class="vvm-success-icon">🔐</div>
-          <div class="vvm-success-title">Rate locked in.</div>
-          <div class="vvm-success-sub">Check your email for confirmation. On launch day we'll send you a direct checkout link with your locked price. You're <span id="vvm-pos" style="color:#0070f3;font-weight:700">#12,849</span> in line.</div>
+          <div class="vvm-success-icon">💳</div>
+          <div class="vvm-success-title">Spot Reserved!</div>
+          <div class="vvm-success-sub">You are <span id="vvm-pos" style="color:#0070f3;font-weight:700">#12,849</span> in line. Complete your checkout today to secure your place on the paid waiting list and lock in your price forever. Active billing starts on game launch day.</div>
+          <a id="vvm-checkout-link" href="signup.html" class="vvm-submit" style="display:inline-block;text-align:center;text-decoration:none;margin-top:1.2rem;width:100%">Complete Checkout Now →</a>
         </div>
       </div>
     `;
@@ -996,12 +997,25 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
           success.classList.add('vvm-shown');
           const posEl = document.getElementById('vvm-pos');
           if (posEl) posEl.textContent = '#' + pos.toLocaleString();
+          
+          const checkoutLink = document.getElementById('vvm-checkout-link');
+          if (checkoutLink) {
+            const tierPrice = selectedDealId === 'soldier' ? '299' : (selectedDealId === 'elite' ? '999' : '499');
+            checkoutLink.href = `signup.html?email=${encodeURIComponent(email)}&tier=${tierPrice}`;
+          }
         }
       } catch {
         // Fallback — show success anyway (email stored client-side)
         document.getElementById('vvm-footer-main').style.display = 'none';
         const success = document.getElementById('vvm-success');
-        if (success) success.classList.add('vvm-shown');
+        if (success) {
+          success.classList.add('vvm-shown');
+          const checkoutLink = document.getElementById('vvm-checkout-link');
+          if (checkoutLink) {
+            const tierPrice = selectedDealId === 'soldier' ? '299' : (selectedDealId === 'elite' ? '999' : '499');
+            checkoutLink.href = `signup.html?email=${encodeURIComponent(email)}&tier=${tierPrice}`;
+          }
+        }
       }
     },
     logout() { logout(); },
