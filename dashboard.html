@@ -93,6 +93,48 @@
           dashFeed.insertAdjacentHTML('afterbegin', bannerHTML);
         }
 
+        // Update sidebar dynamically based on user subscription
+        const avatarEl = document.querySelector('.sb-avatar');
+        const nameEl = document.querySelector('.sb-name');
+        const tierEl = document.querySelector('.sb-tier');
+        
+        const firstInitial = (user.firstName || user.email || 'A')[0].toUpperCase();
+        if (avatarEl) avatarEl.textContent = firstInitial;
+        
+        if (nameEl) {
+          nameEl.textContent = user.firstName ? `${user.firstName} ${user.lastName || ''}` : user.email;
+        }
+        
+        if (tierEl) {
+          const tierStar = tierId === 'elite' ? '👑' : '⭐';
+          tierEl.textContent = `${tierStar} ${tierName}`;
+        }
+
+        const upgradeCard = document.querySelector('.sb-upgrade');
+        if (upgradeCard) {
+          if (tierId === 'elite') {
+            upgradeCard.style.display = 'none';
+          } else if (tierId === 'pro') {
+            const titleEl = upgradeCard.querySelector('.sb-upgrade-t');
+            const descEl = upgradeCard.querySelector('p');
+            const btnEl = upgradeCard.querySelector('.sb-upgrade-btn');
+            if (titleEl) titleEl.textContent = 'Upgrade to Elite';
+            if (descEl) descEl.textContent = 'Get custom blueprints, early drop access, and private voice lobbies.';
+            if (btnEl) {
+              btnEl.href = 'signup.html?tier=elite';
+              btnEl.textContent = 'Upgrade — ₹999/mo';
+            }
+          } else {
+            const titleEl = upgradeCard.querySelector('.sb-upgrade-t');
+            const btnEl = upgradeCard.querySelector('.sb-upgrade-btn');
+            if (titleEl) titleEl.textContent = 'Upgrade to Pro';
+            if (btnEl) {
+              btnEl.href = 'signup.html?tier=pro';
+              btnEl.textContent = 'Upgrade — ₹499/mo';
+            }
+          }
+        }
+
         // Add timer function
         const targetDate = new Date('2026-11-19T06:00:00+05:30');
         function updateLockTimer(){
@@ -503,8 +545,8 @@ a{color:inherit;text-decoration:none}
   margin-bottom: 1.2rem; transition: color 0.2s;
 }
 .back-to-dash-btn:hover { color: var(--gold); }
-.cur{position:fixed;width:10px;height:10px;background:#0070f3;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(0,112,243,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+.cur{display:none;position:fixed;width:10px;height:10px;background:#0070f3;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{display:none;position:fixed;width:36px;height:36px;border:1px solid rgba(0,112,243,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
 @media(max-width:600px){.cur,.cur-ring{display:none}}
 
 
@@ -1523,7 +1565,16 @@ animProgress();
     const cur=document.getElementById('cur'),crng=document.getElementById('crng');
     if(!cur||!crng)return;
     let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+    let initialized = false;
+    document.addEventListener('mousemove',e=>{
+      if (!initialized) {
+        cur.style.display = 'block';
+        crng.style.display = 'block';
+        initialized = true;
+      }
+      mx=e.clientX;my=e.clientY;
+      cur.style.left=mx+'px';cur.style.top=my+'px';
+    });
     (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.left=rx+'px';crng.style.top=ry+'px';requestAnimationFrame(a)})();
     document.querySelectorAll('a,button,.sb-item,.card-item,.drop-item,.cheat-item').forEach(el=>{
       el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';crng.style.width='52px';crng.style.height='52px';crng.style.opacity='.9'});

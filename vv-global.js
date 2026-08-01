@@ -1533,7 +1533,8 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
 
     // ─── DYNAMIC SMOOTH SCROLL (LENIS) ──────────────────────
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (!window.Lenis && window.innerWidth > 768 && !isTouchDevice) {
+    const isDashboard = window.location.pathname.includes('dashboard.html');
+    if (!window.Lenis && window.innerWidth > 768 && !isTouchDevice && !isDashboard) {
       const s = document.createElement('script');
       s.src = 'https://unpkg.com/lenis@1.1.13/dist/lenis.min.js';
       s.onload = () => {
