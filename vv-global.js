@@ -1150,6 +1150,15 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     const user = getCurrentUser();
     if (!user) return false;
     
+    const now = new Date();
+    const expiresAt = user.subscriptionExpiresAt ? new Date(user.subscriptionExpiresAt) : null;
+    
+    // Deny access if not subscribed and no grace period expiration date is set
+    if (!user.subscribed && !expiresAt) return false;
+    
+    // Deny access if grace period has expired
+    if (!user.subscribed && expiresAt && now > expiresAt) return false;
+    
     const userTier = user.tier.toLowerCase().replace(/[^a-z]/g, '');
     const reqTier = requiredTier.toLowerCase().replace(/[^a-z]/g, '');
     
@@ -1498,6 +1507,29 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     updateNavigationUI();
     processContentGating();
     setupDashboardUI();
+
+    // Silent verify subscription status with server
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.email) {
+      fetch(`${API_BASE}/api/auth/status`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: currentUser.email })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          currentUser.subscribed = data.subscribed;
+          currentUser.tier = data.tier;
+          if (data.subscriptionExpiresAt) currentUser.subscriptionExpiresAt = data.subscriptionExpiresAt;
+          localStorage.setItem(USER_KEY, JSON.stringify(currentUser));
+          
+          // Re-trigger content gating checks
+          processContentGating();
+        }
+      })
+      .catch(() => {});
+    }
 
     // ─── DYNAMIC SMOOTH SCROLL (LENIS) ──────────────────────
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;

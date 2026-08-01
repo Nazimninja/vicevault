@@ -895,47 +895,29 @@ async function handleCancelSubscription(request, env) {
     const user = JSON.parse(userStr);
 
     user.subscribed = false;
-    user.subscriptionExpiresAt = new Date(0).toISOString(); // Expired
+    user.subscriptionExpiresAt = new Date(Date.now() + 7 * 86400 * 1000).toISOString(); // 7-day grace period
     await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
 
-    // Remove roles on Discord immediately
-    if (user.discordUserId && env.DISCORD_BOT_TOKEN && env.DISCORD_GUILD_ID) {
-      const userId = user.discordUserId;
-      const guildId = env.DISCORD_GUILD_ID;
-
-      if (env.DISCORD_PRO_ROLE_ID) {
-        await fetch(`https://discord.com/api/v10/guilds/${guildId}/members/${userId}/roles/${env.DISCORD_PRO_ROLE_ID}`, {
-          method: 'DELETE',
-          headers: { 'Authorization': `Bot ${env.DISCORD_BOT_TOKEN}` }
+    // Post webhook alert about cancellation and active grace period
+    if (env.DISCORD_WEBHOOK_URL) {
+      try {
+        await fetch(env.DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            embeds: [{
+              title: "🚫 Subscription Cancelled (Grace Period Active)",
+              description: "A subscription was cancelled. Access and Discord roles remain active during the 7-day grace period.",
+              color: 16753920, // Orange
+              fields: [
+                { name: "Email", value: cleanEmail, inline: true },
+                { name: "Grace Expiration", value: user.subscriptionExpiresAt, inline: true }
+              ],
+              timestamp: new Date().toISOString()
+            }]
+          })
         });
-      }
-      if (env.DISCORD_ELITE_ROLE_ID) {
-        await fetch(`https://discord.com/api/v10/guilds/${guildId}/members/${userId}/roles/${env.DISCORD_ELITE_ROLE_ID}`, {
-          method: 'DELETE',
-          headers: { 'Authorization': `Bot ${env.DISCORD_BOT_TOKEN}` }
-        });
-      }
-      
-      // Post webhook alert about cancellation role sync
-      if (env.DISCORD_WEBHOOK_URL) {
-        try {
-          await fetch(env.DISCORD_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              embeds: [{
-                title: "🚫 Subscription Cancelled & Roles Revoked",
-                color: 16724590, // 0xff3d6e in decimal
-                fields: [
-                  { name: "Email", value: cleanEmail, inline: true },
-                  { name: "Discord User ID", value: userId, inline: true }
-                ],
-                timestamp: new Date().toISOString()
-              }]
-            })
-          });
-        } catch(err) {}
-      }
+      } catch(err) {}
     }
 
     const responseUser = await formatUserResponse(user, env);
@@ -959,8 +941,8 @@ async function syncDiscordRoles(env) {
       const user = JSON.parse(userStr);
       if (!user.discordUserId) continue;
 
-      const isExpired = user.subscriptionExpiresAt && now > new Date(user.subscriptionExpiresAt);
-      const isInactive = !user.subscribed || isExpired;
+      const isGraceExpired = user.subscriptionExpiresAt && now > new Date(user.subscriptionExpiresAt);
+      const isInactive = !user.subscribed && (!user.subscriptionExpiresAt || isGraceExpired);
 
       if (isInactive) {
         const userId = user.discordUserId;
@@ -1403,10 +1385,17 @@ async function handleUserStatus(request, env) {
       return json({ error: 'User not found' }, 404);
     }
     const user = JSON.parse(userStr);
+    const now = new Date();
+    const expiresAt = user.subscriptionExpiresAt ? new Date(user.subscriptionExpiresAt) : null;
+    let hasAccess = !!user.subscribed;
+    if (!hasAccess && expiresAt && now <= expiresAt) {
+      hasAccess = true; // Still within 7-day grace period!
+    }
     return json({
       success: true,
-      subscribed: !!user.subscribed,
-      tier: user.tier || 'pro'
+      subscribed: hasAccess,
+      tier: user.tier || 'pro',
+      subscriptionExpiresAt: user.subscriptionExpiresAt || ''
     });
   } catch (e) {
     return json({ error: e.message }, 500);

@@ -3,9 +3,13 @@
 <head>
 <script>
   const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
+  const now = new Date();
+  const expiresAt = user.subscriptionExpiresAt ? new Date(user.subscriptionExpiresAt) : null;
+  const isGraceActive = !user.subscribed && expiresAt && now <= expiresAt;
+
   if (!user || !user.email) {
     window.location.replace('signup.html?mode=login');
-  } else if (!user.subscribed) {
+  } else if (!user.subscribed && !isGraceActive) {
     window.location.replace(`signup.html?step=3&email=${encodeURIComponent(user.email)}&fname=${encodeURIComponent(user.firstName || '')}&lname=${encodeURIComponent(user.lastName || '')}&tier_id=${user.tier || 'pro'}`);
   } else {
     // Asynchronously verify subscription status with server to prevent local storage bypass
@@ -19,11 +23,20 @@
       if (data.success) {
         if (!data.subscribed) {
           user.subscribed = false;
+          if (data.subscriptionExpiresAt) user.subscriptionExpiresAt = data.subscriptionExpiresAt;
           localStorage.setItem('vv_user', JSON.stringify(user));
-          window.location.replace(`signup.html?step=3&email=${encodeURIComponent(user.email)}&fname=${encodeURIComponent(user.firstName || '')}&lname=${encodeURIComponent(user.lastName || '')}&tier_id=${user.tier || 'pro'}`);
+          
+          // Verify grace period
+          const currentNow = new Date();
+          const currentExpires = data.subscriptionExpiresAt ? new Date(data.subscriptionExpiresAt) : null;
+          const currentGraceActive = currentExpires && currentNow <= currentExpires;
+          if (!currentGraceActive) {
+            window.location.replace(`signup.html?step=3&email=${encodeURIComponent(user.email)}&fname=${encodeURIComponent(user.firstName || '')}&lname=${encodeURIComponent(user.lastName || '')}&tier_id=${user.tier || 'pro'}`);
+          }
         } else {
           user.subscribed = true;
           user.tier = data.tier;
+          if (data.subscriptionExpiresAt) user.subscriptionExpiresAt = data.subscriptionExpiresAt;
           localStorage.setItem('vv_user', JSON.stringify(user));
         }
       }
