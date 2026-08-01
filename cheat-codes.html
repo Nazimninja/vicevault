@@ -146,8 +146,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 /* CHEAT CARDS GRID */
 .cheats-grid{max-width:1100px;margin:0 auto;padding:0 2.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.5rem}
-.cheat-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem;transition:border-color .2s,transform .2s}
-.cheat-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.cheat-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem;transition:border-color .2s,transform .2s,box-shadow .2s}
+.cheat-card:hover{border-color:var(--border2);box-shadow:0 8px 24px rgba(0,112,243,0.12)}
 .cc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
 .cc-cat{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;border:1px solid}
 .cat-player{color:var(--teal);background:rgba(0,212,170,.06);border-color:rgba(0,212,170,.2)}
@@ -195,13 +195,25 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:3rem 2.5
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">VICE<span class="logo-v">VAULT</span><div class="nav-dot"></div></a>
-  <ul class="nav-links">
+<nav id="nav">
+  <div class="nav-logo" onclick="location.href='index.html'" style="cursor:pointer">
+    <img src="assets/logo-master.png" alt="Vice Vault logo">
+    <span class="nav-logo-text">VICE VAULT</span>
+    <span class="nav-dot"></span>
+  </div>
+  <button class="nav-close-btn" id="navClose" onclick="document.getElementById('navToggle').classList.remove('active'); document.querySelector('.nav-links').classList.remove('active'); document.body.style.overflow=''" aria-label="Close Menu">✕</button>
+  <ul class="nav-links" id="navLinks" onclick="const t=document.getElementById('navToggle'); if(t) t.classList.remove('active'); this.classList.remove('active'); document.body.style.overflow=''">
+    <li><a href="index.html#categories">Vault</a></li>
+    <li><a href="index.html#allguides">Guides</a></li>
     <li><a href="weekly.html">Weekly Drop</a></li>
-    <li><a href="index.html#preview">Free Guides</a></li>
-    <li><a href="preorder.html" class="nav-cta">Pre-order Pro</a></li>
+    <li><a href="preorder.html" style="color:var(--gold2)">Pre-order</a></li>
+    <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
   </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu" onclick="this.classList.toggle('active'); document.querySelector('.nav-links').classList.toggle('active'); document.body.style.overflow = document.querySelector('.nav-links').classList.contains('active') ? 'hidden' : ''">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
 </nav>
 
 <!-- HERO -->
