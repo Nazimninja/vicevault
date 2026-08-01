@@ -552,40 +552,42 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
    PREMIUM EFFECTS (INSPIRA & ANIMATE UI STYLE)
    ═══════════════════════════════════════════════════════════ */
 
-/* DOUBLE-GLOW DYNAMIC CARD BORDERS */
-.bc, .cheat-card, .rc, .deal-card, .tag, .mistake, .secret, .day-card, .tier-card {
-  position: relative;
-  background-clip: padding-box !important;
-  border: 1px solid transparent !important;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
-}
-/* Glowing Border (Underneath) */
-.bc::before, .cheat-card::before, .rc::before, .deal-card::before, .tag::before, .mistake::before, .secret::before, .day-card::before, .tier-card::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: radial-gradient(180px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(0, 112, 243, 0.45), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 1;
-  pointer-events: none;
-}
-/* Inner Light Spotlight */
-.bc::after, .cheat-card::after, .rc::after, .deal-card::after, .tag::after, .mistake::after, .secret::after, .day-card::after, .tier-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(0, 112, 243, 0.14), transparent 50%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 2;
-  pointer-events: none;
-}
-.bc:hover::before, .cheat-card:hover::before, .rc:hover::before, .deal-card:hover::before, .tag:hover::before, .mistake:hover::before, .secret:hover::before, .day-card:hover::before, .tier-card:hover::before,
-.bc:hover::after, .cheat-card:hover::after, .rc:hover::after, .deal-card:hover::after, .tag:hover::after, .mistake:hover::after, .secret:hover::after, .day-card:hover::after, .tier-card:hover::after {
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  /* DOUBLE-GLOW DYNAMIC CARD BORDERS (Only applies on mouse/stylus devices with hover capability) */
+  .bc, .cheat-card, .rc, .deal-card, .tag, .mistake, .secret, .day-card, .tier-card {
+    position: relative;
+    background-clip: padding-box !important;
+    border: 1px solid transparent !important;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+  }
+  /* Glowing Border (Underneath) */
+  .bc::before, .cheat-card::before, .rc::before, .deal-card::before, .tag::before, .mistake::before, .secret::before, .day-card::before, .tier-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(180px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(0, 112, 243, 0.45), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+  /* Inner Light Spotlight */
+  .bc::after, .cheat-card::after, .rc::after, .deal-card::after, .tag::after, .mistake::after, .secret::after, .day-card::after, .tier-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(0, 112, 243, 0.14), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .bc:hover::before, .cheat-card:hover::before, .rc:hover::before, .deal-card:hover::before, .tag:hover::before, .mistake:hover::before, .secret:hover::before, .day-card:hover::before, .tier-card:hover::before,
+  .bc:hover::after, .cheat-card:hover::after, .rc:hover::after, .deal-card:hover::after, .tag:hover::after, .mistake:hover::after, .secret:hover::after, .day-card:hover::after, .tier-card:hover::after {
+    opacity: 1;
+  }
 }
 
 /* SHIMMER TEXTS */
@@ -1358,7 +1360,8 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     setupDashboardUI();
 
     // ─── DYNAMIC SMOOTH SCROLL (LENIS) ──────────────────────
-    if (!window.Lenis && window.innerWidth > 480) {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (!window.Lenis && window.innerWidth > 768 && !isTouchDevice) {
       const s = document.createElement('script');
       s.src = 'https://unpkg.com/lenis@1.1.13/dist/lenis.min.js';
       s.onload = () => {
@@ -1411,23 +1414,32 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     });
 
     // ─── AUTO-INIT CANVAS PARTICLES ────────────────────────
-    document.querySelectorAll('.particles-bg').forEach(canvas => {
-      new ParticlesBg(canvas);
-    });
+    if (window.innerWidth > 768) {
+      document.querySelectorAll('.particles-bg').forEach(canvas => {
+        new ParticlesBg(canvas);
+      });
+    } else {
+      // Hide particles canvases on mobile to maximize battery life and scroll smoothness
+      document.querySelectorAll('.particles-bg').forEach(canvas => {
+        canvas.style.display = 'none';
+      });
+    }
 
     // ─── AUTO-INIT SHOOTING METEORS ────────────────────────
-    document.querySelectorAll('.vv-meteors').forEach(container => {
-      const count = parseInt(container.dataset.count) || 20;
-      for (let i = 0; i < count; i++) {
-        const span = document.createElement('span');
-        span.className = 'vv-meteor';
-        span.style.top = `${Math.floor(Math.random() * 80) - 20}%`;
-        span.style.left = `${Math.floor(Math.random() * 80) + 10}%`;
-        span.style.animationDelay = `${Math.random() * 6 + 0.2}s`;
-        span.style.animationDuration = `${Math.floor(Math.random() * 6) + 3}s`;
-        container.appendChild(span);
-      }
-    });
+    if (window.innerWidth > 768) {
+      document.querySelectorAll('.vv-meteors').forEach(container => {
+        const count = parseInt(container.dataset.count) || 20;
+        for (let i = 0; i < count; i++) {
+          const span = document.createElement('span');
+          span.className = 'vv-meteor';
+          span.style.top = `${Math.floor(Math.random() * 80) - 20}%`;
+          span.style.left = `${Math.floor(Math.random() * 80) + 10}%`;
+          span.style.animationDelay = `${Math.random() * 6 + 0.2}s`;
+          span.style.animationDuration = `${Math.floor(Math.random() * 6) + 3}s`;
+          container.appendChild(span);
+        }
+      });
+    }
   }
 
   if (document.readyState === 'loading') {
