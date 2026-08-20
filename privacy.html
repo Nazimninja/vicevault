@@ -123,7 +123,7 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
   <ul class="nav-links" onclick="const t=document.getElementById('navToggle'); if(t) t.classList.remove('active'); this.classList.remove('active'); document.body.style.overflow=''">
     <li><a href="index.html">Home</a></li>
     <li><a href="guides.html">Guides</a></li>
-    <li><a href="guides.html">Blog</a></li>
+    <li><a href="guides.html?cat=blog">Blog</a></li>
     <li><a href="signup.html" class="nav-cta">Join Now</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu" onclick="this.classList.toggle('active'); document.querySelector('.nav-links').classList.toggle('active'); document.body.style.overflow = document.querySelector('.nav-links').classList.contains('active') ? 'hidden' : ''">

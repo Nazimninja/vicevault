@@ -454,7 +454,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
   <ul class="nav-links" id="navLinks" onclick="const t=document.getElementById('navToggle'); if(t) t.classList.remove('active'); this.classList.remove('active'); document.body.style.overflow=''">
     <li><a href="index.html#categories">Vault</a></li>
     <li><a href="#allguides">Guides</a></li>
-    <li><a href="guides.html">Blog</a></li>
+    <li><a href="guides.html?cat=blog">Blog</a></li>
     <li><a href="weekly.html">Weekly Drop</a></li>
     <li><a href="preorder.html" style="color:var(--gold2)">Pre-order</a></li>
     <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
@@ -497,6 +497,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
       <button class="fb-btn" onclick="filt(this,'vehicle')">Vehicles</button>
       <button class="fb-btn" onclick="filt(this,'online')">Online</button>
       <button class="fb-btn" onclick="filt(this,'easter')">Easter Eggs</button>
+      <button class="fb-btn" onclick="filt(this,'blog')">Blog</button>
     </div>
     <div class="bgrid rev" id="bgrid">
       <article class="bc bt1" data-cat="heist" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/heist-airport-raid.jpg" alt="Airport Raid heist blueprint" loading="lazy"><span class="bct-lbl">Heist Blueprint</span></div><div class="bb"><h3 class="bt">GTA 6 Airport Raid: All 3 approaches + max take breakdown</h3><p class="bex">The airport job pays $3.1M at ceiling. We map every approach, loot priority, and the guard blind spot that makes the silent run possible solo.</p><div class="bf"><span>Jun 2025</span><span class="ba">→</span></div></div></article>
@@ -508,11 +509,11 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
       <article class="bc bt1" data-cat="online" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/online-cargo-wars.jpg" alt="GTA 6 online multiplayer" loading="lazy"><span class="bct-lbl">Online Multiplayer</span></div><div class="bb"><h3 class="bt">GTA 6 Online: how to level fast, make money &amp; dominate lobbies early</h3><p class="bex">First 30 days in GTA Online for GTA 6 — rank grinding route, business unlock order, and the PvP tactics that protect your cargo.</p><div class="bf"><span>Apr 2025</span><span class="ba">→</span></div></div></article>
       <article class="bc bt2" data-cat="story" onclick="location.href='gta6-weapon-customization.html'"><div class="bct"><img src="thumbs/rage-engine-graphics.jpg" alt="GTA 6 weapon customization leak breakdown" loading="lazy"><span class="bct-lbl">Weapons Leak</span></div><div class="bb"><h3 class="bt">GTA 6 weapon customization leak breakdown — gunsmith &amp; attachments</h3><p class="bex">An in-depth GTA 6 weapon customization leak breakdown analyzing the modular gunsmith system, dynamic attachments, gun cases, and combat realism shifts.</p><div class="bf"><span>Apr 2025</span><span class="ba">→</span></div></div></article>
       <article class="bc bt3" data-cat="money" onclick="location.href='gta6-leonida-map-size.html'"><div class="bct"><img src="thumbs/gta6-crypto-economy.jpg" alt="GTA 6 Leonida map size comparison to Los Santos" loading="lazy"><span class="bct-lbl">Map Scale</span></div><div class="bb"><h3 class="bt">GTA 6 Leonida map size comparison to Los Santos — scale analyzed</h3><p class="bex">How does the new state of Leonida compare to GTA 5's map? Our GTA 6 Leonida map size comparison to Los Santos breaks down the landmass scale, hubs, and counties.</p><div class="bf"><span>Mar 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt4" data-cat="online" onclick="location.href='gta-6-release-date-latest-delay-rumors.html'"><div class="bct"><img src="thumbs/release-date-timeline.jpg" alt="GTA 6 Release Date Timeline" loading="lazy"><span class="bct-lbl">Release Timeline</span></div><div class="bb"><h3 class="bt">GTA 6 Release Date &amp; Delay Rumors — Rockstar's Official Timeline Explained</h3><p class="bex">Is GTA 6 getting delayed to 2026? We dissect Take-Two's financial reports, Rockstar's internal milestones, and the official Fall 2025 release timeline.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt5" data-cat="story" onclick="location.href='gta-6-lucia-jason-protagonists.html'"><div class="bct"><img src="thumbs/protagonists-jason-lucia.jpg" alt="GTA 6 Jason and Lucia Protagonists" loading="lazy"><span class="bct-lbl">Protagonists</span></div><div class="bb"><h3 class="bt">GTA 6 Protagonists Jason &amp; Lucia — Story, Dynamic System &amp; Gameplay Breakdown</h3><p class="bex">Meet Lucia and Jason, the main characters of GTA 6. Discover their story origins, Bonnie &amp; Clyde trust meters, and dynamic switching mechanics.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt6" data-cat="story" onclick="location.href='gta-6-next-gen-features-graphics.html'"><div class="bct"><img src="thumbs/rage-engine-graphics.jpg" alt="GTA 6 Rage Engine 9 Graphics" loading="lazy"><span class="bct-lbl">Engine Tech</span></div><div class="bb"><h3 class="bt">GTA 6 Graphics &amp; Next-Gen Tech — Rage Engine 9 &amp; Physics Breakdown</h3><p class="bex">An in-depth technical analysis of RAGE 9 engine capabilities: real-time global illumination, ray-traced water simulations, and dynamic weather patterns.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt1" data-cat="money" onclick="location.href='gta-6-crypto-in-game-economy.html'"><div class="bct"><img src="thumbs/gta6-crypto-economy.jpg" alt="GTA 6 Cryptocurrency Economy" loading="lazy"><span class="bct-lbl">Economy Meta</span></div><div class="bb"><h3 class="bt">GTA 6 In-Game Economy &amp; Crypto Rumors — Cash, Stocks &amp; Banking</h3><p class="bex">Separating fact from fiction in GTA 6's financial landscape: cryptocurrency rumours, bank accounts, money laundering, and the stock market meta.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt2" data-cat="story" onclick="location.href='gta-6-soundtrack-radio-stations.html'"><div class="bct"><img src="thumbs/soundtrack-radio-stations.jpg" alt="GTA 6 Radio Stations and Soundtrack" loading="lazy"><span class="bct-lbl">Radio Stations</span></div><div class="bb"><h3 class="bt">GTA 6 Radio Stations &amp; Soundtrack — Leaked Songs &amp; Artist Rumors</h3><p class="bex">Explore the sounds of Vice City and Leonida. Leaked music tracklists, classic radio host parodies, and dynamic heist background score systems.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt4" data-cat="blog" onclick="location.href='gta-6-release-date-latest-delay-rumors.html'"><div class="bct"><img src="thumbs/release-date-timeline.jpg" alt="GTA 6 Release Date Timeline" loading="lazy"><span class="bct-lbl">Release Timeline</span></div><div class="bb"><h3 class="bt">GTA 6 Release Date &amp; Delay Rumors — Rockstar's Official Timeline Explained</h3><p class="bex">Is GTA 6 getting delayed to 2026? We dissect Take-Two's financial reports, Rockstar's internal milestones, and the official Fall 2025 release timeline.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt5" data-cat="blog" onclick="location.href='gta-6-lucia-jason-protagonists.html'"><div class="bct"><img src="thumbs/protagonists-jason-lucia.jpg" alt="GTA 6 Jason and Lucia Protagonists" loading="lazy"><span class="bct-lbl">Protagonists</span></div><div class="bb"><h3 class="bt">GTA 6 Protagonists Jason &amp; Lucia — Story, Dynamic System &amp; Gameplay Breakdown</h3><p class="bex">Meet Lucia and Jason, the main characters of GTA 6. Discover their story origins, Bonnie &amp; Clyde trust meters, and dynamic switching mechanics.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt6" data-cat="blog" onclick="location.href='gta-6-next-gen-features-graphics.html'"><div class="bct"><img src="thumbs/rage-engine-graphics.jpg" alt="GTA 6 Rage Engine 9 Graphics" loading="lazy"><span class="bct-lbl">Engine Tech</span></div><div class="bb"><h3 class="bt">GTA 6 Graphics &amp; Next-Gen Tech — Rage Engine 9 &amp; Physics Breakdown</h3><p class="bex">An in-depth technical analysis of RAGE 9 engine capabilities: real-time global illumination, ray-traced water simulations, and dynamic weather patterns.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt1" data-cat="blog" onclick="location.href='gta-6-crypto-in-game-economy.html'"><div class="bct"><img src="thumbs/gta6-crypto-economy.jpg" alt="GTA 6 Cryptocurrency Economy" loading="lazy"><span class="bct-lbl">Economy Meta</span></div><div class="bb"><h3 class="bt">GTA 6 In-Game Economy &amp; Crypto Rumors — Cash, Stocks &amp; Banking</h3><p class="bex">Separating fact from fiction in GTA 6's financial landscape: cryptocurrency rumours, bank accounts, money laundering, and the stock market meta.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt2" data-cat="blog" onclick="location.href='gta-6-soundtrack-radio-stations.html'"><div class="bct"><img src="thumbs/soundtrack-radio-stations.jpg" alt="GTA 6 Radio Stations and Soundtrack" loading="lazy"><span class="bct-lbl">Radio Stations</span></div><div class="bb"><h3 class="bt">GTA 6 Radio Stations &amp; Soundtrack — Leaked Songs &amp; Artist Rumors</h3><p class="bex">Explore the sounds of Vice City and Leonida. Leaked music tracklists, classic radio host parodies, and dynamic heist background score systems.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
     </div>
   </div>
 </section>
@@ -546,6 +547,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
 
 <script>
 // ── CUSTOM CURSOR ────────────────────────────────
+const cur=document.getElementById('cur'),crng=document.getElementById(<script>
+// ── MOUSE CURSOR ──────────────────────────────────
 const cur=document.getElementById('cur'),crng=document.getElementById('crng');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
@@ -558,71 +561,6 @@ document.querySelectorAll('a,button,.cat-card,.bc,.feat-hero,.mini,.pc').forEach
 // ── NAV SCROLL ───────────────────────────────────
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
-
-// ── PARTICLES ────────────────────────────────────
-const pc=document.getElementById('particles');
-if (pc) {
-  const pcols=['#0070f3','#00a3ff','#00d4aa','#0070f3'];
-  for(let i=0;i<22;i++){
-    const p=document.createElement('div');p.className='particle';
-    p.style.cssText=`left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--del:${Math.random()*9}s;background:${pcols[Math.floor(Math.random()*pcols.length)]}`;
-    pc.appendChild(p);
-  }
-}
-
-// ── HERO COUNTDOWN ───────────────────────────────
-const LAUNCH=new Date('2026-11-19T06:00:00+05:30');
-function updateCountdown(){
-  const now=new Date();
-  const diff=LAUNCH-now;
-  if(diff<=0){
-    document.getElementById('cd-days').textContent='00';
-    document.getElementById('cd-hours').textContent='00';
-    document.getElementById('cd-mins').textContent='00';
-    document.getElementById('cd-secs').textContent='00';
-    return;
-  }
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor((diff%86400000)/3600000);
-  const m=Math.floor((diff%3600000)/60000);
-  const s=Math.floor((diff%60000)/1000);
-  document.getElementById('cd-days').textContent=String(d).padStart(2,'0');
-  document.getElementById('cd-hours').textContent=String(h).padStart(2,'0');
-  document.getElementById('cd-mins').textContent=String(m).padStart(2,'0');
-  document.getElementById('cd-secs').textContent=String(s).padStart(2,'0');
-}
-updateCountdown();
-setInterval(updateCountdown,1000);
-
-// ── WAITLIST JOIN ────────────────────────────────
-function submitHomePreorder(){
-  const emailInput=document.getElementById('emailInput');
-  const email=emailInput.value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    emailInput.style.borderColor='var(--pink)';
-    setTimeout(()=>emailInput.style.borderColor='var(--border2)',2000);
-    return;
-  }
-  window.location.href = `signup.html?tier=499&email=${encodeURIComponent(email)}`;
-}
-
-// WAITLIST COUNTER ANIMATION
-function animateCounter(){
-  const el=document.getElementById('wl-count');
-  if(!el) return;
-  const target=wlCount;
-  const start=12000;
-  const dur=2000;
-  const startTime=Date.now();
-  function step(){
-    const progress=Math.min((Date.now()-startTime)/dur,1);
-    const ease=1-Math.pow(1-progress,3);
-    el.textContent=Math.floor(start+(target-start)*ease).toLocaleString();
-    if(progress<1)requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-setTimeout(animateCounter,1200);
 
 // ── REVEAL ON SCROLL ─────────────────────────────
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
@@ -638,15 +576,17 @@ function filt(btn,cat){
   });
 }
 
-// ── NEWSLETTER ───────────────────────────────────
-async function subscribeNL(){
-  const email=document.getElementById('nl-email').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('nl-email').style.borderColor='#0070f3';return;}
-  try{await fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'homepage-cta'})});}catch(e){}
-  document.getElementById('nl-email').value='';
-  document.getElementById('nl-email').placeholder='✓ You\'re in. See you Thursday.';
-  document.getElementById('nl-email').style.borderColor='var(--teal)';
-}
+// ── DYNAMIC URL FILTER LOAD ──────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get('cat');
+  if (cat) {
+    const btn = Array.from(document.querySelectorAll('.fb-btn')).find(b => b.textContent.toLowerCase() === cat.toLowerCase());
+    if (btn) {
+      filt(btn, cat);
+    }
+  }
+});
 </script>
 <script src="vv-global.js"></script>
 </body>
