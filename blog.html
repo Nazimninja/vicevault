@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="msvalidate.01" content="95E08A61D0FCFD4CDB60704C9D27DF07">
@@ -443,16 +445,16 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo" onclick="scrollTo({top:0,behavior:'smooth'})">
+  <div class="nav-logo" onclick="location.href='index.html'">
     <img src="assets/logo-master.png" alt="Vice Vault logo">
     <span class="nav-logo-text">VICE VAULT</span>
     <span class="nav-dot"></span>
   </div>
   <button class="nav-close-btn" id="navClose" onclick="document.getElementById('navToggle').classList.remove('active'); document.querySelector('.nav-links').classList.remove('active'); document.body.style.overflow=''" aria-label="Close Menu">✕</button>
   <ul class="nav-links" id="navLinks" onclick="const t=document.getElementById('navToggle'); if(t) t.classList.remove('active'); this.classList.remove('active'); document.body.style.overflow=''">
-    <li><a href="#categories">Vault</a></li>
+    <li><a href="index.html#categories">Vault</a></li>
     <li><a href="guides.html">Guides</a></li>
-    <li><a href="blog.html">Blog</a></li>
+    <li><a href="#allguides">Blog</a></li>
     <li><a href="weekly.html">Weekly Drop</a></li>
     <li><a href="preorder.html" style="color:var(--gold2)">Pre-order</a></li>
     <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
@@ -463,243 +465,47 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
     <span class="bar"></span>
   </button>
 </nav>
-
-<!-- HERO -->
-<div class="hero" id="home">
-  <div class="hero-bg" id="hero-parallax"></div>
-  <div class="hero-scan"></div>
-  <div class="hero-grid"></div>
-  <canvas class="particles-bg" data-color="0, 112, 243" data-quantity="110" style="position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.45"></canvas>
-  <div class="vv-meteors" data-count="12" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1"></div>
-  <div class="corner c-tl"></div><div class="corner c-tr"></div>
-  <div class="corner c-bl"></div><div class="corner c-br"></div>
   
-  <div class="hero-content">
-    <!-- EYEBROW -->
-    <div class="eyebrow">
-      <span class="ew-line"></span>
-      <span class="ew-dot"></span>
-      Launching with GTA 6 · The Vault Opens Soon
-      <span class="ew-dot"></span>
-      <span class="ew-line"></span>
-    </div>
-    
-    <!-- TITLE -->
-    <h1 class="hero-title">
-      <span class="ht-1">The Ultimate</span>
-      <span class="ht-2"><span class="text-shimmer-brand">Vice Vault</span></span>
-      <span class="ht-3">Intelligence Hub</span>
-    </h1>
-    
-    <!-- TAGLINE -->
-    <p class="tagline">
-      Heist blueprints. Money meta. Cheat codes. Easter eggs. Story walkthroughs. Vehicle guides. 11 sections. 320+ guides. Updated every week. <strong style="color:var(--white)">Launching the day GTA 6 drops.</strong>
-    </p>
-    
-    <!-- COUNTDOWN -->
-    <div class="countdown-wrap">
-      <div class="countdown-label">Vault opens in</div>
-      <div class="countdown">
-        <div class="cd-unit"><div class="cd-num" id="cd-days">00</div><div class="cd-label">Days</div></div>
-        <div class="cd-sep">:</div>
-        <div class="cd-unit"><div class="cd-num" id="cd-hours">00</div><div class="cd-lbl">Hours</div></div>
-        <div class="cd-sep">:</div>
-        <div class="cd-unit"><div class="cd-num" id="cd-mins">00</div><div class="cd-label">Mins</div></div>
-        <div class="cd-sep">:</div>
-        <div class="cd-unit"><div class="cd-num" id="cd-secs">00</div><div class="cd-label">Secs</div></div>
-      </div>
-    </div>
-    
-    <!-- WAITLIST COUNTER -->
-    <div class="wl-counter">
-      <div class="wl-avatars">
-        <div class="wl-av av1">N</div>
-        <div class="wl-av av2">A</div>
-        <div class="wl-av av3">R</div>
-        <div class="wl-av av4">S</div>
-        <div class="wl-av av5">K</div>
-      </div>
-      <div class="wl-text"><strong id="wl-count">12,847</strong> players already on the waitlist</div>
-    </div>
-    
-    <!-- EMAIL FORM -->
-    <div class="email-section" id="waitlist">
-      <div class="email-form" id="emailForm">
-        <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" aria-label="Email">
-        <button class="join-btn" onclick="submitHomePreorder()">Pre-order & Join Waitlist →</button>
-      </div>
-      <div style="margin-top:1.2rem;font-size:.82rem;color:var(--muted)">Lock in 20% off forever. First payment collected today. Membership starts on launch day.</div>
-      <div class="form-note">🔒 Secured by Razorpay · Cancel anytime · Instant activation on launch day</div>
-    </div>
-  </div>
-</div>
+  <!-- PARTICLES BG -->
+  <canvas class="particles-bg" data-color="0, 112, 243" data-quantity="80" style="position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.45"></canvas>
 
-<!-- TICKER -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-t">
-    <span>GTA 6 Story Walkthrough <span class="td">◆</span></span><span>Heist Blueprints <span class="td">◆</span></span><span>Money Meta Weekly <span class="td">◆</span></span><span>Cheat Codes PS5 &amp; Xbox <span class="td">◆</span></span><span>Vehicle &amp; Car Culture <span class="td">◆</span></span><span>Easter Eggs &amp; Secrets <span class="td">◆</span></span><span>Properties &amp; Investments <span class="td">◆</span></span><span>Wanted Level Escape <span class="td">◆</span></span><span>Online Multiplayer Guides <span class="td">◆</span></span><span>Character &amp; Weapon Builds <span class="td">◆</span></span>
-    <span>GTA 6 Story Walkthrough <span class="td">◆</span></span><span>Heist Blueprints <span class="td">◆</span></span><span>Money Meta Weekly <span class="td">◆</span></span><span>Cheat Codes PS5 &amp; Xbox <span class="td">◆</span></span><span>Vehicle &amp; Car Culture <span class="td">◆</span></span><span>Easter Eggs &amp; Secrets <span class="td">◆</span></span><span>Properties &amp; Investments <span class="td">◆</span></span><span>Wanted Level Escape <span class="td">◆</span></span><span>Online Multiplayer Guides <span class="td">◆</span></span><span>Character &amp; Weapon Builds <span class="td">◆</span></span>
-  </div>
-</div>
-
-<!-- CATEGORIES -->
-<section class="cats-section" id="categories">
-  <div class="container">
-    <div class="cats-hd">
-      <div class="rev-l"><div class="eye">Everything inside</div><h2 class="stitle">11 sections.<br>One vault.</h2></div>
-      <p class="ssub rev-r">Every dimension of GTA 6 covered — from the first story mission to the deepest online grind.</p>
-    </div>
-    <div class="cats-grid rev">
-      <div class="cat-card cc1 d1"><span class="cat-num">01</span><span class="cat-icon">🗺️</span><div class="cat-name">Story Mode</div><p class="cat-desc">Full mission walkthroughs for every story chapter. Best order, hidden dialogue, all endings.</p><div class="cat-count">62 guides</div></div>
-      <div class="cat-card cc2 d2"><span class="cat-num">02</span><span class="cat-icon">💰</span><div class="cat-name">Money Meta</div><p class="cat-desc">Fastest $/hour methods ranked. Businesses, investments, farm routes — updated weekly.</p><div class="cat-count">54 guides</div></div>
-      <div class="cat-card cc3 d3"><span class="cat-num">03</span><span class="cat-icon">📋</span><div class="cat-name">Heist Blueprints</div><p class="cat-desc">Step-by-step heist walkthroughs. Every approach, guard route, hidden path, max take.</p><div class="cat-count">48 guides</div></div>
-      <div class="cat-card cc4 d4"><span class="cat-num">04</span><span class="cat-icon">🔑</span><div class="cat-name">Cheat Codes</div><p class="cat-desc">Every verified cheat code for PS5 and Xbox. Weapons, money, vehicles, wanted level, invincibility.</p><div class="cat-count">All codes verified</div></div>
-      <div class="cat-card cc5 d1"><span class="cat-num">05</span><span class="cat-icon">🌐</span><div class="cat-name">Online Multiplayer</div><p class="cat-desc">GTA Online — lobbies, business, PvP tactics, crew strategy, and rank levelling.</p><div class="cat-count">41 guides</div></div>
-      <div class="cat-card cc6 d2"><span class="cat-num">06</span><span class="cat-icon">🎯</span><div class="cat-name">Character &amp; Weapon Builds</div><p class="cat-desc">Skill builds for every playstyle. Best weapons by category, upgrade priority, loadout setups.</p><div class="cat-count">38 guides</div></div>
-      <div class="cat-card cc7 d3"><span class="cat-num">07</span><span class="cat-icon">🥚</span><div class="cat-name">Easter Eggs &amp; Secrets</div><p class="cat-desc">Hidden missions, secret locations, developer references, and lore deep-dives. All confirmed.</p><div class="cat-count">29 guides</div></div>
-      <div class="cat-card cc8 d4"><span class="cat-num">08</span><span class="cat-icon">🏠</span><div class="cat-name">Properties &amp; Investments</div><p class="cat-desc">Which properties to buy, when, and in what order. Business ROI rankings and passive income maps.</p><div class="cat-count">24 guides</div></div>
-      <div class="cat-card cc9 d1"><span class="cat-num">09</span><span class="cat-icon">🚗</span><div class="cat-name">Vehicles &amp; Car Culture</div><p class="cat-desc">Best cars by class, hidden vehicle locations, modification guides, and race tuning setups.</p><div class="cat-count">36 guides</div></div>
-      <div class="cat-card cc10 d2"><span class="cat-num">10</span><span class="cat-icon">⭐</span><div class="cat-name">Wanted Level &amp; Police</div><p class="cat-desc">Escape routes by wanted level, cop AI patterns, safe houses, and the best 5-star survival spots.</p><div class="cat-count">18 guides</div></div>
-      <div class="cat-card cc11 d3" style="grid-column:span 2"><span class="cat-num">11</span><span class="cat-icon">🎬</span><div class="cat-name">Pro Plays &amp; Stunts</div><p class="cat-desc">Stunt locations, trick shots, speedrun routes, and the content that breaks YouTube comment sections. New drops every week.</p><div class="cat-count">22 guides · Growing daily</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="mqd" aria-hidden="true">
-  <div class="mq-t">
-    <span>VICE VAULT</span><span class="mhi">◆</span><span>GTA 6 INTEL</span><span class="mhi">◆</span><span>STORY MODE</span><span class="mhi">◆</span><span>HEIST BLUEPRINTS</span><span class="mhi">◆</span><span>MONEY META</span><span class="mhi">◆</span><span>CHEAT VAULT</span><span class="mhi">◆</span><span>ONLINE GUIDE</span><span class="mhi">◆</span><span>VEHICLE CULTURE</span><span class="mhi">◆</span><span>EASTER EGGS</span><span class="mhi">◆</span>
-    <span>VICE VAULT</span><span class="mhi">◆</span><span>GTA 6 INTEL</span><span class="mhi">◆</span><span>STORY MODE</span><span class="mhi">◆</span><span>HEIST BLUEPRINTS</span><span class="mhi">◆</span><span>MONEY META</span><span class="mhi">◆</span><span>CHEAT VAULT</span><span class="mhi">◆</span><span>ONLINE GUIDE</span><span class="mhi">◆</span><span>VEHICLE CULTURE</span><span class="mhi">◆</span><span>EASTER EGGS</span><span class="mhi">◆</span>
-  </div>
-</div>
-
-<!-- FEATURED -->
-<section class="feat-section" id="guides">
-  <div class="container">
-    <div class="rev"><div class="eye">Latest drops</div><h2 class="stitle">This week's intel</h2></div>
-    <div class="feat-grid">
-      <article class="feat-hero rev-l" itemscope itemtype="https://schema.org/Article">
-        <div class="feat-thumb">
-          <div class="ft-bg"></div><div class="ft-glow"></div>
-          <div class="ft-city">
-            <div class="fb" style="width:16px;height:70px"><div class="bl" style="top:4px;left:6px;--d:1.8s;--dl:0s"></div></div>
-            <div class="fb" style="width:24px;height:115px"><div class="bl" style="top:7px;left:9px;--d:2.5s;--dl:.5s"></div><div class="bl" style="top:28px;left:4px;--d:1.5s;--dl:.2s"></div></div>
-            <div class="fb" style="width:13px;height:55px"></div>
-            <div class="fb" style="width:38px;height:145px"><div class="bl" style="top:9px;left:15px;--d:2s;--dl:.3s"></div><div class="bl" style="top:38px;left:6px;--d:1.8s;--dl:1s"></div><div class="bl" style="top:68px;left:22px;--d:2.2s;--dl:.1s"></div></div>
-            <div class="fb" style="width:20px;height:88px"><div class="bl" style="top:6px;left:8px;--d:1.6s;--dl:.7s"></div></div>
-            <div class="fb" style="width:55px;height:168px"><div class="bl" style="top:11px;left:22px;--d:2.8s;--dl:0s"></div><div class="bl" style="top:48px;left:9px;--d:1.5s;--dl:.4s"></div><div class="bl" style="top:88px;left:38px;--d:2s;--dl:.9s"></div><div class="bl" style="top:118px;left:14px;--d:1.7s;--dl:.2s"></div></div>
-            <div class="fb" style="width:18px;height:68px"><div class="bl" style="top:5px;left:7px;--d:3.2s;--dl:.6s"></div></div>
-            <div class="fb" style="width:32px;height:128px"><div class="bl" style="top:8px;left:13px;--d:2.1s;--dl:.3s"></div><div class="bl" style="top:58px;left:5px;--d:1.9s;--dl:.7s"></div></div>
-            <div class="fb" style="width:22px;height:95px"><div class="bl" style="top:7px;left:9px;--d:2.4s;--dl:1.1s"></div></div>
-            <div class="fb" style="width:45px;height:158px"><div class="bl" style="top:10px;left:18px;--d:1.7s;--dl:.4s"></div><div class="bl" style="top:44px;left:7px;--d:2.3s;--dl:.8s"></div><div class="bl" style="top:98px;left:28px;--d:1.5s;--dl:.1s"></div></div>
-          </div>
-          <div class="ft-badge">★ Featured</div>
-          <div class="ft-over"><div style="display:flex;gap:.5rem"><span class="tag tn">New</span><span class="tag tg">Blueprint</span><span class="tag">PS5</span></div></div>
-        </div>
-        <div class="feat-body">
-          <h2 class="feat-title" itemprop="headline">Vice City Bank Job: Complete Heist Blueprint — Silent Approach, $4.2M Max Take</h2>
-          <p class="feat-exc" itemprop="description">Walk away with $4.2M first attempt. Every entry point, guard patrol window, vault bypass route, and the exact crew setup that delivers 100% take without firing a shot.</p>
-          <div class="feat-foot"><span itemprop="datePublished">June 2025 · 14 min</span><span class="rl">Read blueprint →</span></div>
-        </div>
-      </article>
-      <div class="feat-side rev-r">
-        <article class="mini"><div class="mini-n">01</div><div><div class="mini-cat">Money meta</div><div class="mini-title">$500K/hr farm route — no heist required</div><div class="mini-meta">8 min · Vault Pro</div></div></article>
-        <article class="mini"><div class="mini-n">02</div><div><div class="mini-cat">Story mode</div><div class="mini-title">All 3 GTA 6 endings — how to unlock each one</div><div class="mini-meta">10 min · Vault Pro</div></div></article>
-        <article class="mini"><div class="mini-n">03</div><div><div class="mini-cat">Cheat codes</div><div class="mini-title">All 52 confirmed GTA 6 cheat codes — PS5 &amp; Xbox</div><div class="mini-meta">5 min · Soldier</div></div></article>
-        <article class="mini"><div class="mini-n">04</div><div><div class="mini-cat">Vehicles</div><div class="mini-title">Top 10 fastest cars in GTA 6 — ranked with times</div><div class="mini-meta">7 min · Vault Pro</div></div></article>
+  <!-- ARCHIVE HEADER -->
+  <section style="padding:120px 2.5rem 0;text-align:center;position:relative;z-index:1">
+    <div class="container" style="max-width:900px;margin:0 auto">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:1rem">
+        <span class="ew-line"></span>
+        <span class="ew-dot"></span>
+        <span class="ew-txt" style="font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)">INTELLIGENCE HUB</span>
+        <span class="ew-dot"></span>
+        <span class="ew-line"></span>
       </div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:.08em;line-height:1;margin-bottom:1rem;background:linear-gradient(90deg,var(--white),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent">GTA 6 INTEL &amp; NEWS BLOG</h1>
+      <p style="font-size:1.05rem;color:var(--muted);max-width:600px;margin:0 auto;line-height:1.7">The latest verified timeline news, developer leak analysis, next-generation engine graphics breakdowns, and in-game economy details for Grand Theft Auto 6.</p>
     </div>
-  </div>
-</section>
+  </section>
+  
 
 <!-- BLOG GRID -->
-<section class="blog-section" id="allguides">
+<section class="blog-section" id="allguides" style="padding-top:4rem;padding-bottom:6rem;position:relative;z-index:1">
   <div class="container">
-    <div class="rev"><div class="eye">Full archive</div><h2 class="stitle">All guides</h2></div>
-    <div class="fbar rev">
+    <div class="fbar rev" style="margin-bottom:3rem">
       <button class="fb-btn on" onclick="filt(this,'all')">All</button>
-      <button class="fb-btn" onclick="filt(this,'story')">Story</button>
-      <button class="fb-btn" onclick="filt(this,'heist')">Heists</button>
-      <button class="fb-btn" onclick="filt(this,'money')">Money</button>
-      <button class="fb-btn" onclick="filt(this,'cheat')">Cheats</button>
-      <button class="fb-btn" onclick="filt(this,'vehicle')">Vehicles</button>
-      <button class="fb-btn" onclick="filt(this,'online')">Online</button>
-      <button class="fb-btn" onclick="filt(this,'easter')">Easter Eggs</button>
+      <button class="fb-btn" onclick="filt(this,'timeline')">Timeline</button>
+      <button class="fb-btn" onclick="filt(this,'lore')">Lore</button>
+      <button class="fb-btn" onclick="filt(this,'engine')">Engine Tech</button>
+      <button class="fb-btn" onclick="filt(this,'economy')">Economy</button>
+      <button class="fb-btn" onclick="filt(this,'music')">Music</button>
     </div>
     <div class="bgrid rev" id="bgrid">
-      <article class="bc bt1" data-cat="heist" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/heist-airport-raid.jpg" alt="Airport Raid heist blueprint" loading="lazy"><span class="bct-lbl">Heist Blueprint</span></div><div class="bb"><h3 class="bt">GTA 6 Airport Raid: All 3 approaches + max take breakdown</h3><p class="bex">The airport job pays $3.1M at ceiling. We map every approach, loot priority, and the guard blind spot that makes the silent run possible solo.</p><div class="bf"><span>Jun 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt2" data-cat="money" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/money-business-stack.jpg" alt="Money meta business stacking" loading="lazy"><span class="bct-lbl">Money Meta</span></div><div class="bb"><h3 class="bt">$800K/hr passive: GTA 6 business stacking method explained</h3><p class="bex">Run four businesses simultaneously using the resupply timing trick. Zero active play once established. Money prints while you sleep.</p><div class="bf"><span>Jun 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt3" data-cat="cheat" onclick="location.href='cheat-codes.html'"><div class="bct"><img src="thumbs/cheat-all-codes.jpg" alt="GTA 6 cheat codes" loading="lazy"><span class="bct-lbl">Cheat Vault</span></div><div class="bb"><h3 class="bt">All GTA 6 cheat codes PS5 &amp; Xbox — weapons, health, vehicles</h3><p class="bex">Every confirmed cheat code organized by category. Money, ammo, wanted clears, invincibility, and 40+ vehicle spawns all verified.</p><div class="bf"><span>May 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt4" data-cat="story" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/story-endings.jpg" alt="GTA 6 story mode endings" loading="lazy"><span class="bct-lbl">Story Mode</span></div><div class="bb"><h3 class="bt">GTA 6 story missions in order — full walkthrough &amp; best approach for each</h3><p class="bex">All story missions with recommended approach, hidden cutscenes, and the dialogue choices that affect your ending. No spoilers in titles.</p><div class="bf"><span>May 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt5" data-cat="vehicle" onclick="location.href='gta6-confirmed-vehicles.html'"><div class="bct"><img src="thumbs/vehicle-fastest-cars.jpg" alt="GTA 6 confirmed vehicle list so far" loading="lazy"><span class="bct-lbl">Vehicles</span></div><div class="bb"><h3 class="bt">GTA 6 confirmed vehicle list so far — every car, bike &amp; boat verified</h3><p class="bex">Our ultimate list of GTA 6 confirmed vehicles so far, detailing every supercar, motorcycle, truck, and boat verified in the official Rockstar trailers.</p><div class="bf"><span>May 2025</span><span class="ba">→</span></div></div></article>
-      <article class="bc bt6" data-cat="easter" onclick="location.href='guide.html'"><div class="bct"><img src="thumbs/easter-eggs-leonida.jpg" alt="Easter eggs GTA 6" loading="lazy"><span class="bct-lbl">Easter Eggs</span></div><div class="bb"><h3 class="bt">23 GTA 6 Easter eggs in Leonida — all locations &amp; how to trigger</h3><p class="bex">Abandoned film set, alien encounter at 412.7, the mural that changes with weather — every community-confirmed Easter egg with video proof.</p><div class="bf"><span>Apr 2025</span><span class="ba">→</span></div></div></article>
-    </div>
-    
-    <!-- SHOW MORE BUTTON -->
-    <div style="display:flex;justify-content:center;margin-top:4rem" class="rev">
-      <button class="nav-cta" style="padding:.9rem 2.2rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;gap:.6rem" onclick="location.href='guides.html'">
-        Show More Blogs <span style="font-size:1.1rem;line-height:1">→</span>
-      </button>
+      <article class="bc bt4" data-cat="timeline" onclick="location.href='gta-6-release-date-latest-delay-rumors.html'"><div class="bct"><img src="thumbs/release-date-timeline.jpg" alt="GTA 6 Release Date Timeline" loading="lazy"><span class="bct-lbl">Release Timeline</span></div><div class="bb"><h3 class="bt">GTA 6 Release Date &amp; Delay Rumors — Rockstar's Official Timeline Explained</h3><p class="bex">Is GTA 6 getting delayed to 2026? We dissect Take-Two's financial reports, Rockstar's internal milestones, and the official Fall 2025 release timeline.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt5" data-cat="lore" onclick="location.href='gta-6-lucia-jason-protagonists.html'"><div class="bct"><img src="thumbs/protagonists-jason-lucia.jpg" alt="GTA 6 Jason and Lucia Protagonists" loading="lazy"><span class="bct-lbl">Protagonists</span></div><div class="bb"><h3 class="bt">GTA 6 Protagonists Jason &amp; Lucia — Story, Dynamic System &amp; Gameplay Breakdown</h3><p class="bex">Meet Lucia and Jason, the main characters of GTA 6. Discover their story origins, Bonnie &amp; Clyde trust meters, and dynamic switching mechanics.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt6" data-cat="engine" onclick="location.href='gta-6-next-gen-features-graphics.html'"><div class="bct"><img src="thumbs/rage-engine-graphics.jpg" alt="GTA 6 Rage Engine 9 Graphics" loading="lazy"><span class="bct-lbl">Engine Tech</span></div><div class="bb"><h3 class="bt">GTA 6 Graphics &amp; Next-Gen Tech — Rage Engine 9 &amp; Physics Breakdown</h3><p class="bex">An in-depth technical analysis of RAGE 9 engine capabilities: real-time global illumination, ray-traced water simulations, and dynamic weather patterns.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt1" data-cat="economy" onclick="location.href='gta-6-crypto-in-game-economy.html'"><div class="bct"><img src="thumbs/gta6-crypto-economy.jpg" alt="GTA 6 Cryptocurrency Economy" loading="lazy"><span class="bct-lbl">Economy Meta</span></div><div class="bb"><h3 class="bt">GTA 6 In-Game Economy &amp; Crypto Rumors — Cash, Stocks &amp; Banking</h3><p class="bex">Separating fact from fiction in GTA 6's financial landscape: cryptocurrency rumours, bank accounts, money laundering, and the stock market meta.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
+      <article class="bc bt2" data-cat="music" onclick="location.href='gta-6-soundtrack-radio-stations.html'"><div class="bct"><img src="thumbs/soundtrack-radio-stations.jpg" alt="GTA 6 Radio Stations and Soundtrack" loading="lazy"><span class="bct-lbl">Radio Stations</span></div><div class="bb"><h3 class="bt">GTA 6 Radio Stations &amp; Soundtrack — Leaked Songs &amp; Artist Rumors</h3><p class="bex">Explore the sounds of Vice City and Leonida. Leaked music tracklists, classic radio host parodies, and dynamic heist background score systems.</p><div class="bf"><span>Aug 2026</span><span class="ba">→</span></div></div></article>
     </div>
   </div>
 </section>
 
-<!-- ARTICLE PREVIEW -->
-<section class="art-sec" id="preview">
-  <div class="container">
-    <div class="rev"><div class="eye">Free preview</div><h2 class="stitle">Inside a blueprint</h2></div>
-    <div class="art-wrap rev" itemscope itemtype="https://schema.org/Article">
-      <div class="art-hd">
-        <div class="art-ml"><span class="acat">Heist Blueprints</span><span class="asep">/</span><span class="adate">June 2025</span><span class="asep">/</span><span class="adate">14 min read</span></div>
-        <h2 class="art-h1" itemprop="headline">GTA 6 Cargo Ship Heist: Full Walkthrough, Hidden Vault Route &amp; $2.2M Max Take</h2>
-        <p class="art-lead" itemprop="description">The Cargo Ship is GTA 6's highest-paying early heist at $1.8M base. This blueprint covers all three approaches, optimal crew, and the hidden maintenance shaft that skips 8 minutes and 3 guard spawns.</p>
-      </div>
-      <div class="art-body">
-        <div class="ac">
-          <h2>What is the Cargo Ship heist?</h2>
-          <p>Available from Level 15 in GTA 6 Online, this heist runs on a moving container vessel off South Leonida. Solo or up to four players. Three approach options: stealth, aggressive, and the rarely-found crew infiltration route that almost nobody uses.</p>
-          <p>Base take is $1.8M but scales with difficulty modifier, crew cut efficiency, and whether you collect secondary cargo crates — most players skip these and leave $400K on the table every run.</p>
-          <div class="tipbox"><div class="tipbox-l">Vice Vault tip</div><p>Run this Thursday between 10pm–2am in-game time. Guard density drops 30% during shift change — a 4-minute window to clear the engine room completely undetected.</p></div>
-          <h2>Step-by-step: stealth approach</h2>
-          <ol class="sl">
-            <li>Approach from the south using dive gear from Ammu-Nation. Surface at marker B, not the default A — this avoids the radar sweep entirely.</li>
-            <li>Eliminate the two port-side guards before climbing. Suppressed pistol only. Loud weapons instantly switch the mission to Hard Mode.</li>
-            <li>Hack the cargo manifest terminal on Deck 2 within 90 seconds. Use the Vice Vault code generator for today's rotating access code.</li>
-          </ol>
-          <div class="paywall">
-            <div class="pw-blur"><h2>The hidden vault route (saves 8 minutes)</h2><p>Most players take the main stairwell to reach the vault, which triggers three additional guard spawns. The hidden maintenance shaft bypasses all of them...</p></div>
-            <div class="pw-gate">
-              <div class="pw-l">Members only</div>
-              <div class="pw-t">Unlock the full blueprint</div>
-              <p class="pw-s">Hidden vault route, max take calculator, crew compositions, and 320+ more guides across all 11 sections.</p>
-              <a href="#waitlist" class="btn-g" style="margin-top:.5rem">Join Waitlist — It's Free →</a>
-            </div>
-          </div>
-        </div>
-        <aside class="asd">
-          <div class="sw"><div class="sw-t">In this guide</div><ul class="toc"><li><a href="#">What is this heist?</a></li><li><a href="#">Recommended crew</a></li><li><a href="#">Stealth walkthrough</a></li><li><a href="#">Aggressive walkthrough</a></li><li><a href="#">Hidden vault route ⭐</a></li><li><a href="#">Secondary cargo map</a></li><li><a href="#">Max take calculator</a></li></ul></div>
-          <div class="sw"><div class="sw-t">Difficulty</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--gold)">Medium</div><div style="font-size:.77rem;color:var(--muted);margin-top:.2rem">Level 15+ · Solo to 4-player</div></div>
-          <div class="sw"><div class="sw-t">Max take</div><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold)">$2.2M</div><div style="font-size:.74rem;color:var(--muted);margin-top:.2rem">Hidden route + secondary cargo</div></div>
-        </aside>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING IS INTEGRATED INTO THE WAITLIST FLOW ABOVE -->
-
-<!-- CTA -->
-<section class="cta-sec">
-  <div class="cta-glow"></div>
-  <div class="cta-in rev">
-    <div class="eye">Free. Every Thursday.</div>
-    <h2 class="stitle cta-t">The weekly<br><span style="background:linear-gradient(90deg, var(--pink), var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Vice drop</span></h2>
-    <p class="cta-s">Best money routes, new cheat codes, and heist updates discovered that week. No spam, ever.</p>
-    <div class="cta-form"><input type="email" class="email-i" id="nl-email" placeholder="your@email.com" aria-label="Email"><button class="btn-g" onclick="subscribeNL()">Get intel</button></div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
   <div class="fg">
     <div class="fb-brand">
@@ -728,7 +534,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:70px 2.
 </footer>
 
 <script>
-// ── CUSTOM CURSOR ────────────────────────────────
+// ── MOUSE CURSOR ──────────────────────────────────
 const cur=document.getElementById('cur'),crng=document.getElementById('crng');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
@@ -741,71 +547,6 @@ document.querySelectorAll('a,button,.cat-card,.bc,.feat-hero,.mini,.pc').forEach
 // ── NAV SCROLL ───────────────────────────────────
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
-
-// ── PARTICLES ────────────────────────────────────
-const pc=document.getElementById('particles');
-if (pc) {
-  const pcols=['#0070f3','#00a3ff','#00d4aa','#0070f3'];
-  for(let i=0;i<22;i++){
-    const p=document.createElement('div');p.className='particle';
-    p.style.cssText=`left:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--del:${Math.random()*9}s;background:${pcols[Math.floor(Math.random()*pcols.length)]}`;
-    pc.appendChild(p);
-  }
-}
-
-// ── HERO COUNTDOWN ───────────────────────────────
-const LAUNCH=new Date('2026-11-19T06:00:00+05:30');
-function updateCountdown(){
-  const now=new Date();
-  const diff=LAUNCH-now;
-  if(diff<=0){
-    document.getElementById('cd-days').textContent='00';
-    document.getElementById('cd-hours').textContent='00';
-    document.getElementById('cd-mins').textContent='00';
-    document.getElementById('cd-secs').textContent='00';
-    return;
-  }
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor((diff%86400000)/3600000);
-  const m=Math.floor((diff%3600000)/60000);
-  const s=Math.floor((diff%60000)/1000);
-  document.getElementById('cd-days').textContent=String(d).padStart(2,'0');
-  document.getElementById('cd-hours').textContent=String(h).padStart(2,'0');
-  document.getElementById('cd-mins').textContent=String(m).padStart(2,'0');
-  document.getElementById('cd-secs').textContent=String(s).padStart(2,'0');
-}
-updateCountdown();
-setInterval(updateCountdown,1000);
-
-// ── WAITLIST JOIN ────────────────────────────────
-function submitHomePreorder(){
-  const emailInput=document.getElementById('emailInput');
-  const email=emailInput.value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    emailInput.style.borderColor='var(--pink)';
-    setTimeout(()=>emailInput.style.borderColor='var(--border2)',2000);
-    return;
-  }
-  window.location.href = `signup.html?tier=499&email=${encodeURIComponent(email)}`;
-}
-
-// WAITLIST COUNTER ANIMATION
-function animateCounter(){
-  const el=document.getElementById('wl-count');
-  if(!el) return;
-  const target=12847;
-  const start=12000;
-  const dur=2000;
-  const startTime=Date.now();
-  function step(){
-    const progress=Math.min((Date.now()-startTime)/dur,1);
-    const ease=1-Math.pow(1-progress,3);
-    el.textContent=Math.floor(start+(target-start)*ease).toLocaleString();
-    if(progress<1)requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-setTimeout(animateCounter,1200);
 
 // ── REVEAL ON SCROLL ─────────────────────────────
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
@@ -821,16 +562,20 @@ function filt(btn,cat){
   });
 }
 
-// ── NEWSLETTER ───────────────────────────────────
-async function subscribeNL(){
-  const email=document.getElementById('nl-email').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('nl-email').style.borderColor='#0070f3';return;}
-  try{await fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'homepage-cta'})});}catch(e){}
-  document.getElementById('nl-email').value='';
-  document.getElementById('nl-email').placeholder='✓ You\'re in. See you Thursday.';
-  document.getElementById('nl-email').style.borderColor='var(--teal)';
-}
+// ── DYNAMIC URL FILTER LOAD ──────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get('cat');
+  if (cat) {
+    const btn = Array.from(document.querySelectorAll('.fb-btn')).find(b => b.textContent.toLowerCase() === cat.toLowerCase());
+    if (btn) {
+      filt(btn, cat);
+    }
+  }
+});
 </script>
 <script src="vv-global.js"></script>
 </body>
+</html>
+
 </html>
