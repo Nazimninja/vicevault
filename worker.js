@@ -57,9 +57,10 @@ async function generateAdminToken(email, secret) {
 }
 
 async function formatUserResponse(user, env) {
-  if (user && env.ADMIN_EMAIL && user.email.toLowerCase().trim() === env.ADMIN_EMAIL.toLowerCase().trim()) {
+  const secret = env.ADMIN_SECRET || env.RAZORPAY_KEY_SECRET;
+  if (user && env.ADMIN_EMAIL && secret && user.email.toLowerCase().trim() === env.ADMIN_EMAIL.toLowerCase().trim()) {
     user.isAdmin = true;
-    user.adminToken = await generateAdminToken(user.email, env.RAZORPAY_KEY_SECRET || 'fallback');
+    user.adminToken = await generateAdminToken(user.email, secret);
   }
   return user;
 }
@@ -106,10 +107,14 @@ export default {
     } else if (url.pathname.startsWith('/api/admin/')) {
       const authHeader = request.headers.get('Authorization') || '';
       const token = authHeader.replace('Bearer ', '').trim();
-      const expectedToken = await generateAdminToken(env.ADMIN_EMAIL, env.RAZORPAY_KEY_SECRET || 'fallback');
-      if (!env.ADMIN_EMAIL || token !== expectedToken) {
-        response = json({ error: 'Unauthorized' }, 401);
+      const secret = env.ADMIN_SECRET || env.RAZORPAY_KEY_SECRET;
+      if (!secret || !env.ADMIN_EMAIL) {
+        response = json({ error: 'Admin configuration missing' }, 500);
       } else {
+        const expectedToken = await generateAdminToken(env.ADMIN_EMAIL, secret);
+        if (!token || token !== expectedToken) {
+          response = json({ error: 'Unauthorized' }, 401);
+        } else {
         if (url.pathname === '/api/admin/stats' && request.method === 'GET') {
           response = await handleAdminStats(env);
         } else if (url.pathname === '/api/admin/users' && request.method === 'GET') {
