@@ -115,18 +115,19 @@ export default {
         if (!token || token !== expectedToken) {
           response = json({ error: 'Unauthorized' }, 401);
         } else {
-        if (url.pathname === '/api/admin/stats' && request.method === 'GET') {
-          response = await handleAdminStats(env);
-        } else if (url.pathname === '/api/admin/users' && request.method === 'GET') {
-          response = await handleAdminUsers(env);
-        } else if (url.pathname === '/api/admin/waitlist' && request.method === 'GET') {
-          response = await handleAdminWaitlist(env);
-        } else if (url.pathname === '/api/admin/update-user' && request.method === 'POST') {
-          response = await handleAdminUpdateUser(request, env);
-        } else if (url.pathname === '/api/admin/delete-user' && request.method === 'POST') {
-          response = await handleAdminDeleteUser(request, env);
-        } else {
-          response = json({ error: 'Not found' }, 404);
+          if (url.pathname === '/api/admin/stats' && request.method === 'GET') {
+            response = await handleAdminStats(env);
+          } else if (url.pathname === '/api/admin/users' && request.method === 'GET') {
+            response = await handleAdminUsers(env);
+          } else if (url.pathname === '/api/admin/waitlist' && request.method === 'GET') {
+            response = await handleAdminWaitlist(env);
+          } else if (url.pathname === '/api/admin/update-user' && request.method === 'POST') {
+            response = await handleAdminUpdateUser(request, env);
+          } else if (url.pathname === '/api/admin/delete-user' && request.method === 'POST') {
+            response = await handleAdminDeleteUser(request, env);
+          } else {
+            response = json({ error: 'Not found' }, 404);
+          }
         }
       }
     } else {

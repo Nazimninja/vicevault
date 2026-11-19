@@ -52,7 +52,39 @@
         const tierName = tierNames[tierId] || 'Vault Pro';
         const tierPrice = tierPrices[tierId] || '499';
 
-        const bannerHTML = `
+        const targetDate = new Date('2026-11-19T06:00:00+05:30');
+        const isLive = new Date() >= targetDate;
+
+        const bannerHTML = isLive ? `
+        <div id="day1-status-banner" style="background:linear-gradient(135deg, rgba(0,240,255,0.08), rgba(255,0,127,0.06), #080714);border:1px solid rgba(0, 240, 255, 0.35);border-radius:6px;padding:1.8rem;margin-bottom:1.5rem;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 80% 50%, rgba(0,240,255,0.12), transparent 60%);pointer-events:none"></div>
+          <div style="position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem">
+            <div style="flex:1;min-width:280px;text-align:left">
+              <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,240,255,.12);border:1px solid rgba(0,240,255,.3);color:#00f0ff;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.3rem 1rem;border-radius:2px;margin-bottom:1rem">
+                <span class="ob-dot" style="width:6px;height:6px;border-radius:50%;background:#00f0ff;display:inline-block"></span>
+                ● GTA 6 IS LIVE WORLDWIDE · DAY 1 VIP ACCESS
+              </div>
+              <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.02em;line-height:1.1;margin-bottom:0.6rem;color:#fff">
+                Welcome to Day 1, ${user.firstName || 'Agent'}!
+              </h2>
+              <p style="font-size:.85rem;color:var(--muted);line-height:1.6;margin:0">
+                Your <strong>${tierName}</strong> membership is active. All 11 vault sections, interactive radar map, confirmed cheat codes, and heist calculators are live and unlocked.
+              </p>
+              <div style="display:flex;gap:1rem;margin-top:1.2rem;flex-wrap:wrap">
+                <a href="map.html" class="btn-g" style="padding:.65rem 1.2rem;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(90deg, #00f0ff, #0070f3)!important;color:#000!important;border:none;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none">🗺️ Open Interactive Map</a>
+                <button class="btn-o" style="padding:.65rem 1.2rem;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center" onclick="showView('cheat')">🔑 Explore Cheats</button>
+                <button class="btn-g" style="padding:.65rem 1.2rem;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,0,127,0.15);border:1px solid rgba(255,0,127,0.4);color:#ff007f;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem" onclick="handleSuccessDiscord()">🎮 Discord Role Access</button>
+              </div>
+            </div>
+            
+            <div style="background:rgba(3,3,8,0.6);border:1px solid rgba(0,240,255,0.2);border-radius:4px;padding:1.2rem 1.6rem;min-width:220px;text-align:center">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#00f0ff;margin-bottom:.3rem">Day 1 Live Intel</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;line-height:1;color:#fff;letter-spacing:1px">UNLOCKED</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;color:var(--muted);text-transform:uppercase;margin-top:.3rem">All Systems Operational</div>
+            </div>
+          </div>
+        </div>
+        ` : `
         <div id="prelaunch-status-banner" style="background:linear-gradient(135deg, #100f24, #080714);border:1px solid rgba(0, 112, 243, 0.3);border-radius:6px;padding:1.8rem;margin-bottom:1.5rem;position:relative;overflow:hidden">
           <div style="position:absolute;inset:0;background:radial-gradient(circle at 80% 50%, rgba(0,112,243,0.1), transparent 60%);pointer-events:none"></div>
           <div style="position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem">
@@ -135,27 +167,27 @@
           }
         }
 
-        // Add timer function
-        const targetDate = new Date('2026-11-19T06:00:00+05:30');
-        function updateLockTimer(){
-          const diff = targetDate - new Date();
-          if(diff <= 0) {
-            const el = document.getElementById('prelaunch-status-banner');
-            if(el) el.remove();
-            return;
+        // Add timer function if pre-launch
+        if (!isLive) {
+          function updateLockTimer(){
+            const diff = targetDate - new Date();
+            if(diff <= 0) {
+              window.location.reload();
+              return;
+            }
+            const pad = n => String(Math.floor(n)).padStart(2,'0');
+            const dEl = document.getElementById('lock-d');
+            const hEl = document.getElementById('lock-h');
+            const mEl = document.getElementById('lock-m');
+            const sEl = document.getElementById('lock-s');
+            if (dEl) dEl.textContent = pad(diff/86400000);
+            if (hEl) hEl.textContent = pad((diff%86400000)/3600000);
+            if (mEl) mEl.textContent = pad((diff%3600000)/60000);
+            if (sEl) sEl.textContent = pad((diff%60000)/1000);
           }
-          const pad = n => String(Math.floor(n)).padStart(2,'0');
-          const dEl = document.getElementById('lock-d');
-          const hEl = document.getElementById('lock-h');
-          const mEl = document.getElementById('lock-m');
-          const sEl = document.getElementById('lock-s');
-          if (dEl) dEl.textContent = pad(diff/86400000);
-          if (hEl) hEl.textContent = pad((diff%86400000)/3600000);
-          if (mEl) mEl.textContent = pad((diff%3600000)/60000);
-          if (sEl) sEl.textContent = pad((diff%60000)/1000);
+          updateLockTimer();
+          setInterval(updateLockTimer, 1000);
         }
-        updateLockTimer();
-        setInterval(updateLockTimer, 1000);
       });
     }
   }

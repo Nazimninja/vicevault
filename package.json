@@ -6,7 +6,8 @@
     "dev:site": "npx serve . -p 3000",
     "dev:api": "npx wrangler dev",
     "dev": "npx concurrently \"npm run dev:site\" \"npm run dev:api\"",
-    "deploy:api": "npx wrangler deploy"
+    "deploy:api": "npx wrangler deploy",
+    "seo:indexnow": "node indexnow_submit.js"
   },
   "devDependencies": {
     "wrangler": "^3.0.0"

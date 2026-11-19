@@ -205,11 +205,11 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:3rem 2.5
   </div>
   <button class="nav-close-btn" id="navClose" onclick="document.getElementById('navToggle').classList.remove('active'); document.querySelector('.nav-links').classList.remove('active'); document.body.style.overflow=''" aria-label="Close Menu">✕</button>
   <ul class="nav-links" id="navLinks" onclick="const t=document.getElementById('navToggle'); if(t) t.classList.remove('active'); this.classList.remove('active'); document.body.style.overflow=''">
-    <li><a href="index.html#categories">Vault</a></li>
     <li><a href="guides.html">Guides</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="weekly.html">Weekly Drop</a></li>
-    <li><a href="preorder.html" style="color:var(--gold2)">Pre-order</a></li>
+    <li><a href="cheat-codes.html" class="active" style="color:var(--white)">Cheats</a></li>
+    <li><a href="map.html">Map</a></li>
+    <li><a href="weekly.html">Weekly Intel</a></li>
+    <li><a href="preorder.html" style="color:var(--gold2)">VIP Pass</a></li>
     <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu" onclick="this.classList.toggle('active'); document.querySelector('.nav-links').classList.toggle('active'); document.body.style.overflow = document.querySelector('.nav-links').classList.contains('active') ? 'hidden' : ''">
@@ -369,6 +369,48 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:3rem 2.5
       <div class="plat-row"><span class="plat-lbl">Phone Dialer</span><span class="plat-val" onclick="copyCode(this)">1-999-625-348-7246</span></div>
     </div>
   </div>
+
+  <!-- Fast Sprint -->
+  <div class="cheat-card" data-cat="player">
+    <div class="cc-head">
+      <span class="cc-cat cat-player">Player</span>
+      <span class="cc-name">Fast Sprint & Stamina</span>
+    </div>
+    <p class="cc-desc">Increases on-foot sprinting speed by 40% and disables stamina exhaustion.</p>
+    <div class="cc-platforms">
+      <div class="plat-row"><span class="plat-lbl">PS5</span><span class="plat-val" onclick="copyCode(this)">△ ← → → L2 L1 ▢</span></div>
+      <div class="plat-row"><span class="plat-lbl">Xbox</span><span class="plat-val" onclick="copyCode(this)">Y ← → → LT LB X</span></div>
+      <div class="plat-row"><span class="plat-lbl">Phone Dialer</span><span class="plat-val" onclick="copyCode(this)">1-999-2282-463</span></div>
+    </div>
+  </div>
+
+  <!-- Explosive Melee -->
+  <div class="cheat-card" data-cat="combat">
+    <div class="cc-head">
+      <span class="cc-cat cat-combat">Combat</span>
+      <span class="cc-name">Explosive Melee Punches</span>
+    </div>
+    <p class="cc-desc">Punches and melee hits trigger powerful explosive shockwaves that send targets flying.</p>
+    <div class="cc-platforms">
+      <div class="plat-row"><span class="plat-lbl">PS5</span><span class="plat-val" onclick="copyCode(this)">→ ← X △ R1 ◯ ◯ ◯ L2</span></div>
+      <div class="plat-row"><span class="plat-lbl">Xbox</span><span class="plat-val" onclick="copyCode(this)">→ ← A Y RB B B B LT</span></div>
+      <div class="plat-row"><span class="plat-lbl">Phone Dialer</span><span class="plat-val" onclick="copyCode(this)">1-999-4684-2637</span></div>
+    </div>
+  </div>
+
+  <!-- Spawn Sanchez -->
+  <div class="cheat-card" data-cat="vehicle">
+    <div class="cc-head">
+      <span class="cc-cat cat-vehicle">Vehicle</span>
+      <span class="cc-name">Spawn Sanchez Dirt Bike</span>
+    </div>
+    <p class="cc-desc">Spawns an agile all-terrain Sanchez dirt bike, ideal for escaping into the Grasslands swamp.</p>
+    <div class="cc-platforms">
+      <div class="plat-row"><span class="plat-lbl">PS5</span><span class="plat-val" onclick="copyCode(this)">◯ X L1 ◯ ◯ L1 ◯ R1 R2 L2 L1 L1</span></div>
+      <div class="plat-row"><span class="plat-lbl">Xbox</span><span class="plat-val" onclick="copyCode(this)">B A LB B B LB B RB RT LT LB LB</span></div>
+      <div class="plat-row"><span class="plat-lbl">Phone Dialer</span><span class="plat-val" onclick="copyCode(this)">1-999-633-7623</span></div>
+    </div>
+  </div>
 </div>
 
 <!-- WARNING BOX -->
@@ -387,10 +429,10 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:3rem 2.5
   <div class="cta-inner rev">
     <div class="cta-glow"></div>
     <div class="cta-lbl">Become a Vice Vault Member</div>
-    <h2 class="cta-title">Upgrade to Vice Vault Pro</h2>
-    <p class="cta-p">Get absolute mastery of Leonida. Join 12,000+ players tracking real-time money-making business cycles, dynamic maps, heist calculators, and secret content drops from Day One.</p>
+    <h2 class="cta-title">Upgrade to Vice Vault VIP Pass</h2>
+    <p class="cta-p">Get absolute mastery of Leonida. Join 14,000+ players tracking real-time money-making business cycles, interactive maps, heist calculators, and secret content drops from Day One.</p>
     <div class="cta-btns">
-      <a href="signup.html" class="btn-g">Pre-order Pro — ₹499/mo</a>
+      <a href="preorder.html" class="btn-g">Unlock VIP Pass — ₹499/mo</a>
       <a href="signup.html?tier=299" class="btn-o">Start with Soldier</a>
     </div>
   </div>
@@ -399,10 +441,11 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:3rem 2.5
 <!-- FOOTER -->
 <footer>
   <div class="fg">
-    <span>© 2025 Vice Vault — Independent GTA 6 guide site. Not affiliated with Rockstar Games or Take-Two Interactive.</span>
+    <span>© 2026 Vice Vault — Independent GTA 6 guide site. Not affiliated with Rockstar Games or Take-Two Interactive.</span>
     <div class="fleg">
       <a href="index.html">Home</a>
-      <a href="preorder.html">Pre-order Now</a>
+      <a href="guides.html">Guides</a>
+      <a href="map.html">Map</a>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
     </div>

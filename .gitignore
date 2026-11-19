@@ -12,3 +12,7 @@ node_modules/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Chat History and Memory Archives
+chat_history/
+

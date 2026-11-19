@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7295477262076788" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GTA 6 Interactive Map: Leonida & Vice City Map Explorer | Vice Vault</title>
+<meta name="description" content="Explore the interactive GTA 6 Leonida & Vice City map. Points of interest, safehouses, Ammu-Nation stores, heist staging zones, exotic vehicle spawns, and Easter eggs.">
+<meta name="keywords" content="GTA 6 interactive map, Leonida map GTA 6, Vice City map, GTA 6 points of interest, GTA 6 collectibles map, GTA 6 safehouse locations">
+<meta property="og:title" content="GTA 6 Interactive Map — Leonida & Vice City Explorer | Vice Vault">
+<meta property="og:description" content="Full interactive atlas of Leonida and Vice City. Filter heists, shops, weapon stashes, vehicle spawns, and secrets.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vicevault.linkwa.in/map.html">
+<meta property="og:image" content="https://vicevault.linkwa.in/thumbs/leonida-map-real-miami.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GTA 6 Interactive Map: Leonida & Vice City | Vice Vault">
+<meta name="twitter:image" content="https://vicevault.linkwa.in/thumbs/leonida-map-real-miami.jpg">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://vicevault.linkwa.in/map.html">
+
+<!-- JSON-LD SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "GTA 6 Interactive Map: Leonida & Vice City Explorer",
+  "description": "Full interactive atlas and POI guide for Grand Theft Auto VI in the state of Leonida and Vice City.",
+  "url": "https://vicevault.linkwa.in/map.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Vice Vault",
+    "url": "https://vicevault.linkwa.in"
+  }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* RESPONSIVE FONT SCALING */
+@media (max-width: 480px) { html { font-size: 16px !important; } }
+@media (min-width: 481px) and (max-width: 768px) { html { font-size: 16px !important; } }
+@media (min-width: 769px) and (max-width: 1024px) { html { font-size: 16.5px !important; } }
+@media (min-width: 1025px) and (max-width: 1440px) { html { font-size: 17px !important; } }
+@media (min-width: 1600px) { html { font-size: 18px !important; } }
+@media (min-width: 2200px) { html { font-size: 22px !important; } }
+
+:root{
+  --ink:#030308;--deep:#07070f;--surface:#0d0d18;--card:#131320;--lift:#1a1a2a;
+  --pink:#ff3d9a;--purple:#c830ff;--blue:#0070f3;--white:#ede8df;
+  --gold:var(--blue);--gold2:var(--pink);--teal:#00d4aa;--orange:#e05c1a;
+  --muted:#7a788a;--dim:#2a2838;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.022}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:66px;background:rgba(3,3,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.14em;display:flex;align-items:center;gap:.6rem;cursor:pointer}
+.nav-logo img{height:40px;width:40px;object-fit:contain;border-radius:4px}
+.nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;background:linear-gradient(90deg, var(--white), var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pd 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(0,212,170,.7)}50%{box-shadow:0 0 0 6px rgba(0,212,170,0)}}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--white)}
+.nav-cta{background:linear-gradient(90deg, var(--pink), var(--blue))!important;color:#fff!important;padding:.5rem 1.4rem;border-radius:2px;font-weight:800!important;transition:opacity .2s,transform .15s!important}
+.nav-cta:hover{opacity:.85!important;transform:translateY(-1px)}
+
+/* HERO */
+.map-header{padding:110px 2rem 2rem;text-align:center;max-width:1120px;margin:0 auto;position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem}
+.map-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,7vw,5.5rem);letter-spacing:.04em;line-height:.95;margin-bottom:1rem}
+.map-desc{font-size:1.05rem;color:var(--muted);max-width:700px;margin:0 auto 2rem;line-height:1.7}
+
+/* RADAR HUD CONTAINER */
+.radar-hub{max-width:1120px;margin:0 auto 3rem;padding:0 2rem;position:relative;z-index:2}
+.radar-frame{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;position:relative;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.radar-bar{background:var(--card);border-bottom:1px solid var(--border);padding:.8rem 1.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.radar-status{display:flex;align-items:center;gap:.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.radar-pulse{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:pd 1.5s infinite}
+.radar-coords{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:var(--muted)}
+
+/* FILTER PILLS */
+.map-filters{display:flex;gap:.5rem;flex-wrap:wrap;padding:1rem 1.4rem;background:rgba(7,7,15,.7);border-bottom:1px solid var(--border)}
+.mf-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:.4rem 1rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.mf-btn:hover,.mf-btn.active{background:linear-gradient(90deg, var(--pink), var(--blue));color:#fff;border-color:transparent}
+
+/* MAP VISUAL CANVAS / DISPLAY */
+.map-display{height:460px;position:relative;background:radial-gradient(ellipse at center,#0d1522 0%,#05080f 100%);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.map-grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(0,112,243,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,112,243,.08) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.map-scanline{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);pointer-events:none}
+.map-compass{position:absolute;top:20px;right:20px;width:70px;height:70px;border:1px dashed rgba(0,212,170,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--teal)}
+
+/* PINS ON MAP */
+.map-pin{position:absolute;cursor:pointer;transform:translate(-50%,-50%);transition:transform .2s;z-index:10}
+.map-pin:hover{transform:translate(-50%,-50%) scale(1.3);z-index:20}
+.pin-core{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:#fff;box-shadow:0 0 12px currentColor}
+.pin-label{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:.15rem .45rem;border-radius:2px;background:rgba(3,3,8,.9);border:1px solid var(--border);color:var(--white)}
+
+.p-heist .pin-core{background:var(--pink);color:var(--pink)}
+.p-shop .pin-core{background:var(--gold);color:var(--gold)}
+.p-safe .pin-core{background:var(--teal);color:var(--teal)}
+.p-car .pin-core{background:var(--orange);color:var(--orange)}
+.p-secret .pin-core{background:var(--purple);color:var(--purple)}
+
+/* POI CARDS GRID */
+.poi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;padding:2rem 1.4rem;background:var(--deep)}
+.poi-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.4rem;transition:all .25s;cursor:pointer}
+.poi-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,112,243,.15)}
+.poi-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
+.poi-type{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px}
+.poi-coords{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;color:var(--muted);letter-spacing:.05em}
+.poi-title{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;line-height:1.2;color:var(--white);margin-bottom:.4rem}
+.poi-desc{font-size:.84rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.poi-footer{display:flex;justify-content:space-between;align-items:center;padding-top:.8rem;border-top:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.poi-action{color:var(--gold)}
+
+/* CURSOR & RESPONSIVE */
+.cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(0,112,243,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s;opacity:.5}
+
+/* MOBILE TOGGLE */
+.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:24px;height:18px;background:transparent;border:none;cursor:pointer;padding:0;z-index:1001;position:relative}
+.nav-toggle .bar{width:100%;height:2px;background-color:var(--white);transition:all 0.3s ease;transform-origin:center}
+.nav-close-btn{display:none;position:fixed;top:1rem;right:1rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:40px;height:40px;cursor:pointer;z-index:1002;color:var(--white);font-size:1.2rem;align-items:center;justify-content:center}
+
+@media(max-width:640px){
+  nav{padding:0 1rem;height:56px}
+  .nav-logo-text{font-size:1.1rem}
+  .nav-toggle{display:flex}
+  .nav-close-btn{display:flex}
+  .nav-links{display:none!important;position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100%!important;height:100%!important;background:rgba(3,3,8,0.98)!important;backdrop-filter:blur(20px)!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:1.8rem!important;z-index:999!important;padding:5rem 2rem 3rem!important}
+  .nav-links.active{display:flex!important}
+  .nav-links a{font-size:1.4rem!important;font-weight:700!important;letter-spacing:.12em!important;color:var(--white)!important;display:block!important}
+  .cur,.cur-ring{display:none}
+  .radar-hub{padding:0 1rem}
+  .poi-grid{grid-template-columns:1fr}
+}
+
+/* FOOTER */
+footer{background:var(--deep);border-top:1px solid var(--border);padding:60px 2.5rem 30px}
+.fbot{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--border);font-size:.73rem;color:var(--muted);flex-wrap:wrap;gap:1rem}
+.fleg{display:flex;gap:1.5rem}
+.fleg a:hover{color:var(--white)}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="crng"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" onclick="location.href='index.html'">
+    <img src="assets/logo-master.png" alt="Vice Vault logo">
+    <span class="nav-logo-text">VICE VAULT</span>
+    <span class="nav-dot"></span>
+  </div>
+  <button class="nav-close-btn" id="navClose" onclick="document.getElementById('navToggle').classList.remove('active'); document.querySelector('.nav-links').classList.remove('active'); document.body.style.overflow=''" aria-label="Close Menu">✕</button>
+  <ul class="nav-links" id="navLinks" onclick="const t=document.getElementById('navToggle'); if(t) t.classList.remove('active'); this.classList.remove('active'); document.body.style.overflow=''">
+    <li><a href="guides.html">Guides</a></li>
+    <li><a href="cheat-codes.html">Cheats</a></li>
+    <li><a href="map.html" class="active" style="color:var(--white)">Map</a></li>
+    <li><a href="weekly.html">Weekly Intel</a></li>
+    <li><a href="preorder.html" style="color:var(--gold2)">VIP Pass</a></li>
+    <li><a href="dashboard.html" class="nav-cta">Member Login</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu" onclick="this.classList.toggle('active'); document.querySelector('.nav-links').classList.toggle('active'); document.body.style.overflow = document.querySelector('.nav-links').classList.contains('active') ? 'hidden' : ''">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<header class="map-header">
+  <div class="eyebrow">
+    <span>●</span> RADAR SAT-LINK LIVE <span>●</span> STATE OF LEONIDA ATLAS
+  </div>
+  <h1 class="map-title"><span class="text-shimmer">LEONIDA &amp; VICE CITY</span><br><span class="text-shimmer-brand">INTERACTIVE MAP</span></h1>
+  <p class="map-desc">The definitive Day-1 geospatial command center for GTA 6. Explore points of interest, heist staging safehouses, Ammu-Nation locations, exotic car spawns, and hidden Easter eggs across Vice City, Port Gellhorn, and the Gator Keys.</p>
+</header>
+
+<!-- RADAR DISPLAY -->
+<main class="radar-hub">
+  <div class="radar-frame">
+    <div class="radar-bar">
+      <div class="radar-status">
+        <span class="radar-pulse"></span>
+        <span>GPS TELEMETRY ACTIVE · RESOLUTION: ULTRA-HD</span>
+      </div>
+      <div class="radar-coords" id="radarCoords">LAT 25.7617° N · LON 80.1918° W</div>
+    </div>
+
+    <div class="map-filters">
+      <button class="mf-btn active" onclick="filterPins('all', this)">All POIs (18)</button>
+      <button class="mf-btn" onclick="filterPins('heist', this)">Heists &amp; Banks</button>
+      <button class="mf-btn" onclick="filterPins('shop', this)">Ammu-Nation &amp; Fences</button>
+      <button class="mf-btn" onclick="filterPins('safe', this)">Safehouses</button>
+      <button class="mf-btn" onclick="filterPins('car', this)">Exotic Spawns</button>
+      <button class="mf-btn" onclick="filterPins('secret', this)">Easter Eggs</button>
+    </div>
+
+    <!-- MAP CANVAS / GRAPHIC -->
+    <div class="map-display" id="mapDisplay">
+      <div class="map-grid-overlay"></div>
+      <div class="map-scanline"></div>
+      <div class="map-compass">N<br>▲</div>
+
+      <!-- PINS -->
+      <!-- Heists -->
+      <div class="map-pin p-heist" style="top:38%;left:65%" data-type="heist" onclick="selectPOI('Vice City First National Bank')">
+        <div class="pin-core">💰</div>
+        <div class="pin-label">VC 1st National Bank</div>
+      </div>
+      <div class="map-pin p-heist" style="top:78%;left:82%" data-type="heist" onclick="selectPOI('South Leonida Cargo Vessel')">
+        <div class="pin-core">🚢</div>
+        <div class="pin-label">Cargo Ship Offshore</div>
+      </div>
+      <div class="map-pin p-heist" style="top:48%;left:24%" data-type="heist" onclick="selectPOI('Port Gellhorn Depository')">
+        <div class="pin-core">🏛️</div>
+        <div class="pin-label">Gellhorn Depository</div>
+      </div>
+
+      <!-- Safehouses -->
+      <div class="map-pin p-safe" style="top:42%;left:58%" data-type="safe" onclick="selectPOI('Ocean Beach Motel Hideout')">
+        <div class="pin-core">🏠</div>
+        <div class="pin-label">Ocean Beach Motel</div>
+      </div>
+      <div class="map-pin p-safe" style="top:25%;left:45%" data-type="safe" onclick="selectPOI('Ambrosia Trailer Park Stash')">
+        <div class="pin-core">⛺</div>
+        <div class="pin-label">Ambrosia Stash</div>
+      </div>
+      <div class="map-pin p-safe" style="top:85%;left:48%" data-type="safe" onclick="selectPOI('Gator Keys Stilt Shack')">
+        <div class="pin-core">🛖</div>
+        <div class="pin-label">Keys Safehouse</div>
+      </div>
+
+      <!-- Shops & Ammu-Nation -->
+      <div class="map-pin p-shop" style="top:32%;left:62%" data-type="shop" onclick="selectPOI('Downtown Ammu-Nation Gunsmith')">
+        <div class="pin-core">🎯</div>
+        <div class="pin-label">Downtown Ammu-Nation</div>
+      </div>
+      <div class="map-pin p-shop" style="top:45%;left:72%" data-type="shop" onclick="selectPOI('Little Haiti Pawn & Jewelry Fence')">
+        <div class="pin-core">💎</div>
+        <div class="pin-label">Haiti Jewelry Fence</div>
+      </div>
+      <div class="map-pin p-shop" style="top:52%;left:22%" data-type="shop" onclick="selectPOI('Gellhorn Scrap & Chop Shop')">
+        <div class="pin-core">🔧</div>
+        <div class="pin-label">Gellhorn Chop Shop</div>
+      </div>
+
+      <!-- Exotic Cars -->
+      <div class="map-pin p-car" style="top:36%;left:75%" data-type="car" onclick="selectPOI('Starfish Island Luxury Mansions')">
+        <div class="pin-core">🏎️</div>
+        <div class="pin-label">Starfish Island Supercars</div>
+      </div>
+      <div class="map-pin p-car" style="top:55%;left:54%" data-type="car" onclick="selectPOI('Vice City International Airport')">
+        <div class="pin-core">✈️</div>
+        <div class="pin-label">Escobar Intl Tarmac</div>
+      </div>
+
+      <!-- Secrets -->
+      <div class="map-pin p-secret" style="top:65%;left:36%" data-type="secret" onclick="selectPOI('The Grasslands Sunken Aircraft')">
+        <div class="pin-core">❓</div>
+        <div class="pin-label">Grasslands Sunken Plane</div>
+      </div>
+      <div class="map-pin p-secret" style="top:18%;left:52%" data-type="secret" onclick="selectPOI('Abandoned Whispering Pines Motel')">
+        <div class="pin-core">👻</div>
+        <div class="pin-label">Whispering Pines Secret</div>
+      </div>
+    </div>
+
+    <!-- POI LIST CARDS -->
+    <div class="poi-grid" id="poiGrid">
+      <article class="poi-card" data-cat="heist" onclick="location.href='guide.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(255,61,154,.15);color:var(--pink)">Heist Target</span>
+          <span class="poi-coords">COORD: 25.7742, -80.1936</span>
+        </div>
+        <h3 class="poi-title">Vice City First National Bank</h3>
+        <p class="poi-desc">The primary urban banking target in central Downtown. Multi-tier vault featuring both silent sewer infiltration and loud thermal drill options. Base payout: $4.2M.</p>
+        <div class="poi-footer">
+          <span>Difficulty: Hard</span>
+          <span class="poi-action">View Blueprint →</span>
+        </div>
+      </article>
+
+      <article class="poi-card" data-cat="heist" onclick="location.href='guide.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(255,61,154,.15);color:var(--pink)">Offshore Heist</span>
+          <span class="poi-coords">COORD: 25.5512, -80.1102</span>
+        </div>
+        <h3 class="poi-title">South Leonida Cargo Vessel</h3>
+        <p class="poi-desc">Anchored 2 miles offshore. Accessible via dive gear or speedboat. Features 3 guard rotation windows and high-value contraband crates. Base payout: $2.2M.</p>
+        <div class="poi-footer">
+          <span>Difficulty: Medium</span>
+          <span class="poi-action">View Blueprint →</span>
+        </div>
+      </article>
+
+      <article class="poi-card" data-cat="shop" onclick="location.href='gta-6-fast-cash-early-money-guide.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(0,112,243,.15);color:var(--gold)">Fencing & Pawn</span>
+          <span class="poi-coords">COORD: 25.7921, -80.2105</span>
+        </div>
+        <h3 class="poi-title">Little Haiti Pawn &amp; Jewelry Fence</h3>
+        <p class="poi-desc">The best early-game location to unload stolen rolexes, gold chains, and electronics without police heat. Pays 85% face value in clean untraceable cash.</p>
+        <div class="poi-footer">
+          <span>Service: Clean Cash</span>
+          <span class="poi-action">Fast Cash Guide →</span>
+        </div>
+      </article>
+
+      <article class="poi-card" data-cat="safe" onclick="location.href='gta-6-beginners-guide-tips.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(0,212,170,.15);color:var(--teal)">Starting Safehouse</span>
+          <span class="poi-coords">COORD: 25.7801, -80.1310</span>
+        </div>
+        <h3 class="poi-title">Ocean Beach Motel Hideout</h3>
+        <p class="poi-desc">Jason &amp; Lucia's Chapter 1 staging ground. Features weapon trunk storage, clothing wardrobe for removing wanted heat, and a garage spot for vehicle repairs.</p>
+        <div class="poi-footer">
+          <span>Security: High</span>
+          <span class="poi-action">Beginner Tips →</span>
+        </div>
+      </article>
+
+      <article class="poi-card" data-cat="car" onclick="location.href='gta6-confirmed-vehicles.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(224,92,26,.15);color:var(--orange)">Vehicle Spawn</span>
+          <span class="poi-coords">COORD: 25.7725, -80.1650</span>
+        </div>
+        <h3 class="poi-title">Starfish Island Luxury Drive</h3>
+        <p class="poi-desc">Gated mansion district with frequent spawns of Grotti Cheetahs, Pegassi supercars, and high-end SUVs. High security patrols require swift lockpicking.</p>
+        <div class="poi-footer">
+          <span>Class: Supercar</span>
+          <span class="poi-action">Vehicle List →</span>
+        </div>
+      </article>
+
+      <article class="poi-card" data-cat="secret" onclick="location.href='gta-6-leonida-map-locations-real-miami.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(200,48,255,.15);color:var(--purple)">Lore & Mystery</span>
+          <span class="poi-coords">COORD: 25.6890, -80.6500</span>
+        </div>
+        <h3 class="poi-title">The Grasslands Sunken Aircraft</h3>
+        <p class="poi-desc">Submerged DC-3 drug smuggler plane deep in the mangrove swamps. Contains waterproof lockbox with $25,000 cash and unique vintage machete weapon.</p>
+        <div class="poi-footer">
+          <span>Hazard: Alligators</span>
+          <span class="poi-action">Real Miami Lore →</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fbot">
+    <span>© 2026 Vice Vault — Independent GTA 6 intelligence &amp; interactive atlas. Not affiliated with Rockstar Games.</span>
+    <div class="fleg">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),crng=document.getElementById('crng');
+let mx=0,my=0,rx=0,ry=0;
+cur.style.left='0';cur.style.top='0';crng.style.left='0';crng.style.top='0';
+let hs=1,hsr=1,ths=1,thsr=1;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  document.getElementById('radarCoords').textContent=`LAT ${(25.4+(my/window.innerHeight)*0.6).toFixed(4)}° N · LON ${(80.4-(mx/window.innerWidth)*0.5).toFixed(4)}° W`;
+});
+(function anim(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  hs+=(ths-hs)*.2; hsr+=(thsr-hsr)*.15;
+  cur.style.transform=`translate3d(${mx}px,${my}px,0) translate(-50%,-50%) scale(${hs})`;
+  crng.style.transform=`translate3d(${rx}px,${ry}px,0) translate(-50%,-50%) scale(${hsr})`;
+  requestAnimationFrame(anim);
+})();
+
+// FILTERS
+function filterPins(cat, btn){
+  document.querySelectorAll('.mf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.map-pin').forEach(pin=>{
+    pin.style.display=(cat==='all'||pin.dataset.type===cat)?'block':'none';
+  });
+  document.querySelectorAll('.poi-card').forEach(card=>{
+    card.style.display=(cat==='all'||card.dataset.cat===cat)?'flex':'none';
+  });
+}
+
+function selectPOI(name){
+  const card=Array.from(document.querySelectorAll('.poi-card')).find(c=>c.querySelector('.poi-title').textContent.includes(name.split(' ')[0]));
+  if(card){
+    card.scrollIntoView({behavior:'smooth',block:'center'});
+    card.style.borderColor='var(--gold)';
+    setTimeout(()=>card.style.borderColor='var(--border)',2000);
+  }
+}
+</script>
+<script src="vv-global.js"></script>
+</body>
+</html>

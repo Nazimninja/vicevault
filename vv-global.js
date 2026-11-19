@@ -31,6 +31,10 @@
   // UPDATE THIS to the actual GTA 6 / Vice Vault launch date
   const LAUNCH_DATE = new Date('2026-11-19T06:00:00+05:30');
 
+  const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
+    ? 'http://localhost:8787'
+    : 'https://vicevault.linkwa.in';
+
   function setupCustomCursorHover(el) {
     const cur = document.getElementById('cur');
     const crng = document.getElementById('crng');
@@ -820,31 +824,50 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
   function buildBar() {
     if (document.getElementById('vv-bar')) return;
 
+    const isLive = new Date() >= LAUNCH_DATE;
     const bar = document.createElement('div');
     bar.id = 'vv-bar';
-    bar.innerHTML = `
-      <div class="vv-bar-left">
-        <span class="vv-bar-pulse"></span>
-        <span class="vv-bar-label">
-          <span class="vv-bl-accent">Vice Vault</span>
-          <span class="vv-bar-long"> launches with GTA 6 — </span>
-          <span class="vv-bar-long">pre-order now & save 20%</span>
-        </span>
-      </div>
-      <div class="vv-bar-right" style="display:flex;align-items:center;gap:1.2rem">
-        <div class="vv-countdown">
-          <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-d">00</div><div class="vv-cd-label">Days</div></div>
-          <span class="vv-cd-sep">:</span>
-          <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-h">00</div><div class="vv-cd-label">Hrs</div></div>
-          <span class="vv-cd-sep">:</span>
-          <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-m">00</div><div class="vv-cd-label">Min</div></div>
-          <span class="vv-cd-sep">:</span>
-          <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-s">00</div><div class="vv-cd-label">Sec</div></div>
+    
+    if (isLive) {
+      bar.innerHTML = `
+        <div class="vv-bar-left">
+          <span class="vv-bar-pulse" style="background:#00d4aa;box-shadow:0 0 8px #00d4aa"></span>
+          <span class="vv-bar-label">
+            <span class="vv-bl-accent" style="color:#00d4aa">GTA 6 IS LIVE:</span>
+            <span class="vv-bar-long"> Day-1 Gameplay Walkthroughs, Confirmed Cheats &amp; Interactive Map Active</span>
+          </span>
         </div>
-        <button class="vv-bar-cta" onclick="VV.openPreorder()">Pre-order — save 20%</button>
-        <button class="vv-bar-close" onclick="VV.closeBar()" aria-label="Close">✕</button>
-      </div>
-    `;
+        <div class="vv-bar-right" style="display:flex;align-items:center;gap:1rem">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#00d4aa;padding:0.2rem 0.6rem;background:rgba(0,212,170,0.15);border:1px solid rgba(0,212,170,0.35);border-radius:2px">● LIVE NOW</span>
+          <button class="vv-bar-cta" onclick="location.href='preorder.html'">Get VIP Pass →</button>
+          <button class="vv-bar-close" onclick="VV.closeBar()" aria-label="Close">✕</button>
+        </div>
+      `;
+    } else {
+      bar.innerHTML = `
+        <div class="vv-bar-left">
+          <span class="vv-bar-pulse"></span>
+          <span class="vv-bar-label">
+            <span class="vv-bl-accent">Vice Vault</span>
+            <span class="vv-bar-long"> launches with GTA 6 — </span>
+            <span class="vv-bar-long">pre-order now & save 20%</span>
+          </span>
+        </div>
+        <div class="vv-bar-right" style="display:flex;align-items:center;gap:1.2rem">
+          <div class="vv-countdown">
+            <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-d">00</div><div class="vv-cd-label">Days</div></div>
+            <span class="vv-cd-sep">:</span>
+            <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-h">00</div><div class="vv-cd-label">Hrs</div></div>
+            <span class="vv-cd-sep">:</span>
+            <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-m">00</div><div class="vv-cd-label">Min</div></div>
+            <span class="vv-cd-sep">:</span>
+            <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-s">00</div><div class="vv-cd-label">Sec</div></div>
+          </div>
+          <button class="vv-bar-cta" onclick="VV.openPreorder()">Pre-order — save 20%</button>
+          <button class="vv-bar-close" onclick="VV.closeBar()" aria-label="Close">✕</button>
+        </div>
+      `;
+    }
     document.body.insertBefore(bar, document.body.firstChild);
     document.body.classList.add('vv-bar-active');
 
@@ -1223,10 +1246,6 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     `;
     document.head.appendChild(style);
   }
-
-  const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
-    ? 'http://localhost:8787'
-    : 'https://vicevault.linkwa.in';
 
   async function sendOTP(email) {
     try {
