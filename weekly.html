@@ -15,8 +15,8 @@
 {
   "@context": "https://schema.org",
   "@type": "NewsArticle",
-  "headline": "GTA 6 Weekly Intel Drop: Heist Blueprints, Money Meta &amp; Cheat Codes",
-  "description": "Weekly Thursday drops containing the best GTA 6 money routes, heist updates, cheat codes, and secrets.",
+  "headline": "GTA 6 Weekly Intel Drop: New Guides &amp; Cheat Codes",
+  "description": "Weekly drops of new GTA 6 guides and cheat codes, each checked against multiple released-game sources.",
   "datePublished": "2025-06-26",
   "dateModified": "2026-07-07",
   "author": {
@@ -480,9 +480,9 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
     <!-- LOCK NOTICE -->
     <div class="lock-notice rev">
       <span style="font-size:1.3rem">🔒</span>
-      <div class="ln-text"><strong>Full guides and the complete cheat vault are for members.</strong> Join Vice Vault Pro for ₹499/month, or start at ₹299.</div>
+      <div class="ln-text"><strong>Full guides and the complete cheat vault are for members.</strong> Get the Vault Pass for ₹499/month.</div>
       <a href="signup.html" class="btn-g">Join for ₹499/mo</a>
-      <a href="signup.html?tier=299" class="btn-o">Start at ₹299</a>
+      <a href="preorder.html" class="btn-o">See what's inside</a>
     </div>
   </div>
 </div>
@@ -602,12 +602,9 @@ async function subscribeNL(btn){
   btn.textContent = 'Subscribing...';
 
   try {
-    const res = await fetch('/api/newsletter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    });
-    const data = await res.json();
+    const data = (window.VV && VV.subscribeLead)
+      ? await VV.subscribeLead(email, 'weekly-page')
+      : await (await fetch('/api/newsletter', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'weekly-page' }) })).json();
     if (data.success) {
       btn.textContent = 'Subscribed! ✓';
       btn.style.background = 'var(--teal)';

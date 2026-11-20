@@ -73,10 +73,9 @@
       document.addEventListener('DOMContentLoaded', () => {
         // Determine tier details
         const tierId = user.tier || 'pro';
-        const tierNames = { soldier: 'Vault Soldier', pro: 'Vault Pro', elite: 'Elite Crew' };
-        const tierPrices = { soldier: '299', pro: '499', elite: '999' };
-        const tierName = tierNames[tierId] || 'Vault Pro';
-        const tierPrice = tierPrices[tierId] || '499';
+        // One product: the ₹499 Vault Pass (older soldier/elite members are shown the same way)
+        const tierName = 'Vault Pass';
+        const tierPrice = '499';
 
         const targetDate = new Date('2026-11-19T06:00:00+05:30');
         const isLive = new Date() >= targetDate;
@@ -168,29 +167,15 @@
           tierEl.textContent = `${tierStar} ${tierName}`;
         }
 
+        // Sidebar card: members see a renew prompt; there is nothing to upgrade to
         const upgradeCard = document.querySelector('.sb-upgrade');
-        if (upgradeCard) {
-          if (tierId === 'elite') {
-            upgradeCard.style.display = 'none';
-          } else if (tierId === 'pro') {
-            const titleEl = upgradeCard.querySelector('.sb-upgrade-t');
-            const descEl = upgradeCard.querySelector('p');
-            const btnEl = upgradeCard.querySelector('.sb-upgrade-btn');
-            if (titleEl) titleEl.textContent = 'Upgrade to Elite';
-            if (descEl) descEl.textContent = 'Get custom blueprints, early drop access, and private voice lobbies.';
-            if (btnEl) {
-              btnEl.href = 'signup.html?tier=elite';
-              btnEl.textContent = 'Upgrade — ₹999/mo';
-            }
-          } else {
-            const titleEl = upgradeCard.querySelector('.sb-upgrade-t');
-            const btnEl = upgradeCard.querySelector('.sb-upgrade-btn');
-            if (titleEl) titleEl.textContent = 'Upgrade to Pro';
-            if (btnEl) {
-              btnEl.href = 'signup.html?tier=pro';
-              btnEl.textContent = 'Upgrade — ₹499/mo';
-            }
-          }
+        if (upgradeCard && user.subscribed) {
+          const titleEl = upgradeCard.querySelector('.sb-upgrade-t');
+          const descEl = upgradeCard.querySelector('p');
+          const btnEl = upgradeCard.querySelector('.sb-upgrade-btn');
+          if (titleEl) titleEl.textContent = 'Your Vault Pass';
+          if (descEl) descEl.textContent = 'Renew any time. Early renewals add 30 days on top of the time you have left.';
+          if (btnEl) { btnEl.href = 'signup.html'; btnEl.textContent = 'Renew — ₹499'; }
         }
 
         // Add timer function if pre-launch
@@ -752,7 +737,7 @@ a{color:inherit;text-decoration:none}
   <div class="sb-user">
     <div class="sb-avatar">N</div>
     <div class="sb-name">Nazim</div>
-    <div class="sb-tier">⭐ Vault Pro</div>
+    <div class="sb-tier">⭐ Vault Pass</div>
   </div>
   <nav class="sb-nav">
     <div class="sb-section">Overview</div>
@@ -763,7 +748,7 @@ a{color:inherit;text-decoration:none}
 
     <div class="sb-section">The Vault</div>
     <div class="sb-item" onclick="showView('story')"><span class="ico">📖</span>Story Mode</div>
-    <div class="sb-item" onclick="showView('heist')"><span class="ico">📋</span>Heist Blueprints</div>
+    <div class="sb-item" onclick="showView('heist')"><span class="ico">📋</span>Heists</div>
     <div class="sb-item" onclick="showView('money')"><span class="ico">💰</span>Money Meta</div>
     <div class="sb-item" onclick="showView('cheat')"><span class="ico">🔑</span>Cheat Codes</div>
     <div class="sb-item" onclick="showView('online')"><span class="ico">🌐</span>Online Multiplayer</div>
@@ -780,9 +765,9 @@ a{color:inherit;text-decoration:none}
     <div class="sb-item"><span class="ico">←</span><a href="index.html" style="color:inherit">Back to Site</a></div>
   </nav>
   <div class="sb-upgrade">
-    <div class="sb-upgrade-t">Upgrade to Elite</div>
-    <p>Custom blueprint requests, early access + private Discord crew.</p>
-    <a href="signup.html?tier=999" class="sb-upgrade-btn">Upgrade — ₹999/yr</a>
+    <div class="sb-upgrade-t">Get the Vault Pass</div>
+    <p>Every guide, the full cheat vault and the Discord crew for 30 days.</p>
+    <a href="signup.html" class="sb-upgrade-btn">Get it — ₹499</a>
   </div>
 </aside>
 
@@ -848,8 +833,8 @@ a{color:inherit;text-decoration:none}
       <div class="cat-d cg9" onclick="showView('vehicles')"><div class="cat-d-glow"></div><div class="cat-d-icon">🚗</div><div class="cat-d-name">Vehicles</div><div class="cat-d-count" data-sec="vehicles">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
       <div class="cat-d cg10" onclick="showView('wanted')"><div class="cat-d-glow"></div><div class="cat-d-icon">⭐</div><div class="cat-d-name">Wanted Level</div><div class="cat-d-count" data-sec="wanted">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
       <div class="cat-d cg11" onclick="showView('pro')"><div class="cat-d-glow"></div><div class="cat-d-icon">🎬</div><div class="cat-d-name">Pro Plays</div><div class="cat-d-count" data-sec="pro">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
-      <!-- Upgrade locked card -->
-      <div class="cat-d" style="position:relative"><div class="cat-d-icon">💎</div><div class="cat-d-name" style="color:var(--muted)">Elite Extras</div><div class="cat-d-count">Custom requests</div><div class="locked-overlay"><span class="lock-badge">🔒 Elite only</span></div></div>
+      <!-- Guide topic requests (part of the Vault Pass) -->
+      <a class="cat-d" href="mailto:support@vicevault.linkwa.in?subject=Vice%20Vault%20guide%20request" style="text-decoration:none;color:inherit"><div class="cat-d-glow"></div><div class="cat-d-icon">💡</div><div class="cat-d-name">Request a Guide</div><div class="cat-d-count">Tell us what to cover next</div></a>
     </div>
 
     <!-- LIVE GUIDES -->
@@ -920,7 +905,7 @@ a{color:inherit;text-decoration:none}
       <!-- Discord Link Section -->
       <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
         <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:.3rem;letter-spacing:.04em">Discord Integration</h3>
-        <p style="font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem">Link your Discord account to unlock private voice channels, roleplay lobbies, and co-op heist briefings.</p>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem">Link your Discord account to unlock the member channels for your tier.</p>
         <div id="discord-connection-status">
           <!-- Populated dynamically via JS -->
         </div>
@@ -952,7 +937,7 @@ a{color:inherit;text-decoration:none}
       <div style="margin-top:2rem;padding:1rem;background:rgba(0,112,243,.06);border-left:3px solid #0070f3;border-radius:0 4px 4px 0">
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#0070f3;margin-bottom:.4rem">What happens when you cancel</div>
         <ul style="font-size:.82rem;color:var(--muted);line-height:1.9;list-style:none;padding:0;margin:0">
-          <li>✗ Vault Pro / Elite Crew Discord roles removed immediately</li>
+          <li>✗ Vault Pass Discord role removed when access ends</li>
           <li>✗ Access to private channels (Heist, RP, Multiplayer) revoked</li>
           <li>✗ Membership content access disabled</li>
         </ul>
@@ -1109,7 +1094,7 @@ a{color:inherit;text-decoration:none}
       <div style="font-size:2.5rem;margin-bottom:1rem">📌</div>
       <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.05em;color:var(--white);margin-bottom:.5rem">NO GUIDES BOOKMARKED YET</h3>
       <p style="font-size:.88rem;color:var(--muted);max-width:480px;margin:0 auto 1.5rem;line-height:1.6">Browse any guide in the Story, Heists, Money Meta, or Vehicles sections and click "Bookmark Guide" to save it here for fast access during missions.</p>
-      <button onclick="showView('heist')" class="btn-g" style="padding:.65rem 1.4rem;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(90deg,var(--pink),var(--blue))!important;color:#fff!important;border:none;border-radius:3px;cursor:pointer">Explore Heist Blueprints →</button>
+      <button onclick="showView('heist')" class="btn-g" style="padding:.65rem 1.4rem;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(90deg,var(--pink),var(--blue))!important;color:#fff!important;border:none;border-radius:3px;cursor:pointer">Explore the guides →</button>
     </div>
 
     <div class="bgrid" id="savedGuidesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.2rem;margin-top:1rem">
@@ -1192,7 +1177,7 @@ a{color:inherit;text-decoration:none}
       <div style="font-size:3rem;margin-bottom:1rem">🔒</div>
       
       <div id="lockedTierBadge" style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,240,255,0.12);border:1px solid rgba(0,240,255,0.35);color:#00f0ff;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.3rem 1rem;border-radius:2px;margin-bottom:1.2rem">
-        VAULT PRO EXCLUSIVE SECTION
+        VAULT PASS REQUIRED
       </div>
       
       <h2 id="lockedSectionTitle" style="font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:.04em;color:#fff;line-height:1.1;margin-bottom:.8rem">
@@ -1200,22 +1185,22 @@ a{color:inherit;text-decoration:none}
       </h2>
       
       <p id="lockedSectionDesc" style="font-size:.9rem;color:var(--muted);line-height:1.7;max-width:540px;margin:0 auto 2rem">
-        This section contains advanced competitive intelligence, high-stakes heist routes, and multiplayer meta strategies reserved for higher tier members.
+        This section is part of the Vault Pass.
       </p>
       
       <div style="background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:6px;padding:1.4rem;margin-bottom:2.5rem;text-align:left">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem">What You Unlock With Vault Pro:</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem">What You Unlock With The Vault Pass:</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;font-size:.82rem;color:#c0bed0">
-          <div style="display:flex;align-items:center;gap:.5rem">✓ <span>All 11 Intelligence Vault Sections</span></div>
-          <div style="display:flex;align-items:center;gap:.5rem">✓ <span>All 18 Interactive Radar Map Locations</span></div>
+          <div style="display:flex;align-items:center;gap:.5rem">✓ <span>Every published guide, plus each new one</span></div>
+          <div style="display:flex;align-items:center;gap:.5rem">✓ <span>Verified Leonida locations board</span></div>
           <div style="display:flex;align-items:center;gap:.5rem">✓ <span>Full GTA 6 cheat list for PS5 &amp; Xbox</span></div>
-          <div style="display:flex;align-items:center;gap:.5rem">✓ <span>Priority Discord Heist Crews &amp; Lobbies</span></div>
+          <div style="display:flex;align-items:center;gap:.5rem">✓ <span>Discord crew channel</span></div>
         </div>
       </div>
       
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-        <a id="lockedUpgradeBtn" href="signup.html?tier=pro" class="btn-g" style="padding:.85rem 2.2rem;font-size:.85rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(90deg,#00f0ff,#0070f3)!important;color:#000!important;border:none;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem">
-          Upgrade to Vault Pro — ₹499/mo →
+        <a id="lockedUpgradeBtn" href="signup.html" class="btn-g" style="padding:.85rem 2.2rem;font-size:.85rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(90deg,#00f0ff,#0070f3)!important;color:#000!important;border:none;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem">
+          Get the Vault Pass — ₹499 →
         </a>
         <button class="btn-o" onclick="showView('dashboard')" style="padding:.85rem 1.8rem;font-size:.85rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:var(--white);border-radius:2px;cursor:pointer">
           Return to Dashboard
@@ -1313,7 +1298,7 @@ const views = {
   saved: 'Saved Reading List',
   cheat: 'GTA 6 Cheat Vault',
   story: 'Story Mode Walkthroughs',
-  heist: 'Heist Blueprints',
+  heist: 'Heists',
   money: 'Money Meta & Fast Cash',
   online: 'Online Multiplayer Strategy',
   builds: 'Builds & Weapons',
@@ -2042,8 +2027,8 @@ function showView(v) {
   const userTier = (user.tier || 'soldier').toLowerCase();
   const isSubscribed = user.subscribed === true;
   
-  const TIER_LEVELS = { unsubscribed: 0, soldier: 1, pro: 2, elite: 3 };
-  const currentLevel = isSubscribed ? (TIER_LEVELS[userTier] || 1) : 0;
+  // One product: any member with active access gets every section (legacy soldier/elite included)
+  const currentLevel = isSubscribed ? 3 : 0;
 
   // Section Level Requirements:
   // 0 = free preview, 1 = soldier, 2 = pro, 3 = elite
@@ -2084,21 +2069,12 @@ function showView(v) {
       const descEl = document.getElementById('lockedSectionDesc');
       
       if (titleEl) titleEl.textContent = 'CLASSIFIED: ' + (views[v] || v.toUpperCase());
-      if (reqLevel === 2) {
-        if (badgeEl) badgeEl.textContent = '🔒 VAULT PRO EXCLUSIVE SECTION';
-        if (btnEl) {
-          btnEl.textContent = 'Upgrade to Vault Pro — ₹499/mo →';
-          btnEl.href = 'signup.html?tier=pro';
-        }
-        if (descEl) descEl.textContent = 'Your ' + (userTier === 'soldier' ? 'Vault Soldier' : 'Preview') + ' pass includes basic story guides. Full access to ' + (views[v] || v) + ' requires Vault Pro or Elite Crew membership.';
-      } else {
-        if (badgeEl) badgeEl.textContent = '🔒 VIP MEMBERSHIP REQUIRED';
-        if (btnEl) {
-          btnEl.textContent = 'Get Vault Pass (from ₹299/mo) →';
-          btnEl.href = 'preorder.html';
-        }
-        if (descEl) descEl.textContent = 'Access to ' + (views[v] || v) + ' is reserved for active members. Choose your tier to immediately unlock intelligence walkthroughs.';
+      if (badgeEl) badgeEl.textContent = '🔒 VAULT PASS REQUIRED';
+      if (btnEl) {
+        btnEl.textContent = 'Get the Vault Pass — ₹499 →';
+        btnEl.href = 'signup.html';
       }
+      if (descEl) descEl.textContent = (views[v] || v) + ' is part of the Vault Pass: every guide, the full cheat vault and the Discord crew for 30 days.';
       return;
     }
   }
@@ -2343,7 +2319,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const uObj = JSON.parse(localStorage.getItem('vv_user') || '{}');
   const uTier = (uObj.tier || 'soldier').toLowerCase();
   const uSub = uObj.subscribed === true;
-  if (!uSub || uTier === 'soldier') {
+  if (!uSub) { // one product: every active member sees every section
     const proSections = ['money', 'vehicles', 'builds', 'online', 'properties', 'easter', 'pro'];
     proSections.forEach(secKey => {
       const item = document.querySelector(`.sb-item[onclick*="${secKey}"]`);
@@ -2416,7 +2392,7 @@ const tourSteps = [
   {
     selector: '.sb-item[onclick*="story"]',
     title: '🔓 The Vault Blueprints',
-    desc: 'Explore 11 category vaults inside the sidebar to find detailed heist setups, vehicle spawn charts, and mission speedrun guides.'
+    desc: 'Use the sidebar to browse the guide sections. Published guides open right away; sections marked In progress are being researched.'
   },
   {
     selector: '.sb-item[onclick*="settings"]',
@@ -2683,8 +2659,7 @@ window.handleSuccessDiscord = handleSuccessDiscord;
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get('payment') === 'success') {
   const tier = urlParams.get('tier') || 'pro';
-  const tierNames = { 'soldier': 'Vault Soldier', 'pro': 'Vault Pro', 'elite': 'Elite Crew' };
-  const tierName = tierNames[tier] || 'Vault Member';
+  const tierName = 'Vault Pass';
   const modalTierName = document.getElementById('successTierName');
   if (modalTierName) modalTierName.textContent = tierName;
   const sModal = document.getElementById('successModal');

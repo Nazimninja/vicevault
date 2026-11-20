@@ -291,7 +291,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
   <!-- STEPS BAR -->
   <div class="steps-bar" id="stepsBar">
-    <div class="step active" id="step1-ind"><div class="step-n">1</div>Choose tier</div>
+    <div class="step active" id="step1-ind"><div class="step-n">1</div>Your pass</div>
     <div class="step-connector"></div>
     <div class="step" id="step2-ind"><div class="step-n">2</div>Create account</div>
     <div class="step-connector"></div>
@@ -303,76 +303,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   <!-- STEP 1: TIER SELECT -->
   <div id="step1" class="tier-section">
     <div class="section-eye">Step 1 of 3</div>
-    <h1 class="section-title">Choose your tier</h1>
-    <p class="section-sub">No free tier. Real intel has real value. Cancel anytime — no questions asked.</p>
+    <h1 class="section-title">Your Vault Pass</h1>
+    <p class="section-sub">Every guide is checked against at least two released-game sources. One-time payment, no auto-renewal.</p>
 
-    <div class="tier-grid">
-      <!-- SOLDIER -->
-      <div class="tier-card" id="tc-299" onclick="selectTier(299,'Soldier')">
-        <div class="tier-check">✓</div>
-        <div class="tier-name">Soldier</div>
-        <div class="tier-tagline">Essential access for casual players</div>
-        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">299</span></div>
-        <div class="tier-per">per month · cancel anytime</div>
-        <ul class="tier-feats">
-          <li>10 heist blueprints per month</li>
-          <li>Full cheat code vault (all platforms)</li>
-          <li>Weekly money meta summary</li>
-          <li>Basic story mission walkthroughs</li>
-          <li>Wanted level escape guides</li>
-          <li class="no">Unlimited guide access</li>
-          <li class="no">Hidden route unlocks</li>
-          <li class="no">Discord crew access</li>
-        </ul>
-      </div>
-
-      <!-- VAULT PRO -->
-      <div class="tier-card selected border-beam-container" id="tc-499" onclick="selectTier(499,'Vault Pro')">
+    <div class="tier-grid" style="grid-template-columns:minmax(0,440px);justify-content:center">
+      <!-- VAULT PASS — the only plan (stored as tier "pro") -->
+      <div class="tier-card selected border-beam-container" id="tc-499" onclick="selectTier(499,'Vault Pass')">
         <div class="border-beam-line"></div>
-        <div class="tier-popular">Best value</div>
+        <div class="tier-popular">Everything unlocked</div>
         <div class="tier-check" style="opacity:1;transform:scale(1)">✓</div>
-        <div class="tier-name">Vault Pro</div>
-        <div class="tier-tagline">For players who want every edge</div>
+        <div class="tier-name">Vault Pass</div>
+        <div class="tier-tagline">One plan. Every guide, every cheat.</div>
         <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">499</span></div>
-        <div class="tier-per">per month · cancel anytime</div>
-        <div class="tier-save">⭐ 80% of members choose this</div>
+        <div class="tier-per">30 days of access · no auto-renewal</div>
         <ul class="tier-feats">
-          <li>Unlimited access to all 11 sections</li>
-          <li>Full heist blueprints + hidden routes</li>
-          <li>Weekly money meta deep-dives</li>
-          <li>Full story walkthrough vault</li>
-          <li>Vehicle speed tests & tuning guides</li>
-          <li>Online multiplayer strategy</li>
-          <li>Properties & investment ROI rankings</li>
-          <li>Priority Discord crew channel</li>
-        </ul>
-      </div>
-
-      <!-- ELITE -->
-      <div class="tier-card" id="tc-999" onclick="selectTier(999,'Elite Crew')">
-        <div class="tier-check">✓</div>
-        <div class="tier-name">Elite Crew</div>
-        <div class="tier-tagline">Exclusive perks for dedicated players</div>
-        <div class="tier-price"><span class="tier-cur">₹</span><span class="tier-num">999</span></div>
-        <div class="tier-per">per month · cancel anytime</div>
-        <ul class="tier-feats">
-          <li>Everything in Vault Pro</li>
-          <li>Custom blueprint requests (2/month)</li>
-          <li>Early access — guides before public</li>
-          <li>Monthly live strategy session</li>
-          <li>Private Elite Discord channel</li>
-          <li>Founding member badge</li>
-          <li>Direct line to our analysts</li>
-          <li>Weekly personal meta briefing</li>
+          <li>Every guide in the vault, plus each new one as it's published</li>
+          <li>Beginner, early money, wanted level &amp; heat and story structure guides</li>
+          <li>Full cheat vault — all 61 cheats with unlock challenges</li>
+          <li>Verified Leonida locations board</li>
+          <li>Discord crew channel</li>
+          <li>Guide topic requests — tell us what to cover next</li>
         </ul>
       </div>
     </div>
 
-    <button class="tier-continue" id="tierContinue" onclick="handleTierContinue()">Continue with Vault Pro — ₹499/mo →</button>
+    <button class="tier-continue" id="tierContinue" onclick="handleTierContinue()">Continue — Vault Pass ₹499 for 30 days →</button>
 
     <div class="trust-bar">
       <div class="trust-item">🔒 Secure checkout</div>
-      <div class="trust-item">↩ Cancel anytime</div>
+      <div class="trust-item">↩ No auto-renewal</div>
       <div class="trust-item">⚡ Instant access</div>
       <div class="trust-item">🇮🇳 Razorpay powered</div>
     </div>
@@ -385,7 +344,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
     <p class="section-sub" style="margin-bottom:2rem">Your dashboard access details. Takes 30 seconds.</p>
 
     <div class="form-card">
-      <div class="fc-title">Account details <span class="fc-badge" id="selectedTierBadge">Vault Pro</span></div>
+      <div class="fc-title">Account details <span class="fc-badge" id="selectedTierBadge">Vault Pass</span></div>
 
       <div class="divider-or" style="margin-top:0">Continue with</div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;margin-bottom:1.5rem">
@@ -441,12 +400,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   <div id="step3" class="pay-section" style="display:none">
     <div class="section-eye">Step 3 of 3</div>
     <h2 class="section-title" style="font-size:2rem">Complete payment</h2>
-    <p class="section-sub" style="margin-bottom:1.5rem">First monthly payment collected today to lock rate. Your billing cycle & content access start on launch day.</p>
+    <p class="section-sub" style="margin-bottom:1.5rem">One-time payment. Your access starts the moment payment is confirmed. Nothing renews automatically.</p>
 
     <!-- ORDER SUMMARY -->
     <div class="order-summary">
       <div class="os-title">Order summary</div>
-      <div class="os-row"><span class="os-label" id="os-tier-name">Vault Pro — Monthly</span><span class="os-val" id="os-price">₹499</span></div>
+      <div class="os-row"><span class="os-label" id="os-tier-name">Vault Pass — 30 days</span><span class="os-val" id="os-price">₹499</span></div>
       <div class="os-row"><span class="os-label" style="font-weight:800">Total due today</span><span class="os-total-val" id="os-total">₹499</span></div>
     </div>
 
@@ -462,10 +421,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
     <div class="secure-note"><span class="lock">🔒</span>Secured by Razorpay · 256-bit SSL encryption · PCI DSS compliant</div>
 
     <button class="pay-btn" id="payBtn" onclick="launchRazorpay()">
-      <span id="payBtnText">Pay <span id="pay-amount-label">₹499</span> — Confirm Pre-order</span>
+      <span id="payBtnText">Pay <span id="pay-amount-label">₹499</span> — Unlock the Vault</span>
     </button>
 
-    <p class="pay-terms">By completing this purchase you agree to our <a href="terms.html" target="_blank">Terms of Service</a>, <a href="privacy.html" target="_blank">Privacy Policy</a>, and <a href="disclaimer.html" target="_blank">Disclaimer &amp; DMCA Notice</a>. This is a one-time payment for 30 days of access (Elite: one year). It does not auto-renew.</p>
+    <p class="pay-terms">By completing this purchase you agree to our <a href="terms.html" target="_blank">Terms of Service</a>, <a href="privacy.html" target="_blank">Privacy Policy</a>, and <a href="disclaimer.html" target="_blank">Disclaimer &amp; DMCA Notice</a>. This is a one-time payment for 30 days of access. It does not auto-renew.</p>
     <div style="background:rgba(0,112,243,0.06);border:1px solid rgba(0,112,243,0.2);border-radius:4px;padding:.8rem 1rem;margin-top:1rem;text-align:left;font-size:.72rem;color:var(--muted);line-height:1.5">
       <strong style="color:var(--white);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase">Independent Service Notice:</strong> Vice Vault is an independent fan community providing editorial walkthroughs and research tools. Subscriptions do NOT include video game software copies or in-game currency. Not affiliated with Rockstar Games or Take-Two Interactive.
     </div>
@@ -479,15 +438,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
   <!-- STEP 4: SUCCESS -->
   <div id="step4" class="success-section" style="display:none">
     <div class="success-icon">🎉</div>
-    <h2 class="success-title">Pre-order confirmed.</h2>
-    <p class="success-sub">Your place on the paid pre-launch list is secured. Content unlocks on launch day. First payment completed successfully.</p>
+    <h2 class="success-title">You're in.</h2>
+    <p class="success-sub">Payment confirmed. Your access is active right now.</p>
 
     <div class="success-features">
       <div class="sf-title">What you have access to right now</div>
-      <div class="sf-item" id="sf1">Unlimited guide access across all 11 sections</div>
-      <div class="sf-item">Full heist blueprints + hidden routes</div>
-      <div class="sf-item">All 52 cheat codes — PS5 & Xbox</div>
-      <div class="sf-item">Weekly money meta drops every Thursday</div>
+      <div class="sf-item" id="sf1">Every guide in the vault, plus each new one as it's published</div>
+      <div class="sf-item">Full cheat vault — all 61 cheats, PS5 &amp; Xbox</div>
+      <div class="sf-item">Weekly drop of new guides and codes</div>
       <div class="sf-item" id="sf-discord">Priority Discord crew channel</div>
     </div>
 
@@ -503,7 +461,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 
 <script src="vv-global.js"></script>
 <script>
-let selectedTier={price:499,name:'Vault Pro'};
+let selectedTier={price:499,name:'Vault Pass'};
+// One product: the ₹499 Vault Pass (worker.js VAULT_PASS_PRICE_PAISE), 30 days of access
+const TIER_PERIOD = { 499: '30 days' };
 
 function selectTier(price,name){
   selectedTier={price,name};
@@ -513,41 +473,26 @@ function selectTier(price,name){
     if (chk) { chk.style.opacity='0'; chk.style.transform='scale(.5)'; }
   });
 
-  // Map price to card ID
-  let cardId = 'tc-499';
-  if (price === 299 || price === 399) cardId = 'tc-299';
-  else if (price === 499 || price === 699) cardId = 'tc-499';
-  else if (price === 999 || price === 1199) cardId = 'tc-999';
-  
-  const card=document.getElementById(cardId);
+  // One product: every selection (including old ₹299/₹999 links) becomes the ₹499 Vault Pass
+  price = 499; name = 'Vault Pass'; selectedTier = {price, name};
+  const card=document.getElementById('tc-' + price);
   if (card) {
     card.classList.add('selected');
     const chk=card.querySelector('.tier-check');
     if (chk) { chk.style.opacity='1'; chk.style.transform='scale(1)'; }
   }
-
-  // Update card numbers dynamically to match the price passed (preorder discount or standard launch price)
-  if (price === 299 || price === 399) {
-    const el = document.querySelector('#tc-299 .tier-num');
-    if (el) el.textContent = price;
-  } else if (price === 499 || price === 699) {
-    const el = document.querySelector('#tc-499 .tier-num');
-    if (el) el.textContent = price;
-  } else if (price === 999 || price === 1199) {
-    const el = document.querySelector('#tc-999 .tier-num');
-    if (el) el.textContent = price;
-  }
+  const period = TIER_PERIOD[price];
 
   const btn=document.getElementById('tierContinue');
   if (btn) {
-    btn.textContent=`Continue with ${name} — ₹${price}/mo →`;
+    btn.textContent=`Continue with ${name} — ₹${price} for ${period} →`;
   }
   const badge = document.getElementById('selectedTierBadge');
   if (badge) badge.textContent=name;
 
   // update order summary
   const tierNameEl = document.getElementById('os-tier-name');
-  if (tierNameEl) tierNameEl.textContent=name+' — Monthly';
+  if (tierNameEl) tierNameEl.textContent=name+' — '+period;
   const osPriceEl = document.getElementById('os-price');
   if (osPriceEl) osPriceEl.textContent='₹'+price;
   const osTotalEl = document.getElementById('os-total');
@@ -559,8 +504,8 @@ function selectTier(price,name){
   const sf1=document.getElementById('sf1');
   const sfD=document.getElementById('sf-discord');
   if (sf1) {
-    if(price===299 || price===399){sf1.textContent='10 heist blueprints per month'; if(sfD) sfD.style.display='none'}
-    else{sf1.textContent='Unlimited guide access across all 11 sections'; if(sfD) sfD.style.display='flex'}
+    if(price===299){sf1.textContent='Full beginner\'s guide and the weekly drop summary'; if(sfD) sfD.style.display='none'}
+    else{sf1.textContent='Every guide in the vault, plus each new one as it\'s published'; if(sfD) sfD.style.display='flex'}
   }
 }
 
@@ -954,16 +899,9 @@ if (lnameParam) {
   if (lnameEl) lnameEl.value = decodeURIComponent(lnameParam);
 }
 
-// Select tier with support for pre-order discounts
+// One product: old tier links (?tier=299 / 999 / soldier / elite) all land on the Vault Pass
 let initialTierPrice = 499;
-let initialTierName = 'Vault Pro';
-
-if (tierParam === '299' || tierParam === 'soldier_discount' || tierParam === 'soldier') { initialTierPrice = 299; initialTierName = 'Soldier'; }
-else if (tierParam === '399') { initialTierPrice = 399; initialTierName = 'Soldier'; }
-else if (tierParam === '499' || tierParam === 'pro_discount' || tierParam === 'pro') { initialTierPrice = 499; initialTierName = 'Vault Pro'; }
-else if (tierParam === '699') { initialTierPrice = 699; initialTierName = 'Vault Pro'; }
-else if (tierParam === '999' || tierParam === 'elite_discount' || tierParam === 'elite') { initialTierPrice = 999; initialTierName = 'Elite Crew'; }
-else if (tierParam === '1199' || tierParam === 'elite_normal') { initialTierPrice = 1199; initialTierName = 'Elite Crew'; }
+let initialTierName = 'Vault Pass';
 
 selectTier(initialTierPrice, initialTierName);
 

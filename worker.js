@@ -63,6 +63,162 @@ function timingSafeEqual(a, b) {
   return diff === 0;
 }
 
+// ─── META CONVERSIONS API (server-side Purchase event) ─────
+// Sends the Purchase to Meta from the server so ad optimisation still works when the
+// browser Pixel is blocked. Uses the Razorpay payment ID as event_id, the same ID the
+// browser Pixel sends, so Meta counts the purchase once.
+// Needs: META_PIXEL_ID (var) + META_CAPI_TOKEN (secret). Optional: META_TEST_EVENT_CODE.
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function sendMetaPurchase(env, request, opts) {
+  return sendMetaEvent(env, request, { ...opts, eventName: 'Purchase' });
+}
+
+// Lead = email signup. Lets Meta optimise on a cheap, frequent signal while purchases are few.
+async function sendMetaLead(env, request, { email, eventId, fbp, fbc, sourceUrl, source }) {
+  return sendMetaEvent(env, request, { eventName: 'Lead', email, eventId, fbp, fbc, sourceUrl, contentName: source });
+}
+
+async function sendMetaEvent(env, request, { eventName, email, value, tier, eventId, fbp, fbc, sourceUrl, contentName }) {
+  if (!env.META_PIXEL_ID || !env.META_CAPI_TOKEN) return;
+  try {
+    const user_data = { em: [await sha256Hex(String(email).trim().toLowerCase())] };
+    const ip = request.headers.get('CF-Connecting-IP');
+    const ua = request.headers.get('User-Agent');
+    if (ip) user_data.client_ip_address = ip;
+    if (ua) user_data.client_user_agent = ua;
+    if (typeof fbp === 'string' && /^fb\.\d\.\d+\.\d+$/.test(fbp)) user_data.fbp = fbp;
+    if (typeof fbc === 'string' && fbc.startsWith('fb.') && fbc.length < 500) user_data.fbc = fbc;
+
+    const pageUrl = typeof sourceUrl === 'string' && sourceUrl.startsWith('https://vicevault.linkwa.in/')
+      ? sourceUrl.slice(0, 500) : 'https://vicevault.linkwa.in/preorder';
+
+    const custom_data = eventName === 'Purchase'
+      ? { value, currency: 'INR', content_name: tier, content_ids: [tier], content_type: 'product' }
+      : { content_name: contentName || 'newsletter' };
+    const body = {
+      data: [{
+        event_name: eventName,
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventId,
+        action_source: 'website',
+        event_source_url: pageUrl,
+        user_data,
+        custom_data
+      }]
+    };
+    if (env.META_TEST_EVENT_CODE) body.test_event_code = env.META_TEST_EVENT_CODE;
+
+    const version = env.META_GRAPH_VERSION || 'v23.0';
+    const res = await fetch(`https://graph.facebook.com/${version}/${env.META_PIXEL_ID}/events?access_token=${encodeURIComponent(env.META_CAPI_TOKEN)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) console.warn('Meta CAPI error', res.status, (await res.text()).slice(0, 300));
+  } catch (e) {
+    console.warn('Meta CAPI failed:', e.message); // never block a paid activation on tracking
+  }
+}
+
+// ─── EMAIL: UNSUBSCRIBE LINKS ───────────────────────────────
+// Signed so nobody can unsubscribe someone else by guessing their address.
+async function unsubscribeSig(email, env) {
+  const secret = getSessionSecret(env) || 'vv-unsubscribe';
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret + ':unsub'), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(email));
+  return Array.from(new Uint8Array(sig)).slice(0, 16).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function unsubscribeUrl(email, env) {
+  return `https://vicevault.linkwa.in/api/unsubscribe?e=${encodeURIComponent(email)}&s=${await unsubscribeSig(email, env)}`;
+}
+
+async function handleUnsubscribe(url, env) {
+  const email = (url.searchParams.get('e') || '').toLowerCase().trim();
+  const sig = url.searchParams.get('s') || '';
+  const page = (title, msg) => new Response(
+    `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} | Vice Vault</title></head>` +
+    `<body style="margin:0;background:#07060d;color:#ede8df;font-family:Arial,sans-serif;display:grid;place-items:center;min-height:100vh;padding:24px">` +
+    `<div style="max-width:440px;text-align:center"><h1 style="font-size:22px">${title}</h1><p style="color:#9a97ab;line-height:1.6">${msg}</p>` +
+    `<a href="https://vicevault.linkwa.in" style="color:#ff3d9a">Back to Vice Vault</a></div></body></html>`,
+    { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+  if (!isValidEmail(email) || !timingSafeEqual(sig, await unsubscribeSig(email, env))) {
+    return page('Link not valid', 'This unsubscribe link is incomplete. Reply to any Vice Vault email with "unsubscribe" and we will remove you.');
+  }
+  const rec = await env.VICE_VAULT_KV.get(`newsletter:${email}`);
+  if (rec) {
+    const r = JSON.parse(rec);
+    r.active = false; r.unsubscribedAt = new Date().toISOString();
+    await env.VICE_VAULT_KV.put(`newsletter:${email}`, JSON.stringify(r));
+  } else {
+    await env.VICE_VAULT_KV.put(`newsletter:${email}`, JSON.stringify({ email, active: false, unsubscribedAt: new Date().toISOString() }));
+  }
+  return page("You're unsubscribed", 'You will not get any more Vice Vault emails. Payment receipts for purchases are still sent.');
+}
+
+// ─── EMAIL: FOLLOW-UP SEQUENCE ──────────────────────────────
+// Queue keys sort by due time: "nurture:<13-digit ms>:<step>:<email>". The hourly cron sends what is due.
+const NURTURE_STEPS = [
+  { step: 1, afterDays: 2 },   // free beginner tips (value)
+  { step: 2, afterDays: 5 }    // Vault Pass offer
+];
+const NURTURE_MAX_PER_RUN = 30; // Resend free tier = 100 emails/day; leave room for receipts and welcomes
+
+async function queueNurture(email, step, afterDays, env) {
+  const due = Date.now() + afterDays * 86400 * 1000;
+  await env.VICE_VAULT_KV.put(`nurture:${String(due).padStart(13, '0')}:${step}:${email}`, '1', { expirationTtl: 60 * 86400 });
+}
+
+async function runNurture(env) {
+  if (!env.RESEND_API_KEY) return;
+  const now = String(Date.now()).padStart(13, '0');
+  const list = await env.VICE_VAULT_KV.list({ prefix: 'nurture:', limit: 200 });
+  let sent = 0;
+  for (const k of list.keys) {
+    const [, due, stepStr, ...rest] = k.name.split(':');
+    if (due > now) break; // keys are sorted by due time
+    if (sent >= NURTURE_MAX_PER_RUN) break;
+    const email = rest.join(':');
+    const step = parseInt(stepStr, 10);
+    await env.VICE_VAULT_KV.delete(k.name);
+
+    const rec = await env.VICE_VAULT_KV.get(`newsletter:${email}`);
+    if (!rec || JSON.parse(rec).active === false) continue;          // unsubscribed
+    const userStr = await env.VICE_VAULT_KV.get(`user:${email}`);
+    if (userStr && hasActiveAccess(JSON.parse(userStr))) continue;   // already a paying member
+
+    await sendNurtureEmail(email, step, env);
+    sent++;
+    const next = NURTURE_STEPS.find(s => s.step === step + 1);
+    if (next) {
+      const prev = NURTURE_STEPS.find(s => s.step === step);
+      await queueNurture(email, next.step, next.afterDays - (prev ? prev.afterDays : 0), env);
+    }
+  }
+}
+
+async function sendNurtureEmail(email, step, env) {
+  const unsub = await unsubscribeUrl(email, env);
+  const subject = step === 1
+    ? 'The GTA 6 mistake that costs new players all their cash'
+    : 'Every Vice Vault guide for ₹499 this month';
+  const html = step === 1 ? nurtureTipsHTML(unsub) : nurtureOfferHTML(unsub);
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: env.FROM_EMAIL || 'noreply@vicevault.linkwa.in', to: email, subject, html,
+        headers: { 'List-Unsubscribe': `<${unsub}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' }
+      })
+    });
+  } catch (e) { console.error('Nurture email error:', e.message); }
+}
+
 function b64urlEncode(str) {
   return btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
@@ -199,6 +355,8 @@ export default {
       response = await handleWaitlist(request, env);
     } else if (url.pathname === '/api/newsletter' && request.method === 'POST') {
       response = await handleNewsletter(request, env);
+    } else if (url.pathname === '/api/unsubscribe' && (request.method === 'GET' || request.method === 'POST')) {
+      return await handleUnsubscribe(url, env); // HTML page, returned as-is
     } else if (url.pathname === '/api/stats' && request.method === 'GET') {
       response = await handleStats(env);
     } else if (url.pathname === '/api/auth/send-otp' && request.method === 'POST') {
@@ -262,6 +420,7 @@ export default {
   },
   async scheduled(event, env, ctx) {
     ctx.waitUntil(syncDiscordRoles(env));
+    ctx.waitUntil(runNurture(env));
   }
 };
 
@@ -313,8 +472,9 @@ async function handleWaitlist(request, env) {
       active: true,
     }));
 
-    // Send welcome email
+    // Send welcome email (the cheat sheet) and start the follow-up sequence
     await sendWelcomeEmail(email, position, env, 'waitlist');
+    await queueNurture(email, NURTURE_STEPS[0].step, NURTURE_STEPS[0].afterDays, env);
 
     // Notify admin every 100 signups
     if (position % 100 === 0) {
@@ -365,30 +525,39 @@ async function handleNewsletter(request, env) {
     }
 
     const existing = await env.VICE_VAULT_KV.get(`newsletter:${email}`);
-    if (existing) {
-      return json({ success: true, duplicate: true, message: "You're already subscribed!" });
+    if (existing && JSON.parse(existing).active !== false) {
+      return json({ success: true, duplicate: true, message: "You're already subscribed — check your inbox for the cheat sheet." });
     }
 
+    const source = String(body.source || 'newsletter-form').slice(0, 40);
     const subscriber = {
       email,
       subscribedAt: new Date().toISOString(),
-      source: body.source || 'newsletter-form',
+      source,
       active: true,
     };
 
     await env.VICE_VAULT_KV.put(`newsletter:${email}`, JSON.stringify(subscriber));
 
-    // Get + increment newsletter count
-    const nlCountRaw = await env.VICE_VAULT_KV.get('newsletter:count');
-    const nlCount = nlCountRaw ? parseInt(nlCountRaw) + 1 : 1;
-    await env.VICE_VAULT_KV.put('newsletter:count', String(nlCount));
+    // Get + increment newsletter count (only for brand-new addresses)
+    if (!existing) {
+      const nlCountRaw = await env.VICE_VAULT_KV.get('newsletter:count');
+      const nlCount = nlCountRaw ? parseInt(nlCountRaw) + 1 : 1;
+      await env.VICE_VAULT_KV.put('newsletter:count', String(nlCount));
+    }
 
-    // Send welcome email
+    // Welcome email = the cheat sheet, then the follow-up sequence
     await sendWelcomeEmail(email, null, env, 'newsletter');
+    await queueNurture(email, NURTURE_STEPS[0].step, NURTURE_STEPS[0].afterDays, env);
+
+    // Report the signup to Meta (server side, same event ID as the browser Pixel)
+    if (typeof body.eventId === 'string' && body.eventId.length <= 64) {
+      await sendMetaLead(env, request, { email, eventId: body.eventId, fbp: body.fbp, fbc: body.fbc, sourceUrl: body.sourceUrl, source });
+    }
 
     return json({
       success: true,
-      message: 'Subscribed! First drop arrives Thursday at 6PM IST.',
+      message: "Done! The cheat sheet is on its way to your inbox.",
     });
 
   } catch (err) {
@@ -415,22 +584,15 @@ async function sendWelcomeEmail(email, details, env, type) {
   const isWaitlist = type === 'waitlist';
   const isPremium = type === 'premium';
   
-  let subject = `Vice Vault Intel — first drop arrives Thursday 🎯`;
-  if (isWaitlist) {
-    subject = `You're #${details?.toLocaleString()} on the Vice Vault waitlist 🔐`;
-  } else if (isPremium) {
-    const tierName = details === 'elite' ? 'Elite Crew' : (details === 'soldier' ? 'Soldier' : 'Vault Pro');
-    subject = `Welcome to the Vault, ${tierName}! Your access is activated 🔑`;
+  let subject = 'Your GTA 6 cheat sheet: all 18 known codes 🎮';
+  if (isPremium) {
+    subject = 'Your Vault Pass is active — welcome to Vice Vault 🔑';
   }
 
-  let html;
-  if (isWaitlist) {
-    html = waitlistEmailHTML(details);
-  } else if (isPremium) {
-    html = premiumEmailHTML(details);
-  } else {
-    html = newsletterEmailHTML();
-  }
+  // Waitlist and newsletter signups both get the cheat sheet; purchases get the receipt-style welcome
+  const unsub = isPremium ? null : await unsubscribeUrl(email, env);
+  const html = isPremium ? premiumEmailHTML(details) : cheatSheetEmailHTML(unsub);
+  const extraHeaders = unsub ? { 'List-Unsubscribe': `<${unsub}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' } : undefined;
 
   try {
     await fetch('https://api.resend.com/emails', {
@@ -444,6 +606,7 @@ async function sendWelcomeEmail(email, details, env, type) {
         to: email,
         subject,
         html,
+        ...(extraHeaders ? { headers: extraHeaders } : {}),
       }),
     });
   } catch (err) {
@@ -473,112 +636,88 @@ async function sendAdminNotification(count, env) {
 }
 
 // ─── EMAIL TEMPLATES ────────────────────────────────────────
-function waitlistEmailHTML(position) {
-  return `
-<!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  body{margin:0;padding:0;background:#030308;font-family:'Barlow',Arial,sans-serif;color:#ede8df}
-  .wrap{max-width:560px;margin:0 auto;padding:40px 20px}
-  .logo{font-size:1.6rem;font-weight:900;letter-spacing:.14em;color:#0070f3;margin-bottom:2rem;font-family:Impact,sans-serif}
-  .logo span{color:#ede8df}
-  .hero-box{background:#0d0d18;border:1px solid rgba(0,112,243,.25);border-radius:6px;padding:2rem;margin-bottom:1.5rem;text-align:center}
-  .hb-num{font-size:4rem;font-weight:900;color:#0070f3;line-height:1;font-family:Impact,sans-serif;margin-bottom:.5rem}
-  .hb-label{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7a788a;margin-bottom:1rem}
-  .hb-title{font-size:1.3rem;font-weight:800;color:#ede8df;margin-bottom:.5rem}
-  .hb-sub{font-size:.88rem;color:#7a788a;line-height:1.7}
-  .section{margin-bottom:1.5rem}
-  .section-title{font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#0070f3;margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.07)}
-  .feature-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem}
-  .feature-list li{display:flex;align-items:flex-start;gap:.6rem;font-size:.86rem;color:#9a98aa;line-height:1.6}
-  .feature-list li::before{content:'✓';color:#00d4aa;font-weight:700;flex-shrink:0}
-  .btn{display:block;background:#0070f3;color:#030308;font-weight:800;text-decoration:none;text-align:center;padding:.9rem 2rem;border-radius:3px;font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;margin:1.5rem 0}
-  .footer{font-size:.72rem;color:#2a2838;text-align:center;line-height:1.7;margin-top:2rem}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="logo">VICE<span>VAULT</span></div>
-  <div class="hero-box">
-    <div class="hb-title">You're in the vault 🔐</div>
-    <div class="hb-sub">Thanks for joining. GTA 6 is out, and our sourced guides and the full cheat list are live now.</div>
+// Every fact in these emails is already published on the site (cheat-codes, beginner guide).
+const CHEAT_SHEET = [
+  ['$250,000', 'U R D L U L D R'], ['Body Armor', 'D U L U U U U U D D'], ['Unlimited Focus', 'D U U D U D U D U R'],
+  ['Max Ammo', 'D U R D L L U U D L'], ['Infinite Ammo', 'D U R D L L U D D D'], ['No Reload', 'D U R D L L U D D U'],
+  ['Raise Wanted Level', 'L D R D U R U'], ['Raise Heat Level', 'L D R D U D U'], ['Attack Force', 'D U L L R D D U D'],
+  ['Exploding Balls', 'D U L L R D D U R'], ['Vehicle Force', 'D U L L R D L U D'], ['Maibatsu Boomazoom', 'L U R D L L U L'],
+  ['MTL Pumper', 'L U R D L R R U'], ['HVY Bulldozer', 'L U R D L R R D'], ['Cycle Weather', 'D R U D R U R'],
+  ['Cataclysm filter', 'D D U R R U L L R R'], ['Dollhouse filter', 'D D U R R U L L D R'], ['Faded Glory filter', 'D D U R R U L L L R']
+];
+const ARROW = { U: '↑', D: '↓', L: '←', R: '→' };
+
+function emailLayout(inner, unsubUrl, reason) {
+  return `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#07060d;font-family:Arial,Helvetica,sans-serif;color:#ede8df">
+<div style="max-width:560px;margin:0 auto;padding:32px 18px">
+  <div style="font-size:24px;font-weight:900;letter-spacing:3px;margin-bottom:24px;font-family:Impact,Arial,sans-serif"><span style="color:#ede8df">VICE</span> <span style="color:#ff3d9a">VAULT</span></div>
+  ${inner}
+  <div style="font-size:11px;color:#6b6880;text-align:center;line-height:1.7;margin-top:28px;border-top:1px solid #1d1b2b;padding-top:16px">
+    Fan-made guide. Not affiliated with Rockstar Games or Take-Two Interactive.<br>
+    ${reason}<br>
+    <a href="${unsubUrl}" style="color:#9a97ab">Unsubscribe</a>
   </div>
-  <div class="section">
-    <div class="section-title">What's in the vault</div>
-    <ul class="feature-list">
-      <li>Sourced GTA 6 guides — every fact checked against multiple sources</li>
-      <li>All 61 cheats, with the codes found so far and how to unlock them</li>
-      <li>New guides every week as facts are confirmed</li>
-      <li>Discord crew access (Vault Pro and Elite members)</li>
-    </ul>
-  </div>
-  <div class="section">
-    <div class="section-title">Next steps</div>
-    <ul class="feature-list">
-      <li>Read the free beginner's guide and cheat list</li>
-      <li>Join our Discord to find crew and get guide alerts</li>
-    </ul>
-  </div>
-  <a href="https://vicevault.linkwa.in" class="btn">Visit Vice Vault →</a>
-  <div class="footer">
-    © 2025 Vice Vault · Not affiliated with Rockstar Games or Take-Two Interactive<br>
-    You're receiving this because you joined the Vice Vault waitlist.<br>
-    <a href="https://vicevault.linkwa.in/unsubscribe" style="color:#7a788a">Unsubscribe</a>
-  </div>
-</div>
-</body>
-</html>`;
+</div></body></html>`;
 }
 
-function newsletterEmailHTML() {
-  return `
-<!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  body{margin:0;padding:0;background:#030308;font-family:'Barlow',Arial,sans-serif;color:#ede8df}
-  .wrap{max-width:560px;margin:0 auto;padding:40px 20px}
-  .logo{font-size:1.6rem;font-weight:900;letter-spacing:.14em;color:#0070f3;margin-bottom:2rem;font-family:Impact,sans-serif}
-  .logo span{color:#ede8df}
-  .hero-box{background:#0d0d18;border:1px solid rgba(0,212,170,.2);border-radius:6px;padding:2rem;margin-bottom:1.5rem;text-align:center;border-left:3px solid #00d4aa}
-  .hb-icon{font-size:2.5rem;margin-bottom:.8rem}
-  .hb-title{font-size:1.3rem;font-weight:800;color:#ede8df;margin-bottom:.5rem}
-  .hb-sub{font-size:.88rem;color:#7a788a;line-height:1.7}
-  .section-title{font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#0070f3;margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.07)}
-  .drop-preview{background:#131320;border-radius:4px;padding:1.2rem;margin:1rem 0}
-  .dp-label{font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#0070f3;margin-bottom:.5rem}
-  .dp-title{font-size:.9rem;font-weight:700;color:#ede8df;margin-bottom:.3rem}
-  .dp-meta{font-size:.75rem;color:#7a788a}
-  .btn{display:block;background:#0070f3;color:#030308;font-weight:800;text-decoration:none;text-align:center;padding:.9rem 2rem;border-radius:3px;font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;margin:1.5rem 0}
-  .footer{font-size:.72rem;color:#2a2838;text-align:center;line-height:1.7;margin-top:2rem}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="logo">VICE<span>VAULT</span></div>
-  <div class="hero-box">
-    <div class="hb-icon">🎯</div>
-    <div class="hb-title">You're on the intel list</div>
-    <div class="hb-sub">Every week — new GTA 6 guides and newly found cheat codes, each checked against multiple sources. Straight to your inbox.</div>
+const EMAIL_BTN = 'display:inline-block;background:#ff3d9a;color:#ffffff;font-weight:800;text-decoration:none;padding:14px 28px;border-radius:999px;font-size:14px;letter-spacing:1px;text-transform:uppercase';
+
+function cheatSheetEmailHTML(unsubUrl) {
+  const rows = CHEAT_SHEET.map(([name, code]) =>
+    `<tr><td style="padding:8px 10px;border-bottom:1px solid #1d1b2b;font-size:14px;color:#ede8df">${name}</td>` +
+    `<td style="padding:8px 10px;border-bottom:1px solid #1d1b2b;font-size:16px;letter-spacing:3px;color:#ffffff;white-space:nowrap;text-align:right">${code.split(' ').map(c => ARROW[c]).join('')}</td></tr>`).join('');
+  return emailLayout(`
+  <h1 style="font-size:22px;margin:0 0 8px">Your GTA 6 cheat sheet</h1>
+  <p style="font-size:14px;color:#b9b6c8;line-height:1.6;margin:0 0 18px">All 18 cheat inputs found so far. Same D-pad sequence on PS5 and Xbox.</p>
+  <div style="background:#0f0d1c;border:1px solid #26233a;border-radius:10px;padding:14px 16px;margin-bottom:18px;font-size:13px;color:#b9b6c8;line-height:1.7">
+    <strong style="color:#ffffff">How to enter:</strong> press D-pad Up to take out the phone, hold <strong style="color:#ffffff">L1 + R1</strong> (LB + RB on Xbox), then enter the sequence.<br>
+    <strong style="color:#ffffff">Unlock:</strong> cheats only work after you finish the story.<br>
+    <strong style="color:#ffffff">Heads up:</strong> a cheat disables saving and trophies for that session, so save first.
   </div>
-  <div class="section-title">Live right now</div>
-  <div class="drop-preview"><div class="dp-label">Starter Guide</div><div class="dp-title">GTA 6 beginner's guide — essential tips for your first hours</div><div class="dp-meta">Sourced · 7 min read</div></div>
-  <div class="drop-preview"><div class="dp-label">Money Meta</div><div class="dp-title">Early money in Chapters 1 &amp; 2</div><div class="dp-meta">Sourced · 6 min read</div></div>
-  <div class="drop-preview"><div class="dp-label">Cheat Vault</div><div class="dp-title">All 61 GTA 6 cheats — 18 codes found so far</div><div class="dp-meta">PS5 &amp; Xbox</div></div>
-  <a href="https://vicevault.linkwa.in/weekly" class="btn">See this week's drop →</a>
-  <div class="footer">
-    © 2025 Vice Vault · Not affiliated with Rockstar Games<br>
-    <a href="https://vicevault.linkwa.in/unsubscribe" style="color:#7a788a">Unsubscribe</a>
+  <table role="presentation" style="width:100%;border-collapse:collapse;background:#0f0d1c;border:1px solid #26233a;border-radius:10px">${rows}</table>
+  <p style="font-size:13px;color:#9a97ab;line-height:1.6;margin:18px 0">The full list of all 61 cheats, with each one's unlock challenge, is on the site.</p>
+  <p style="text-align:center;margin:22px 0"><a href="https://vicevault.linkwa.in/cheat-codes?utm_source=email&utm_medium=nurture&utm_campaign=cheat-sheet" style="${EMAIL_BTN}">See all 61 cheats</a></p>
+  <p style="font-size:13px;color:#9a97ab;line-height:1.6;margin:0">In two days we'll send you the beginner tips that stop you losing your cash early on.</p>`,
+    unsubUrl, "You're getting this because you asked for the Vice Vault cheat sheet.");
+}
+
+function nurtureTipsHTML(unsubUrl) {
+  return emailLayout(`
+  <h1 style="font-size:22px;margin:0 0 8px">The mistake that costs new players all their cash</h1>
+  <p style="font-size:14px;color:#b9b6c8;line-height:1.6;margin:0 0 16px">Cash you're carrying in GTA 6 is gone if you die or get busted. Three things to do from the start:</p>
+  <div style="background:#0f0d1c;border:1px solid #26233a;border-radius:10px;padding:16px 18px;font-size:14px;color:#ede8df;line-height:1.7">
+    <p style="margin:0 0 12px"><strong style="color:#ff3d9a">1.</strong> Until you can bank it, hide cash in the <strong>stash under the floor of Jason's bedroom</strong>.</p>
+    <p style="margin:0 0 12px"><strong style="color:#ff3d9a">2.</strong> A bank account opens with the <strong>Buck Me</strong> mission in Chapter 1. After that, deposit regularly.</p>
+    <p style="margin:0"><strong style="color:#ff3d9a">3.</strong> Guns you buy stay with you after death; pickups don't, unless you store them in your personal car's trunk.</p>
   </div>
-</div>
-</body>
-</html>`;
+  <p style="font-size:14px;color:#b9b6c8;line-height:1.6;margin:18px 0">The beginner's guide has five more tips, with the sources for every fact. The first three are free to read; members get all eight.</p>
+  <p style="text-align:center;margin:22px 0"><a href="https://vicevault.linkwa.in/gta-6-beginners-guide-tips?utm_source=email&utm_medium=nurture&utm_campaign=tips" style="${EMAIL_BTN}">Read the beginner's guide</a></p>
+  <p style="font-size:13px;color:#9a97ab;line-height:1.6;margin:0">Members also get the early-money guide, the wanted &amp; heat guide and the verified locations board, all in one dashboard.</p>`,
+    unsubUrl, "You're getting this because you asked for the Vice Vault cheat sheet.");
+}
+
+function nurtureOfferHTML(unsubUrl) {
+  return emailLayout(`
+  <h1 style="font-size:22px;margin:0 0 8px">Every Vice Vault guide for ₹499</h1>
+  <p style="font-size:14px;color:#b9b6c8;line-height:1.6;margin:0 0 16px">One Vault Pass, 30 days, everything unlocked.</p>
+  <div style="background:#0f0d1c;border:1px solid #26233a;border-radius:10px;padding:16px 18px;font-size:14px;color:#ede8df;line-height:1.8">
+    ✓ Every guide in the vault, plus each new one as it's published<br>
+    ✓ Early money, wanted level &amp; heat and story structure guides<br>
+    ✓ Full cheat vault: all 61 cheats with unlock challenges<br>
+    ✓ Tell us which topics to cover next<br>
+    ✓ Discord crew channel
+  </div>
+  <p style="font-size:14px;color:#b9b6c8;line-height:1.6;margin:16px 0">Every fact is checked against at least two released-game sources before we publish it. One payment for 30 days, and it never auto-renews.</p>
+  <p style="text-align:center;margin:22px 0"><a href="https://vicevault.linkwa.in/signup?utm_source=email&utm_medium=nurture&utm_campaign=vault-pass-offer" style="${EMAIL_BTN}">Get the Vault Pass — ₹499</a></p>
+  <p style="font-size:13px;color:#9a97ab;line-height:1.6;margin:0">Want to see everything first? <a href="https://vicevault.linkwa.in/preorder?utm_source=email&utm_medium=nurture&utm_campaign=vault-pass-offer" style="color:#ff3d9a">See what's inside</a>.</p>`,
+    unsubUrl, "You're getting this because you asked for the Vice Vault cheat sheet. This is the last offer email in the series.");
 }
 
 function premiumEmailHTML(tier) {
-  const tierName = tier === 'elite' ? 'Elite Crew' : (tier === 'soldier' ? 'Soldier' : 'Vault Pro');
-  const priceLabel = tier === 'elite' ? '₹999/yr' : (tier === 'soldier' ? '₹299/mo' : '₹699/mo');
+  const tierName = 'Vault Pass';
+  const priceLabel = '₹499 · 30 days of access';
   const badgeColor = tier === 'elite' ? '#00a3ff' : (tier === 'soldier' ? '#7a788a' : '#0070f3');
 
   return `
@@ -592,16 +731,16 @@ function premiumEmailHTML(tier) {
     </div>
     <div style="font-size:45px;margin-bottom:20px">👑</div>
     <h1 style="font-size:22px;font-weight:800;color:#ffffff;margin:0 0 10px 0;text-transform:uppercase;letter-spacing:1px">Access Granted</h1>
-    <p style="font-size:13px;color:#7a788a;line-height:1.6;margin:0 0 25px 0">Your premium subscription is live. Welcome to the ultimate GTA 6 intelligence hub.</p>
+    <p style="font-size:13px;color:#7a788a;line-height:1.6;margin:0 0 25px 0">Payment confirmed — your Vice Vault access is live right now.</p>
     <div style="background-color:#0d0d18;border:1px solid rgba(255,255,255,0.05);border-radius:4px;padding:18px;margin-bottom:30px;text-align:center">
       <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#7a788a;text-transform:uppercase;margin-bottom:5px">Active Plan</div>
       <div style="font-size:18px;font-weight:800;color:${badgeColor};text-transform:uppercase;margin-bottom:3px">${tierName}</div>
-      <div style="font-size:12px;color:#7a788a">${priceLabel} · cancel anytime</div>
+      <div style="font-size:12px;color:#7a788a">${priceLabel} · no auto-renewal</div>
     </div>
     <h2 style="font-size:13px;font-weight:800;color:#ffffff;margin:0 0 15px 0;text-transform:uppercase;letter-spacing:1px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:8px">Next Steps</h2>
     <div style="text-align:left;margin-bottom:20px">
       <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:3px">1. Access your Dashboard 🗺️</div>
-      <p style="font-size:12px;color:#7a788a;line-height:1.6;margin:0">Log in to view heist blueprints, vehicle speed stats, wanted level escape routes, and property guides.</p>
+      <p style="font-size:12px;color:#7a788a;line-height:1.6;margin:0">Log in to read the sourced guides, the full cheat vault and the verified locations board.</p>
     </div>
     <div style="text-align:left;margin-bottom:30px">
       <div style="font-size:13px;font-weight:700;color:#ffffff;margin-bottom:3px">2. Connect your Discord 🎮</div>
@@ -973,7 +1112,7 @@ async function handleDiscordAuth(request, env) {
 
     await env.VICE_VAULT_KV.put(`user:${email}`, JSON.stringify(user));
 
-    // 4. Auto-join server & assign roles only for PAYING Vault Pro/Elite members
+    // 4. Auto-join server & assign roles only for PAYING members (Vault Pass = tier "pro"; legacy elite too)
     if (hasActiveAccess(user) && (tier === 'pro' || tier === 'elite') && env.DISCORD_BOT_TOKEN && env.DISCORD_GUILD_ID && env.DISCORD_PRO_ROLE_ID) {
       try {
         const userId = userData.id;
@@ -1143,8 +1282,11 @@ async function syncDiscordRoles(env) {
 }
 
 // ─── RAZORPAY: CREATE ORDER ────────────────────────────────
-// Days of access granted per tier (Elite is sold as an annual plan)
-const TIER_ACCESS_DAYS = { soldier: 30, pro: 30, elite: 365 };
+// One product: the Vault Pass, ₹499 for 30 days. It is stored as tier "pro" so existing
+// access checks and Discord roles keep working. Older soldier/elite members keep what they paid for.
+const VAULT_PASS_TIER = 'pro';
+const VAULT_PASS_PRICE_PAISE = 49900; // ₹499
+const TIER_ACCESS_DAYS = { soldier: 30, pro: 30, elite: 30 };
 
 async function handleCreateOrder(request, env) {
   try {
@@ -1152,19 +1294,10 @@ async function handleCreateOrder(request, env) {
     if (!sessionEmail) {
       return json({ error: 'Please sign in before checking out.' }, 401);
     }
-    const { tier } = await request.json();
+    await request.json().catch(() => ({})); // any tier sent by an old page is ignored
 
-    // Price map in paise (INR × 100)
-    const PRICES = {
-      soldier: 29900,  // ₹299
-      pro:     49900,  // ₹499
-      elite:   99900,  // ₹999
-    };
-
-    const amount = PRICES[tier];
-    if (!amount) {
-      return json({ error: 'Invalid tier. Must be soldier, pro, or elite.' }, 400);
-    }
+    const tier = VAULT_PASS_TIER;
+    const amount = VAULT_PASS_PRICE_PAISE;
 
     if (!env.RAZORPAY_KEY_ID || !env.RAZORPAY_KEY_SECRET) {
       return json({ error: 'Payment gateway not configured.' }, 500);
@@ -1217,7 +1350,7 @@ async function handleVerifyPayment(request, env) {
     if (!sessionEmail) {
       return json({ error: 'Your session expired. Please sign in again — your payment is safe; contact support if access is not granted.' }, 401);
     }
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, firstName, lastName } = await request.json();
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, firstName, lastName, fbp, fbc, sourceUrl } = await request.json();
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
       return json({ error: 'Missing payment verification fields' }, 400);
@@ -1290,6 +1423,12 @@ async function handleVerifyPayment(request, env) {
 
     await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
 
+    // Report the sale to Meta (server side) for ad optimisation
+    await sendMetaPurchase(env, request, {
+      email: cleanEmail, value: order.amount / 100, tier: tierName,
+      eventId: razorpay_payment_id, fbp, fbc, sourceUrl
+    });
+
     // Send purchase welcome email via Resend
     await sendWelcomeEmail(cleanEmail, tierName, env, 'premium');
 
@@ -1349,8 +1488,9 @@ async function handleAdminStats(env) {
     const waitlistCountStr = await env.VICE_VAULT_KV.get('waitlist:count') || '0';
     const waitlistCount = parseInt(waitlistCountStr, 10);
 
-    // Calculate MRR: Soldier (₹299/mo), Pro (₹699/mo), Elite (₹999/yr => ₹83/mo equivalent)
-    const mrr = (soldierCount * 299) + (proCount * 699) + Math.round(eliteCount * (999 / 12));
+    // Monthly revenue from members with active access. New sales are all the ₹499 Vault Pass (tier "pro");
+    // soldier/elite counts are legacy members from the old three-tier pricing.
+    const mrr = (soldierCount * 299) + (proCount * 499) + (eliteCount * 999);
 
     return json({
       success: true,

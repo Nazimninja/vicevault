@@ -55,53 +55,29 @@
   // Centralizes tracking: set this and GA4 is enabled across all pages automatically!
   const GA_TRACKING_ID = '';
 
+  // Meta Pixel / dataset ID from Events Manager (e.g. '123456789012345'). Empty = Pixel off.
+  // Also set META_PIXEL_ID in wrangler.toml so the Worker sends the matching server-side Purchase.
+  const META_PIXEL_ID = '1647353937424013'; // "Vice Vault" dataset, Social Ninja's business portfolio
+  const TIER_VALUE_INR = { soldier: 299, pro: 499, elite: 999 };
+
   const PREORDER_DEALS = [
-    // Must match preorder.html and the prices charged in worker.js (handleCreateOrder).
+    // One product: the Vault Pass. Must match preorder.html and worker.js (VAULT_PASS_PRICE_PAISE).
+    // Internal id stays 'pro' so existing access checks keep working.
     // List only features that actually exist — no invented content or reference prices.
     {
-      id: 'soldier',
-      name: 'Soldier',
-      price: 299,
-      period: 'month',
-      badge: null,
-      color: '#7a788a',
-      features: [
-        'Full cheat vault — all 61 cheats (PS5 & Xbox)',
-        'Full beginner\'s guide',
-        'Weekly drop summary',
-      ],
-      locked: ['Every Vault Pro guide', 'Discord crew access'],
-    },
-    {
       id: 'pro',
-      name: 'Vault Pro',
+      name: 'Vault Pass',
       price: 499,
       period: 'month',
-      badge: '⭐ Most popular',
+      badge: '🔑 Everything unlocked',
       color: 'var(--blue)',
       hot: true,
       features: [
         'Every guide, plus each new one as it\'s published',
-        'Full cheat vault — all 61 cheats',
+        'Full cheat vault — all 61 cheats with unlock challenges',
         'Verified Leonida locations board',
-        'Priority Discord crew channel',
-      ],
-      locked: ['Guide topic requests'],
-      note: null,
-    },
-    {
-      id: 'elite',
-      name: 'Elite Crew',
-      price: 999,
-      period: 'year',
-      badge: '💎 Founding member',
-      color: 'var(--pink)',
-      features: [
-        'Everything in Vault Pro',
+        'Discord crew channel',
         'Guide topic requests',
-        'Private Elite Discord channel',
-        'Direct channel to the Vice Vault team',
-        'Founding member badge (lifetime)',
       ],
       locked: [],
       note: null,
@@ -358,7 +334,7 @@ body.vv-bar-active .drop-hero { padding-top: calc(120px + 44px) !important; }
 /* Deal cards */
 .vvm-deals {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 1px;
   background: rgba(255,255,255,0.07);
   margin: 0;
@@ -873,9 +849,9 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     if (document.getElementById('vv-modal-overlay')) return;
 
     const dealsHTML = PREORDER_DEALS.map((d, i) => `
-      <div class="vvm-deal ${i === 1 ? 'selected border-beam-container' : ''}" data-id="${d.id}"
+      <div class="vvm-deal ${i === 0 ? 'selected border-beam-container' : ''}" data-id="${d.id}"
            style="--deal-color:${d.color}" onclick="VV.selectDeal('${d.id}')">
-        ${i === 1 ? '<div class="border-beam-line"></div>' : ''}
+        ${i === 0 ? '<div class="border-beam-line"></div>' : ''}
         <div class="vvm-select-check">✓</div>
         <div class="vvm-deal-badge">${d.badge || '&nbsp;'}</div>
         <div class="vvm-deal-name">${d.name}</div>
@@ -884,7 +860,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
           <span class="vvm-deal-price">${d.price}</span>
           ${d.originalPrice ? `<span class="vvm-deal-orig">₹${d.originalPrice}</span>` : ''}
         </div>
-        <div class="vvm-deal-per">per ${d.period} ${d.period === 'year' ? '· billed annually' : '· cancel anytime'}</div>
+        <div class="vvm-deal-per">per ${d.period} · no auto-renewal</div>
         ${d.note ? `<div class="vvm-deal-note">${d.note}</div>` : ''}
         <ul class="vvm-feats">
           ${d.features.map(f => `<li>${f}</li>`).join('')}
@@ -899,26 +875,20 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
       <div id="vv-modal">
         <div class="vvm-header">
           <button class="vvm-close" onclick="VV.closePreorder()" aria-label="Close">✕</button>
-          <div class="vvm-eye"><span class="vvm-eye-dot"></span>GTA 6 is out · launch prices</div>
-          <div class="vvm-title">Pick your plan</div>
-          <div class="vvm-sub">Join today and your price stays the same for as long as you stay subscribed. Vault Pro is ₹499/mo.</div>
-          <div class="vvm-countdown">
-            <div class="vvm-cd-unit"><div class="vvm-cd-num" id="vvm-d">00</div><div class="vvm-cd-label">Days</div></div>
-            <div class="vvm-cd-unit"><div class="vvm-cd-num" id="vvm-h">00</div><div class="vvm-cd-label">Hours</div></div>
-            <div class="vvm-cd-unit"><div class="vvm-cd-num" id="vvm-m">00</div><div class="vvm-cd-label">Minutes</div></div>
-            <div class="vvm-cd-unit"><div class="vvm-cd-num" id="vvm-s">00</div><div class="vvm-cd-label">Seconds</div></div>
-          </div>
+          <div class="vvm-eye"><span class="vvm-eye-dot"></span>GTA 6 is out · sourced guides</div>
+          <div class="vvm-title">The Vault Pass</div>
+          <div class="vvm-sub">Every sourced GTA 6 guide, the full cheat vault and the Discord crew. ₹499 for 30 days, one plan, everything included.</div>
         </div>
         <div class="vvm-deals">${dealsHTML}</div>
         <div class="vvm-footer" id="vvm-footer-main">
           <div class="vvm-form">
             <input type="email" class="vvm-email" id="vvm-email" placeholder="your@email.com" aria-label="Email address">
             <button class="vvm-submit" id="vvm-submit" onclick="VV.submitPreorder()">
-              Continue — Vault Pro ₹499/mo →
+              Continue — Vault Pass ₹499 →
             </button>
           </div>
           <div class="vvm-terms">
-            Access starts as soon as you pay and lasts 30 days (Elite: one year). No auto-renewal — you choose whether to renew. <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
+            Access starts as soon as you pay and lasts 30 days. No auto-renewal — you choose whether to renew. <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
           </div>
         </div>
         <div class="vvm-success" id="vvm-success">
@@ -981,7 +951,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
       const deal = PREORDER_DEALS.find(d => d.id === id);
       const btn = document.getElementById('vvm-submit');
       if (btn && deal) {
-        btn.textContent = `Pre-order ${deal.name} — ₹${deal.price}/${deal.period} →`;
+        btn.textContent = `Continue — ${deal.name} ₹${deal.price} →`;
       }
     },
     async submitPreorder() {
@@ -1459,7 +1429,8 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     verifyOTP,
     loginWithGoogle,
     loginWithDiscord,
-    pay: initRazorpayPayment
+    pay: initRazorpayPayment,
+    subscribeLead
   };
 
   // ─── KEYBOARD CLOSE ──────────────────────────────────────
@@ -1485,6 +1456,108 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     gtag('config', GA_TRACKING_ID);
   }
 
+  // ─── META PIXEL ──────────────────────────────────────────
+  function initMetaPixel() {
+    if (!META_PIXEL_ID || window.fbq) return;
+    if (/localhost|127\.0\.0\.1/.test(window.location.hostname)) return; // keep test traffic out of ad data
+    /* Meta's standard base code */
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', META_PIXEL_ID);
+    window.fbq('track', 'PageView');
+    if (/\/preorder(\.html)?$/.test(window.location.pathname)) {
+      window.fbq('track', 'ViewContent', { content_name: 'pricing', content_type: 'product', currency: 'INR', value: TIER_VALUE_INR.pro });
+    }
+  }
+
+  // Safe wrapper: no-op when the Pixel is off or blocked
+  function track(eventName, params, eventId) {
+    try {
+      if (!window.fbq) return;
+      if (eventId) window.fbq('track', eventName, params || {}, { eventID: eventId });
+      else window.fbq('track', eventName, params || {});
+    } catch (e) {}
+  }
+
+  function readCookie(name) {
+    const m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+
+  // _fbc is normally set by the Pixel; build it from ?fbclid= if the Pixel hasn't yet
+  function getFbc() {
+    const c = readCookie('_fbc');
+    if (c) return c;
+    const id = new URLSearchParams(window.location.search).get('fbclid');
+    return id ? `fb.1.${Date.now()}.${id}` : '';
+  }
+
+  // ─── LEAD CAPTURE (free cheat sheet by email) ─────────────
+  // Signup → /api/newsletter (welcome email + follow-up sequence) and a Meta "Lead" event,
+  // sent from the browser and the Worker with the same event ID so Meta counts it once.
+  async function subscribeLead(email, source) {
+    email = String(email || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { success: false, error: 'Please enter a valid email address.' };
+    const eventId = 'lead_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    try {
+      const res = await fetch(`${API_BASE}/api/newsletter`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: source || 'lead-box', eventId, fbp: readCookie('_fbp'), fbc: getFbc(), sourceUrl: window.location.href.split('#')[0] })
+      });
+      const data = await res.json();
+      if (data.success && !data.duplicate) track('Lead', { content_name: source || 'lead-box' }, eventId);
+      return data;
+    } catch (e) {
+      return { success: false, error: 'Could not reach the server. Please try again.' };
+    }
+  }
+
+  // Renders into any <div data-vv-lead="source-name"></div>
+  function initLeadBoxes() {
+    const slots = document.querySelectorAll('[data-vv-lead]');
+    if (!slots.length) return;
+    if (!document.getElementById('vv-lead-style')) {
+      const st = document.createElement('style');
+      st.id = 'vv-lead-style';
+      st.textContent = `
+        .vv-lead{max-width:760px;margin:2.5rem auto;padding:1.6rem 1.5rem;border-radius:14px;background:linear-gradient(135deg,rgba(255,61,154,.12),rgba(0,112,243,.10));border:1px solid rgba(255,61,154,.35);text-align:center}
+        .vv-lead h3{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.04em;margin:0 0 .35rem;color:#fff;line-height:1.05}
+        .vv-lead p{font-size:.92rem;color:#c9c6d6;margin:0 0 1.1rem;line-height:1.55}
+        .vv-lead form{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+        .vv-lead input{flex:1 1 220px;max-width:340px;padding:.85rem 1rem;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(7,6,13,.75);color:#fff;font-size:.95rem}
+        .vv-lead button{padding:.85rem 1.4rem;border-radius:999px;border:0;background:linear-gradient(90deg,#ff3d9a,#c830ff);color:#fff;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:.82rem;cursor:pointer}
+        .vv-lead button:disabled{opacity:.6;cursor:default}
+        .vv-lead small{display:block;margin-top:.8rem;font-size:.72rem;color:#8d8a9e}
+        .vv-lead .vv-lead-msg{margin-top:.8rem;font-size:.9rem;color:#00d4aa;font-weight:700}
+        .vv-lead .vv-lead-msg.err{color:#ff6b8b}`;
+      document.head.appendChild(st);
+    }
+    slots.forEach(slot => {
+      const source = slot.getAttribute('data-vv-lead') || 'lead-box';
+      slot.innerHTML = `<div class="vv-lead">
+        <h3>Get the cheat sheet by email</h3>
+        <p>All 18 known GTA 6 cheat codes on one page, plus how to enter them, free. Then two short emails with the beginner tips that save your cash.</p>
+        <form novalidate><input type="email" placeholder="Your email" aria-label="Your email" required><button type="submit">Send it</button></form>
+        <div class="vv-lead-msg" hidden></div>
+        <small>No spam. One click to unsubscribe. <a href="privacy.html" style="color:#8d8a9e">Privacy</a></small>
+      </div>`;
+      const form = slot.querySelector('form'), input = slot.querySelector('input'), btn = slot.querySelector('button'), msg = slot.querySelector('.vv-lead-msg');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        btn.disabled = true; btn.textContent = 'Sending…';
+        const r = await subscribeLead(input.value, source);
+        msg.hidden = false;
+        msg.classList.toggle('err', !r.success);
+        msg.textContent = r.success ? (r.message || 'Done! Check your inbox.') : (r.error || 'Something went wrong. Please try again.');
+        if (r.success) { form.style.display = 'none'; } else { btn.disabled = false; btn.textContent = 'Send it'; }
+      });
+    });
+  }
+
   function setupDashboardUI() {
     const user = getCurrentUser();
     if (!user) {
@@ -1507,12 +1580,8 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     }
     const tierEl = document.querySelector('.sb-tier');
     if (tierEl) {
-      const tierNames = {
-        'soldier': 'Soldier',
-        'pro': 'Vault Pro',
-        'elite': 'Elite Crew'
-      };
-      tierEl.textContent = '⭐ ' + (tierNames[user.tier] || 'Vault Member');
+      // One product now; older soldier/elite members are shown as Vault Pass holders too
+      tierEl.textContent = '⭐ ' + (user.subscribed ? 'Vault Pass' : 'Vault Member');
     }
 
     // Update sub title on dashboard: "Welcome back, Nazim"
@@ -1654,7 +1723,9 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     tick();
     setInterval(tick, 1000);
     initGA();
-    
+    initMetaPixel();
+    initLeadBoxes();
+
     // Auth initialization
     injectPaywallCSS();
     updateNavigationUI();
@@ -1789,6 +1860,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
 
   // ─── RAZORPAY CHECKOUT ─────────────────────────────────────
   async function initRazorpayPayment(tier) {
+    tier = 'pro'; // one product: the ₹499 Vault Pass (the Worker charges this whatever is sent)
     const user = getCurrentUser();
     let email = user?.email || '';
     if (!email) {
@@ -1832,9 +1904,11 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
         return;
       }
 
+      track('InitiateCheckout', { value: TIER_VALUE_INR[tier], currency: 'INR', content_name: tier, content_ids: [tier], content_type: 'product', num_items: 1 });
+
       // Price labels for display
-      const LABELS = { soldier: '₹299/mo', pro: '₹499/mo', elite: '₹999/yr' };
-      const NAMES  = { soldier: 'Vault Soldier', pro: 'Vault Pro', elite: 'Elite Crew' };
+      const LABELS = { soldier: '₹299 · 30 days', pro: '₹499 · 30 days', elite: '₹999 · 30 days' };
+      const NAMES  = { soldier: 'Vault Pass', pro: 'Vault Pass', elite: 'Vault Pass' };
 
       // 2. Open Razorpay checkout modal
       const options = {
@@ -1863,7 +1937,11 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature:  response.razorpay_signature,
                 firstName: user?.firstName || '',
-                lastName:  user?.lastName  || ''
+                lastName:  user?.lastName  || '',
+                // For the server-side Meta Purchase event (ignored if Meta isn't configured)
+                fbp: readCookie('_fbp'),
+                fbc: getFbc(),
+                sourceUrl: window.location.href.split('#')[0]
               })
             });
             const verifyData = await verifyRes.json();
@@ -1872,8 +1950,10 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
               // Save updated user + refreshed session to localStorage
               storeSession(verifyData);
               localStorage.setItem('vv_user', JSON.stringify(verifyData.user));
-              // Redirect to dashboard
-              window.location.href = '/dashboard.html?payment=success&tier=' + tier;
+              // Same event ID as the Worker's server-side event, so Meta counts one sale
+              track('Purchase', { value: TIER_VALUE_INR[tier], currency: 'INR', content_name: tier, content_ids: [tier], content_type: 'product', num_items: 1 }, response.razorpay_payment_id);
+              // Brief pause so the Pixel request leaves before the page changes
+              setTimeout(() => { window.location.href = '/dashboard.html?payment=success&tier=' + tier; }, window.fbq ? 600 : 0);
             } else {
               alert('Payment verification failed: ' + (verifyData.error || 'Please contact support.'));
               if (btn) { btn.disabled = false; btn.textContent = 'Subscribe Now'; }

@@ -29,19 +29,20 @@
 
 ### A. Pre-Order & Waitlist Subscription System
 - **Billing Strategy**:
-  - Each payment is a **one-time Razorpay order** (no auto-renewal): Soldier ₹299 / Pro ₹499 = 30 days, Elite ₹999 = 365 days (`TIER_ACCESS_DAYS`). Renewing early stacks on top of the remaining time. Never describe plans as "recurring" or "auto-renewing" in copy unless real Razorpay Subscriptions are implemented.
+  - **One product: the Vault Pass, ₹499 for 30 days.** Each payment is a **one-time Razorpay order** (no auto-renewal). The Worker charges `VAULT_PASS_PRICE_PAISE` whatever tier a page sends and stores it as tier `pro`. Renewing early stacks on top of the remaining time. Never describe plans as "recurring" or "auto-renewing" in copy unless real Razorpay Subscriptions are implemented.
+  - Legacy Soldier/Elite buyers keep what they paid for; any member with active access sees every dashboard section.
 - **7-Day Grace Period & Paywall**:
   - Access = now ≤ `subscriptionExpiresAt` + 7 days (`hasActiveAccess` in `worker.js`). The `subscribed` flag alone never grants access; cancelling never shortens a paid period.
   - Enforced in `dashboard.html`, `vv-global.js` access checks, and `worker.js` backend endpoints (`/api/auth/status`).
 - **Pre-Launch Limited Dashboard Access**:
   - Instead of blocking paid pre-launch users with a blank/lock screen, members receive limited access with an interactive pre-launch status banner and preview content to ensure immediate purchase satisfaction and prevent buyer remorse.
 
-### B. Membership & Pricing Tiers
-| Tier | Offer / Pre-Order Price | Launch Day Price | Billing | Features |
-|---|---|---|---|---|
-| **Soldier** | ₹199 - ₹299 | ₹399 | Monthly | 10 heist blueprints/mo, full cheat code vault (PS5 & Xbox), weekly money meta summary, basic story walkthroughs, wanted level escape guides. |
-| **Vault Pro** *(Best Value)* | ₹399 - ₹499 | ₹699 | Monthly | Unlimited access to all 11 sections, hidden heist routes, vehicle speed tests, tuning guides, online multiplayer strategy, priority Discord channels (Heist, RP, Lobbies). |
-| **Elite Crew** *(Founding Member)* | ₹999 | ₹1,199 | Annual | Everything in Pro plus custom blueprint requests, direct line to lead researchers, VIP founding badge, private Discord council. |
+### B. Membership & Pricing (single plan since 21 Nov 2026)
+| Plan | Price | Access | Features (only what exists) |
+|---|---|---|---|
+| **Vault Pass** | ₹499 | 30 days, no auto-renewal | Every published guide + each new one, full 61-cheat vault, verified Leonida locations board, Discord crew channel (Pro role), guide topic requests. |
+
+Why one plan: with only a handful of live guides there wasn't enough to split into tiers, and one price keeps ads and checkout simple on a small ad budget. Reconsider tiers once ~15+ guides are published.
 
 ### C. Authentication & Access Control
 - Multi-provider authentication in `signup.html` & `worker.js`:
@@ -51,7 +52,7 @@
 - Default authentication state for new signups is `unsubscribed` until payment confirmation callback verifies active membership.
 - Server-side access verification on `dashboard.html` entry prevents URL parameter bypass.
 - **Session tokens (security rule)**: every sign-in endpoint returns a signed `sessionToken` (HMAC with the `SESSION_SECRET` Worker secret, 30-day expiry), stored in the browser under `localStorage['vv_session']`. Account-specific endpoints (`/api/auth/status`, `cancel-subscription`, `discord` linking, `/api/pay/*`, `/api/admin/*`) identify the user ONLY from `Authorization: Bearer <token>` — never trust an email, tier or price sent in a request body. Use `VV.authHeaders()` in front-end code.
-- **Payments**: `create-order` stores `order:<id>` in KV bound to the signed-in email + tier; `verify` takes the tier from that record and marks `payment:<id>` used so a payment can't be replayed. Elite grants 365 days, Soldier/Pro 30 days.
+- **Payments**: `create-order` stores `order:<id>` in KV bound to the signed-in email + tier; `verify` takes the tier from that record and marks `payment:<id>` used so a payment can't be replayed. Every purchase grants 30 days.
 - Passwords are salted PBKDF2 (legacy SHA-256 hashes upgrade automatically on next login). OTPs allow 5 wrong attempts and one resend per minute.
 
 ### C2. Content Accuracy Rule (MANDATORY)

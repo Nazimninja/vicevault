@@ -141,14 +141,14 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
   <div class="hero-inner">
     <div class="hero-eye">Legal</div>
     <h1 class="hero-title">Privacy Policy</h1>
-    <div class="hero-meta">Last updated: June 26, 2025 · Effective: June 26, 2025</div>
+    <div class="hero-meta">Last updated: November 20, 2026 · Effective: November 20, 2026</div>
   </div>
 </div>
 
 <div class="doc">
 
   <div class="highlight-box">
-    <p><strong style="color:var(--white)">Summary:</strong> Vice Vault collects only what we need to run the service — your email address for newsletters and subscriptions, and basic analytics data. We do not sell your data. We do not share it with advertisers. We use Razorpay for payments, which means we never see or store your card details.</p>
+    <p><strong style="color:var(--white)">Summary:</strong> Vice Vault collects only what we need to run the service — your email address for newsletters and subscriptions, and basic analytics data. We do not sell your data. We use the Meta Pixel to measure our own Facebook and Instagram ads, and Google AdSense shows ads on some pages (see Sections 5 and 6). We use Razorpay for payments, which means we never see or store your card details.</p>
   </div>
 
   <h2>1. Who we are</h2>
@@ -176,9 +176,10 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
     <li>To send your waitlist welcome email and launch-day access link</li>
     <li>To personalise your dashboard (your name, platform, reading progress)</li>
     <li>To understand how the site is used so we can improve it</li>
-    <li>To send transactional emails (payment confirmation, subscription renewal notices)</li>
+    <li>To send transactional emails (payment confirmation, access expiry reminders)</li>
+    <li>To measure whether our Facebook and Instagram ads lead to visits and purchases, and to show our ads to people likely to be interested (see Section 5)</li>
   </ul>
-  <p>We do not use your data for advertising targeting, profiling, or sale to third parties. We do not send marketing emails beyond the weekly newsletter you opted into.</p>
+  <p>We never sell your data. We do not send marketing emails beyond the newsletter you opted into.</p>
 
   <h2>4. Data storage and retention</h2>
   <p>Email addresses and account data are stored in Cloudflare KV — a globally distributed key-value store operated by Cloudflare, Inc. Data is stored in data centres within the EU and US.</p>
@@ -191,8 +192,11 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
     <li><strong>Analytics cookies</strong> (Google Analytics) — track page visits and user behaviour anonymously. You can opt out via <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google's opt-out tool</a>.</li>
     <li><strong>Cloudflare cookies</strong> — used for CDN performance and security (bot detection). These are essential and cannot be disabled without breaking site functionality.</li>
     <li><strong>Session cookies</strong> — used to keep you logged in to your Vice Vault account. These expire when you close your browser or after 30 days of inactivity.</li>
+    <li><strong>Meta Pixel cookies</strong> (<code>_fbp</code>, <code>_fbc</code>) — set by Meta Platforms when you visit our site, so we can measure visits and purchases that come from our Facebook and Instagram ads and show those ads to relevant people.</li>
+    <li><strong>Google AdSense cookies</strong> — used by Google to show and measure ads on some of our free pages.</li>
   </ul>
-  <p>We do not use advertising cookies, tracking pixels, or third-party marketing cookies of any kind.</p>
+  <h3>5.1 Meta Pixel and Conversions API</h3>
+  <p>When you view our pricing page, start a checkout or complete a purchase, the Meta Pixel in your browser tells Meta about that event. When a purchase is completed, our server also sends Meta the purchase details (tier, amount, currency), your email address <strong>in hashed (SHA-256) form</strong>, your IP address and browser user agent, so Meta can match the purchase to an ad click. We never send your name, password or payment details. You can limit how Meta uses this data in your Facebook or Instagram <a href="https://www.facebook.com/adpreferences/ad_settings" target="_blank" rel="noopener">ad preferences</a>, and you can block these cookies in your browser settings without losing access to Vice Vault.</p>
 
   <h2>6. Third-party services</h2>
   <p>Vice Vault uses the following third-party services, each with their own privacy policy:</p>
@@ -201,6 +205,8 @@ nav.scrolled{background:rgba(3,3,8,.95)!important;backdrop-filter:blur(20px)!imp
     <li><strong>Razorpay</strong> (payment processing) — <a href="https://razorpay.com/privacy" target="_blank" rel="noopener">razorpay.com/privacy</a></li>
     <li><strong>Resend</strong> (transactional email delivery) — <a href="https://resend.com/privacy" target="_blank" rel="noopener">resend.com/privacy</a></li>
     <li><strong>Google Analytics</strong> (site analytics) — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+    <li><strong>Google AdSense</strong> (ads on free pages) — <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">policies.google.com/technologies/ads</a></li>
+    <li><strong>Meta Platforms</strong> (Meta Pixel and Conversions API, ad measurement) — <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">facebook.com/privacy/policy</a></li>
   </ul>
 
   <h2>7. Your rights</h2>
