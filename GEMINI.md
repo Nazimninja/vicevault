@@ -55,6 +55,12 @@
 - **Payments**: `create-order` stores `order:<id>` in KV bound to the signed-in email + tier; `verify` takes the tier from that record and marks `payment:<id>` used so a payment can't be replayed. Elite grants 365 days, Soldier/Pro 30 days.
 - Passwords are salted PBKDF2 (legacy SHA-256 hashes upgrade automatically on next login). OTPs allow 5 wrong attempts and one resend per minute.
 
+### C2. Content Accuracy Rule (MANDATORY)
+- **Never invent game content.** No made-up missions, heists, payouts ($/hr figures), locations, coordinates, cheat codes, vehicle stats, member counts or "verified" claims.
+- Only publish a GTA 6 fact when **at least two independent released-game sources** agree. Write it in our own words and list the sources + "checked" date at the end of the guide.
+- Anything single-source or disputed is labelled as unconfirmed. Topics we can't source yet are shown as **"In progress"**, never filled with generated text.
+- Dashboard guides live in `ARTICLES_DB` (dashboard.html); the catalogue is `guideData` (a title is "live" only if it exists in `ARTICLES_DB`). Cheats live in `CHEATS_DATA`. Verified places live in `MAP_POIS` (no coordinates until confirmed in-game).
+
 ### D. Content Architecture: Guides vs. Blogs
 - **Strict Separation**:
   - `guides.html`: Dedicated gameplay hub featuring 14+ game walkthroughs, heist maps, and strategy guides with filter tabs.

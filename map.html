@@ -10,16 +10,16 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GTA 6 Interactive Map: Leonida & Vice City Map Explorer | Vice Vault</title>
-<meta name="description" content="Explore the interactive GTA 6 Leonida & Vice City map. Points of interest, safehouses, Ammu-Nation stores, heist staging zones, exotic vehicle spawns, and Easter eggs.">
-<meta name="keywords" content="GTA 6 interactive map, Leonida map GTA 6, Vice City map, GTA 6 points of interest, GTA 6 collectibles map, GTA 6 safehouse locations">
-<meta property="og:title" content="GTA 6 Interactive Map — Leonida & Vice City Explorer | Vice Vault">
-<meta property="og:description" content="Full interactive atlas of Leonida and Vice City. Filter heists, shops, weapon stashes, vehicle spawns, and secrets.">
+<title>GTA 6 Map Guide: Verified Leonida Locations | Vice Vault</title>
+<meta name="description" content="Verified GTA 6 locations for your first hours in Leonida: Jason's house stash and gym, the Key Lento Ammu-Nation, Kenton's treasure dives, Illegal Operations, Moses in Port Gellhorn and more — checked against multiple sources.">
+<meta name="keywords" content="GTA 6 map, GTA 6 locations, Leonida map, GTA 6 Key Lento, GTA 6 Port Gellhorn, GTA 6 Ammu-Nation location">
+<meta property="og:title" content="GTA 6 Map Guide: Verified Leonida Locations | Vice Vault">
+<meta property="og:description" content="Key early-game locations in Leonida, verified against multiple released-game sources.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://vicevault.linkwa.in/map.html">
 <meta property="og:image" content="https://vicevault.linkwa.in/thumbs/leonida-map-real-miami.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="GTA 6 Interactive Map: Leonida & Vice City | Vice Vault">
+<meta name="twitter:title" content="GTA 6 Map Guide: Verified Leonida Locations | Vice Vault">
 <meta name="twitter:image" content="https://vicevault.linkwa.in/thumbs/leonida-map-real-miami.jpg">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://vicevault.linkwa.in/map.html">
@@ -29,14 +29,10 @@
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "GTA 6 Interactive Map: Leonida & Vice City Explorer",
-  "description": "Full interactive atlas and POI guide for Grand Theft Auto VI in the state of Leonida and Vice City.",
+  "name": "GTA 6 Map Guide: Verified Leonida Locations",
+  "description": "Early-game GTA 6 locations verified against multiple released-game sources.",
   "url": "https://vicevault.linkwa.in/map.html",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Vice Vault",
-    "url": "https://vicevault.linkwa.in"
-  }
+  "publisher": { "@type": "Organization", "name": "Vice Vault", "url": "https://vicevault.linkwa.in" }
 }
 </script>
 
@@ -184,10 +180,10 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:60px 2.
 <!-- HERO -->
 <header class="map-header">
   <div class="eyebrow">
-    <span>●</span> RADAR SAT-LINK LIVE <span>●</span> STATE OF LEONIDA ATLAS
+    <span>●</span> STATE OF LEONIDA <span>●</span> VERIFIED PLACES · CHECKED 20 NOV 2026
   </div>
-  <h1 class="map-title"><span class="text-shimmer">LEONIDA &amp; VICE CITY</span><br><span class="text-shimmer-brand">INTERACTIVE MAP</span></h1>
-  <p class="map-desc">The definitive Day-1 geospatial command center for GTA 6. Explore points of interest, heist staging safehouses, Ammu-Nation locations, exotic car spawns, and hidden Easter eggs across Vice City, Port Gellhorn, and the Gator Keys.</p>
+  <h1 class="map-title"><span class="text-shimmer">LEONIDA &amp; VICE CITY</span><br><span class="text-shimmer-brand">MAP GUIDE</span></h1>
+  <p class="map-desc">Key early-game places in GTA 6, each described by at least two released-game guides. We only pin a location on the map once we've confirmed exactly where it is — until then, they're described in words.</p>
 </header>
 
 <!-- RADAR DISPLAY -->
@@ -196,170 +192,103 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:60px 2.
     <div class="radar-bar">
       <div class="radar-status">
         <span class="radar-pulse"></span>
-        <span id="mapStatusText">PREVIEW ATLAS: 3 OF 18 POIS UNLOCKED</span><a href="preorder.html" id="mapUnlockLink" style="color:#00f0ff;margin-left:.6rem;text-decoration:underline;font-weight:700">UNLOCK FULL ATLAS WITH VIP PASS →</a>
+        <span id="mapStatusText">7 VERIFIED PLACES · PINS BEING PLOTTED</span>
       </div>
-      <div class="radar-coords" id="radarCoords">LAT 25.7617° N · LON 80.1918° W</div>
+      <div class="radar-coords" id="radarCoords">LEONIDA</div>
     </div>
 
     <div class="map-filters">
-      <button class="mf-btn active" onclick="filterPins('all', this)">All POIs (18)</button>
-      <button class="mf-btn" onclick="filterPins('heist', this)">Heists &amp; Banks</button>
-      <button class="mf-btn" onclick="filterPins('shop', this)">Ammu-Nation &amp; Fences</button>
-      <button class="mf-btn" onclick="filterPins('safe', this)">Safehouses</button>
-      <button class="mf-btn" onclick="filterPins('car', this)">Exotic Spawns</button>
-      <button class="mf-btn" onclick="filterPins('secret', this)">Easter Eggs</button>
+      <button class="mf-btn active" onclick="filterPins('all', this)">All verified places</button>
+      <button class="mf-btn" onclick="filterPins('safe', this)">Home base</button>
+      <button class="mf-btn" onclick="filterPins('shop', this)">Shops &amp; services</button>
+      <button class="mf-btn" onclick="filterPins('money', this)">Money</button>
     </div>
 
-    <!-- MAP CANVAS / GRAPHIC -->
-    <div class="map-display" id="mapDisplay">
+    <!-- MAP CANVAS: no pins until positions are verified in-game -->
+    <div class="map-display" id="mapDisplay" style="display:flex;align-items:center;justify-content:center">
       <div class="map-grid-overlay"></div>
       <div class="map-scanline"></div>
       <div class="map-compass">N<br>▲</div>
-
-      <!-- PINS -->
-      <!-- Heists -->
-      <div class="map-pin p-heist" style="top:38%;left:65%" data-type="heist" onclick="selectPOI('Vice City First National Bank')">
-        <div class="pin-core">💰</div>
-        <div class="pin-label">VC 1st National Bank</div>
-      </div>
-      <div class="map-pin p-heist" style="top:78%;left:82%" data-type="heist" onclick="selectPOI('South Leonida Cargo Vessel')">
-        <div class="pin-core">🚢</div>
-        <div class="pin-label">Cargo Ship Offshore</div>
-      </div>
-      <div class="map-pin p-heist" style="top:48%;left:24%" data-type="heist" onclick="selectPOI('Port Gellhorn Depository')">
-        <div class="pin-core">🏛️</div>
-        <div class="pin-label">Gellhorn Depository</div>
-      </div>
-
-      <!-- Safehouses -->
-      <div class="map-pin p-safe" style="top:42%;left:58%" data-type="safe" onclick="selectPOI('Ocean Beach Motel Hideout')">
-        <div class="pin-core">🏠</div>
-        <div class="pin-label">Ocean Beach Motel</div>
-      </div>
-      <div class="map-pin p-safe" style="top:25%;left:45%" data-type="safe" onclick="selectPOI('Ambrosia Trailer Park Stash')">
-        <div class="pin-core">⛺</div>
-        <div class="pin-label">Ambrosia Stash</div>
-      </div>
-      <div class="map-pin p-safe" style="top:85%;left:48%" data-type="safe" onclick="selectPOI('Gator Keys Stilt Shack')">
-        <div class="pin-core">🛖</div>
-        <div class="pin-label">Keys Safehouse</div>
-      </div>
-
-      <!-- Shops & Ammu-Nation -->
-      <div class="map-pin p-shop" style="top:32%;left:62%" data-type="shop" onclick="selectPOI('Downtown Ammu-Nation Gunsmith')">
-        <div class="pin-core">🎯</div>
-        <div class="pin-label">Downtown Ammu-Nation</div>
-      </div>
-      <div class="map-pin p-shop" style="top:45%;left:72%" data-type="shop" onclick="selectPOI('Little Haiti Pawn & Jewelry Fence')">
-        <div class="pin-core">💎</div>
-        <div class="pin-label">Haiti Jewelry Fence</div>
-      </div>
-      <div class="map-pin p-shop" style="top:52%;left:22%" data-type="shop" onclick="selectPOI('Gellhorn Scrap & Chop Shop')">
-        <div class="pin-core">🔧</div>
-        <div class="pin-label">Gellhorn Chop Shop</div>
-      </div>
-
-      <!-- Exotic Cars -->
-      <div class="map-pin p-car" style="top:36%;left:75%" data-type="car" onclick="selectPOI('Starfish Island Luxury Mansions')">
-        <div class="pin-core">🏎️</div>
-        <div class="pin-label">Starfish Island Supercars</div>
-      </div>
-      <div class="map-pin p-car" style="top:55%;left:54%" data-type="car" onclick="selectPOI('Vice City International Airport')">
-        <div class="pin-core">✈️</div>
-        <div class="pin-label">Escobar Intl Tarmac</div>
-      </div>
-
-      <!-- Secrets -->
-      <div class="map-pin p-secret" style="top:65%;left:36%" data-type="secret" onclick="selectPOI('The Grasslands Sunken Aircraft')">
-        <div class="pin-core">❓</div>
-        <div class="pin-label">Grasslands Sunken Plane</div>
-      </div>
-      <div class="map-pin p-secret" style="top:18%;left:52%" data-type="secret" onclick="selectPOI('Abandoned Whispering Pines Motel')">
-        <div class="pin-core">👻</div>
-        <div class="pin-label">Whispering Pines Secret</div>
+      <div style="position:relative;z-index:2;max-width:440px;text-align:center;padding:1.5rem;background:rgba(5,7,12,.85);border:1px solid rgba(0,240,255,.25);border-radius:6px;margin:1rem">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;color:#00f0ff;margin-bottom:.4rem">PLOTTING LEONIDA</div>
+        <p style="font-size:.85rem;color:var(--muted);line-height:1.6;margin:0">Map pins go live as we confirm positions in the released game. The verified places below are what we can stand behind today.</p>
       </div>
     </div>
 
     <!-- POI LIST CARDS -->
     <div class="poi-grid" id="poiGrid">
-      <article class="poi-card" data-cat="heist" onclick="location.href='guide.html'">
-        <div class="poi-header">
-          <span class="poi-type" style="background:rgba(255,61,154,.15);color:var(--pink)">Heist Target</span>
-          <span class="poi-coords">COORD: 25.7742, -80.1936</span>
-        </div>
-        <h3 class="poi-title">Vice City First National Bank</h3>
-        <p class="poi-desc">The primary urban banking target in central Downtown. Multi-tier vault featuring both silent sewer infiltration and loud thermal drill options. Base payout: $4.2M.</p>
-        <div class="poi-footer">
-          <span>Difficulty: Hard</span>
-          <span class="poi-action">View Blueprint →</span>
-        </div>
-      </article>
-
-      <article class="poi-card" data-cat="heist" onclick="location.href='guide.html'">
-        <div class="poi-header">
-          <span class="poi-type" style="background:rgba(255,61,154,.15);color:var(--pink)">Offshore Heist</span>
-          <span class="poi-coords">COORD: 25.5512, -80.1102</span>
-        </div>
-        <h3 class="poi-title">South Leonida Cargo Vessel</h3>
-        <p class="poi-desc">Anchored 2 miles offshore. Accessible via dive gear or speedboat. Features 3 guard rotation windows and high-value contraband crates. Base payout: $2.2M.</p>
-        <div class="poi-footer">
-          <span>Difficulty: Medium</span>
-          <span class="poi-action">View Blueprint →</span>
-        </div>
-      </article>
-
-      <article class="poi-card" data-cat="shop" onclick="location.href='gta-6-fast-cash-early-money-guide.html'">
-        <div class="poi-header">
-          <span class="poi-type" style="background:rgba(0,112,243,.15);color:var(--gold)">Fencing & Pawn</span>
-          <span class="poi-coords">COORD: 25.7921, -80.2105</span>
-        </div>
-        <h3 class="poi-title">Little Haiti Pawn &amp; Jewelry Fence</h3>
-        <p class="poi-desc">The best early-game location to unload stolen rolexes, gold chains, and electronics without police heat. Pays 85% face value in clean untraceable cash.</p>
-        <div class="poi-footer">
-          <span>Service: Clean Cash</span>
-          <span class="poi-action">Fast Cash Guide →</span>
-        </div>
-      </article>
-
       <article class="poi-card" data-cat="safe" onclick="location.href='gta-6-beginners-guide-tips.html'">
         <div class="poi-header">
-          <span class="poi-type" style="background:rgba(0,212,170,.15);color:var(--teal)">Starting Safehouse</span>
-          <span class="poi-coords">COORD: 25.7801, -80.1310</span>
+          <span class="poi-type" style="background:rgba(0,212,170,.15);color:var(--teal)">Home base</span>
+          <span class="poi-coords">Your first home</span>
         </div>
-        <h3 class="poi-title">Ocean Beach Motel Hideout</h3>
-        <p class="poi-desc">Jason &amp; Lucia's Chapter 1 staging ground. Features weapon trunk storage, clothing wardrobe for removing wanted heat, and a garage spot for vehicle repairs.</p>
-        <div class="poi-footer">
-          <span>Security: High</span>
-          <span class="poi-action">Beginner Tips →</span>
-        </div>
+        <h3 class="poi-title">Jason's house</h3>
+        <p class="poi-desc">Cash stash under the bedroom floor, a home gym for health and stamina, and a bed to sleep and pass time. Feed Dolores the snake for a temporary Focus boost.</p>
+        <div class="poi-footer"><span>Chapter 1</span><span class="poi-action">Beginner's Guide →</span></div>
       </article>
 
-      <article class="poi-card" data-cat="car" onclick="location.href='gta6-confirmed-vehicles.html'">
+      <article class="poi-card" data-cat="shop" onclick="location.href='gta-6-beginners-guide-tips.html'">
         <div class="poi-header">
-          <span class="poi-type" style="background:rgba(224,92,26,.15);color:var(--orange)">Vehicle Spawn</span>
-          <span class="poi-coords">COORD: 25.7725, -80.1650</span>
+          <span class="poi-type" style="background:rgba(0,112,243,.15);color:var(--gold)">Ammu-Nation</span>
+          <span class="poi-coords">Key Lento</span>
         </div>
-        <h3 class="poi-title">Starfish Island Luxury Drive</h3>
-        <p class="poi-desc">Gated mansion district with frequent spawns of Grotti Cheetahs, Pegassi supercars, and high-end SUVs. High security patrols require swift lockpicking.</p>
-        <div class="poi-footer">
-          <span>Class: Supercar</span>
-          <span class="poi-action">Vehicle List →</span>
-        </div>
+        <h3 class="poi-title">Chuck's Tackle &amp; Shot</h3>
+        <p class="poi-desc">The first Ammu-Nation, open right after the opening section. Guns you buy stay with you after death.</p>
+        <div class="poi-footer"><span>Chapter 1</span><span class="poi-action">Beginner's Guide →</span></div>
       </article>
 
-      <article class="poi-card" data-cat="secret" onclick="location.href='gta-6-leonida-map-locations-real-miami.html'">
+      <article class="poi-card" data-cat="money" onclick="location.href='gta-6-fast-cash-early-money-guide.html'">
         <div class="poi-header">
-          <span class="poi-type" style="background:rgba(200,48,255,.15);color:var(--purple)">Lore & Mystery</span>
-          <span class="poi-coords">COORD: 25.6890, -80.6500</span>
+          <span class="poi-type" style="background:rgba(255,61,154,.15);color:var(--pink)">Money</span>
+          <span class="poi-coords">Key Lento</span>
         </div>
-        <h3 class="poi-title">The Grasslands Sunken Aircraft</h3>
-        <p class="poi-desc">Submerged DC-3 drug smuggler plane deep in the mangrove swamps. Contains waterproof lockbox with $25,000 cash and unique vintage machete weapon.</p>
-        <div class="poi-footer">
-          <span>Hazard: Alligators</span>
-          <span class="poi-action">Real Miami Lore →</span>
+        <h3 class="poi-title">Kenton's treasure dives</h3>
+        <p class="poi-desc">Work for Kenton (the "Island Dreams" mission) and he buys valuables you recover from wrecks. Low-risk early money.</p>
+        <div class="poi-footer"><span>Chapter 1</span><span class="poi-action">Money Guide →</span></div>
+      </article>
+
+      <article class="poi-card" data-cat="money" onclick="location.href='gta-6-fast-cash-early-money-guide.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(255,61,154,.15);color:var(--pink)">Money</span>
+          <span class="poi-coords">Swamps · sites being mapped</span>
         </div>
+        <h3 class="poi-title">Kingfisher Illegal Operations</h3>
+        <p class="poi-desc">Armed gang hideouts holding narcotics, cash and loot. In Chapter 1, Brian and Donnie are your outlets for the drugs.</p>
+        <div class="poi-footer"><span>Chapter 1+</span><span class="poi-action">Money Guide →</span></div>
+      </article>
+
+      <article class="poi-card" data-cat="money" onclick="location.href='gta-6-fast-cash-early-money-guide.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(255,61,154,.15);color:var(--pink)">Money</span>
+          <span class="poi-coords">Port Gellhorn</span>
+        </div>
+        <h3 class="poi-title">Moses — stolen car buyer</h3>
+        <p class="poi-desc">Buys stolen cars once you meet him in Chapter 2. Check a car's value first with the WAiNK app.</p>
+        <div class="poi-footer"><span>Chapter 2</span><span class="poi-action">Money Guide →</span></div>
+      </article>
+
+      <article class="poi-card" data-cat="money" onclick="location.href='gta-6-fast-cash-early-money-guide.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(255,61,154,.15);color:var(--pink)">Money</span>
+          <span class="poi-coords">Behind the liquor store</span>
+        </div>
+        <h3 class="poi-title">Shirley's rum stash</h3>
+        <p class="poi-desc">Follow the parrot's clue to cash in a wall vent by a yellow generator. Missable — do it when the errand appears.</p>
+        <div class="poi-footer"><span>Chapter 1</span><span class="poi-action">Money Guide →</span></div>
+      </article>
+
+      <article class="poi-card" data-cat="shop" onclick="location.href='gta-6-beginners-guide-tips.html'">
+        <div class="poi-header">
+          <span class="poi-type" style="background:rgba(0,112,243,.15);color:var(--gold)">Service</span>
+          <span class="poi-coords">Across Leonida</span>
+        </div>
+        <h3 class="poi-title">Pay 'n' Spray</h3>
+        <p class="poi-desc">Respray a car so police stop recognising it.</p>
+        <div class="poi-footer"><span>Any time</span><span class="poi-action">Beginner's Guide →</span></div>
       </article>
     </div>
+
+    <p style="font-size:.8rem;color:var(--muted);margin:1.5rem 0 0;line-height:1.7">Sources (checked 20 Nov 2026): <a href="https://www.redbull.com/int-en/gta-6-beginners-guide" target="_blank" rel="noopener" style="color:var(--gold)">Red Bull Gaming</a> · <a href="https://outputlag.com/guides/gta-6-beginner-tips/" target="_blank" rel="noopener" style="color:var(--gold)">Output Lag</a> · <a href="https://nerdschalk.com/gta-6-beginner-tips-first-hours-keys" target="_blank" rel="noopener" style="color:var(--gold)">Nerds Chalk</a> · <a href="https://www.vice.com/en/article/gta-6-how-to-make-money-fast/" target="_blank" rel="noopener" style="color:var(--gold)">Vice</a></p>
   </div>
 </main>
 
@@ -383,7 +312,6 @@ cur.style.left='0';cur.style.top='0';crng.style.left='0';crng.style.top='0';
 let hs=1,hsr=1,ths=1,thsr=1;
 document.addEventListener('mousemove',e=>{
   mx=e.clientX;my=e.clientY;
-  document.getElementById('radarCoords').textContent=`LAT ${(25.4+(my/window.innerHeight)*0.6).toFixed(4)}° N · LON ${(80.4-(mx/window.innerWidth)*0.5).toFixed(4)}° W`;
 });
 (function anim(){
   rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
@@ -397,67 +325,10 @@ document.addEventListener('mousemove',e=>{
 function filterPins(cat, btn){
   document.querySelectorAll('.mf-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.map-pin').forEach(pin=>{
-    pin.style.display=(cat==='all'||pin.dataset.type===cat)?'block':'none';
-  });
   document.querySelectorAll('.poi-card').forEach(card=>{
     card.style.display=(cat==='all'||card.dataset.cat===cat)?'flex':'none';
   });
 }
-
-const PREVIEW_POIS = ['Vice City First National Bank', 'Ocean Beach Motel Hideout', 'Little Haiti Pawn & Jewelry Fence'];
-
-function selectPOI(name){
-  const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
-  const isMember = user.subscribed && (user.tier === 'pro' || user.tier === 'elite');
-  const isFree = PREVIEW_POIS.some(p => name.includes(p.split(' ')[0]));
-  
-  if (!isMember && !isFree) {
-    showMapLockModal(name);
-    return;
-  }
-
-  const card = Array.from(document.querySelectorAll('.poi-card')).find(c => c.querySelector('.poi-title').textContent.includes(name.split(' ')[0]));
-  if(card){
-    card.scrollIntoView({behavior:'smooth',block:'center'});
-    card.style.borderColor='var(--gold)';
-    setTimeout(()=>card.style.borderColor='var(--border)',2000);
-  }
-}
-
-function showMapLockModal(poiName) {
-  const oldM = document.getElementById('mapLockModal');
-  if (oldM) oldM.remove();
-  
-  const m = document.createElement('div');
-  m.id = 'mapLockModal';
-  m.style.cssText = 'position:fixed;inset:0;background:rgba(3,3,8,0.85);backdrop-filter:blur(10px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:1.5rem';
-  m.innerHTML = `
-    <div style="background:linear-gradient(135deg,rgba(13,13,24,0.98),rgba(3,3,8,0.98));border:1px solid rgba(0,240,255,0.35);border-radius:8px;padding:2.5rem 2rem;max-width:480px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.8),0 0 30px rgba(0,240,255,0.1);position:relative">
-      <button onclick="document.getElementById('mapLockModal').remove()" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer">✕</button>
-      <div style="font-size:2.8rem;margin-bottom:.8rem">🔒</div>
-      <div style="display:inline-block;background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);color:#00f0ff;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.25rem .75rem;border-radius:2px;margin-bottom:1rem">CLASSIFIED RADAR INTEL</div>
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.04em;color:#fff;margin-bottom:.4rem;line-height:1.1">${poiName}</h3>
-      <p style="font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:1.8rem">This strategic location contains classified heist approach blueprints, security camera blind spots, and high-value loot stashes. Subscribe to Vault Pro to unlock the full 18-location atlas.</p>
-      <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
-        <a href="preorder.html" class="btn-g" style="padding:.75rem 1.6rem;font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(90deg,#00f0ff,#0070f3)!important;color:#000!important;border:none;border-radius:2px;text-decoration:none">Unlock Full Map — Get VIP Pass →</a>
-        <a href="dashboard.html" class="btn-o" style="padding:.75rem 1.4rem;font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:#fff;border-radius:2px;text-decoration:none">Member Login</a>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(m);
-}
-
-// Check member access to update header
-document.addEventListener('DOMContentLoaded', () => {
-  const u = JSON.parse(localStorage.getItem('vv_user') || '{}');
-  if (u.subscribed && (u.tier === 'pro' || u.tier === 'elite')) {
-    const st = document.getElementById('mapStatusText');
-    const lk = document.getElementById('mapUnlockLink');
-    if (st) st.textContent = 'GPS TELEMETRY ACTIVE · ALL 18 POIS UNLOCKED';
-    if (lk) lk.style.display = 'none';
-  }
-});
 </script>
 <script src="vv-global.js"></script>
 </body>

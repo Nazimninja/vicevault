@@ -97,7 +97,7 @@
                 Welcome to Day 1, ${user.firstName || 'Agent'}!
               </h2>
               <p style="font-size:.85rem;color:var(--muted);line-height:1.6;margin:0">
-                Your <strong>${tierName}</strong> membership is active. All 11 vault sections, interactive radar map, the full cheat list, and heist calculators are live and unlocked.
+                Your <strong>${tierName}</strong> membership is active. The full cheat vault and every live guide are unlocked, and new guides appear here as soon as we've confirmed them against the released game.
               </p>
               <div style="display:flex;gap:1rem;margin-top:1.2rem;flex-wrap:wrap">
                 <a href="map.html" class="btn-g" style="padding:.65rem 1.2rem;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(90deg, #00f0ff, #0070f3)!important;color:#000!important;border:none;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none">🗺️ Open Interactive Map</a>
@@ -811,88 +811,88 @@ a{color:inherit;text-decoration:none}
     <!-- WEEK BANNER -->
     <div class="week-banner">
       <div class="wb-left">
-        <div class="wb-badge">🔥 New this week</div>
+        <div class="wb-badge">🔥 Launch week</div>
         <div>
-          <div class="wb-title">Vice City Bank Job Blueprint + $800K/hr Farm Route just dropped</div>
-          <div class="wb-sub">Thursday drop · 5 new guides added across 3 sections</div>
+          <div class="wb-title">4 sourced starter guides + all 61 cheats are live</div>
+          <div class="wb-sub">Beginner essentials · Early money · Wanted level &amp; heat · Story structure — more as we confirm them</div>
         </div>
       </div>
       <button class="wb-btn" onclick="showView('weekly')">See weekly drop →</button>
     </div>
 
-    <!-- STATS -->
+    <!-- STATS (real values, filled by JS) -->
     <div class="stats-row">
-      <div class="stat-box sb1"><div class="stat-label">Guides read</div><div class="stat-val">14</div><div class="stat-change">of 320 available</div></div>
-      <div class="stat-box sb2"><div class="stat-label">Sections unlocked</div><div class="stat-val">9</div><div class="stat-change"><span class="up">▲ All Pro sections</span></div></div>
-      <div class="stat-box sb3"><div class="stat-label">Saved guides</div><div class="stat-val">6</div><div class="stat-change">in your reading list</div></div>
-      <div class="stat-box sb4"><div class="stat-label">New this week</div><div class="stat-val">5</div><div class="stat-change">guides just dropped</div></div>
+      <div class="stat-box sb1"><div class="stat-label">Guides completed</div><div class="stat-val">0</div><div class="stat-change">of 4 live guides</div></div>
+      <div class="stat-box sb2"><div class="stat-label">Cheats found</div><div class="stat-val">18</div><div class="stat-change">of 61 in the game</div></div>
+      <div class="stat-box sb3"><div class="stat-label">Saved guides</div><div class="stat-val">0</div><div class="stat-change">in your reading list</div></div>
+      <div class="stat-box sb4"><div class="stat-label">Last checked</div><div class="stat-val" style="font-size:1.6rem">20 Nov</div><div class="stat-change">against released-game sources</div></div>
     </div>
 
     <!-- QUICK ACTIONS -->
     <div class="section-hd"><h2>Quick access</h2></div>
     <div class="qa-grid">
       <div class="qa" onclick="showView('cheat')"><span class="qa-ico">🔑</span><div class="qa-text"><div class="qa-t">Cheat Codes</div><div class="qa-s">All 61 cheats — PS5 &amp; Xbox</div></div></div>
-      <div class="qa" onclick="showView('heist')"><span class="qa-ico">📋</span><div class="qa-text"><div class="qa-t">Latest Heist</div><div class="qa-s">Vice City Bank Job — new</div></div></div>
-      <div class="qa" onclick="showView('money')"><span class="qa-ico">💰</span><div class="qa-text"><div class="qa-t">Money Meta</div><div class="qa-s">$800K/hr farm — updated</div></div></div>
-      <div class="qa" onclick="showView('vehicles')"><span class="qa-ico">🚗</span><div class="qa-text"><div class="qa-t">Fastest Cars</div><div class="qa-s">Top 15 speed ranked</div></div></div>
+      <div class="qa" onclick="showArticle('GTA 6 beginner essentials — what to know in your first hours', 'Starter Guide', '8 min · Live')"><span class="qa-ico">🧭</span><div class="qa-text"><div class="qa-t">Beginner Essentials</div><div class="qa-s">Your first hours in Leonida</div></div></div>
+      <div class="qa" onclick="showArticle('Early money in GTA 6 — methods that work in Chapters 1 and 2', 'Money Meta', '7 min · Live')"><span class="qa-ico">💰</span><div class="qa-text"><div class="qa-t">Early Money</div><div class="qa-s">Chapters 1 &amp; 2 methods</div></div></div>
+      <div class="qa" onclick="showArticle('Wanted level and heat in GTA 6 — how the police system works', 'Wanted Level', '6 min · Live')"><span class="qa-ico">⭐</span><div class="qa-text"><div class="qa-t">Wanted &amp; Heat</div><div class="qa-s">How to lose the cops</div></div></div>
     </div>
 
-    <!-- ALL SECTIONS -->
-    <div class="section-hd"><h2>All vault sections</h2><span class="see-all">Browse all →</span></div>
+    <!-- ALL SECTIONS (counts filled by renderSectionCounts) -->
+    <div class="section-hd"><h2>All vault sections</h2></div>
     <div class="cats-dash">
-      <div class="cat-d cg1" onclick="showView('story')"><div class="cat-d-glow"></div><div class="cat-d-icon">🗺️</div><div class="cat-d-name">Story Mode</div><div class="cat-d-count">62 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:12%"></div></div></div>
-      <div class="cat-d cg2" onclick="showView('money')"><div class="cat-d-glow"></div><div class="cat-d-icon">💰</div><div class="cat-d-name">Money Meta</div><div class="cat-d-count">54 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:28%"></div></div></div>
-      <div class="cat-d cg3" onclick="showView('heist')"><div class="cat-d-glow"></div><div class="cat-d-icon">📋</div><div class="cat-d-name">Heist Blueprints</div><div class="cat-d-count">48 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:35%"></div></div></div>
-      <div class="cat-d cg4" onclick="showView('cheat')"><div class="cat-d-glow"></div><div class="cat-d-icon">🔑</div><div class="cat-d-name">Cheat Codes</div><div class="cat-d-count">18 of 61 found</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:80%"></div></div></div>
-      <div class="cat-d cg5" onclick="showView('online')"><div class="cat-d-glow"></div><div class="cat-d-icon">🌐</div><div class="cat-d-name">Online Multiplayer</div><div class="cat-d-count">41 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:5%"></div></div></div>
-      <div class="cat-d cg6" onclick="showView('builds')"><div class="cat-d-glow"></div><div class="cat-d-icon">🎯</div><div class="cat-d-name">Builds &amp; Weapons</div><div class="cat-d-count">38 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:18%"></div></div></div>
-      <div class="cat-d cg7" onclick="showView('easter')"><div class="cat-d-glow"></div><div class="cat-d-icon">🥚</div><div class="cat-d-name">Easter Eggs</div><div class="cat-d-count">29 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:55%"></div></div></div>
-      <div class="cat-d cg8" onclick="showView('properties')"><div class="cat-d-glow"></div><div class="cat-d-icon">🏠</div><div class="cat-d-name">Properties</div><div class="cat-d-count">24 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:8%"></div></div></div>
-      <div class="cat-d cg9" onclick="showView('vehicles')"><div class="cat-d-glow"></div><div class="cat-d-icon">🚗</div><div class="cat-d-name">Vehicles</div><div class="cat-d-count">36 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:22%"></div></div></div>
-      <div class="cat-d cg10" onclick="showView('wanted')"><div class="cat-d-glow"></div><div class="cat-d-icon">⭐</div><div class="cat-d-name">Wanted Level</div><div class="cat-d-count">18 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:44%"></div></div></div>
-      <div class="cat-d cg11" onclick="showView('pro')"><div class="cat-d-glow"></div><div class="cat-d-icon">🎬</div><div class="cat-d-name">Pro Plays</div><div class="cat-d-count">22 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:9%"></div></div></div>
+      <div class="cat-d cg1" onclick="showView('story')"><div class="cat-d-glow"></div><div class="cat-d-icon">🗺️</div><div class="cat-d-name">Story Mode</div><div class="cat-d-count" data-sec="story">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
+      <div class="cat-d cg2" onclick="showView('money')"><div class="cat-d-glow"></div><div class="cat-d-icon">💰</div><div class="cat-d-name">Money Meta</div><div class="cat-d-count" data-sec="money">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
+      <div class="cat-d cg3" onclick="showView('heist')"><div class="cat-d-glow"></div><div class="cat-d-icon">📋</div><div class="cat-d-name">Heists</div><div class="cat-d-count" data-sec="heist">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
+      <div class="cat-d cg4" onclick="showView('cheat')"><div class="cat-d-glow"></div><div class="cat-d-icon">🔑</div><div class="cat-d-name">Cheat Codes</div><div class="cat-d-count">18 of 61 found</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:30%"></div></div></div>
+      <div class="cat-d cg5" onclick="showView('online')"><div class="cat-d-glow"></div><div class="cat-d-icon">🌐</div><div class="cat-d-name">Online</div><div class="cat-d-count" data-sec="online">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
+      <div class="cat-d cg6" onclick="showView('builds')"><div class="cat-d-glow"></div><div class="cat-d-icon">🎯</div><div class="cat-d-name">Builds &amp; Weapons</div><div class="cat-d-count" data-sec="builds">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
+      <div class="cat-d cg7" onclick="showView('easter')"><div class="cat-d-glow"></div><div class="cat-d-icon">🥚</div><div class="cat-d-name">Easter Eggs</div><div class="cat-d-count" data-sec="easter">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
+      <div class="cat-d cg8" onclick="showView('properties')"><div class="cat-d-glow"></div><div class="cat-d-icon">🏠</div><div class="cat-d-name">Properties</div><div class="cat-d-count" data-sec="properties">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
+      <div class="cat-d cg9" onclick="showView('vehicles')"><div class="cat-d-glow"></div><div class="cat-d-icon">🚗</div><div class="cat-d-name">Vehicles</div><div class="cat-d-count" data-sec="vehicles">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
+      <div class="cat-d cg10" onclick="showView('wanted')"><div class="cat-d-glow"></div><div class="cat-d-icon">⭐</div><div class="cat-d-name">Wanted Level</div><div class="cat-d-count" data-sec="wanted">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
+      <div class="cat-d cg11" onclick="showView('pro')"><div class="cat-d-glow"></div><div class="cat-d-icon">🎬</div><div class="cat-d-name">Pro Plays</div><div class="cat-d-count" data-sec="pro">…</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:0%"></div></div></div>
       <!-- Upgrade locked card -->
       <div class="cat-d" style="position:relative"><div class="cat-d-icon">💎</div><div class="cat-d-name" style="color:var(--muted)">Elite Extras</div><div class="cat-d-count">Custom requests</div><div class="locked-overlay"><span class="lock-badge">🔒 Elite only</span></div></div>
     </div>
 
-    <!-- RECENT GUIDES -->
-    <div class="section-hd"><h2>Continue reading</h2><span class="see-all">See all →</span></div>
+    <!-- LIVE GUIDES -->
+    <div class="section-hd"><h2>Live guides</h2></div>
     <div class="recent-grid">
-      <div class="guide-card" onclick="showArticle('Vice City Bank Job: Silent approach — $4.2M max take', 'Heist Blueprint', '14 min read')">
-        <div class="gc-thumb gt1"><span class="gc-thumb-word">HEIST</span></div>
+      <div class="guide-card" onclick="showArticle('GTA 6 beginner essentials — what to know in your first hours', 'Starter Guide', '8 min · Live')">
+        <div class="gc-thumb gt1"><span class="gc-thumb-word">START</span></div>
         <div class="gc-body">
-          <div class="gc-cat">Heist Blueprint</div>
-          <div class="gc-title">Vice City Bank Job: Silent approach — $4.2M max take</div>
-          <div class="gc-meta"><span class="gc-new">New</span><span>14 min read</span></div>
-        </div>
-      </div>
-      <div class="guide-card" onclick="showArticle('$800K/hr farm route — no heist required', 'Money Meta', '8 min read')">
-        <div class="gc-thumb gt2"><span class="gc-thumb-word">MONEY</span></div>
-        <div class="gc-body">
-          <div class="gc-cat">Money Meta</div>
-          <div class="gc-title">$800K/hr farm route — no heist required</div>
+          <div class="gc-cat">Starter Guide</div>
+          <div class="gc-title">GTA 6 beginner essentials — what to know in your first hours</div>
           <div class="gc-meta"><span class="gc-new">New</span><span>8 min read</span></div>
         </div>
       </div>
-      <div class="guide-card" onclick="showArticle('Top 15 fastest cars in GTA 6 — speed ranked', 'Vehicles', '7 min read')">
-        <div class="gc-thumb gt3"><span class="gc-thumb-word">CARS</span></div>
+      <div class="guide-card" onclick="showArticle('Early money in GTA 6 — methods that work in Chapters 1 and 2', 'Money Meta', '7 min · Live')">
+        <div class="gc-thumb gt2"><span class="gc-thumb-word">MONEY</span></div>
         <div class="gc-body">
-          <div class="gc-cat">Vehicles</div>
-          <div class="gc-title">Top 15 fastest cars in GTA 6 — speed ranked</div>
-          <div class="gc-meta"><span>7 min read</span></div>
+          <div class="gc-cat">Money Meta</div>
+          <div class="gc-title">Early money in GTA 6 — methods that work in Chapters 1 and 2</div>
+          <div class="gc-meta"><span class="gc-new">New</span><span>7 min read</span></div>
         </div>
       </div>
-      <div class="guide-card" onclick="showArticle('23 Easter eggs in Leonida — all locations confirmed', 'Easter Eggs', '10 min read')">
-        <div class="gc-thumb gt4"><span class="gc-thumb-word">EGGS</span></div>
+      <div class="guide-card" onclick="showArticle('Wanted level and heat in GTA 6 — how the police system works', 'Wanted Level', '6 min · Live')">
+        <div class="gc-thumb gt3"><span class="gc-thumb-word">HEAT</span></div>
         <div class="gc-body">
-          <div class="gc-cat">Easter Eggs</div>
-          <div class="gc-title">23 Easter eggs in Leonida — all locations confirmed</div>
-          <div class="gc-meta"><span>10 min read</span></div>
+          <div class="gc-cat">Wanted Level</div>
+          <div class="gc-title">Wanted level and heat in GTA 6 — how the police system works</div>
+          <div class="gc-meta"><span class="gc-new">New</span><span>6 min read</span></div>
+        </div>
+      </div>
+      <div class="guide-card" onclick="showArticle('GTA 6 story structure — chapters, mission count and missables', 'Story Mode', '6 min · Live')">
+        <div class="gc-thumb gt4"><span class="gc-thumb-word">STORY</span></div>
+        <div class="gc-body">
+          <div class="gc-cat">Story Mode</div>
+          <div class="gc-title">GTA 6 story structure — chapters, mission count and missables</div>
+          <div class="gc-meta"><span class="gc-new">New</span><span>6 min read</span></div>
         </div>
       </div>
     </div>
 
-    <!-- CHEAT QUICK REF -->
+<!-- CHEAT QUICK REF -->
     <div class="section-hd"><h2>Cheat quick reference</h2><span class="see-all" onclick="showView('cheat')">Full vault →</span></div>
     <div class="cheat-ref">
       <div class="cheat-hd"><h3>Top cheats — phone out, hold L1+R1 (LB+RB), then D-pad</h3><span class="see-all" onclick="showView('cheat')" style="font-size:.68rem">See all 61 →</span></div>
@@ -907,19 +907,13 @@ a{color:inherit;text-decoration:none}
       <div style="font-size:.72rem;color:var(--muted);margin-top:.6rem">Cheats unlock only after you finish the story, and using one switches off saving and Trophies/Achievements.</div>
     </div>
 
-    <!-- MY PROGRESS -->
+    <!-- MY PROGRESS (guides you've marked completed; filled by updateProgressBars) -->
     <div class="section-hd"><h2>Your progress</h2></div>
     <div class="progress-sec">
-      <div class="prog-items">
-        <div class="prog-item"><span class="prog-name">Story Mode</span><div class="prog-bar-wrap"><div class="prog-fill p1" style="width:0" data-w="12"></div></div><span class="prog-pct">12%</span></div>
-        <div class="prog-item"><span class="prog-name">Heist Blueprints</span><div class="prog-bar-wrap"><div class="prog-fill p2" style="width:0" data-w="35"></div></div><span class="prog-pct">35%</span></div>
-        <div class="prog-item"><span class="prog-name">Money Meta</span><div class="prog-bar-wrap"><div class="prog-fill p3" style="width:0" data-w="28"></div></div><span class="prog-pct">28%</span></div>
-        <div class="prog-item"><span class="prog-name">Easter Eggs</span><div class="prog-bar-wrap"><div class="prog-fill p4" style="width:0" data-w="55"></div></div><span class="prog-pct">55%</span></div>
-        <div class="prog-item"><span class="prog-name">Cheat Codes</span><div class="prog-bar-wrap"><div class="prog-fill p5" style="width:0" data-w="80"></div></div><span class="prog-pct">80%</span></div>
-      </div>
+      <div class="prog-items" id="progItems"></div>
     </div>
 
-  </div><!-- /dashboard view -->
+</div><!-- /dashboard view -->
   
   <!-- SETTINGS VIEW -->
   <div class="dash-content" id="view-settings" style="display:none">
@@ -968,71 +962,71 @@ a{color:inherit;text-decoration:none}
 
     <div class="week-banner" style="margin-bottom:2rem">
       <div class="wb-left">
-        <div class="wb-badge">🔥 DAY-1 SPECIAL DROP</div>
+        <div class="wb-badge">🔥 LAUNCH WEEK DROP</div>
         <div>
-          <div class="wb-title">Grand Theft Auto VI Launch Briefing — November 19, 2026</div>
-          <div class="wb-sub">5 essential Day-1 walkthroughs and meta routes just unlocked for VIP members</div>
+          <div class="wb-title">Grand Theft Auto VI launch briefing — 19 November 2026</div>
+          <div class="wb-sub">Our first sourced guides. Every fact is cross-checked against at least two released-game sources.</div>
         </div>
       </div>
     </div>
 
     <div class="drop-section">
       <div class="drop-header">
-        <h3>Featured Day-1 Blueprints</h3>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Launch Edition</span>
+        <h3>Live this week</h3>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Checked 20 Nov 2026</span>
       </div>
       <div class="drop-list">
-        <div class="drop-item" onclick="showArticle('Vice City Bank Job — Silent approach $4.2M max take', 'Blueprint', '14 min · New')">
+        <div class="drop-item" onclick="showArticle('GTA 6 beginner essentials — what to know in your first hours', 'Starter Guide', '8 min · Live')">
           <div class="di-num">01</div>
-          <div class="di-icon ic1">📋</div>
+          <div class="di-icon ic1">🧭</div>
           <div class="di-body">
-            <div class="di-cat">Heist Blueprint</div>
-            <div class="di-title">Vice City Bank Job — Silent approach, $4.2M max take complete guide</div>
-            <div class="di-meta">Day-1 Meta · 14 min read · Silent Infiltration</div>
+            <div class="di-cat">Starter Guide</div>
+            <div class="di-title">Beginner essentials — saving, cash, Focus, training and the police</div>
+            <div class="di-meta">8 min read</div>
           </div>
           <span class="di-arrow">→</span>
         </div>
 
-        <div class="drop-item" onclick="showArticle('GTA 6 story missions in order — full walkthrough part 1', 'Story Mode', '12 min · Chapter 1')">
+        <div class="drop-item" onclick="showArticle('Early money in GTA 6 — methods that work in Chapters 1 and 2', 'Money Meta', '7 min · Live')">
           <div class="di-num">02</div>
-          <div class="di-icon ic2">📖</div>
-          <div class="di-body">
-            <div class="di-cat">Story Mode</div>
-            <div class="di-title">GTA 6 story missions in order — full walkthrough part 1 (Diner Robbery to Safehouse)</div>
-            <div class="di-meta">Day-1 Starter · 12 min read · Dual Switch</div>
-          </div>
-          <span class="di-arrow">→</span>
-        </div>
-
-        <div class="drop-item" onclick="showArticle('$800K/hr passive: business stacking method explained', 'Money Meta', '8 min · New')">
-          <div class="di-num">03</div>
           <div class="di-icon ic3">💰</div>
           <div class="di-body">
             <div class="di-cat">Money Meta</div>
-            <div class="di-title">$800K/hr passive farm: business stacking method fully explained</div>
-            <div class="di-meta">Day-1 Economy · 8 min read · High Yield</div>
+            <div class="di-title">Early money — Illegal Operations, Kenton's dives and Moses</div>
+            <div class="di-meta">7 min read</div>
           </div>
           <span class="di-arrow">→</span>
         </div>
 
-        <div class="drop-item" onclick="showArticle('Top 15 fastest cars in GTA 6 — speed tested & ranked', 'Vehicles', '7 min · Rankings')">
-          <div class="di-num">04</div>
-          <div class="di-icon ic4">🚗</div>
-          <div class="di-body">
-            <div class="di-cat">Vehicles</div>
-            <div class="di-title">Top 15 fastest cars in GTA 6 — speed tested &amp; ranked (Cheetah, Banshee, Comet)</div>
-            <div class="di-meta">Verified Specs · 7 min read · Drag Strip Tested</div>
-          </div>
-          <span class="di-arrow">→</span>
-        </div>
-
-        <div class="drop-item" onclick="showArticle('5-star escape routes — best by district', 'Wanted Level', '8 min · Escape')">
-          <div class="di-num">05</div>
+        <div class="drop-item" onclick="showArticle('Wanted level and heat in GTA 6 — how the police system works', 'Wanted Level', '6 min · Live')">
+          <div class="di-num">03</div>
           <div class="di-icon ic5">⭐</div>
           <div class="di-body">
             <div class="di-cat">Wanted Level</div>
-            <div class="di-title">6-Star wanted level escape mechanics: witness cameras &amp; vehicle swapping</div>
-            <div class="di-meta">Survival Meta · 8 min read · Tactical Guide</div>
+            <div class="di-title">Wanted level &amp; heat — stars, recognition and losing the cops</div>
+            <div class="di-meta">6 min read</div>
+          </div>
+          <span class="di-arrow">→</span>
+        </div>
+
+        <div class="drop-item" onclick="showArticle('GTA 6 story structure — chapters, mission count and missables', 'Story Mode', '6 min · Live')">
+          <div class="di-num">04</div>
+          <div class="di-icon ic2">📖</div>
+          <div class="di-body">
+            <div class="di-cat">Story Mode</div>
+            <div class="di-title">Story structure — 5 chapters, 118 main missions, Chapter 1 order</div>
+            <div class="di-meta">6 min read · No plot spoilers</div>
+          </div>
+          <span class="di-arrow">→</span>
+        </div>
+
+        <div class="drop-item" onclick="showView('cheat')">
+          <div class="di-num">05</div>
+          <div class="di-icon ic4">🔑</div>
+          <div class="di-body">
+            <div class="di-cat">Cheat Vault</div>
+            <div class="di-title">All 61 cheats — the 18 codes found so far, with unlock challenges</div>
+            <div class="di-meta">PS5 &amp; Xbox</div>
           </div>
           <span class="di-arrow">→</span>
         </div>
@@ -1040,13 +1034,13 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
-  <!-- INTERACTIVE RADAR MAP VIEW -->
+<!-- INTERACTIVE RADAR MAP VIEW -->
   <div class="dash-content" id="view-map" style="display:none">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
       <button class="back-to-dash-btn" onclick="showView('dashboard')" style="margin:0">← Back to Dashboard</button>
       <div style="display:flex;align-items:center;gap:.6rem;background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.25);padding:.4rem 1rem;border-radius:3px">
         <span class="ob-dot" style="width:6px;height:6px;border-radius:50%;background:#00f0ff;display:inline-block"></span>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#00f0ff">LIVE RADAR TELEMETRY · SECTOR 04 LEONIDA</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#00f0ff">LEONIDA INTEL BOARD · VERIFIED PLACES ONLY</span>
       </div>
     </div>
 
@@ -1055,22 +1049,20 @@ a{color:inherit;text-decoration:none}
       <div class="radar-bar" style="background:#090d16;border-bottom:1px solid rgba(0,240,255,0.2);padding:.8rem 1.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
         <div class="radar-status" style="display:flex;align-items:center;gap:.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#00f0ff">
           <span style="width:8px;height:8px;border-radius:50%;background:#00f0ff;box-shadow:0 0 10px #00f0ff"></span>
-          GRID TELEMETRY ACTIVE
+          LEONIDA
         </div>
-        <div id="radarCoordsDash" style="font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.08em;color:var(--white)">LAT 25.7617° N · LON 80.1918° W</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.08em;color:var(--white)">PIN POSITIONS: BEING VERIFIED</div>
       </div>
 
       <!-- MAP FILTERS -->
       <div class="map-filters" style="display:flex;gap:.5rem;flex-wrap:wrap;padding:1rem 1.4rem;background:rgba(5,7,12,0.9);border-bottom:1px solid var(--border)">
-        <button class="mf-btn active" onclick="filterMapPins('all', this)">All POIs (18)</button>
-        <button class="mf-btn" onclick="filterMapPins('heist', this)">💰 Heists &amp; Vaults</button>
-        <button class="mf-btn" onclick="filterMapPins('shop', this)">🔫 Ammu-Nation &amp; Fences</button>
-        <button class="mf-btn" onclick="filterMapPins('safe', this)">🏠 Safehouses</button>
-        <button class="mf-btn" onclick="filterMapPins('car', this)">🏎️ Exotic Car Spawns</button>
-        <button class="mf-btn" onclick="filterMapPins('secret', this)">🥚 Easter Eggs &amp; Secrets</button>
+        <button class="mf-btn active" onclick="filterMapPins('all', this)">All verified places</button>
+        <button class="mf-btn" onclick="filterMapPins('safe', this)">🏠 Home base</button>
+        <button class="mf-btn" onclick="filterMapPins('shop', this)">🔫 Shops &amp; services</button>
+        <button class="mf-btn" onclick="filterMapPins('money', this)">💰 Money</button>
       </div>
 
-      <!-- RADAR DISPLAY CANVAS -->
+<!-- RADAR DISPLAY CANVAS -->
       <div class="map-display" id="radarDisplayDash" style="height:480px;position:relative;background:radial-gradient(ellipse at center,#091424 0%,#04070e 100%);overflow:hidden;display:flex;align-items:center;justify-content:center">
         <div class="map-grid-overlay" style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,240,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.07) 1px,transparent 1px);background-size:40px 40px;pointer-events:none"></div>
         <div class="map-scanline" style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.2) 2px,rgba(0,0,0,.2) 4px);pointer-events:none"></div>
@@ -1079,34 +1071,16 @@ a{color:inherit;text-decoration:none}
         <!-- RADAR SWEEP LINE -->
         <div class="radar-sweep" style="position:absolute;inset:0;background:conic-gradient(from 0deg at 50% 50%, rgba(0,240,255,0.18) 0deg, transparent 60deg, transparent 360deg);animation:radarSpin 5s linear infinite;pointer-events:none;border-radius:50%"></div>
 
-        <!-- 18 INTERACTIVE MAP PINS -->
-        <div class="map-pin p-heist" data-type="heist" style="top:44%;left:52%" onclick="selectPOIDash('Vice City Federal Bank')"><div class="pin-core" style="background:var(--pink);color:#fff">💰</div><div class="pin-label">VC Commercial Bank ($4.2M)</div></div>
-        <div class="map-pin p-heist" data-type="heist" style="top:74%;left:36%" onclick="selectPOIDash('Port Gellhorn Container')"><div class="pin-core" style="background:var(--pink);color:#fff">⚓</div><div class="pin-label">Port Gellhorn Depot ($3.1M)</div></div>
-        <div class="map-pin p-heist" data-type="heist" style="top:84%;left:76%" onclick="selectPOIDash('South Leonida Cargo Vessel')"><div class="pin-core" style="background:var(--pink);color:#fff">🚢</div><div class="pin-label">Offshore Cargo Ship ($2.2M)</div></div>
-        <div class="map-pin p-heist" data-type="heist" style="top:48%;left:48%" onclick="selectPOIDash('Starfish Island Mansion')"><div class="pin-core" style="background:var(--pink);color:#fff">🏛️</div><div class="pin-label">Starfish Island Vault ($1.9M)</div></div>
-        <div class="map-pin p-heist" data-type="heist" style="top:26%;left:40%" onclick="selectPOIDash('Ambrosia Sugar Mill')"><div class="pin-core" style="background:var(--pink);color:#fff">🏭</div><div class="pin-label">Ambrosia Sugar Mill Depot</div></div>
-
-        <div class="map-pin p-shop" data-type="shop" style="top:38%;left:46%" onclick="selectPOIDash('Little Haiti Pawn')"><div class="pin-core" style="background:var(--gold);color:#000">💎</div><div class="pin-label">Little Haiti Fence (Clean Cash)</div></div>
-        <div class="map-pin p-shop" data-type="shop" style="top:42%;left:54%" onclick="selectPOIDash('Downtown Gunsmith')"><div class="pin-core" style="background:var(--gold);color:#000">🔫</div><div class="pin-label">Downtown Ammu-Nation &amp; Armor</div></div>
-        <div class="map-pin p-shop" data-type="shop" style="top:62%;left:38%" onclick="selectPOIDash('Port Gellhorn Chop Shop')"><div class="pin-core" style="background:var(--gold);color:#000">🔧</div><div class="pin-label">Chop Shop &amp; Respray Bay</div></div>
-
-        <div class="map-pin p-safe" data-type="safe" style="top:42%;left:64%" onclick="selectPOIDash('Ocean Beach Motel')"><div class="pin-core" style="background:var(--teal);color:#000">🏠</div><div class="pin-label">Ocean Beach Motel (Trunk Stash)</div></div>
-        <div class="map-pin p-safe" data-type="safe" style="top:86%;left:42%" onclick="selectPOIDash('Gator Keys Airboat Hideout')"><div class="pin-core" style="background:var(--teal);color:#000">🐊</div><div class="pin-label">Gator Keys Airboat Hideout</div></div>
-        <div class="map-pin p-safe" data-type="safe" style="top:92%;left:30%" onclick="selectPOIDash('Key West Safehouse')"><div class="pin-core" style="background:var(--teal);color:#000">🌴</div><div class="pin-label">Key West Marina Safehouse</div></div>
-
-        <div class="map-pin p-car" data-type="car" style="top:50%;left:50%" onclick="selectPOIDash('Starfish Island Luxury Drive')"><div class="pin-core" style="background:var(--orange);color:#fff">🏎️</div><div class="pin-label">Grotti Cheetah Spawn</div></div>
-        <div class="map-pin p-car" data-type="car" style="top:70%;left:34%" onclick="selectPOIDash('Port Industrial Lot')"><div class="pin-core" style="background:var(--orange);color:#fff">🚗</div><div class="pin-label">Bravado Banshee TT</div></div>
-        <div class="map-pin p-car" data-type="car" style="top:32%;left:56%" onclick="selectPOIDash('Vice Beach Promenade')"><div class="pin-core" style="background:var(--orange);color:#fff">🏍️</div><div class="pin-label">Pegassi Torero XO &amp; Bikes</div></div>
-
-        <div class="map-pin p-secret" data-type="secret" style="top:60%;left:22%" onclick="selectPOIDash('Grasslands Sunken Smuggler Plane')"><div class="pin-core" style="background:var(--purple);color:#fff">🛩️</div><div class="pin-label">Sunken DC-3 ($25K &amp; Machete)</div></div>
-        <div class="map-pin p-secret" data-type="secret" style="top:18%;left:44%" onclick="selectPOIDash('Lake Leonida Submarine Wreck')"><div class="pin-core" style="background:var(--purple);color:#fff">⚓</div><div class="pin-label">Submarine Wreck (Gold Bars)</div></div>
-        <div class="map-pin p-secret" data-type="secret" style="top:12%;left:52%" onclick="selectPOIDash('North Leonida Radar Tower')"><div class="pin-core" style="background:var(--purple);color:#fff">📡</div><div class="pin-label">Alien Signal Tower (UFO Trigger)</div></div>
-        <div class="map-pin p-secret" data-type="secret" style="top:40%;left:62%" onclick="selectPOIDash('Malibu VIP Lounge')"><div class="pin-core" style="background:var(--purple);color:#fff">🍸</div><div class="pin-label">Malibu Club Underground Syndicate</div></div>
+        <!-- MAP PINS: removed until positions are verified in-game (no invented locations). -->
+        <div style="position:relative;z-index:2;max-width:440px;text-align:center;padding:1.5rem;background:rgba(5,7,12,.85);border:1px solid rgba(0,240,255,.25);border-radius:6px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;color:#00f0ff;margin-bottom:.4rem">PLOTTING LEONIDA</div>
+          <p style="font-size:.85rem;color:var(--muted);line-height:1.6;margin:0">We only pin a location once we've confirmed where it is in the released game. Until then, the verified places below are described in words.</p>
+        </div>
       </div>
     </div>
 
-    <!-- POI CARDS DOSSIER -->
-    <div class="section-hd"><h2>Tactical Location Dossiers</h2><span class="see-all">18 Locations Logged</span></div>
+<!-- POI CARDS DOSSIER -->
+    <div class="section-hd"><h2>Verified places</h2><span class="see-all">Checked 20 Nov 2026</span></div>
     <div class="poi-grid" id="poiGridDash" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.2rem;margin-bottom:3rem">
       <!-- Injected via renderPOICards() -->
     </div>
@@ -1268,7 +1242,7 @@ a{color:inherit;text-decoration:none}
     <div class="av-meta" style="display:flex;gap:.8rem;align-items:center;margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">
       <span class="av-cat" style="color:var(--gold)">Story Mode</span>
       <span>·</span>
-      <span class="av-meta-extra" style="color:#00f0ff">Verified Day-1</span>
+      <span class="av-meta-extra" style="color:#00f0ff"></span>
       <span>·</span>
       <span class="av-meta-readtime" style="color:var(--muted)">12 min read</span>
     </div>
@@ -1340,368 +1314,237 @@ const views = {
 };
 
 const subs = {
-  dashboard: 'Welcome back, Agent Nazim',
-  weekly: 'Day-1 Launch Intel — Week of November 19, 2026',
-  map: 'Leonida & Vice City high-resolution tactical radar telemetry',
-  saved: 'Your personal bookmarked blueprints and reading list',
+  dashboard: 'Welcome back',
+  weekly: 'Launch week — guides checked 20 Nov 2026',
+  map: 'Verified Leonida locations — pins added once confirmed in-game',
+  saved: 'Your personal bookmarked guides and reading list',
   cheat: 'All 61 GTA 6 cheats with unlock challenges — PS5 & Xbox D-pad codes',
-  story: 'Dual protagonist missions, dialogue choices & 100% completion guide',
-  heist: 'Step-by-step stealth infiltration blueprints & guaranteed max take routes',
-  money: 'Passive business stacking, stock market sabotage & early $1M routes',
-  online: 'Day-1 ranking route, cargo lobby protection & crew tactics',
-  builds: 'Modular gunsmith attachments, trunk armory management & tuning',
-  easter: 'Alien radio signals, Everglades swamp monster & underwater wrecks',
-  properties: 'Real estate investment ROI, safehouse locations & stash upgrades',
-  vehicles: 'Top 15 speed-ranked cars, handling setups & 8 free hidden supercars',
-  wanted: '6-star survival rules, witness camera AI & license plate heat drops',
-  pro: 'Speedrun skips, guard vision cone bypasses & no-damage runs'
+  story: 'Story structure, mission order and what you can miss',
+  heist: 'Robberies, scores and heists — guides in progress',
+  money: 'Early money methods, fences and banking',
+  online: 'GTA Online and GTA 6 — guides in progress',
+  builds: 'Weapons, loadouts and training stats',
+  easter: 'Secrets and Easter eggs — guides in progress',
+  properties: 'Garages and property — guides in progress',
+  vehicles: 'Cars, registration and selling — guides in progress',
+  wanted: 'Stars, heat, recognition and losing the cops',
+  pro: 'Stunts and challenges — guides in progress'
 };
 
 let currentView = 'dashboard';
 let currentArticleData = null;
 
-// ─── AUTHENTIC GTA 6 ARTICLES DATABASE ────────────────────────────────
+// ─── GTA 6 GUIDE ARTICLES (SOURCED) ───────────────────────────────────
+// CONTENT RULE: only publish facts that at least two independent sources agree on,
+// written in our own words, with the sources listed at the end of the article.
+// Anything single-source is labelled as unconfirmed. Never invent numbers, locations,
+// missions or mechanics. Titles not in this object show an honest "in progress" page.
+const GUIDES_LAST_CHECKED = '20 Nov 2026';
+
+function sourcesBlock(list) {
+  return `
+      <h2>Sources</h2>
+      <p style="font-size:.85rem">Checked ${GUIDES_LAST_CHECKED}. We only state a fact here when at least two of these agree; anything else is marked as unconfirmed.</p>
+      <ul style="font-size:.85rem;line-height:1.8">
+        ${list.map(s => `<li><a href="${s.url}" target="_blank" rel="noopener" style="color:var(--gold)">${s.name}</a></li>`).join('')}
+      </ul>`;
+}
+
 const ARTICLES_DB = {
-  // STORY MODE
-  'GTA 6 story missions in order — full walkthrough part 1': {
-    lead: 'The definitive Chapter 1 walkthrough for GTA 6: Infiltrate the diner, coordinate hostage suppression, evade the Leonida Highway roadblock, and establish the Ocean Beach motel hideout.',
-    cat: 'Story Mode',
-    badge: 'Chapter 1 · Day 1',
-    difficulty: 'Moderate',
-    protagonist: 'Lucia & Jason (Dual Switch)',
-    loadout: 'Pistol .45 + Compact 9mm (Trunk: Pump Shotgun)',
+  'GTA 6 beginner essentials — what to know in your first hours': {
+    lead: 'The systems that trip up new players in Leonida: saving, protecting your cash, Focus, training, weapons you keep, and how to stay off the police radar.',
+    cat: 'Starter Guide',
+    badge: 'Sourced · checked 20 Nov 2026',
+    difficulty: 'Beginner',
+    protagonist: 'Jason & Lucia',
+    loadout: 'None needed',
     body: `
-      <h2>Mission Overview & Narrative Setting</h2>
-      <p>Chapter 1 opens in the coastal outskirts of Leonida with Lucia Caminos and Jason Duval staging their fateful diner holdup. This mission establishes the core dual-protagonist control system, civilian witness mechanics, and early vehicle ditching tactics.</p>
-      
-      <div class="av-tipbox">
-        <div class="av-tipbox-l">Vice Vault Tactical Rule</div>
-        <p>Switch to Lucia to intimidate the diner staff while Jason covers the front entrance. If you fail to pacify the chef in the kitchen within 30 seconds, he taps the silent alarm, summoning 2 extra police cruisers.</p>
-      </div>
+      <h2>1. Save manually — missions can't be replayed</h2>
+      <p>Open the pause menu and use <strong>Game → Save Game</strong>. Story missions can't be replayed once completed, so keep a manual save at the start and end of each chapter in case you want to go back.</p>
 
-      <h2>Phase 1: The Diner Holdup & Cash Register Sweep</h2>
+      <h2>2. Protect your cash</h2>
+      <p>Cash you're carrying is lost if you die or get busted. Until you can bank it, hide it in the stash under the floor of Jason's bedroom. A bank account opens with the <strong>Buck Me</strong> mission partway through Chapter 1 — after that, deposit regularly.</p>
+
+      <h2>3. Weapons you buy are yours; pickups aren't</h2>
+      <p>Guns bought from a store stay with you after death. Guns you pick up are lost — unless you store them in your personal car's trunk, which makes them yours. The game starts in <strong>Key Lento</strong>, and its Ammu-Nation (Chuck's Tackle &amp; Shot) is available right after the opening.</p>
+
+      <h2>4. Use Focus constantly</h2>
       <ol class="av-steps">
-        <li><strong>Enter through side service door:</strong> Don your bandana masks before stepping into camera sightlines.</li>
-        <li><strong>Pacify the patrons:</strong> Fire one warning shot into the ceiling plaster to instantly lower the crowd panic meter.</li>
-        <li><strong>Empty register & safe:</strong> Switch to Lucia to rapidly pick the small cash box under the counter. Take: $4,850.</li>
-        <li><strong>Exfiltrate to getaway car:</strong> Exit via the rear alleyway where the Bravado Greenwood is idling.</li>
+        <li><strong>Activate:</strong> click both sticks (L3 + R3).</li>
+        <li><strong>What it shows:</strong> cash, loot and things you can interact with.</li>
+        <li><strong>Train it:</strong> fishing and shooting hoops raise your Focus. Feeding Jason's pet snake, Dolores, gives a temporary boost.</li>
       </ol>
 
-      <h2>Phase 2: The Leonida Highway Patrol Pursuit</h2>
-      <p>As you merge onto Highway 1 heading towards Vice City, 3 sheriff cruisers initiate pursuit. Remember GTA 6's new pursuit AI: officers will attempt PIT maneuvers and call in tire strips ahead.</p>
-      <ol class="av-steps">
-        <li><strong>Switch to Jason:</strong> Utilize Jason's 'Dead-Eye Focus' ability to target the lead cruiser's front left tire.</li>
-        <li><strong>Swamp detour:</strong> Take the unpaved shoulder cut through the mangrove swamp to bypass the police spike strip on the main bridge.</li>
-        <li><strong>Ditch & Switch:</strong> Pull into the abandoned sugar mill in Ambrosia, ditch the marked Greenwood in the drainage culvert, and commandeer an untracked pickup truck.</li>
-      </ol>
+      <h2>5. Train at Jason's house</h2>
+      <p>Lifting weights raises maximum health; cardio raises stamina. A protein shake from the fridge helps after a workout. Sleeping in Jason's bed advances time.</p>
 
-      <h2>Phase 3: Arrival at Ocean Beach Motel</h2>
-      <p>Arriving at your first safehouse unlocks your personal wardrobe, weapon duffel bag, and vehicle storage spot. Use the bed to save your game and advance the in-game clock to drop remaining police investigation heat.</p>
-    `
-  },
+      <h2>6. Stay off the police radar</h2>
+      <p>Police can recognise your outfit, face, car, partner and weapons — you'll see this as icons under the wanted stars. Holster your gun in public, keep a spare outfit in your trunk, and destroy CCTV footage in a store's back room after a robbery. Your <strong>Criminal Profile</strong> runs across five tiers from Professional to Irredeemable: killing pushes you down, while non-lethal play keeps you at Professional (where non-lethal takedowns also refill Focus). See our <em>Wanted level and heat</em> guide for the full system.</p>
 
-  'All GTA 6 story endings — how to unlock each one': {
-    lead: 'A comprehensive, spoiler-safe analysis of Grand Theft Auto VI\'s three divergent narrative conclusions based on trust meters, cartel alliances, and character loyalty.',
-    cat: 'Story Mode',
-    badge: 'Endgame · 100%',
-    difficulty: 'Master',
-    protagonist: 'Lucia & Jason Choice',
-    loadout: 'Full Heavy Armor, Combat MG, Heavy Sniper',
-    body: `
-      <h2>The Narrative Divergence Matrix</h2>
-      <p>Unlike GTA 5's single-decision ending choice, GTA 6 evaluates an underlying 'Trust & Loyalty' score built across 40 hours of dialogue choices, cutscene responses, and shared heist profit distribution between Lucia and Jason.</p>
-
-      <h2>Ending A: "Outlaws United" (True Partnership)</h2>
-      <p><strong>Requirement:</strong> Trust meter maintained above 80% throughout Chapters 4 through 6. All secondary heist takes split 50/50.</p>
-      <p>Lucia and Jason reject the corrupt Garcia cartel kingpin and the undercover FIB deal. In a climactic duel across the Vice City Yacht Club, both protagonists coordinate an amphibious assault on the cartel flagship, securing an $18,000,000 bearer bond haul before fleeing to South America together on a high-speed catamaran.</p>
-
-      <h2>Ending B: "The Federal Informant" (Jason\'s Path)</h2>
-      <p><strong>Requirement:</strong> Trust meter below 40% and accepting Agent Harris\'s covert communication channel in Chapter 5.</p>
-      <p>Jason accepts federal immunity in exchange for delivering Lucia and the Garcia syndicate records. This triggers an emotional final chase through the container stacks of Port Gellhorn resulting in Lucia\'s imprisonment and Jason entering witness protection.</p>
-
-      <h2>Ending C: "The Queen of Vice" (Lucia\'s Syndicate)</h2>
-      <p><strong>Requirement:</strong> Choosing Cartel loyalty dialogues over Jason during Chapter 6.</p>
-      <p>Lucia executes a hostile takeover of the Leonida narcotics empire, pushing Jason out to the Everglades while she assumes control of the Malibu Club and oceanfront penthouses.</p>
-    `
-  },
-
-  // HEISTS
-  'Vice City Bank Job — Silent approach $4.2M max take': {
-    lead: 'Step-by-step master blueprint for the Vice City Commercial Federal Bank. Infiltrate via the underground drainage canals, loop surveillance, and extract $4.2M clean without sounding alarms.',
-    cat: 'Heist Blueprint',
-    badge: '$4.2M Payout · Stealth',
-    difficulty: 'Hard',
-    protagonist: 'Lucia (Hacking) & Jason (Drilling)',
-    loadout: 'Silenced AP Pistols, Thermal Drill, Stun Gun, Hacker Device',
-    body: `
-      <h2>Blueprint Overview</h2>
-      <p>The Vice City Bank Job represents the premier bank heist in Leonida. By executing the Silent & Sneaky approach, you bypass the 5-minute police response timer and keep the maximum $4,200,000 take without losing money to bullet damage.</p>
+      <h2>7. Handy tools</h2>
+      <ul>
+        <li><strong>Wrecked your car?</strong> Call Joey to have it repaired and delivered.</li>
+        <li><strong>WAiNK app:</strong> shows a car's sell value and registration cost.</li>
+        <li><strong>Simplified Mini Games</strong> setting makes the gym, basketball and hotwiring easier if you'd rather skip the timing challenges.</li>
+      </ul>
 
       <div class="av-tipbox">
-        <div class="av-tipbox-l">Security System Vulnerability</div>
-        <p>The bank's vault uses biometric and timed laser sensors that reboot every 90 seconds. Have Lucia hack Terminal B exactly on the 60-second mark to permanently disable the seismic alarm.</p>
+        <div class="av-tipbox-l">Don't miss this early</div>
+        <p>During Chapter 1's errand for Shirley's rum, follow the parrot's clue: there's cash hidden in a wall vent by a yellow generator behind the liquor store. The errand can be missed if you leave it too long.</p>
       </div>
-
-      <h2>Step 1: Marina Keycard Duplication Prep</h2>
-      <ol class="av-steps">
-        <li><strong>Valet approach:</strong> Locate the bank manager's Pfister Comet parked at the Vice Beach Marina.</li>
-        <li><strong>Keycard cloning:</strong> Use the RFID cloner within 2 meters of the valet booth to copy security tier-3 credentials.</li>
-        <li><strong>Underground canal entry:</strong> Drive a small dinghy into the storm runoff channel directly under 4th Avenue.</li>
-      </ol>
-
-      <h2>Step 2: Sub-Basement Infiltration</h2>
-      <ol class="av-steps">
-        <li><strong>Security guard blind spot:</strong> Patrol Guard 1 turns his back every 2 minutes. Takedown with suppressed dart.</li>
-        <li><strong>Laser grid bypass:</strong> Crawl through the ventilation shaft to drop behind the main camera corridor.</li>
-        <li><strong>Vault door thermal burn:</strong> Keep drill pressure needle in the green zone (75% power). Excessive heat triggers water sprinklers and alerts internal guards.</li>
-      </ol>
-
-      <h2>Step 3: Vault Cleanout & Subway Escape</h2>
-      <ol class="av-steps">
-        <li><strong>Loot priority:</strong> Table 1 (Bearer Bonds - $1.8M), Table 2 (Gold Bars - $1.5M), Safety Deposit Boxes 104-112 (Loose Cash - $900K).</li>
-        <li><strong>Exfiltration:</strong> Blow the secondary brick wall into the decommissioned Vice City metro line.</li>
-        <li><strong>Escape vehicle:</strong> Board the staged dirt bikes in the train tunnel and exit into the storm canal 1 mile north.</li>
-      </ol>
+      ${sourcesBlock([
+        { name: 'Red Bull Gaming — GTA 6 beginner\'s guide', url: 'https://www.redbull.com/int-en/gta-6-beginners-guide' },
+        { name: 'Output Lag — GTA 6 beginner tips', url: 'https://outputlag.com/guides/gta-6-beginner-tips/' },
+        { name: 'Nerds Chalk — first hours in the Keys', url: 'https://nerdschalk.com/gta-6-beginner-tips-first-hours-keys' },
+        { name: 'PowerPyx — full walkthrough (mission replay)', url: 'https://www.powerpyx.com/gta-6-full-walkthrough-all-missions/' },
+        { name: 'Beebom — missions list', url: 'https://beebom.com/gta-6-missions-list-walkthrough/' }
+      ])}
     `
   },
 
-  'Airport Raid — all 3 approaches + $3.1M breakdown': {
-    lead: 'Infiltrate the Vice City International Airport customs depot. Full breakdown of the High-Value Baggage terminal, private jet tarmac, and $3.1M customs seized vault.',
-    cat: 'Heist Blueprint',
-    badge: '$3.1M Take · 3 Approaches',
-    difficulty: 'Hard',
-    protagonist: 'Dual Switch (Jason Pilot / Lucia Ground)',
-    loadout: 'Carbine Rifle, EMP Mines, Uniform Disguise',
-    body: `
-      <h2>Approach 1: The TSA Maintenance Disguise (Recommended)</h2>
-      <p>Don maintenance coveralls acquired from the North Cargo Gate. You can walk through security checkpoints freely as long as you do not draw weapons or sprint within 5 meters of K-9 patrol units.</p>
-
-      <h2>Approach 2: Tarmac Airborne Halo Drop</h2>
-      <p>Jump from a Duster at 4,000 feet, land silently atop Hangar 12, and cut power cables to kill runway searchlights. High risk, but bypasses all exterior perimeter guards.</p>
-
-      <h2>Approach 3: Armed Convoy Ram (Aggressive)</h2>
-      <p>Use an armored Brute truck to smash the freight gate. Triggers instant 4-star wanted level; requires heavy armor and minigun support.</p>
-
-      <h2>Take Breakdown:</h2>
-      <p>Seized cartel diamonds: $1,900,000. Foreign currency stacks: $850,000. Contraband watches: $350,000. Total Maximum Take: $3,100,000.</p>
-    `
-  },
-
-  // MONEY META
-  '$800K/hr passive: business stacking method explained': {
-    lead: 'How to combine automated chop shop disassembly, nightclub safe revenue, and crypto ATM ledger harvesting to generate $800,000 per hour with zero active grinding.',
-    cat: 'Money Meta',
-    badge: '$800K/Hr · Passive Meta',
-    difficulty: 'Easy',
-    protagonist: 'Any',
-    loadout: 'Fast Getaway Sedan, Hacking PDA',
-    body: `
-      <h2>The 3-Pillar Business Loop</h2>
-      <p>By synchronizing property production timers in GTA 6, you eliminate downtime between supply runs and maximize earnings while completing story missions or exploring.</p>
-
-      <div class="av-tipbox">
-        <div class="av-tipbox-l">Timing Glitch / Optimization</div>
-        <p>Trigger business resupply orders right before starting a story mission cutscene. Production clocks continue during story sequences without triggering utility fees!</p>
-      </div>
-
-      <h2>Pillar 1: Port Gellhorn Automated Chop Shop ($320K/hr)</h2>
-      <ol class="av-steps">
-        <li>Tow high-end sports cars to your chop shop hoist.</li>
-        <li>Hire mechanic crew Level 3 to strip vehicles automatically while you are off-site.</li>
-        <li>Collect scrap and rare parts export payment every 48 real-world minutes.</li>
-      </ol>
-
-      <h2>Pillar 2: Ocean Drive Nightclub Vault ($280K/hr)</h2>
-      <ol class="av-steps">
-        <li>Maintain club popularity above 90% by switching resident DJs via your in-game cell phone.</li>
-        <li>Empty the wall safe behind your office desk before it caps at $250,000.</li>
-      </ol>
-
-      <h2>Pillar 3: Nightlife District ATM Skimmers ($200K/hr)</h2>
-      <ol class="av-steps">
-        <li>Install skimming chips on 6 high-traffic ATMs along Ocean Beach promenade.</li>
-        <li>Harvest collected pin data remotely using Lucia's smartphone application.</li>
-      </ol>
-    `
-  },
-
-  'Top 15 fastest cars in GTA 6 — speed tested & ranked': {
-    lead: 'Empirical top speed and drag acceleration rankings across the Vice City Interstate 95 straightaway. Verified top speeds, tuning setups, and handling ratings.',
-    cat: 'Vehicles',
-    badge: 'Drag Strip Tested',
-    difficulty: 'Info',
-    protagonist: 'Any',
-    loadout: 'EMS Engine Level 4, Race Transmission',
-    body: `
-      <h2>The Top 5 Fastest Supercars (GPS Radar Verified)</h2>
-      <ol class="av-steps">
-        <li><strong>Grotti Cheetah Classic TT:</strong> Top Speed: 168.4 MPH | 0-60: 2.3s | Price: $2,450,000</li>
-        <li><strong>Pfister Comet S2 Cabrio:</strong> Top Speed: 164.2 MPH | 0-60: 2.5s | Price: $1,890,000</li>
-        <li><strong>Pegassi Torero XO:</strong> Top Speed: 162.8 MPH | 0-60: 2.4s | Price: $2,890,000</li>
-        <li><strong>Bravado Banshee GT:</strong> Top Speed: 161.0 MPH | 0-60: 2.7s | Price: $1,150,000</li>
-        <li><strong>Annis Euros X:</strong> Top Speed: 158.5 MPH | 0-60: 2.8s | Price: $980,000</li>
-      </ol>
-
-      <h2>Tuning Secrets for Street Races</h2>
-      <p>Always install low-grip rear tires for drifting courses along Ocean Drive. For highway drag races, keep stock tire width and lower suspension to Stage 4 to prevent aerodynamic lift over bridges.</p>
-    `
-  },
-
-  '5-star escape routes — best by district': {
-    lead: 'Master the 6-star wanted level in GTA 6. How to exploit civilian smartphone delays, switch vehicles before license plates are logged, and evade police helicopters.',
+  'Wanted level and heat in GTA 6 — how the police system works': {
+    lead: 'GTA 6 tracks what the police know about you, not just how many stars you have. Here is how stars, heat and recognition work — and how to shake them.',
     cat: 'Wanted Level',
-    badge: 'Survival Meta',
-    difficulty: 'Hard',
-    protagonist: 'Jason (Tactical Driving)',
-    loadout: 'Smoke Grenades, Jammer Pod, Pay \'n\' Spray Access',
+    badge: 'Sourced · checked 20 Nov 2026',
+    difficulty: 'Beginner',
+    protagonist: 'Jason & Lucia',
+    loadout: 'Spare outfit in trunk',
     body: `
-      <h2>GTA 6 Police AI Changes You Must Understand</h2>
-      <p>In GTA 6, police do not simply spawn around the corner. Patrol units are dispatched from the nearest precinct, and civilian bystanders will film you with smartphones to report your vehicle model and license plate to dispatch.</p>
+      <h2>Stars: up to six</h2>
+      <p>The wanted level goes up to <strong>six stars</strong>, and how high it climbs depends on how serious the crime is. Police respond when a crime is reported — witnesses calling it in are the main trigger.</p>
 
-      <h2>The "Ditch & Switch" Heat Drop Meta</h2>
+      <h2>What the police know about you</h2>
+      <p>Icons under the stars show what police can identify you by. The ones every source agrees on:</p>
+      <ul>
+        <li><strong>Outfit</strong> — change clothes to clear it.</li>
+        <li><strong>Face / appearance</strong> — masks and face coverings reduce recognition.</li>
+        <li><strong>Vehicle</strong> — switch cars to clear it.</li>
+        <li><strong>Partner</strong> — Jason and Lucia together are recognisable; splitting up clears it.</li>
+      </ul>
+      <p>Security cameras can identify you too. After a store robbery, destroy the footage in the back room.</p>
+
+      <h2>Heat: the search area you leave behind</h2>
+      <p>When you break away, police keep searching the area around your last known location, marked on the map. Leaving that zone ends the immediate pursuit — but if you're spotted there again before the heat dies down, your wanted level comes back. Stay away until it clears.</p>
+
+      <h2>How to lose the cops</h2>
       <ol class="av-steps">
-        <li><strong>Break visual sightline:</strong> Turn into an alleyway or multi-story parking garage.</li>
-        <li><strong>Abandon the marked vehicle immediately:</strong> Running on foot or stealing an unmarked civilian car parked inside an underground garage drops police search cone radius by 65%!</li>
-        <li><strong>Stay out of search helicopters:</strong> Police choppers use forward-looking infrared (FLIR). Hide under concrete highway overpasses or gas station canopies until search cools down.</li>
-        <li><strong>Respray Garage:</strong> A quick $100 respray at Pay 'n' Spray instantly wipes your wanted stars if no cruisers have active line of sight.</li>
+        <li><strong>Break line of sight</strong> — alleys, climbing and vaulting on foot work well.</li>
+        <li><strong>Leave the heat zone</strong> shown on the map.</li>
+        <li><strong>Clear what they know</strong> — change outfit (keep a spare in your trunk), swap cars, split the duo.</li>
+        <li><strong>Lie low</strong> before returning to the area.</li>
       </ol>
+
+      <div class="av-tipbox">
+        <div class="av-tipbox-l">Know the cost</div>
+        <p>Killing police escalates the response and drags your Criminal Profile toward its violent end. If you're busted or killed, you lose the cash you're carrying — bank it first.</p>
+      </div>
+
+      <p style="font-size:.85rem;color:var(--muted)"><strong>Still being confirmed:</strong> exact icon names and colours differ between early guides, and claims such as "six stars can't be lost by normal means" come from a single source so far. We'll update this guide as more players confirm them.</p>
+      ${sourcesBlock([
+        { name: 'GTABase — wanted level & heat guide', url: 'https://www.gtabase.com/articles/gta-6/gta-6-wanted-level-explained-police-system-guide' },
+        { name: 'Beebom — heat system', url: 'https://beebom.com/gta-6-heat-system-lose-wanted-level-stars/' },
+        { name: 'Red Bull Gaming — beginner\'s guide (police recognition)', url: 'https://www.redbull.com/int-en/gta-6-beginners-guide' },
+        { name: 'Output Lag — beginner tips (wanted icons, CCTV)', url: 'https://outputlag.com/guides/gta-6-beginner-tips/' }
+      ])}
+    `
+  },
+
+  'Early money in GTA 6 — methods that work in Chapters 1 and 2': {
+    lead: 'The early-game money methods that multiple guides agree on, who buys what, and how to avoid losing your cash. No inflated per-hour numbers — payouts vary and are still being mapped.',
+    cat: 'Money Meta',
+    badge: 'Sourced · checked 20 Nov 2026',
+    difficulty: 'Beginner',
+    protagonist: 'Jason & Lucia',
+    loadout: 'A gun you own',
+    body: `
+      <h2>First: don't lose what you earn</h2>
+      <p>Cash on hand is lost when you die or get busted. Use the stash under Jason's bedroom floor, then the <strong>BuckMe</strong> bank account once the Buck Me mission opens it in Chapter 1.</p>
+
+      <h2>1. Hit Illegal Operations (Chapter 1+)</h2>
+      <p>Gang hideouts — including the Kingfisher operations out in the swamps — hold narcotics, cash and other loot. In Chapter 1, Brian and Donnie are your outlets for the drugs you take. Expect armed guards, and remember that dying there costs you your pocket cash.</p>
+
+      <h2>2. Kenton's treasure dives (Key Lento)</h2>
+      <p>Work for Kenton in Key Lento (the "Island Dreams" mission) and he'll buy valuables you recover from wrecks. It's low risk and a steady early earner.</p>
+
+      <h2>3. Sell stolen cars to Moses (Chapter 2)</h2>
+      <p>From Chapter 2, Moses in Port Gellhorn buys stolen cars. Use the WAiNK app to check a car's value before you take it in.</p>
+
+      <h2>4. Easy early cash: Shirley's rum</h2>
+      <p>During this Chapter 1 errand, follow the parrot's clue to a wall vent by a yellow generator behind the liquor store. It's missable, so do it when it appears.</p>
+
+      <div class="av-tipbox">
+        <div class="av-tipbox-l">Still being confirmed</div>
+        <p>Early guides disagree on several details: exact payouts, whether store robberies open in Chapter 1 or 2, whether you can sell cars before meeting Moses, and how much Chapter 1 cash carries into Chapter 2. One guide reports that only savings carry over — so banking early is the safe play either way. We'll add numbers once they're consistent across sources.</p>
+      </div>
+      ${sourcesBlock([
+        { name: 'Vice — how to make money fast in GTA 6', url: 'https://www.vice.com/en/article/gta-6-how-to-make-money-fast/' },
+        { name: 'Output Lag — GTA 6 money guide', url: 'https://outputlag.com/guides/gta-6-make-money-fast/' },
+        { name: 'Red Bull Gaming — beginner\'s guide (cash loss, stash)', url: 'https://www.redbull.com/int-en/gta-6-beginners-guide' },
+        { name: 'Nerds Chalk — first hours in the Keys (Shirley\'s rum)', url: 'https://nerdschalk.com/gta-6-beginner-tips-first-hours-keys' }
+      ])}
+    `
+  },
+
+  'GTA 6 story structure — chapters, mission count and missables': {
+    lead: 'How long the story is, how it is split, the Chapter 1 mission order, and what you can miss. Mission names only — no plot spoilers.',
+    cat: 'Story Mode',
+    badge: 'Sourced · checked 20 Nov 2026',
+    difficulty: 'Info',
+    protagonist: 'Jason & Lucia',
+    loadout: 'None needed',
+    body: `
+      <h2>The shape of the story</h2>
+      <p>After a Prologue, the story runs across <strong>five chapters</strong> with <strong>118 main missions</strong> in mission lists published so far:</p>
+      <ul>
+        <li>Chapter 1 — 25 missions</li>
+        <li>Chapter 2 — 18 missions</li>
+        <li>Chapter 3 — 31 missions</li>
+        <li>Chapter 4 — 34 missions</li>
+        <li>Chapter 5 — 10 missions</li>
+      </ul>
+      <p>Optional missions and side activities come on top of these.</p>
+
+      <h2>Chapter 1 main missions, in order</h2>
+      <ol class="av-steps">
+        <li>Gone Fishing</li><li>Gear Up</li><li>Lab Fees</li><li>Just a Scratch</li><li>Unwanted Attention</li>
+        <li>Pipework</li><li>Hey Arnold!</li><li>Island Dreams</li><li>Feng Shui</li><li>Coming Home</li>
+        <li>Clean Up After Donnie</li><li>Buck Me</li><li>Down to Earth</li><li>Deposit Cash Into BuckMe</li><li>Save for the Future</li>
+        <li>Day Release</li><li>Clear Skies</li><li>Building a Life</li><li>Swamped</li><li>Don Gone</li>
+        <li>Donnie's Lost Drugs</li><li>Recalibration</li><li>Tourist Trap</li><li>Home Sweet Home</li><li>Discharge Time</li>
+      </ol>
+
+      <h2>Replays and missables</h2>
+      <p>Completed story missions <strong>can't be replayed</strong>, so make a manual save at the start and end of each chapter. Some optional missions are time-limited and disappear if you don't take them when they appear (for example Shirley's rum in Chapter 1) — one walkthrough reports these don't affect trophies or 100% completion.</p>
+
+      <p style="font-size:.85rem;color:var(--muted)"><strong>Note:</strong> chapter names and exact optional-mission lists differ slightly between early sources, so we've left them out until they settle.</p>
+      ${sourcesBlock([
+        { name: 'PowerPyx — full walkthrough, all missions', url: 'https://www.powerpyx.com/gta-6-full-walkthrough-all-missions/' },
+        { name: 'Beebom — GTA 6 missions list', url: 'https://beebom.com/gta-6-missions-list-walkthrough/' }
+      ])}
     `
   }
 };
 
-// ─── HELPER FOR REAL CONTENT GENERATION ──────────────────────────────
+// Titles we have not published yet get an honest placeholder instead of generated filler.
 function getGuideArticle(title, cat) {
-  // Check exact match
   if (ARTICLES_DB[title]) return ARTICLES_DB[title];
-  
-  // Check partial key match
-  for (const k in ARTICLES_DB) {
-    if (title.toLowerCase().includes(k.toLowerCase()) || k.toLowerCase().includes(title.toLowerCase())) {
-      return ARTICLES_DB[k];
-    }
-  }
-
-  // Generate an authentic, detailed, contextual GTA 6 guide rather than placeholder
-  const cleanTitle = title.replace(/[—:\-]/g, ' ');
-  let lead = '';
-  let badge = 'Verified Blueprint';
-  let diff = 'Moderate';
-  let prot = 'Lucia & Jason';
-  let loadout = 'Combat Carbine, Heavy Armor, Tactical Duffel Bag';
-  let body = '';
-
-  const c = cat.toLowerCase();
-  if (c.includes('story')) {
-    lead = `In-depth mission tactical breakdown for ${title}. Complete all primary objectives, locate hidden cash stashes, and make optimal narrative dialogue decisions.`;
-    badge = 'Story 100%';
-    diff = 'Normal';
-    body = `
-      <h2>Mission Intelligence & Background</h2>
-      <p>${title} is a critical chapter in Lucia and Jason's progression through Leonida. Completing this sequence cleanly requires exploiting your environment, understanding guard patrol cones, and managing character switches.</p>
-      
+  return {
+    placeholder: true,
+    lead: 'This guide is in progress. GTA 6 launched on 19 November 2026 and we only publish what we can confirm from the released game across multiple sources.',
+    cat,
+    badge: 'In progress',
+    body: `
       <div class="av-tipbox">
-        <div class="av-tipbox-l">Protagonist Synergy Tip</div>
-        <p>Use Jason's situational awareness to mark security cameras and guard routes, then switch to Lucia to pick locks and hack computer terminals in half the normal time.</p>
+        <div class="av-tipbox-l">Coming soon</div>
+        <p>We're still verifying this one. Rather than guess, we'll publish it once the details are confirmed — check the Weekly Drop for new guides.</p>
       </div>
-
-      <h2>Step-by-Step Tactical Execution</h2>
-      <ol class="av-steps">
-        <li><strong>Infiltrate the perimeter:</strong> Approach from the rear access corridor where camera blind spots overlap.</li>
-        <li><strong>Neutralize primary sentries:</strong> Take down the lookout silently using a suppressed pistol to prevent backup radio dispatches.</li>
-        <li><strong>Secure the primary objective:</strong> Access the safe or secure ledger behind the desk.</li>
-        <li><strong>Exfiltrate via secondary route:</strong> Escape through the service alley and transfer your gear into the vehicle trunk.</li>
-      </ol>
-
-      <h2>Pro Completion Notes</h2>
-      <p>Achieving 100% gold medal rating requires zero civilian casualties, under 7 minutes execution time, and at least 8 headshots.</p>
-    `;
-  } else if (c.includes('heist')) {
-    lead = `Comprehensive heist walkthrough for ${title}. Discover the stealthiest infiltration route, vault keypad codes, and how to walk away with the maximum guaranteed take.`;
-    badge = 'Max Take Route';
-    diff = 'Hard';
-    body = `
-      <h2>Blueprint Overview & Crew Allocation</h2>
-      <p>Executing ${title} efficiently requires selecting the right crew composition and entrance approach. Rushing in through the front door triggers high-tier police tactical roadblocks; the silent route guarantees the entire loot take.</p>
-      
-      <div class="av-tipbox">
-        <div class="av-tipbox-l">Vault Laser Warning</div>
-        <p>Do not sprint through the primary vault hallway. Laser tripwires oscillate every 4 seconds. Crouch and advance during the audio beep interval.</p>
-      </div>
-
-      <h2>Phase 1: Infiltration & Security Disablement</h2>
-      <ol class="av-steps">
-        <li><strong>Disable CCTV power:</strong> Cut the exterior junction box on the building's north side to disable cameras for 3 minutes.</li>
-        <li><strong>Keycard access:</strong> Swipe the duplicated security card at the employee entrance.</li>
-        <li><strong>Vault drilling:</strong> Use the thermal lance steadily without overheating to crack the vault door in under 90 seconds.</li>
-      </ol>
-
-      <h2>Phase 2: Loot Cleanout & Escape</h2>
-      <ol class="av-steps">
-        <li><strong>Bag priority:</strong> Always sweep bearer bonds and diamonds first, followed by gold bars, then loose stacks.</li>
-        <li><strong>Getaway vehicle:</strong> Stash the getaway vehicle in the drainage canal rather than the parking lot to dodge initial squad cars.</li>
-      </ol>
-    `;
-  } else if (c.includes('money')) {
-    lead = `High-yield economic strategy guide for ${title}. Mathematical payout breakdowns, hourly farming benchmarks, and how to scale your cash reserves quickly in Leonida.`;
-    badge = 'Fast Cash Meta';
-    diff = 'Easy';
-    body = `
-      <h2>Financial Overview & Setup Costs</h2>
-      <p>${title} is one of the highest-paying economic activities in Grand Theft Auto VI. Whether you are building your first $100,000 or expanding multi-million dollar business empires, this route maximizes return on investment.</p>
-      
-      <div class="av-tipbox">
-        <div class="av-tipbox-l">Underground Fencing Tip</div>
-        <p>Always sell luxury jewelry and watches to the Little Haiti pawn broker between 11 PM and 4 AM in-game — nighttime rates offer a 15% black market bonus!</p>
-      </div>
-
-      <h2>Optimized Run Protocol</h2>
-      <ol class="av-steps">
-        <li><strong>Acquire target assets:</strong> Focus on high-value sports cars, luxury suites, or freight cargo containers.</li>
-        <li><strong>Minimize transit risk:</strong> Avoid main interstate corridors during rush hours to prevent police spawn ambushes.</li>
-        <li><strong>Launder through real estate:</strong> Reinvest cash profits into safehouse upgrades to protect money from death penalties.</li>
-      </ol>
-    `;
-  } else if (c.includes('vehicle')) {
-    lead = `Performance tuning, drag strip acceleration benchmarks, and hidden spawn coordinates for ${title}.`;
-    badge = 'Vehicle Intel';
-    diff = 'Normal';
-    body = `
-      <h2>Vehicle Performance Profile</h2>
-      <p>Leonida's expansive highway grid and treacherous mangrove wetlands require specialized vehicle tuning. This guide breaks down handling coefficients, top speed limits, and defensive armor plating.</p>
-      
-      <div class="av-tipbox">
-        <div class="av-tipbox-l">Speed Tuning Trick</div>
-        <p>Lowering suspension to Stage 4 increases highway straightaway top speed by up to 5 MPH due to reduced aerodynamic drag under the chassis.</p>
-      </div>
-
-      <h2>Recommended Modifications</h2>
-      <ol class="av-steps">
-        <li><strong>EMS Engine Tuning:</strong> Stage 4 for maximum acceleration off corners.</li>
-        <li><strong>Bulletproof Tires:</strong> Mandatory for heist getaways to survive police spike strips.</li>
-        <li><strong>Armored Windows:</strong> Level 2 plating protects drivers from rifle caliber rounds without obscuring visibility.</li>
-      </ol>
-    `;
-  } else {
-    lead = `Tactical walkthrough and complete gameplay guide for ${title}. Master the mechanics, locate all hidden secrets, and maximize your efficiency.`;
-    body = `
-      <h2>Tactical Analysis</h2>
-      <p>Executing ${title} successfully requires preparation, accurate route selection, and mastery of GTA 6's updated mechanics. Follow this blueprint step-by-step for the cleanest completion.</p>
-      
-      <div class="av-tipbox">
-        <div class="av-tipbox-l">Pro Intelligence</div>
-        <p>Always maintain spare armor plates and weapon attachments in your vehicle trunk. You can restock on the fly during mission intervals.</p>
-      </div>
-
-      <h2>Execution Sequence</h2>
-      <ol class="av-steps">
-        <li><strong>Scout the objective:</strong> Identify entry and exit points before engaging.</li>
-        <li><strong>Execute tactical steps:</strong> Follow primary marker directions and maintain weapon discipline.</li>
-        <li><strong>Complete extraction:</strong> Evade any active wanted heat and return to safehouse to bank rewards.</li>
-      </ol>
-    `;
-  }
-
-  return { lead, cat, badge, difficulty: diff, protagonist: prot, loadout, body };
+      <h2>Available now</h2>
+      <ul>
+        ${Object.keys(ARTICLES_DB).map(t => `<li><a href="#" onclick="showArticle('${t.replace(/'/g, "\\'")}', '${ARTICLES_DB[t].cat}', 'Live guide');return false" style="color:var(--gold)">${t}</a></li>`).join('')}
+        <li><a href="#" onclick="showView('cheat');return false" style="color:var(--gold)">GTA 6 Cheat Vault — all 61 cheats</a></li>
+      </ul>
+    `
+  };
 }
 
 // ─── CHEAT CODES DATA ────────────────────────────────────────────────
@@ -1891,30 +1734,20 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
-// ─── RADAR MAP DATA & LOGIC ──────────────────────────────────────────
+// ─── LEONIDA INTEL BOARD (VERIFIED LOCATIONS) ────────────────────────
+// Only places that at least two released-game sources describe. No coordinates or map
+// positions until we can verify them in-game; locations are described in words.
 const MAP_POIS = [
-  { name: 'Vice City Commercial Bank', cat: 'heist', coords: '25.7617, -80.1918', title: 'Vice City Federal Bank Vault', desc: 'Central downtown branch featuring 3 sub-basement security vaults. Max silent take: $4.2M.', diff: 'Hard', payout: '$4.2M', guide: 'Vice City Bank Job — Silent approach $4.2M max take' },
-  { name: 'Port Gellhorn Container Terminal', cat: 'heist', coords: '25.7120, -80.2450', title: 'Port Gellhorn Freight Depot', desc: 'Shipping container freight yard with exotic car manifests and high-grade contraband. Base take: $3.1M.', diff: 'Hard', payout: '$3.1M', guide: 'Airport Raid — all 3 approaches + $3.1M breakdown' },
-  { name: 'South Leonida Cargo Vessel', cat: 'heist', coords: '25.5512, -80.1102', title: 'South Leonida Cargo Vessel', desc: 'Anchored 2 miles offshore. Accessible via dive gear or speedboat. Features 3 guard rotation windows.', diff: 'Medium', payout: '$2.2M', guide: 'Cargo Ship Takeover — hidden vault route + $2.2M' },
-  { name: 'Starfish Island Drug Mansion', cat: 'heist', coords: '25.7745, -80.1680', title: 'Starfish Island Drug Mansion', desc: 'Heavily guarded cartel estate with surveillance camera networks and laser tripwires.', diff: 'Solo Master', payout: '$1.9M', guide: 'Mansion Heist — solo guide, all escape routes mapped' },
-  { name: 'Ambrosia Sugar Mill Depot', cat: 'heist', coords: '25.8450, -80.4100', title: 'Ambrosia Sugar Mill Depot', desc: 'Industrial processing plant storing cartel cash bundles in grain silos.', diff: 'Medium', payout: '$1.4M', guide: 'Best order to do side missions for max money early' },
-  
-  { name: 'Little Haiti Pawn Fence', cat: 'shop', coords: '25.7921, -80.2105', title: 'Little Haiti Jewelry & Pawn Fence', desc: 'Best early-game location to unload stolen rolexes, gold chains, and electronics without police heat. Pays 85% clean cash.', diff: 'Safe', payout: 'Clean Cash', guide: '$800K/hr passive: business stacking method explained' },
-  { name: 'Downtown Gunsmith', cat: 'shop', coords: '25.7680, -80.1990', title: 'Downtown Ammu-Nation & Gunsmith', desc: 'Primary weapons retailer offering suppressors, extended magazines, and ballistic armor refills.', diff: 'Safe', payout: 'Weapon Shop', guide: 'Best gunman build for heists — weapons & stats ranked' },
-  { name: 'Port Gellhorn Chop Shop', cat: 'shop', coords: '25.7050, -80.2520', title: 'Port Gellhorn Chop Shop & Respray', desc: 'Underground garage that pays instant cash for stolen high-end sports cars and resprays vehicles.', diff: 'Safe', payout: '$45K/Car', guide: '$800K/hr passive: business stacking method explained' },
-
-  { name: 'Ocean Beach Motel', cat: 'safe', coords: '25.7801, -80.1310', title: 'Ocean Beach Motel Hideout', desc: 'Jason & Lucia\'s Chapter 1 staging ground. Features weapon trunk storage and heat loss wardrobe.', diff: 'Safe', payout: 'Safehouse', guide: 'GTA 6 story missions in order — full walkthrough part 1' },
-  { name: 'Gator Keys Airboat Hideout', cat: 'safe', coords: '25.4890, -80.4500', title: 'Gator Keys Airboat Hideout', desc: 'Remote swamp shack accessible via airboat. Zero police patrol traffic; ideal for cooling down 5-star heat.', diff: 'Safe', payout: 'Hideout', guide: '5-star escape routes — best by district' },
-  { name: 'Key West Marina Safehouse', cat: 'safe', coords: '25.4120, -80.5200', title: 'Key West Marina Safehouse', desc: 'Waterfront property with private boat slip and helipad for offshore heist launches.', diff: 'Safe', payout: 'Safehouse', guide: 'Which safehouse location is best for each mission' },
-
-  { name: 'Starfish Island Luxury Drive', cat: 'car', coords: '25.7725, -80.1650', title: 'Starfish Island Luxury Drive (Grotti Cheetah)', desc: 'Frequent spawns of red Grotti Cheetah supercars and luxury SUVs outside private mansions.', diff: 'Easy', payout: 'Supercar', guide: 'Top 15 fastest cars in GTA 6 — speed tested & ranked' },
-  { name: 'Port Industrial Lot', cat: 'car', coords: '25.7050, -80.2520', title: 'Port Industrial Lot (Bravado Banshee GT)', desc: 'Rare spawn of tuned Bravado Banshee GT parked behind shipping warehouse 09.', diff: 'Easy', payout: 'Sports Car', guide: 'Top 15 fastest cars in GTA 6 — speed tested & ranked' },
-  { name: 'Vice Beach Promenade', cat: 'car', coords: '25.7820, -80.1290', title: 'Vice Beach Strip (Pegassi Torero & Superbikes)', desc: 'High-density exotic supercar and superbike spawns parked along coastal nightclub valets.', diff: 'Easy', payout: 'Exotic Spawns', guide: 'Top 15 fastest cars in GTA 6 — speed tested & ranked' },
-
-  { name: 'Grasslands Sunken Smuggler Plane', cat: 'secret', coords: '25.6890, -80.6500', title: 'The Grasslands Sunken DC-3', desc: 'Submerged drug runner plane deep in the mangrove swamps. Contains waterproof lockbox with $25K cash + machete.', diff: 'Hazard: Alligators', payout: '$25,000 Cash', guide: '23 confirmed Easter eggs in Leonida — all locations' },
-  { name: 'Lake Leonida Submarine Wreck', cat: 'secret', coords: '25.9120, -80.3800', title: 'Lake Leonida Submarine Wreck', desc: 'Sunken World War II submarine in deep freshwater lake. Requires scuba gear; contains 4 gold bars.', diff: 'Underwater', payout: 'Gold Bullion', guide: 'All hidden packages — locations & rewards guide' },
-  { name: 'North Leonida Radar Tower', cat: 'secret', coords: '26.0120, -80.2100', title: 'Alien Signal Tower (UFO Event)', desc: 'Climb tower at 3:00 AM in rainy weather to trigger unique extraterrestrial radio broadcast easter egg.', diff: 'Night Only', payout: 'Alien Lore', guide: 'The alien encounter at coordinates 412.7 — how to trigger' }
+  { cat: 'safe', title: "Jason's house", where: 'Your first home base', desc: 'Cash stash under the bedroom floor, a home gym for health and stamina training, and a bed to sleep and pass time. Feed Dolores the snake for a temporary Focus boost.', guide: 'GTA 6 beginner essentials — what to know in your first hours' },
+  { cat: 'shop', title: "Chuck's Tackle & Shot (Ammu-Nation)", where: 'Key Lento', desc: 'The first Ammu-Nation, open right after the opening section. Guns you buy here stay with you after death.', guide: 'GTA 6 beginner essentials — what to know in your first hours' },
+  { cat: 'money', title: "Kenton's treasure dives", where: 'Key Lento', desc: 'Work for Kenton (the "Island Dreams" mission) and he buys valuables you recover from wrecks. Low-risk early money.', guide: 'Early money in GTA 6 — methods that work in Chapters 1 and 2' },
+  { cat: 'money', title: 'Kingfisher Illegal Operations', where: 'Swamp hideouts (exact sites still being mapped)', desc: 'Armed gang hideouts holding narcotics, cash and loot. In Chapter 1, Brian and Donnie are your outlets for the drugs.', guide: 'Early money in GTA 6 — methods that work in Chapters 1 and 2' },
+  { cat: 'money', title: 'Moses — stolen car buyer', where: 'Port Gellhorn · Chapter 2', desc: 'Buys stolen cars once you meet him in Chapter 2. Check a car\'s value first with the WAiNK app.', guide: 'Early money in GTA 6 — methods that work in Chapters 1 and 2' },
+  { cat: 'money', title: "Shirley's rum stash", where: 'Behind the liquor store · Chapter 1', desc: 'Follow the parrot\'s clue to cash hidden in a wall vent by a yellow generator. Missable — do it when the errand appears.', guide: 'GTA 6 beginner essentials — what to know in your first hours' },
+  { cat: 'shop', title: "Pay 'n' Spray", where: 'Across Leonida', desc: 'Respray a car so police stop recognising it.', guide: 'Wanted level and heat in GTA 6 — how the police system works' }
 ];
+
+const POI_CAT_LABELS = { safe: 'Home base', shop: 'Shops & services', money: 'Money' };
 
 let activeMapCategory = 'all';
 
@@ -1925,16 +1758,15 @@ function renderPOICards(cat = 'all') {
   const filtered = MAP_POIS.filter(p => cat === 'all' || p.cat === cat);
 
   container.innerHTML = filtered.map(p => `
-    <article class="poi-card" onclick="showArticle('${p.guide.replace(/'/g, "\\'")}', 'Tactical Intel', 'Map Blueprint')" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.4rem;transition:all .25s;cursor:pointer" onmouseenter="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;background:rgba(0,112,243,0.12);color:var(--gold)">${p.cat.toUpperCase()}</span>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:.68rem;color:var(--muted);letter-spacing:.05em">${p.coords}</span>
+    <article class="poi-card" onclick="showArticle('${p.guide.replace(/'/g, "\\'")}', '${(ARTICLES_DB[p.guide] || {}).cat || 'Guide'}', 'Live guide')" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.4rem;transition:all .25s;cursor:pointer" onmouseenter="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.8rem">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;background:rgba(0,112,243,0.12);color:var(--gold)">${POI_CAT_LABELS[p.cat]}</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;color:var(--muted);letter-spacing:.05em;text-align:right">${p.where}</span>
       </div>
       <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;line-height:1.2;color:var(--white);margin-bottom:.4rem">${p.title}</h3>
       <p style="font-size:.84rem;color:var(--muted);line-height:1.6;margin-bottom:1rem">${p.desc}</p>
-      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:.8rem;border-top:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">
-        <span>Reward: <strong style="color:var(--white)">${p.payout}</strong></span>
-        <span style="color:var(--gold)">Open Blueprint →</span>
+      <div style="display:flex;justify-content:flex-end;padding-top:.8rem;border-top:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+        <span style="color:var(--gold)">Read the guide →</span>
       </div>
     </article>
   `).join('');
@@ -1944,25 +1776,7 @@ function filterMapPins(cat, btn) {
   activeMapCategory = cat;
   document.querySelectorAll('.mf-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  
-  document.querySelectorAll('.map-pin').forEach(pin => {
-    pin.style.display = (cat === 'all' || pin.dataset.type === cat) ? 'block' : 'none';
-  });
-
   renderPOICards(cat);
-}
-
-function selectPOIDash(name) {
-  const poi = MAP_POIS.find(p => p.name.toLowerCase().includes(name.toLowerCase()));
-  if (poi) {
-    showToast(`LOCATED: ${poi.title}`);
-    const card = Array.from(document.querySelectorAll('.poi-card')).find(c => c.textContent.includes(poi.title));
-    if (card) {
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      card.style.borderColor = 'var(--gold)';
-      setTimeout(() => card.style.borderColor = 'var(--border)', 2500);
-    }
-  }
 }
 
 // ─── SAVED GUIDES MANAGEMENT ─────────────────────────────────────────
@@ -2071,43 +1885,29 @@ function toggleCompleteGuide(title, cat) {
 }
 
 function updateProgressBars() {
+  // Real progress only: guides the member has marked completed, out of guides actually published.
   const completed = getCompletedGuides();
-  
-  // Calculate category completion
-  const catCounts = { story: 0, heist: 0, money: 0, easter: 0, cheat: 0 };
-  const catTotals = { story: 6, heist: 6, money: 6, easter: 6, cheat: 6 };
+  const container = document.getElementById('progItems');
+  const liveTitles = Object.keys(ARTICLES_DB);
+  const doneLive = liveTitles.filter(t => completed.includes(t)).length;
 
-  for (const title of completed) {
-    for (const cat in guideData) {
-      if (guideData[cat].some(g => g.title === title)) {
-        if (catCounts[cat] !== undefined) catCounts[cat]++;
-      }
-    }
+  if (container) {
+    const rows = Object.keys(guideData)
+      .map(sec => {
+        const live = guideData[sec].filter(g => ARTICLES_DB[g.title]);
+        if (!live.length) return '';
+        const done = live.filter(g => completed.includes(g.title)).length;
+        const pct = Math.round((done / live.length) * 100);
+        return `<div class="prog-item"><span class="prog-name">${views[sec] || sec}</span><div class="prog-bar-wrap"><div class="prog-fill p${(Object.keys(guideData).indexOf(sec) % 5) + 1}" style="width:${pct}%" data-w="${pct}"></div></div><span class="prog-pct">${done}/${live.length}</span></div>`;
+      })
+      .join('');
+    container.innerHTML = rows || '<div style="color:var(--muted);font-size:.85rem">No guides published yet.</div>';
   }
 
-  const pStory = Math.min(100, Math.round(((catCounts.story || 1) / catTotals.story) * 100));
-  const pHeist = Math.min(100, Math.round(((catCounts.heist || 2) / catTotals.heist) * 100));
-  const pMoney = Math.min(100, Math.round(((catCounts.money || 2) / catTotals.money) * 100));
-  const pEaster = Math.min(100, Math.round(((catCounts.easter || 3) / catTotals.easter) * 100));
-  const pCheat = Math.min(100, Math.round((CHEATS_DATA.length / 16) * 100));
-
-  const fills = document.querySelectorAll('.prog-fill');
-  if (fills[0]) { fills[0].style.width = pStory + '%'; fills[0].dataset.w = pStory; }
-  if (fills[1]) { fills[1].style.width = pHeist + '%'; fills[1].dataset.w = pHeist; }
-  if (fills[2]) { fills[2].style.width = pMoney + '%'; fills[2].dataset.w = pMoney; }
-  if (fills[3]) { fills[3].style.width = pEaster + '%'; fills[3].dataset.w = pEaster; }
-  if (fills[4]) { fills[4].style.width = pCheat + '%'; fills[4].dataset.w = pCheat; }
-
-  const pcts = document.querySelectorAll('.prog-pct');
-  if (pcts[0]) pcts[0].textContent = pStory + '%';
-  if (pcts[1]) pcts[1].textContent = pHeist + '%';
-  if (pcts[2]) pcts[2].textContent = pMoney + '%';
-  if (pcts[3]) pcts[3].textContent = pEaster + '%';
-  if (pcts[4]) pcts[4].textContent = pCheat + '%';
-
-  // Update Guides Read Stat in Stat Box 1
   const readStat = document.querySelector('.stat-box.sb1 .stat-val');
-  if (readStat) readStat.textContent = Math.max(14, completed.length);
+  if (readStat) readStat.textContent = doneLive;
+  const readSub = document.querySelector('.stat-box.sb1 .stat-change');
+  if (readSub) readSub.textContent = `of ${liveTitles.length} live guides`;
 }
 
 // ─── ARTICLE CONTROLS & SYNCHRONIZATION ──────────────────────────────
@@ -2189,17 +1989,18 @@ function showArticle(title, cat, meta) {
 
   if (leadEl) leadEl.textContent = guide.lead;
   if (bodyEl) bodyEl.innerHTML = guide.body;
-  if (metaExtra) metaExtra.textContent = guide.badge || 'Verified Day-1';
-  if (metaRead) metaRead.textContent = meta || '10 min read';
+  if (metaExtra) metaExtra.textContent = guide.badge || 'In progress';
+  if (metaRead) metaRead.textContent = meta || '';
 
-  // Inject metrics bar
+  // Inject metrics bar (hidden for guides that aren't published yet)
   const metricsBar = document.getElementById('artMetricsBar');
-  if (metricsBar) {
+  if (metricsBar) metricsBar.style.display = guide.placeholder ? 'none' : 'grid';
+  if (metricsBar && !guide.placeholder) {
     metricsBar.innerHTML = `
       <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Protagonist</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--white)">${guide.protagonist || 'Lucia & Jason'}</div></div>
       <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Difficulty</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--gold)">${guide.difficulty || 'Medium'}</div></div>
-      <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Required Gear</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${guide.loadout ? guide.loadout.split(',')[0] : 'Standard Kit'}</div></div>
-      <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Status</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--teal)">Verified Day-1</div></div>
+      <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">You'll need</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${guide.loadout || 'Nothing special'}</div></div>
+      <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Status</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--teal)">Sourced · ${GUIDES_LAST_CHECKED}</div></div>
     `;
   }
 
@@ -2354,82 +2155,66 @@ function showView(v) {
 }
 
 // ─── SECTION GUIDES RENDERER ─────────────────────────────────────────
+// A guide is "live" when its title exists in ARTICLES_DB; everything else is listed as
+// "In progress". Planned topics must be neutral — no invented payouts, counts or locations.
 const guideData = {
   story: [
-    { cat: 'Story Mode', title: 'GTA 6 story missions in order — full walkthrough part 1', meta: '12 min · Chapter 1' },
-    { cat: 'Story Mode', title: 'All GTA 6 story endings — how to unlock each one', meta: '8 min · Endgame' },
-    { cat: 'Story Mode', title: 'Hidden dialogue choices that affect your playthrough', meta: '6 min · Tips' },
-    { cat: 'Story Mode', title: 'Best order to do side missions for max money early', meta: '10 min · Strategy' },
-    { cat: 'Story Mode', title: 'All collectibles in story mode — locations mapped', meta: '15 min · 100%' },
-    { cat: 'Story Mode', title: 'The missable missions guide — don\'t lock yourself out', meta: '7 min · Warning' }
+    { cat: 'Story Mode', title: 'GTA 6 story structure — chapters, mission count and missables', meta: '6 min · Live' },
+    { cat: 'Starter Guide', title: 'GTA 6 beginner essentials — what to know in your first hours', meta: '8 min · Live' },
+    { cat: 'Story Mode', title: 'Chapter 1 mission-by-mission walkthrough', meta: 'In progress' },
+    { cat: 'Story Mode', title: 'Missable optional missions — full checklist', meta: 'In progress' },
+    { cat: 'Story Mode', title: 'Collectibles and 100% completion', meta: 'In progress' }
   ],
   heist: [
-    { cat: 'Blueprint', title: 'Vice City Bank Job — Silent approach $4.2M max take', meta: '14 min · New' },
-    { cat: 'Blueprint', title: 'Airport Raid — all 3 approaches + $3.1M breakdown', meta: '16 min · Hard' },
-    { cat: 'Blueprint', title: 'Cargo Ship Takeover — hidden vault route + $2.2M', meta: '12 min · Medium' },
-    { cat: 'Blueprint', title: 'Mansion Heist — solo guide, all escape routes mapped', meta: '11 min · Solo' },
-    { cat: 'Blueprint', title: 'Casino Job — Big Con vs Silent approaches compared', meta: '14 min · Popular' },
-    { cat: 'Blueprint', title: 'Port Takeover — crew of 4 max take $3.8M strategy', meta: '13 min · Online' }
+    { cat: 'Heists', title: 'How heists and big scores work in GTA 6', meta: 'In progress' },
+    { cat: 'Heists', title: 'Store and jewelry robberies — what to expect', meta: 'In progress' },
+    { cat: 'Heists', title: 'Bank vault jobs — when they unlock', meta: 'In progress' }
   ],
   money: [
-    { cat: 'Money Meta', title: '$800K/hr passive: business stacking method explained', meta: '8 min · New' },
-    { cat: 'Money Meta', title: 'Best businesses to buy and in what order — ROI ranked', meta: '10 min · Beginner' },
-    { cat: 'Money Meta', title: 'Stock market manipulation guide — legal in-game method', meta: '12 min · Advanced' },
-    { cat: 'Money Meta', title: 'Daily objectives that pay $50K+ — complete list', meta: '5 min · Quick' },
-    { cat: 'Money Meta', title: 'Property investment timing — buy low, sell high guide', meta: '9 min · Strategy' },
-    { cat: 'Money Meta', title: 'Passive income setup: $200K/hr while offline', meta: '11 min · Setup' }
+    { cat: 'Money Meta', title: 'Early money in GTA 6 — methods that work in Chapters 1 and 2', meta: '7 min · Live' },
+    { cat: 'Money Meta', title: 'Fences and buyers — who buys what', meta: 'In progress' },
+    { cat: 'Money Meta', title: 'Banking, stashes and what carries over between chapters', meta: 'In progress' }
   ],
   online: [
-    { cat: 'Online', title: 'GTA Online for GTA 6 — first 30 days complete guide', meta: '18 min · Starter' },
-    { cat: 'Online', title: 'Cargo war tactics that work in 2025 lobbies', meta: '10 min · PvP' },
-    { cat: 'Online', title: 'Best crew compositions for every heist type', meta: '12 min · Team' },
-    { cat: 'Online', title: 'Griefing prevention — keep your cargo safe every time', meta: '8 min · Defense' },
-    { cat: 'Online', title: 'Rank levelling fastest route — Level 1 to 100 guide', meta: '14 min · Grind' },
-    { cat: 'Online', title: 'Best money-making businesses in GTA Online ranked', meta: '9 min · Income' }
+    { cat: 'Online', title: 'GTA Online and GTA 6 — what we know', meta: 'In progress' }
   ],
   vehicles: [
-    { cat: 'Vehicles', title: 'Top 15 fastest cars in GTA 6 — speed tested & ranked', meta: '7 min · Rankings' },
-    { cat: 'Vehicles', title: 'Best car for each heist type — handling vs speed guide', meta: '8 min · Heist' },
-    { cat: 'Vehicles', title: 'Hidden vehicle locations — 8 free supercars to grab', meta: '6 min · Free' },
-    { cat: 'Vehicles', title: 'Car modification guide — upgrades that actually matter', meta: '10 min · Tuning' },
-    { cat: 'Vehicles', title: 'Motorcycle builds for wanted level escape — ranked', meta: '5 min · Escape' },
-    { cat: 'Vehicles', title: 'Best aircraft for every situation — helicopters & planes', meta: '8 min · Air' }
+    { cat: 'Vehicles', title: 'Registering, tracking and selling cars', meta: 'In progress' },
+    { cat: 'Vehicles', title: 'Fastest cars — tested in-game', meta: 'In progress' }
   ],
   easter: [
-    { cat: 'Easter Egg', title: '23 confirmed Easter eggs in Leonida — all locations', meta: '10 min · Complete' },
-    { cat: 'Easter Egg', title: 'The alien encounter at coordinates 412.7 — how to trigger', meta: '5 min · Rare' },
-    { cat: 'Easter Egg', title: 'Hidden developer messages found in game files', meta: '7 min · Deep' },
-    { cat: 'Easter Egg', title: 'Secret missions unlocked by specific story choices', meta: '9 min · Story' },
-    { cat: 'Easter Egg', title: 'The mural that changes with weather — full breakdown', meta: '6 min · Visual' },
-    { cat: 'Easter Egg', title: 'All hidden packages — locations & rewards guide', meta: '12 min · Collectibles' }
+    { cat: 'Easter Eggs', title: 'Easter eggs and secrets in Leonida', meta: 'In progress' },
+    { cat: 'Easter Eggs', title: 'Animal and wildlife studies', meta: 'In progress' }
   ],
   builds: [
-    { cat: 'Build', title: 'Best gunman build for heists — weapons & stats ranked', meta: '10 min · Popular' },
-    { cat: 'Build', title: 'Stealth character build — max sneaking efficiency', meta: '8 min · Sneaky' },
-    { cat: 'Build', title: 'Best hacker build — skill priority & equipment guide', meta: '9 min · Support' },
-    { cat: 'Build', title: 'Weapon upgrade priority — what to buy first with $50K', meta: '6 min · Beginner' },
-    { cat: 'Build', title: 'Driver build — best skills for getaway efficiency', meta: '7 min · Escape' },
-    { cat: 'Build', title: 'Tank build — best armor, health & heavy weapon setup', meta: '8 min · Aggro' }
+    { cat: 'Builds', title: 'Weapons you keep vs lose — loadout guide', meta: 'In progress' },
+    { cat: 'Builds', title: 'Training stats: health, stamina and Focus', meta: 'In progress' }
   ],
   properties: [
-    { cat: 'Properties', title: 'GTA 6 property investment guide — ROI ranked', meta: '9 min · Strategy' },
-    { cat: 'Properties', title: 'When to buy each property — story timing guide', meta: '8 min · Timing' },
-    { cat: 'Properties', title: 'Passive income from properties — $200K/day setup', meta: '10 min · Income' },
-    { cat: 'Properties', title: 'Which safehouse location is best for each mission', meta: '6 min · Practical' }
+    { cat: 'Properties', title: 'Garages and property — what you can buy', meta: 'In progress' }
   ],
   wanted: [
-    { cat: 'Wanted Level', title: '5-star escape routes — best by district', meta: '8 min · Escape' },
-    { cat: 'Wanted Level', title: 'Police AI patterns — how cops actually think in GTA 6', meta: '10 min · Deep' },
-    { cat: 'Wanted Level', title: 'Best hiding spots for every wanted level', meta: '7 min · Survival' },
-    { cat: 'Wanted Level', title: 'New Port district escape route discovered', meta: '5 min · New' }
+    { cat: 'Wanted Level', title: 'Wanted level and heat in GTA 6 — how the police system works', meta: '6 min · Live' },
+    { cat: 'Wanted Level', title: 'Criminal Profile tiers explained', meta: 'In progress' }
   ],
   pro: [
-    { cat: 'Pro Plays', title: 'Insane stunt locations in Vice City — 12 confirmed', meta: '8 min · Stunts' },
-    { cat: 'Pro Plays', title: 'Speedrun route for story mode — current WR strategy', meta: '12 min · Speed' },
-    { cat: 'Pro Plays', title: 'Trick shot gallery — 8 insane shots with instructions', meta: '9 min · Skill' },
-    { cat: 'Pro Plays', title: 'No-damage playthrough guide — full story', meta: '14 min · Challenge' }
+    { cat: 'Pro Plays', title: 'Stunts, challenges and speedrun notes', meta: 'In progress' }
   ]
 };
+
+function isLiveGuide(title) { return !!ARTICLES_DB[title]; }
+
+// Fill the "All vault sections" counters on the dashboard from real data.
+function renderSectionCounts() {
+  document.querySelectorAll('.cat-d-count[data-sec]').forEach(el => {
+    const list = guideData[el.dataset.sec] || [];
+    const live = list.filter(g => isLiveGuide(g.title)).length;
+    el.textContent = live ? `${live} live · ${list.length - live} in progress` : 'In progress';
+    const bar = el.parentElement.querySelector('.cat-d-prog');
+    if (bar) bar.style.width = list.length ? Math.round((live / list.length) * 100) + '%' : '0%';
+  });
+}
+document.addEventListener('DOMContentLoaded', renderSectionCounts);
 
 const sectionThumb = {
   story:      { img: 'thumbs/story-endings.jpg',      accent: '#00a3ff' },
@@ -2447,17 +2232,19 @@ const sectionThumb = {
 function renderSectionGuides(v) {
   const grid = document.getElementById('section-guides');
   if (!grid) return;
-  const guides = guideData[v] || [];
+  const guides = (guideData[v] || []).slice().sort((a, b) => isLiveGuide(b.title) - isLiveGuide(a.title));
   const th = sectionThumb[v] || { img: '', accent: '#0070f3' };
 
   grid.style.gridTemplateColumns = 'repeat(auto-fill,minmax(270px,1fr))';
-  grid.innerHTML = guides.map(g => `
-    <div onclick="showArticle('${g.title.replace(/'/g, "\\'")}', '${g.cat.replace(/'/g, "\\'")}', '${g.meta.replace(/'/g, "\\'")}')" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .25s,transform .2s;position:relative" onmouseenter="this.style.borderColor='${th.accent}';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
+  grid.innerHTML = guides.map(g => {
+    const live = isLiveGuide(g.title);
+    return `
+    <div onclick="showArticle('${g.title.replace(/'/g, "\\'")}', '${g.cat.replace(/'/g, "\\'")}', '${g.meta.replace(/'/g, "\\'")}')" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .25s,transform .2s;position:relative;${live ? '' : 'opacity:.6;'}" onmouseenter="this.style.borderColor='${th.accent}';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
       <div style="height:110px;position:relative;overflow:hidden;background:#131320">
         ${th.img ? `<img src="${th.img}" alt="${g.cat}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.55">` : ''}
         <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.6),transparent)"></div>
         <div style="position:absolute;bottom:.6rem;left:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:${th.accent};background:rgba(0,0,0,.5);padding:.15rem .5rem;border-radius:2px;border:1px solid ${th.accent}44">${g.cat}</div>
-        ${g.meta.includes('New') ? `<div style="position:absolute;top:.6rem;right:.6rem;background:${th.accent};color:#030308;font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.15rem .5rem;border-radius:2px">NEW</div>` : ''}
+        <div style="position:absolute;top:.6rem;right:.6rem;background:${live ? th.accent : 'rgba(255,255,255,.12)'};color:${live ? '#030308' : 'var(--white)'};font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.15rem .5rem;border-radius:2px">${live ? 'LIVE' : 'IN PROGRESS'}</div>
       </div>
       <div style="padding:1rem 1.1rem 1.2rem;flex:1;display:flex;flex-direction:column">
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:.97rem;font-weight:800;line-height:1.35;color:var(--white);flex:1;margin-bottom:.7rem">${g.title}</div>
@@ -2466,8 +2253,8 @@ function renderSectionGuides(v) {
           <span style="color:${th.accent};font-size:.9rem">→</span>
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 // ─── SEARCH FUNCTIONALITY ────────────────────────────────────────────
@@ -2493,7 +2280,7 @@ function renderSearchGuides(q) {
   const matches = allGuides.filter(g => g.title.toLowerCase().includes(query) || g.cat.toLowerCase().includes(query));
 
   if (matches.length === 0) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No intel found matching "${query}". Try searching "bank", "cheetah", "escape", or "money".</div>`;
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No guides match "${query}". Try "money", "wanted", "story" or "beginner".</div>`;
     return;
   }
 
@@ -2603,7 +2390,7 @@ const tourSteps = [
   {
     selector: '.sb-item[onclick*="weekly"]',
     title: '📅 Weekly Drop Intel',
-    desc: 'Check here every Thursday. Our expert GTA analysts upload fresh story walkthroughs, heist maps, and weapon meta blueprints.'
+    desc: 'New guides land here as soon as we have confirmed them against the released game.'
   },
   {
     selector: '.sb-item[onclick*="map"]',
@@ -2871,8 +2658,6 @@ window.filterCheatCategory = filterCheatCategory;
 window.filterCheats = filterCheats;
 window.filterMapPins = filterMapPins;
 window.filterMapCategory = filterMapPins;
-window.selectPOIDash = selectPOIDash;
-window.selectPOI = selectPOIDash;
 window.closePOICardDash = closePOICardDash;
 window.closePOICard = closePOICardDash;
 window.toggleMobileSidebar = toggleMobileSidebar;
