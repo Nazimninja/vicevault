@@ -51,6 +51,9 @@
   - **Email OTP**: Secure one-time password verification via Resend.
 - Default authentication state for new signups is `unsubscribed` until payment confirmation callback verifies active membership.
 - Server-side access verification on `dashboard.html` entry prevents URL parameter bypass.
+- **Session tokens (security rule)**: every sign-in endpoint returns a signed `sessionToken` (HMAC with the `SESSION_SECRET` Worker secret, 30-day expiry), stored in the browser under `localStorage['vv_session']`. Account-specific endpoints (`/api/auth/status`, `cancel-subscription`, `discord` linking, `/api/pay/*`, `/api/admin/*`) identify the user ONLY from `Authorization: Bearer <token>` — never trust an email, tier or price sent in a request body. Use `VV.authHeaders()` in front-end code.
+- **Payments**: `create-order` stores `order:<id>` in KV bound to the signed-in email + tier; `verify` takes the tier from that record and marks `payment:<id>` used so a payment can't be replayed. Elite grants 365 days, Soldier/Pro 30 days.
+- Passwords are salted PBKDF2 (legacy SHA-256 hashes upgrade automatically on next login). OTPs allow 5 wrong attempts and one resend per minute.
 
 ### D. Content Architecture: Guides vs. Blogs
 - **Strict Separation**:

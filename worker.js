@@ -43,26 +43,134 @@ function getCorsHeaders(request) {
   return headers;
 }
 
-// ─── ADMIN HELPERS ─────────────────────────────────────────
-async function generateAdminToken(email, secret) {
-  const encoder = new TextEncoder();
-  const keyData = encoder.encode(secret);
-  const msgData = encoder.encode(email);
-  const cryptoKey = await crypto.subtle.importKey(
-    'raw', keyData, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
-  );
-  const buffer = await crypto.subtle.sign('HMAC', cryptoKey, msgData);
-  return Array.from(new Uint8Array(buffer))
-    .map(b => b.toString(16).padStart(2, '0')).join('');
+// ─── CRYPTO HELPERS ────────────────────────────────────────
+function toHex(buffer) {
+  return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-async function formatUserResponse(user, env) {
-  const secret = env.ADMIN_SECRET || env.RAZORPAY_KEY_SECRET;
-  if (user && env.ADMIN_EMAIL && secret && user.email.toLowerCase().trim() === env.ADMIN_EMAIL.toLowerCase().trim()) {
-    user.isAdmin = true;
-    user.adminToken = await generateAdminToken(user.email, secret);
+async function hmacHex(secret, message) {
+  const encoder = new TextEncoder();
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  );
+  return toHex(await crypto.subtle.sign('HMAC', cryptoKey, encoder.encode(message)));
+}
+
+function timingSafeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+function b64urlEncode(str) {
+  return btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function b64urlDecode(str) {
+  let s = str.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  return decodeURIComponent(escape(atob(s)));
+}
+
+// ─── SESSION TOKENS ────────────────────────────────────────
+// Stateless signed tokens: base64url({e: email, exp}) + "." + HMAC-SHA256.
+// The server derives the user's identity ONLY from a valid token — never from
+// an email address sent in the request body.
+const SESSION_TTL_SECONDS = 30 * 86400; // 30 days
+
+function getSessionSecret(env) {
+  return env.SESSION_SECRET || env.ADMIN_SECRET || null;
+}
+
+async function createSessionToken(email, env) {
+  const secret = getSessionSecret(env);
+  if (!secret) throw new Error('Server auth is not configured (SESSION_SECRET missing)');
+  const payload = b64urlEncode(JSON.stringify({ e: email, exp: Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS }));
+  const sig = await hmacHex(secret, 'session.' + payload);
+  return `${payload}.${sig}`;
+}
+
+async function verifySessionToken(token, env) {
+  const secret = getSessionSecret(env);
+  if (!secret || typeof token !== 'string') return null;
+  const [payload, sig] = token.split('.');
+  if (!payload || !sig) return null;
+  const expected = await hmacHex(secret, 'session.' + payload);
+  if (!timingSafeEqual(expected, sig)) return null;
+  try {
+    const data = JSON.parse(b64urlDecode(payload));
+    if (!data.e || !data.exp || data.exp < Math.floor(Date.now() / 1000)) return null;
+    return String(data.e).toLowerCase().trim();
+  } catch (e) {
+    return null;
   }
-  return user;
+}
+
+async function getSessionEmail(request, env) {
+  const header = request.headers.get('Authorization') || '';
+  const match = header.match(/^Bearer\s+(.+)$/i);
+  if (!match) return null;
+  return verifySessionToken(match[1].trim(), env);
+}
+
+function isAdminEmail(email, env) {
+  return !!(email && env.ADMIN_EMAIL && email === env.ADMIN_EMAIL.toLowerCase().trim());
+}
+
+function hasActiveAccess(user) {
+  if (!user) return false;
+  if (user.subscribed) return true;
+  const expiresAt = user.subscriptionExpiresAt ? new Date(user.subscriptionExpiresAt) : null;
+  return !!(expiresAt && new Date() <= expiresAt); // 7-day grace period
+}
+
+// Strip secrets (password hash etc.) before sending a user record to a browser
+function publicUser(user) {
+  if (!user) return null;
+  const { passwordHash, passwordSalt, ...rest } = user;
+  return rest;
+}
+
+// Standard response for every successful sign-in: safe user + fresh session token.
+// Admins get isAdmin + adminToken (the same session token) so admin.html keeps working.
+async function authSuccess(user, env) {
+  const sessionToken = await createSessionToken(user.email, env);
+  const out = publicUser(user);
+  if (isAdminEmail(user.email, env)) {
+    out.isAdmin = true;
+    out.adminToken = sessionToken;
+  }
+  return json({ success: true, user: out, sessionToken });
+}
+
+// ─── PASSWORD HASHING (PBKDF2, salted) ─────────────────────
+const PBKDF2_ITERATIONS = 100000; // Workers runtime maximum
+
+async function pbkdf2Hex(password, saltHex) {
+  const encoder = new TextEncoder();
+  const salt = new Uint8Array(saltHex.match(/.{2}/g).map(h => parseInt(h, 16)));
+  const keyMaterial = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', hash: 'SHA-256', salt, iterations: PBKDF2_ITERATIONS }, keyMaterial, 256
+  );
+  return toHex(bits);
+}
+
+async function createPasswordHash(password) {
+  const saltHex = toHex(crypto.getRandomValues(new Uint8Array(16)));
+  return `pbkdf2$${PBKDF2_ITERATIONS}$${saltHex}$${await pbkdf2Hex(password, saltHex)}`;
+}
+
+// Returns { ok, needsUpgrade }. Legacy accounts stored an unsalted SHA-256 hex digest.
+async function verifyPassword(password, stored) {
+  if (!stored) return { ok: false };
+  if (stored.startsWith('pbkdf2$')) {
+    const [, , saltHex, hash] = stored.split('$');
+    return { ok: timingSafeEqual(await pbkdf2Hex(password, saltHex), hash), needsUpgrade: false };
+  }
+  const legacy = toHex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password)));
+  return { ok: timingSafeEqual(legacy, stored), needsUpgrade: true };
 }
 
 // ─── MAIN HANDLER ──────────────────────────────────────────
@@ -105,14 +213,11 @@ export default {
     } else if (url.pathname === '/api/pay/verify' && request.method === 'POST') {
       response = await handleVerifyPayment(request, env);
     } else if (url.pathname.startsWith('/api/admin/')) {
-      const authHeader = request.headers.get('Authorization') || '';
-      const token = authHeader.replace('Bearer ', '').trim();
-      const secret = env.ADMIN_SECRET || env.RAZORPAY_KEY_SECRET;
-      if (!secret || !env.ADMIN_EMAIL) {
+      if (!getSessionSecret(env) || !env.ADMIN_EMAIL) {
         response = json({ error: 'Admin configuration missing' }, 500);
       } else {
-        const expectedToken = await generateAdminToken(env.ADMIN_EMAIL, secret);
-        if (!token || token !== expectedToken) {
+        const sessionEmail = await getSessionEmail(request, env);
+        if (!isAdminEmail(sessionEmail, env)) {
           response = json({ error: 'Unauthorized' }, 401);
         } else {
           if (url.pathname === '/api/admin/stats' && request.method === 'GET') {
@@ -524,11 +629,18 @@ async function handleSendOTP(request, env) {
       return json({ error: 'Invalid email address' }, 400);
     }
 
-    // Generate random 6-digit OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // Basic resend throttle: one code per email per minute (matches the signup page countdown)
+    if (await env.VICE_VAULT_KV.get(`otp_cooldown:${cleanEmail}`)) {
+      return json({ error: 'Please wait a minute before requesting another code.' }, 429);
+    }
 
-    // Save in KV with TTL 300 seconds (5 minutes)
+    // Generate cryptographically random 6-digit OTP
+    const otp = (100000 + (crypto.getRandomValues(new Uint32Array(1))[0] % 900000)).toString();
+
+    // Save in KV with TTL 300 seconds (5 minutes); a new code resets the attempt counter
     await env.VICE_VAULT_KV.put(`otp:${cleanEmail}`, otp, { expirationTtl: 300 });
+    await env.VICE_VAULT_KV.delete(`otp_attempts:${cleanEmail}`);
+    await env.VICE_VAULT_KV.put(`otp_cooldown:${cleanEmail}`, '1', { expirationTtl: 60 });
 
     // Send email via Resend
     if (env.RESEND_API_KEY) {
@@ -566,12 +678,23 @@ async function handleVerifyOTP(request, env) {
     }
 
     const savedCode = await env.VICE_VAULT_KV.get(`otp:${cleanEmail}`);
-    if (!savedCode || savedCode !== inputCode) {
+    if (!savedCode || !timingSafeEqual(savedCode, inputCode)) {
+      if (savedCode) {
+        // Max 5 wrong guesses per code, then the code is burned
+        const attempts = parseInt(await env.VICE_VAULT_KV.get(`otp_attempts:${cleanEmail}`) || '0', 10) + 1;
+        if (attempts >= 5) {
+          await env.VICE_VAULT_KV.delete(`otp:${cleanEmail}`);
+          await env.VICE_VAULT_KV.delete(`otp_attempts:${cleanEmail}`);
+          return json({ error: 'Too many incorrect attempts. Please request a new code.' }, 429);
+        }
+        await env.VICE_VAULT_KV.put(`otp_attempts:${cleanEmail}`, String(attempts), { expirationTtl: 300 });
+      }
       return json({ error: 'Invalid or expired verification code' }, 400);
     }
 
     // Delete code from KV
     await env.VICE_VAULT_KV.delete(`otp:${cleanEmail}`);
+    await env.VICE_VAULT_KV.delete(`otp_attempts:${cleanEmail}`);
 
     let tier = 'pro';
     if (tierId === '199' || tierId === '299' || tierId === 'soldier') tier = 'soldier';
@@ -625,12 +748,13 @@ async function handleVerifyOTP(request, env) {
       } catch(err) { console.error("Webhook error:", err); }
     }
 
-    const responseUser = await formatUserResponse(user, env);
-    return json({ success: true, user: responseUser });
+    return await authSuccess(user, env);
   } catch (e) {
     return json({ error: e.message }, 500);
   }
 }
+
+const DEFAULT_GOOGLE_CLIENT_ID = '804858392117-7pmts3ffsa30f7to3jggnh4m49evc7a0.apps.googleusercontent.com';
 
 async function handleGoogleAuth(request, env) {
   try {
@@ -640,13 +764,25 @@ async function handleGoogleAuth(request, env) {
     }
 
     // Call Google OAuth Tokeninfo API to verify the token signature
-    const googleRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${token}`);
+    const googleRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(token)}`);
     if (!googleRes.ok) {
       return json({ error: 'Invalid Google credential token' }, 400);
     }
     const payload = await googleRes.json();
-    
+
+    // The token must have been issued for OUR app, to a verified email address
+    const expectedAud = env.GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
+    if (payload.aud !== expectedAud) {
+      return json({ error: 'Google token was not issued for Vice Vault' }, 400);
+    }
+    if (payload.email_verified !== true && payload.email_verified !== 'true') {
+      return json({ error: 'Your Google email address is not verified' }, 400);
+    }
+
     const email = (payload.email || '').toLowerCase().trim();
+    if (!email) {
+      return json({ error: 'Google account has no email address' }, 400);
+    }
     const firstName = payload.given_name || '';
     const lastName = payload.family_name || '';
 
@@ -704,8 +840,7 @@ async function handleGoogleAuth(request, env) {
       } catch(err) { console.error("Webhook error:", err); }
     }
 
-    const responseUser = await formatUserResponse(user, env);
-    return json({ success: true, user: responseUser });
+    return await authSuccess(user, env);
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -747,7 +882,10 @@ function otpEmailHTML(otp) {
 
 async function handleDiscordAuth(request, env) {
   try {
-    const { code, redirectUri, tierId, currentUserEmail } = await request.json();
+    const { code, redirectUri, tierId } = await request.json();
+    // If the browser already has a valid session, this call LINKS Discord to that account.
+    // The account email is never taken from the request body.
+    const sessionEmail = await getSessionEmail(request, env);
     if (!code || !redirectUri) {
       return json({ error: 'Missing code or redirectUri' }, 400);
     }
@@ -783,12 +921,14 @@ async function handleDiscordAuth(request, env) {
     }
 
     const userData = await userResponse.json();
-    const email = currentUserEmail ? currentUserEmail.toLowerCase().trim() : (userData.email || '').toLowerCase().trim();
-    const username = userData.username || '';
-
+    let email = sessionEmail;
     if (!email) {
-      return json({ error: 'Your Discord account must have a verified email address to sign in.' }, 400);
+      if (!userData.email || userData.verified !== true) {
+        return json({ error: 'Your Discord account must have a verified email address to sign in.' }, 400);
+      }
+      email = userData.email.toLowerCase().trim();
     }
+    const username = userData.username || '';
 
     // 3. Map tier ID
     let tier = 'pro';
@@ -828,8 +968,8 @@ async function handleDiscordAuth(request, env) {
 
     await env.VICE_VAULT_KV.put(`user:${email}`, JSON.stringify(user));
 
-    // 4. Auto-join server & assign roles if tier is Vault Pro/Elite
-    if ((tier === 'pro' || tier === 'elite') && env.DISCORD_BOT_TOKEN && env.DISCORD_GUILD_ID && env.DISCORD_PRO_ROLE_ID) {
+    // 4. Auto-join server & assign roles only for PAYING Vault Pro/Elite members
+    if (hasActiveAccess(user) && (tier === 'pro' || tier === 'elite') && env.DISCORD_BOT_TOKEN && env.DISCORD_GUILD_ID && env.DISCORD_PRO_ROLE_ID) {
       try {
         const userId = userData.id;
         const guildId = env.DISCORD_GUILD_ID;
@@ -879,8 +1019,7 @@ async function handleDiscordAuth(request, env) {
       } catch(err) { console.error("Webhook error:", err); }
     }
 
-    const responseUser = await formatUserResponse(user, env);
-    return json({ success: true, user: responseUser });
+    return await authSuccess(user, env);
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -888,10 +1027,9 @@ async function handleDiscordAuth(request, env) {
 
 async function handleCancelSubscription(request, env) {
   try {
-    const { email } = await request.json();
-    const cleanEmail = (email || '').toLowerCase().trim();
+    const cleanEmail = await getSessionEmail(request, env);
     if (!cleanEmail) {
-      return json({ error: 'Missing email' }, 400);
+      return json({ error: 'Please sign in again to manage your subscription.' }, 401);
     }
 
     const userStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
@@ -926,8 +1064,7 @@ async function handleCancelSubscription(request, env) {
       } catch(err) {}
     }
 
-    const responseUser = await formatUserResponse(user, env);
-    return json({ success: true, user: responseUser });
+    return await authSuccess(user, env);
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -997,8 +1134,15 @@ async function syncDiscordRoles(env) {
 }
 
 // ─── RAZORPAY: CREATE ORDER ────────────────────────────────
+// Days of access granted per tier (Elite is sold as an annual plan)
+const TIER_ACCESS_DAYS = { soldier: 30, pro: 30, elite: 365 };
+
 async function handleCreateOrder(request, env) {
   try {
+    const sessionEmail = await getSessionEmail(request, env);
+    if (!sessionEmail) {
+      return json({ error: 'Please sign in before checking out.' }, 401);
+    }
     const { tier } = await request.json();
 
     // Price map in paise (INR × 100)
@@ -1029,7 +1173,8 @@ async function handleCreateOrder(request, env) {
         amount,
         currency: 'INR',
         receipt: `vv_${tier}_${Date.now()}`,
-        payment_capture: 1
+        payment_capture: 1,
+        notes: { email: sessionEmail, tier }
       })
     });
 
@@ -1039,6 +1184,11 @@ async function handleCreateOrder(request, env) {
     }
 
     const order = await rzpRes.json();
+
+    // Bind the order to this account + tier server-side (24h to complete payment)
+    await env.VICE_VAULT_KV.put(`order:${order.id}`, JSON.stringify({
+      email: sessionEmail, tier, amount, createdAt: new Date().toISOString()
+    }), { expirationTtl: 86400 });
     return json({
       success: true,
       orderId: order.id,
@@ -1054,13 +1204,17 @@ async function handleCreateOrder(request, env) {
 // ─── RAZORPAY: VERIFY PAYMENT ──────────────────────────────
 async function handleVerifyPayment(request, env) {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, email, tier, firstName, lastName } = await request.json();
+    const sessionEmail = await getSessionEmail(request, env);
+    if (!sessionEmail) {
+      return json({ error: 'Your session expired. Please sign in again — your payment is safe; contact support if access is not granted.' }, 401);
+    }
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, firstName, lastName } = await request.json();
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
       return json({ error: 'Missing payment verification fields' }, 400);
     }
-    if (!email) {
-      return json({ error: 'Missing email' }, 400);
+    if (!env.RAZORPAY_KEY_SECRET) {
+      return json({ error: 'Payment gateway not configured.' }, 500);
     }
 
     // Verify HMAC SHA256 signature
@@ -1076,15 +1230,33 @@ async function handleVerifyPayment(request, env) {
     const expectedSignature = Array.from(new Uint8Array(signatureBuffer))
       .map(b => b.toString(16).padStart(2, '0')).join('');
 
-    if (expectedSignature !== razorpay_signature) {
+    if (!timingSafeEqual(expectedSignature, String(razorpay_signature))) {
       return json({ error: 'Payment verification failed — invalid signature.' }, 400);
     }
 
-    // Payment is valid — activate subscription
-    const cleanEmail = email.toLowerCase().trim();
-    let tierName = 'pro';
-    if (tier === 'soldier' || tier === '199' || tier === '299') tierName = 'soldier';
-    if (tier === 'elite' || tier === '1199' || tier === '999') tierName = 'elite';
+    // The order must be one WE created, for THIS signed-in account
+    const orderStr = await env.VICE_VAULT_KV.get(`order:${razorpay_order_id}`);
+    if (!orderStr) {
+      return json({ error: 'Unknown or expired order. Please contact support with your payment ID.' }, 400);
+    }
+    const order = JSON.parse(orderStr);
+    if (order.email !== sessionEmail) {
+      return json({ error: 'This payment belongs to a different account.' }, 403);
+    }
+
+    // Each payment can activate a subscription only once
+    if (await env.VICE_VAULT_KV.get(`payment:${razorpay_payment_id}`)) {
+      return json({ error: 'This payment has already been used.' }, 409);
+    }
+    await env.VICE_VAULT_KV.put(`payment:${razorpay_payment_id}`, JSON.stringify({
+      email: sessionEmail, orderId: razorpay_order_id, tier: order.tier, amount: order.amount, at: new Date().toISOString()
+    }));
+    await env.VICE_VAULT_KV.delete(`order:${razorpay_order_id}`);
+
+    // Payment is valid — activate subscription with the tier that was actually paid for
+    const cleanEmail = sessionEmail;
+    const tierName = order.tier;
+    const accessDays = TIER_ACCESS_DAYS[tierName] || 30;
 
     const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
     let user = existingStr ? JSON.parse(existingStr) : {};
@@ -1096,7 +1268,7 @@ async function handleVerifyPayment(request, env) {
       lastName: lastName || user.lastName || '',
       tier: tierName,
       subscribed: true,
-      subscriptionExpiresAt: new Date(Date.now() + 30 * 86400 * 1000).toISOString(),
+      subscriptionExpiresAt: new Date(Date.now() + accessDays * 86400 * 1000).toISOString(),
       lastPaymentId: razorpay_payment_id,
       lastOrderId: razorpay_order_id,
       joinedAt: user.joinedAt || new Date().toISOString()
@@ -1129,8 +1301,7 @@ async function handleVerifyPayment(request, env) {
       } catch(err) {}
     }
 
-    const responseUser = await formatUserResponse(user, env);
-    return json({ success: true, user: responseUser });
+    return await authSuccess(user, env);
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -1193,7 +1364,7 @@ async function handleAdminUsers(env) {
       const val = await env.VICE_VAULT_KV.get(key.name);
       if (val) {
         try {
-          users.push(JSON.parse(val));
+          users.push(publicUser(JSON.parse(val)));
         } catch(e) {}
       }
     }
@@ -1248,7 +1419,7 @@ async function handleAdminUpdateUser(request, env) {
     if (subscriptionExpiresAt !== undefined) user.subscriptionExpiresAt = subscriptionExpiresAt;
 
     await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
-    return json({ success: true, user });
+    return json({ success: true, user: publicUser(user) });
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -1291,31 +1462,21 @@ async function handleAdminDeleteUser(request, env) {
   }
 }
 
-async function hashPassword(password) {
-  const msgUint8 = new TextEncoder().encode(password);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
 async function handleRegister(request, env) {
   try {
     const { email, password, firstName, lastName, tier } = await request.json();
     const cleanEmail = (email || '').toLowerCase().trim();
-    if (!cleanEmail || !password || password.length < 8) {
+    if (!isValidEmail(cleanEmail) || !password || password.length < 8) {
       return json({ error: 'Valid email and password (min 8 chars) are required' }, 400);
     }
-    
-    // Check if user already exists
+
+    // Never overwrite an existing account (it may belong to someone who signed in via Google/OTP/Discord)
     const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
     if (existingStr) {
-      const existing = JSON.parse(existingStr);
-      if (existing.subscribed) {
-        return json({ error: 'This email is already registered and subscribed. Please sign in instead.' }, 400);
-      }
+      return json({ error: 'An account with this email already exists. Please sign in instead (use the email code option if you signed up with Google or Discord).' }, 409);
     }
-    
-    const passwordHash = await hashPassword(password);
+
+    const passwordHash = await createPasswordHash(password);
     
     let tierName = 'pro';
     if (tier === 'soldier' || tier === '299') tierName = 'soldier';
@@ -1332,7 +1493,7 @@ async function handleRegister(request, env) {
     };
     
     await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
-    return json({ success: true, user: { email: user.email, firstName: user.firstName, lastName: user.lastName, tier: user.tier, subscribed: user.subscribed } });
+    return await authSuccess(user, env);
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -1356,24 +1517,18 @@ async function handleLogin(request, env) {
       return json({ error: 'This account was created via social login or OTP. Please sign in using the OTP link or Google/Discord.' }, 400);
     }
     
-    const inputHash = await hashPassword(password);
-    if (user.passwordHash !== inputHash) {
+    const { ok, needsUpgrade } = await verifyPassword(password, user.passwordHash);
+    if (!ok) {
       return json({ error: 'Incorrect password. Please try again.' }, 400);
     }
-    
-    // Return user info (omit password hash for security)
-    return json({
-      success: true,
-      user: {
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        tier: user.tier,
-        subscribed: user.subscribed,
-        discordUserId: user.discordUserId,
-        joinedAt: user.joinedAt
-      }
-    });
+
+    // Transparently migrate legacy unsalted SHA-256 hashes to salted PBKDF2
+    if (needsUpgrade) {
+      user.passwordHash = await createPasswordHash(password);
+      await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
+    }
+
+    return await authSuccess(user, env);
   } catch (e) {
     return json({ error: e.message }, 500);
   }
@@ -1381,25 +1536,19 @@ async function handleLogin(request, env) {
 
 async function handleUserStatus(request, env) {
   try {
-    const { email } = await request.json();
-    const cleanEmail = (email || '').toLowerCase().trim();
+    const cleanEmail = await getSessionEmail(request, env);
     if (!cleanEmail) {
-      return json({ error: 'Email is required' }, 400);
+      return json({ error: 'Not signed in', authRequired: true }, 401);
     }
     const userStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
     if (!userStr) {
-      return json({ error: 'User not found' }, 404);
+      return json({ error: 'User not found', authRequired: true }, 401);
     }
     const user = JSON.parse(userStr);
-    const now = new Date();
-    const expiresAt = user.subscriptionExpiresAt ? new Date(user.subscriptionExpiresAt) : null;
-    let hasAccess = !!user.subscribed;
-    if (!hasAccess && expiresAt && now <= expiresAt) {
-      hasAccess = true; // Still within 7-day grace period!
-    }
     return json({
       success: true,
-      subscribed: hasAccess,
+      email: cleanEmail,
+      subscribed: hasActiveAccess(user), // includes 7-day grace period
       tier: user.tier || 'pro',
       subscriptionExpiresAt: user.subscriptionExpiresAt || ''
     });

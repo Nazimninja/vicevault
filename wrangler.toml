@@ -24,6 +24,9 @@ preview_id = "f2c6cbddba344806aed74123479fa214"
 #   wrangler secret put RESEND_API_KEY
 #   wrangler secret put FROM_EMAIL
 #   wrangler secret put ADMIN_EMAIL
+#   wrangler secret put SESSION_SECRET   ← REQUIRED: long random string that signs login sessions.
+#                                          Without it every sign-in fails. Changing it logs everyone out.
+#   (optional) wrangler secret put GOOGLE_CLIENT_ID  — defaults to the client ID in signup.html
 [vars]
 ENVIRONMENT = "production"
 

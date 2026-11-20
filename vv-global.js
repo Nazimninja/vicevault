@@ -1047,6 +1047,34 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
 
   // ─── AUTHENTICATION SYSTEM ──────────────────────────────────
   const USER_KEY = 'vv_user';
+  // Signed session token issued by the Worker. Kept in its own key so pages that
+  // rewrite the cached vv_user object can never drop it. The server derives the
+  // account from this token only — never from an email the browser sends.
+  const SESSION_KEY = 'vv_session';
+
+  function getSessionToken() {
+    try { return localStorage.getItem(SESSION_KEY) || ''; } catch (e) { return ''; }
+  }
+
+  function storeSession(data) {
+    if (data && data.sessionToken) {
+      try { localStorage.setItem(SESSION_KEY, data.sessionToken); } catch (e) {}
+    }
+  }
+
+  function clearSession() {
+    try {
+      localStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(USER_KEY);
+    } catch (e) {}
+  }
+
+  function authHeaders() {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = getSessionToken();
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+    return headers;
+  }
 
   const TIER_LEVELS = {
     'none': 0,
@@ -1077,6 +1105,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
       });
       const data = await res.json();
       if (data.success && data.user) {
+        storeSession(data);
         localStorage.setItem(USER_KEY, JSON.stringify(data.user));
         return { success: true, user: data.user };
       }
@@ -1095,6 +1124,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
       });
       const data = await res.json();
       if (data.success && data.user) {
+        storeSession(data);
         localStorage.setItem(USER_KEY, JSON.stringify(data.user));
         return { success: true, user: data.user };
       }
@@ -1123,7 +1153,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
   }
 
   function logout() {
-    localStorage.removeItem(USER_KEY);
+    clearSession();
     window.location.href = 'index.html';
   }
 
@@ -1143,9 +1173,15 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     try {
       const res = await fetch(`${API_BASE}/api/auth/cancel-subscription`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: user.email })
+        headers: authHeaders(),
+        body: JSON.stringify({})
       });
+      if (res.status === 401) {
+        alert("Your session has expired. Please sign in again to manage your subscription.");
+        clearSession();
+        window.location.href = 'signup.html?mode=login';
+        return;
+      }
       const data = await res.json();
       if (data.success) {
         alert("Subscription cancelled successfully! Discord roles have been revoked.");
@@ -1377,6 +1413,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
       });
       const data = await res.json();
       if (data.success && data.user) {
+        storeSession(data);
         localStorage.setItem(USER_KEY, JSON.stringify(data.user));
       }
       return data;
@@ -1394,6 +1431,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
       });
       const data = await res.json();
       if (data.success && data.user) {
+        storeSession(data);
         localStorage.setItem(USER_KEY, JSON.stringify(data.user));
       }
       return data;
@@ -1402,15 +1440,18 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     }
   }
 
-  async function loginWithDiscord(code, redirectUri, tierId, currentUserEmail = '') {
+  // If a session exists, the Worker links Discord to that signed-in account;
+  // otherwise it signs in with the Discord account's verified email.
+  async function loginWithDiscord(code, redirectUri, tierId) {
     try {
       const res = await fetch(`${API_BASE}/api/auth/discord`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, redirectUri, tierId, currentUserEmail })
+        headers: authHeaders(),
+        body: JSON.stringify({ code, redirectUri, tierId })
       });
       const data = await res.json();
       if (data.success && data.user) {
+        storeSession(data);
         localStorage.setItem(USER_KEY, JSON.stringify(data.user));
       }
       return data;
@@ -1423,6 +1464,9 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
   window.VV = {
     ...window.VV,
     getCurrentUser,
+    getSessionToken,
+    authHeaders,
+    clearSession,
     login,
     register,
     signup,
@@ -1639,11 +1683,19 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     if (currentUser && currentUser.email) {
       fetch(`${API_BASE}/api/auth/status`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: currentUser.email })
+        headers: authHeaders(),
+        body: JSON.stringify({})
       })
       .then(res => res.json())
       .then(data => {
+        if (data.authRequired) {
+          // No valid session (e.g. signed in before session tokens existed): treat as signed out
+          currentUser.subscribed = false;
+          currentUser.subscriptionExpiresAt = '';
+          clearSession();
+          processContentGating();
+          return;
+        }
         if (data.success) {
           currentUser.subscribed = data.subscribed;
           currentUser.tier = data.tier;
@@ -1780,9 +1832,15 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
       // 1. Create order on backend
       const orderRes = await fetch(`${API_BASE}/api/pay/create-order`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders(),
         body: JSON.stringify({ tier })
       });
+      if (orderRes.status === 401) {
+        alert('Please sign in (or create your account) before checking out.');
+        clearSession();
+        window.location.href = 'signup.html?mode=login';
+        return;
+      }
       const orderData = await orderRes.json();
 
       if (!orderData.success) {
@@ -1816,12 +1874,11 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
           try {
             const verifyRes = await fetch(`${API_BASE}/api/pay/verify`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: authHeaders(),
               body: JSON.stringify({
                 razorpay_order_id:   response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature:  response.razorpay_signature,
-                email, tier,
                 firstName: user?.firstName || '',
                 lastName:  user?.lastName  || ''
               })
@@ -1829,7 +1886,8 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
             const verifyData = await verifyRes.json();
 
             if (verifyData.success) {
-              // Save updated user to localStorage
+              // Save updated user + refreshed session to localStorage
+              storeSession(verifyData);
               localStorage.setItem('vv_user', JSON.stringify(verifyData.user));
               // Redirect to dashboard
               window.location.href = '/dashboard.html?payment=success&tier=' + tier;

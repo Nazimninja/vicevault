@@ -609,11 +609,13 @@
     function handleUnauthorized() {
       alert("Session expired or unauthorized. Please log in again.");
       localStorage.removeItem('vv_user');
+      localStorage.removeItem('vv_session');
       window.location.replace('signup.html?mode=login');
     }
 
     function signOut() {
       localStorage.removeItem('vv_user');
+      localStorage.removeItem('vv_session');
       window.location.replace('index.html');
     }
 

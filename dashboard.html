@@ -3,7 +3,8 @@
 <head>
 <script>
   // Local development / preview auto-login helper
-  const isLocalDev = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1') || window.location.search.includes('demo=1');
+  // Preview login is for local development only — never honoured on the live site
+  const isLocalDev = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
   if (isLocalDev) {
     const existingUser = JSON.parse(localStorage.getItem('vv_user') || '{}');
     if (!existingUser.email || !existingUser.subscribed) {
@@ -28,13 +29,25 @@
   } else {
     // Asynchronously verify subscription status with server to prevent local storage bypass
     if (!isLocalDev && user && user.email) {
+      const sessionToken = localStorage.getItem('vv_session') || '';
+      if (!sessionToken) {
+        // Signed in before session tokens existed (or session cleared): sign in again
+        localStorage.removeItem('vv_user');
+        window.location.replace('signup.html?mode=login');
+      }
       fetch('/api/auth/status', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: user.email })
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionToken}` },
+        body: JSON.stringify({})
       })
       .then(res => res.json())
       .then(data => {
+        if (data.authRequired) {
+          localStorage.removeItem('vv_user');
+          localStorage.removeItem('vv_session');
+          window.location.replace('signup.html?mode=login');
+          return;
+        }
         if (data.success) {
           if (!data.subscribed) {
             user.subscribed = false;
