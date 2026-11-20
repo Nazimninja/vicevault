@@ -196,7 +196,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:60px 2.
     <div class="radar-bar">
       <div class="radar-status">
         <span class="radar-pulse"></span>
-        <span>GPS TELEMETRY ACTIVE · RESOLUTION: ULTRA-HD</span>
+        <span id="mapStatusText">PREVIEW ATLAS: 3 OF 18 POIS UNLOCKED</span><a href="preorder.html" id="mapUnlockLink" style="color:#00f0ff;margin-left:.6rem;text-decoration:underline;font-weight:700">UNLOCK FULL ATLAS WITH VIP PASS →</a>
       </div>
       <div class="radar-coords" id="radarCoords">LAT 25.7617° N · LON 80.1918° W</div>
     </div>
@@ -405,14 +405,59 @@ function filterPins(cat, btn){
   });
 }
 
+const PREVIEW_POIS = ['Vice City First National Bank', 'Ocean Beach Motel Hideout', 'Little Haiti Pawn & Jewelry Fence'];
+
 function selectPOI(name){
-  const card=Array.from(document.querySelectorAll('.poi-card')).find(c=>c.querySelector('.poi-title').textContent.includes(name.split(' ')[0]));
+  const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
+  const isMember = user.subscribed && (user.tier === 'pro' || user.tier === 'elite');
+  const isFree = PREVIEW_POIS.some(p => name.includes(p.split(' ')[0]));
+  
+  if (!isMember && !isFree) {
+    showMapLockModal(name);
+    return;
+  }
+
+  const card = Array.from(document.querySelectorAll('.poi-card')).find(c => c.querySelector('.poi-title').textContent.includes(name.split(' ')[0]));
   if(card){
     card.scrollIntoView({behavior:'smooth',block:'center'});
     card.style.borderColor='var(--gold)';
     setTimeout(()=>card.style.borderColor='var(--border)',2000);
   }
 }
+
+function showMapLockModal(poiName) {
+  const oldM = document.getElementById('mapLockModal');
+  if (oldM) oldM.remove();
+  
+  const m = document.createElement('div');
+  m.id = 'mapLockModal';
+  m.style.cssText = 'position:fixed;inset:0;background:rgba(3,3,8,0.85);backdrop-filter:blur(10px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:1.5rem';
+  m.innerHTML = `
+    <div style="background:linear-gradient(135deg,rgba(13,13,24,0.98),rgba(3,3,8,0.98));border:1px solid rgba(0,240,255,0.35);border-radius:8px;padding:2.5rem 2rem;max-width:480px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.8),0 0 30px rgba(0,240,255,0.1);position:relative">
+      <button onclick="document.getElementById('mapLockModal').remove()" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer">✕</button>
+      <div style="font-size:2.8rem;margin-bottom:.8rem">🔒</div>
+      <div style="display:inline-block;background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);color:#00f0ff;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.25rem .75rem;border-radius:2px;margin-bottom:1rem">CLASSIFIED RADAR INTEL</div>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.04em;color:#fff;margin-bottom:.4rem;line-height:1.1">${poiName}</h3>
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:1.8rem">This strategic location contains classified heist approach blueprints, security camera blind spots, and high-value loot stashes. Subscribe to Vault Pro to unlock the full 18-location atlas.</p>
+      <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+        <a href="preorder.html" class="btn-g" style="padding:.75rem 1.6rem;font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(90deg,#00f0ff,#0070f3)!important;color:#000!important;border:none;border-radius:2px;text-decoration:none">Unlock Full Map — Get VIP Pass →</a>
+        <a href="dashboard.html" class="btn-o" style="padding:.75rem 1.4rem;font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:#fff;border-radius:2px;text-decoration:none">Member Login</a>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(m);
+}
+
+// Check member access to update header
+document.addEventListener('DOMContentLoaded', () => {
+  const u = JSON.parse(localStorage.getItem('vv_user') || '{}');
+  if (u.subscribed && (u.tier === 'pro' || u.tier === 'elite')) {
+    const st = document.getElementById('mapStatusText');
+    const lk = document.getElementById('mapUnlockLink');
+    if (st) st.textContent = 'GPS TELEMETRY ACTIVE · ALL 18 POIS UNLOCKED';
+    if (lk) lk.style.display = 'none';
+  }
+});
 </script>
 <script src="vv-global.js"></script>
 </body>
