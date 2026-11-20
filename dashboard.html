@@ -97,7 +97,7 @@
                 Welcome to Day 1, ${user.firstName || 'Agent'}!
               </h2>
               <p style="font-size:.85rem;color:var(--muted);line-height:1.6;margin:0">
-                Your <strong>${tierName}</strong> membership is active. All 11 vault sections, interactive radar map, confirmed cheat codes, and heist calculators are live and unlocked.
+                Your <strong>${tierName}</strong> membership is active. All 11 vault sections, interactive radar map, the full cheat list, and heist calculators are live and unlocked.
               </p>
               <div style="display:flex;gap:1rem;margin-top:1.2rem;flex-wrap:wrap">
                 <a href="map.html" class="btn-g" style="padding:.65rem 1.2rem;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(90deg, #00f0ff, #0070f3)!important;color:#000!important;border:none;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none">🗺️ Open Interactive Map</a>
@@ -831,7 +831,7 @@ a{color:inherit;text-decoration:none}
     <!-- QUICK ACTIONS -->
     <div class="section-hd"><h2>Quick access</h2></div>
     <div class="qa-grid">
-      <div class="qa" onclick="showView('cheat')"><span class="qa-ico">🔑</span><div class="qa-text"><div class="qa-t">Cheat Codes</div><div class="qa-s">All 52 codes — PS5 &amp; Xbox</div></div></div>
+      <div class="qa" onclick="showView('cheat')"><span class="qa-ico">🔑</span><div class="qa-text"><div class="qa-t">Cheat Codes</div><div class="qa-s">All 61 cheats — PS5 &amp; Xbox</div></div></div>
       <div class="qa" onclick="showView('heist')"><span class="qa-ico">📋</span><div class="qa-text"><div class="qa-t">Latest Heist</div><div class="qa-s">Vice City Bank Job — new</div></div></div>
       <div class="qa" onclick="showView('money')"><span class="qa-ico">💰</span><div class="qa-text"><div class="qa-t">Money Meta</div><div class="qa-s">$800K/hr farm — updated</div></div></div>
       <div class="qa" onclick="showView('vehicles')"><span class="qa-ico">🚗</span><div class="qa-text"><div class="qa-t">Fastest Cars</div><div class="qa-s">Top 15 speed ranked</div></div></div>
@@ -843,7 +843,7 @@ a{color:inherit;text-decoration:none}
       <div class="cat-d cg1" onclick="showView('story')"><div class="cat-d-glow"></div><div class="cat-d-icon">🗺️</div><div class="cat-d-name">Story Mode</div><div class="cat-d-count">62 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:12%"></div></div></div>
       <div class="cat-d cg2" onclick="showView('money')"><div class="cat-d-glow"></div><div class="cat-d-icon">💰</div><div class="cat-d-name">Money Meta</div><div class="cat-d-count">54 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:28%"></div></div></div>
       <div class="cat-d cg3" onclick="showView('heist')"><div class="cat-d-glow"></div><div class="cat-d-icon">📋</div><div class="cat-d-name">Heist Blueprints</div><div class="cat-d-count">48 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:35%"></div></div></div>
-      <div class="cat-d cg4" onclick="showView('cheat')"><div class="cat-d-glow"></div><div class="cat-d-icon">🔑</div><div class="cat-d-name">Cheat Codes</div><div class="cat-d-count">All verified</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:80%"></div></div></div>
+      <div class="cat-d cg4" onclick="showView('cheat')"><div class="cat-d-glow"></div><div class="cat-d-icon">🔑</div><div class="cat-d-name">Cheat Codes</div><div class="cat-d-count">18 of 61 found</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:80%"></div></div></div>
       <div class="cat-d cg5" onclick="showView('online')"><div class="cat-d-glow"></div><div class="cat-d-icon">🌐</div><div class="cat-d-name">Online Multiplayer</div><div class="cat-d-count">41 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:5%"></div></div></div>
       <div class="cat-d cg6" onclick="showView('builds')"><div class="cat-d-glow"></div><div class="cat-d-icon">🎯</div><div class="cat-d-name">Builds &amp; Weapons</div><div class="cat-d-count">38 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:18%"></div></div></div>
       <div class="cat-d cg7" onclick="showView('easter')"><div class="cat-d-glow"></div><div class="cat-d-icon">🥚</div><div class="cat-d-name">Easter Eggs</div><div class="cat-d-count">29 guides</div><div class="cat-d-bar"><div class="cat-d-prog" style="width:55%"></div></div></div>
@@ -895,15 +895,16 @@ a{color:inherit;text-decoration:none}
     <!-- CHEAT QUICK REF -->
     <div class="section-hd"><h2>Cheat quick reference</h2><span class="see-all" onclick="showView('cheat')">Full vault →</span></div>
     <div class="cheat-ref">
-      <div class="cheat-hd"><h3>Top cheats — PS5</h3><span class="see-all" onclick="showView('cheat')" style="font-size:.68rem">See all 52 →</span></div>
+      <div class="cheat-hd"><h3>Top cheats — phone out, hold L1+R1 (LB+RB), then D-pad</h3><span class="see-all" onclick="showView('cheat')" style="font-size:.68rem">See all 61 →</span></div>
       <div class="cheat-grid">
-        <div class="cheat-item"><span class="cheat-name">Full Health &amp; Armor</span><span class="cheat-code">R1 R2 L1 △ ↓ ↑ ↓ ↑</span></div>
-        <div class="cheat-item"><span class="cheat-name">Weapons Set 1</span><span class="cheat-code">△ R2 ← L1 X → △ ↓ □</span></div>
-        <div class="cheat-item"><span class="cheat-name">Clear Wanted Level</span><span class="cheat-code">R1 R1 ○ R2 → ← → ← → ←</span></div>
-        <div class="cheat-item"><span class="cheat-name">Spawn Supercar</span><span class="cheat-code">R2 ○ R1 L2 ← R1 L1 R2 R2</span></div>
-        <div class="cheat-item"><span class="cheat-name">Invincibility</span><span class="cheat-code">→ X → ← → R1 → ← X △</span></div>
-        <div class="cheat-item"><span class="cheat-name">Lower Wanted Level</span><span class="cheat-code">R1 R1 ○ R2 ↑ ↓ ↑ ↓ ↑ ↓</span></div>
+        <div class="cheat-item"><span class="cheat-name">$250,000</span><span class="cheat-code">↑ → ↓ ← ↑ ← ↓ →</span></div>
+        <div class="cheat-item"><span class="cheat-name">Body Armor</span><span class="cheat-code">↓ ↑ ← ↑ ↑ ↑ ↑ ↑ ↓ ↓</span></div>
+        <div class="cheat-item"><span class="cheat-name">Max Ammo</span><span class="cheat-code">↓ ↑ → ↓ ← ← ↑ ↑ ↓ ←</span></div>
+        <div class="cheat-item"><span class="cheat-name">Infinite Ammo</span><span class="cheat-code">↓ ↑ → ↓ ← ← ↑ ↓ ↓ ↓</span></div>
+        <div class="cheat-item"><span class="cheat-name">Unlimited Focus</span><span class="cheat-code">↓ ↑ ↑ ↓ ↑ ↓ ↑ ↓ ↑ →</span></div>
+        <div class="cheat-item"><span class="cheat-name">Cycle Weather</span><span class="cheat-code">↓ → ↑ ↓ → ↑ →</span></div>
       </div>
+      <div style="font-size:.72rem;color:var(--muted);margin-top:.6rem">Cheats unlock only after you finish the story, and using one switches off saving and Trophies/Achievements.</div>
     </div>
 
     <!-- MY PROGRESS -->
@@ -1136,7 +1137,7 @@ a{color:inherit;text-decoration:none}
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
       <button class="back-to-dash-btn" onclick="showView('dashboard')" style="margin:0">← Back to Dashboard</button>
       <div style="background:rgba(255,0,127,0.12);border:1px solid rgba(255,0,127,0.3);padding:.35rem .9rem;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#ff3d9a">
-        ⚠️ Warning: Cheats disable PS5 Trophies &amp; Xbox Achievements for current session
+        ⚠️ Cheats switch off Trophies/Achievements and saving — save first
       </div>
     </div>
 
@@ -1144,28 +1145,39 @@ a{color:inherit;text-decoration:none}
     <div class="cheat-terminal-header" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.5rem;margin-bottom:1.5rem">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem">
         <div>
-          <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.05em;color:var(--white);line-height:1">GTA 6 VERIFIED CHEAT ENGINE</h2>
-          <div style="font-size:.82rem;color:var(--muted);margin-top:.2rem">One-click copy, controller button glyphs, phone dialer codes, and PC keys.</div>
+          <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.05em;color:var(--white);line-height:1">GTA 6 CHEAT VAULT</h2>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.2rem">All 61 cheats · <span id="cheatKnownCount">18</span> inputs found so far · last checked 20 Nov 2026</div>
         </div>
-        <!-- PLATFORM SELECTOR TABS -->
+        <!-- PLATFORM SELECTOR TABS (GTA 6 is console-only at launch; no PC version or phone-number cheats) -->
         <div class="cheat-platform-tabs" style="display:inline-flex;background:var(--deep);border:1px solid var(--border);border-radius:4px;padding:3px;gap:3px">
-          <button class="c-plat-btn active" onclick="switchCheatPlatform('ps5', this)">PS5 Controller</button>
+          <button class="c-plat-btn active" onclick="switchCheatPlatform('ps5', this)">PS5</button>
           <button class="c-plat-btn" onclick="switchCheatPlatform('xbox', this)">Xbox Series X|S</button>
-          <button class="c-plat-btn" onclick="switchCheatPlatform('pc', this)">PC Keyboard</button>
-          <button class="c-plat-btn" onclick="switchCheatPlatform('phone', this)">In-Game Phone</button>
         </div>
+      </div>
+
+      <!-- HOW CHEATS WORK -->
+      <div style="background:var(--deep);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:.84rem;color:var(--muted);line-height:1.7">
+        <strong style="color:var(--white)">How GTA 6 cheats work</strong>
+        <ol style="margin:.4rem 0 0 1.1rem;padding:0">
+          <li><strong style="color:var(--white)">Finish the main story first.</strong> Until the credits roll, every code is rejected. After that a <em>Cheats</em> tab appears in the Progress menu.</li>
+          <li><strong style="color:var(--white)">Unlock each cheat's challenge</strong> (shown in that tab). Progress you already made counts.</li>
+          <li><strong style="color:var(--white)">Enter it on the phone:</strong> press <strong style="color:var(--white)">Up</strong> on the D-pad to take out the phone, hold <span id="cheatActivationKeys" style="color:var(--gold);font-weight:700">L1 + R1</span>, then press the D-pad sequence. Sequences are identical on PS5 and Xbox.</li>
+          <li><strong style="color:var(--white)">Save before you cheat.</strong> An active cheat disables saving and Trophies/Achievements for the session. Reload your last save to go back to normal.</li>
+        </ol>
+        <div style="margin-top:.6rem;font-size:.74rem">There are no phone-number cheats and no PC version yet. Codes marked “not found yet” haven't been publicly discovered — we add them as soon as they're confirmed by multiple sources.</div>
       </div>
 
       <!-- SEARCH & CATEGORY PILLS -->
       <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
-        <input type="text" id="cheatSearchInput" oninput="filterCheats()" placeholder="Search cheat by name or effect (e.g. invincibility, banshee, weapons)..." style="flex:1;min-width:240px;background:var(--deep);border:1px solid var(--border);color:var(--white);padding:.6rem 1rem;border-radius:3px;font-family:'Barlow',sans-serif;font-size:.85rem;outline:none">
+        <input type="text" id="cheatSearchInput" oninput="filterCheats()" placeholder="Search cheats (e.g. money, armor, bulldozer, filter)..." style="flex:1;min-width:240px;background:var(--deep);border:1px solid var(--border);color:var(--white);padding:.6rem 1rem;border-radius:3px;font-family:'Barlow',sans-serif;font-size:.85rem;outline:none">
         <div class="cheat-cat-pills" style="display:flex;gap:.4rem;flex-wrap:wrap">
-          <button class="c-cat-pill active" onclick="filterCheatCategory('all', this)">All (16)</button>
-          <button class="c-cat-pill" onclick="filterCheatCategory('player', this)">Player &amp; Health</button>
-          <button class="c-cat-pill" onclick="filterCheatCategory('combat', this)">Weapons &amp; Combat</button>
+          <button class="c-cat-pill active" onclick="filterCheatCategory('all', this)">All (61)</button>
+          <button class="c-cat-pill" onclick="filterCheatCategory('known', this)">Inputs found (18)</button>
+          <button class="c-cat-pill" onclick="filterCheatCategory('player', this)">Player</button>
+          <button class="c-cat-pill" onclick="filterCheatCategory('combat', this)">Combat</button>
           <button class="c-cat-pill" onclick="filterCheatCategory('vehicle', this)">Vehicles</button>
-          <button class="c-cat-pill" onclick="filterCheatCategory('wanted', this)">Wanted Level</button>
-          <button class="c-cat-pill" onclick="filterCheatCategory('world', this)">World &amp; Physics</button>
+          <button class="c-cat-pill" onclick="filterCheatCategory('world', this)">Time &amp; Weather</button>
+          <button class="c-cat-pill" onclick="filterCheatCategory('filter', this)">Screen Filters</button>
         </div>
       </div>
     </div>
@@ -1211,7 +1223,7 @@ a{color:inherit;text-decoration:none}
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;font-size:.82rem;color:#c0bed0">
           <div style="display:flex;align-items:center;gap:.5rem">✓ <span>All 11 Intelligence Vault Sections</span></div>
           <div style="display:flex;align-items:center;gap:.5rem">✓ <span>All 18 Interactive Radar Map Locations</span></div>
-          <div style="display:flex;align-items:center;gap:.5rem">✓ <span>Complete Cheat Engine for PS5, Xbox &amp; PC</span></div>
+          <div style="display:flex;align-items:center;gap:.5rem">✓ <span>Full GTA 6 cheat list for PS5 &amp; Xbox</span></div>
           <div style="display:flex;align-items:center;gap:.5rem">✓ <span>Priority Discord Heist Crews &amp; Lobbies</span></div>
         </div>
       </div>
@@ -1314,7 +1326,7 @@ const views = {
   weekly: 'Weekly Intel Drop',
   map: 'Interactive Radar Map',
   saved: 'Saved Reading List',
-  cheat: 'Verified Cheat Vault',
+  cheat: 'GTA 6 Cheat Vault',
   story: 'Story Mode Walkthroughs',
   heist: 'Heist Blueprints',
   money: 'Money Meta & Fast Cash',
@@ -1332,7 +1344,7 @@ const subs = {
   weekly: 'Day-1 Launch Intel — Week of November 19, 2026',
   map: 'Leonida & Vice City high-resolution tactical radar telemetry',
   saved: 'Your personal bookmarked blueprints and reading list',
-  cheat: 'Verified PS5 glyphs, Xbox buttons, PC keys & in-game phone dialer codes',
+  cheat: 'All 61 GTA 6 cheats with unlock challenges — PS5 & Xbox D-pad codes',
   story: 'Dual protagonist missions, dialogue choices & 100% completion guide',
   heist: 'Step-by-step stealth infiltration blueprints & guaranteed max take routes',
   money: 'Passive business stacking, stock market sabotage & early $1M routes',
@@ -1693,152 +1705,92 @@ function getGuideArticle(title, cat) {
 }
 
 // ─── CHEAT CODES DATA ────────────────────────────────────────────────
+// Source of truth for GTA 6 cheats. Inputs are D-pad sequences (U/R/D/L) entered on the
+// in-game phone while holding L1+R1 (PS5) or LB+RB (Xbox). Identical on both consoles.
+// Only add an input once it is confirmed by at least two independent sources.
+// Checked 20 Nov 2026 against Red Bull Gaming, gtaside.com and thetechhacker.com (all 18 matched).
+// code: null = input not publicly discovered yet. unlock: null = challenge not documented yet.
+const CHEATS_LAST_CHECKED = '20 Nov 2026';
 const CHEATS_DATA = [
-  {
-    name: '5-Minute Invincibility',
-    cat: 'player',
-    desc: 'Immune to all bullet, fire, explosion, and fall damage for 5 minutes. Timer displays above radar.',
-    ps5: '▶ ✕ ▶ ◀ ▶ R1 ▶ ◀ ✕ △',
-    xbox: '▶ A ▶ ◀ ▶ RB ▶ ◀ A Y',
-    pc: 'PAINKILLER',
-    phone: '1-999-724-654-5537'
-  },
-  {
-    name: 'Max Health & Armor',
-    cat: 'player',
-    desc: 'Instantly restores full player health and grants tier-3 ballistic body armor.',
-    ps5: '○ L1 △ R2 ✕ ▢ ○ ▶ ▢ L1 L1 L1',
-    xbox: 'B LB Y RT A X B ▶ X LB LB LB',
-    pc: 'TURTLE',
-    phone: '1-999-887-853'
-  },
-  {
-    name: 'All Weapons & Max Ammo',
-    cat: 'combat',
-    desc: 'Unlocks pistol, pump shotgun, assault rifle, sniper, RPG, grenades, and refills all ammunition.',
-    ps5: '△ R2 ◀ L1 ✕ ▶ △ ▼ ▢ L1 L1 L1',
-    xbox: 'Y RT ◀ LB A ▶ Y ▼ X LB LB LB',
-    pc: 'TOOLUP',
-    phone: '1-999-866-587'
-  },
-  {
-    name: 'Clear Wanted Level (0 Stars)',
-    cat: 'wanted',
-    desc: 'Instantly removes all active police wanted stars and cancels SWAT/helicopter dispatch.',
-    ps5: 'R1 R1 ○ R2 ▶ ◀ ▶ ◀ ▶ ◀',
-    xbox: 'RB RB B RT ▶ ◀ ▶ ◀ ▶ ◀',
-    pc: 'LAWYERUP',
-    phone: '1-999-529-93787'
-  },
-  {
-    name: 'Raise Wanted Level (+1 Star)',
-    cat: 'wanted',
-    desc: 'Increases current police wanted level by one star. Repeat up to max 6-star military response.',
-    ps5: 'R1 R1 ○ R2 ◀ ▶ ◀ ▶ ◀ ▶',
-    xbox: 'RB RB B RT ◀ ▶ ◀ ▶ ◀ ▶',
-    pc: 'FUGITIVE',
-    phone: '1-999-384-48483'
-  },
-  {
-    name: 'Spawn Grotti Cheetah Supercar',
-    cat: 'vehicle',
-    desc: 'Spawns a tuned red Grotti Cheetah exotic sports car with maximum acceleration.',
-    ps5: 'R1 ○ R2 ▶ L1 L2 ✕ ✕ ▢ R1',
-    xbox: 'RB B RT ▶ LB LT A A X RB',
-    pc: 'COMET',
-    phone: '1-999-266-38'
-  },
-  {
-    name: 'Spawn Bravado Banshee GT',
-    cat: 'vehicle',
-    desc: 'Spawns a high-torque V10 Bravado Banshee with racing stripes and sport suspension.',
-    ps5: 'R2 L1 ○ ▶ L1 R1 ▶ ◀ ○ R2',
-    xbox: 'RT LB B ▶ LB RB ▶ ◀ B RT',
-    pc: 'RAPIDGT',
-    phone: '1-999-727-4348'
-  },
-  {
-    name: 'Spawn Buzzard Attack Chopper',
-    cat: 'vehicle',
-    desc: 'Spawns military-grade light attack helicopter equipped with heat-seeking rockets and twin miniguns.',
-    ps5: '○ ○ L1 ○ ○ ○ L1 L2 R1 △ ○ △',
-    xbox: 'B B LB B B B LB LT RB Y B Y',
-    pc: 'BUZZOFF',
-    phone: '1-999-289-9633'
-  },
-  {
-    name: 'Spawn Sanchez Dirt Bike',
-    cat: 'vehicle',
-    desc: 'Spawns an off-road Sanchez motorcycle built for climbing steep terrain and mangrove swamps.',
-    ps5: '○ ✕ L1 ○ ○ L1 ○ R1 R2 L2 L1 L1',
-    xbox: 'B A LB B B LB B RB RT LT LB LB',
-    pc: 'OFFROAD',
-    phone: '1-999-633-7623'
-  },
-  {
-    name: 'Explosive Melee Attacks',
-    cat: 'combat',
-    desc: 'Every punch, kick, or melee strike triggers an explosive blast that launches targets.',
-    ps5: '▶ ◀ ✕ △ R1 ○ ○ ○ L2',
-    xbox: '▶ ◀ A Y RB B B B LT',
-    pc: 'HOTHANDS',
-    phone: '1-999-468-42637'
-  },
-  {
-    name: 'Explosive Bullets (Bang Bang)',
-    cat: 'combat',
-    desc: 'Every bullet fired explodes on contact with vehicles, structures, or targets.',
-    ps5: '▶ ▢ ✕ ◀ R1 R2 ◀ ▶ ▶ L1 L1 L1',
-    xbox: '▶ X A ◀ RB RT ◀ ▶ ▶ LB LB LB',
-    pc: 'INCENDIARY',
-    phone: '1-999-462-363-4279'
-  },
-  {
-    name: 'Slow Motion Aiming (3 Tiers)',
-    cat: 'combat',
-    desc: 'Entering aim mode slows time by 30%, 60%, or 80%. Enter 4 times to toggle off.',
-    ps5: '▢ L2 R1 △ ◀ ▢ L2 ▶ ✕',
-    xbox: 'X LT RB Y ◀ X LT ▶ A',
-    pc: 'DEADEYE',
-    phone: '1-999-332-3393'
-  },
-  {
-    name: 'Super Jump',
-    cat: 'player',
-    desc: 'Hold jump button to leap 10x normal height. Combine with parachute for rooftop traversal.',
-    ps5: '◀ ◀ △ △ ▶ ▶ ◀ ▶ ▢ R1 R2',
-    xbox: '◀ ◀ Y Y ▶ ▶ ◀ ▶ X RB RT',
-    pc: 'HOPTOIT',
-    phone: '1-999-467-8648'
-  },
-  {
-    name: 'Moon Gravity Physics',
-    cat: 'world',
-    desc: 'Reduces gravity for all vehicles and ragdoll physics. Cars float gently over hills.',
-    ps5: '◀ ◀ L1 R1 L1 ▶ ◀ L1 ◀',
-    xbox: '◀ ◀ LB RB LB ▶ ◀ LB ◀',
-    pc: 'FLOATER',
-    phone: '1-999-356-2837'
-  },
-  {
-    name: 'Slippery Drift Physics',
-    cat: 'world',
-    desc: 'All vehicle tires lose 80% friction, allowing endless drifting around street corners.',
-    ps5: '△ R1 R1 ◀ R1 L1 R2 L1',
-    xbox: 'Y RB RB ◀ RB LB RT LB',
-    pc: 'SNOWDAY',
-    phone: '1-999-766-9329'
-  },
-  {
-    name: 'Weather Cycle (Storm / Clear)',
-    cat: 'world',
-    desc: 'Cycles climate between tropical hurricane, thunder storm, humid fog, and bright sunny skies.',
-    ps5: 'R2 ✕ L1 L1 L2 L2 L2 ▢',
-    xbox: 'RT A LB LB LT LT LT X',
-    pc: 'MAKEITRAIN',
-    phone: '1-999-625-348-7246'
-  }
+  // PLAYER (10)
+  { name: '$250,000', cat: 'player', desc: 'Adds $250,000 cash. The only money cheat in the game.', code: 'U R D L U L D R', unlock: 'Finish the story' },
+  { name: 'Raise Heat Level', cat: 'player', desc: 'Raises your heat level.', code: 'L D R D U D U', unlock: 'Lose a 3-star Wanted Level 25 times' },
+  { name: 'Raise Wanted Level', cat: 'player', desc: 'Adds to your Wanted Level.', code: 'L D R D U R U', unlock: 'Lose a 3-star Wanted Level 50 times' },
+  { name: 'Unlimited Focus', cat: 'player', desc: 'Your Focus meter never runs out.', code: 'D U U D U D U D U R', unlock: 'Finish the story' },
+  { name: 'Body Armor', cat: 'player', desc: 'Adds body armor to your loadout.', code: 'D U L U U U U U D D', unlock: 'Complete 100 workouts' },
+  { name: 'Drunk', cat: 'player', desc: '', code: null, unlock: null },
+  { name: 'No Fall Damage', cat: 'player', desc: '', code: null, unlock: null },
+  { name: 'Parachute', cat: 'player', desc: '', code: null, unlock: null },
+  { name: 'Repair Vehicle', cat: 'player', desc: '', code: null, unlock: null },
+  { name: 'Unlimited Nitrous', cat: 'player', desc: '', code: null, unlock: null },
+
+  // COMBAT (11)
+  { name: 'Max Ammo', cat: 'combat', desc: 'Fills every weapon you carry.', code: 'D U R D L L U U D L', unlock: 'Earn 25 bronze medals (or better) at shooting ranges' },
+  { name: 'Infinite Ammo', cat: 'combat', desc: 'Ammo never runs out.', code: 'D U R D L L U D D D', unlock: 'Earn 25 silver medals (or better) at shooting ranges' },
+  { name: 'No Reload', cat: 'combat', desc: 'Unlimited ammo with no reloading.', code: 'D U R D L L U D D U', unlock: 'Earn 25 gold medals at shooting ranges' },
+  { name: 'Attack Force', cat: 'combat', desc: 'Bullets and melee hits launch people.', code: 'D U L L R D D U D', unlock: 'Finish the story' },
+  { name: 'Exploding Balls', cat: 'combat', desc: 'Sports balls explode on impact.', code: 'D U L L R D D U R', unlock: 'Damage 20 enemies with explosives' },
+  { name: 'Vehicle Force', cat: 'combat', desc: 'Hitting people with a vehicle launches them.', code: 'D U L L R D L U D', unlock: 'Kill 25 enemies with a vehicle' },
+  { name: 'All Explosive Weapons', cat: 'combat', desc: '', code: null, unlock: null },
+  { name: 'Incendiary Ammo', cat: 'combat', desc: '', code: null, unlock: null },
+  { name: 'Exploding Bottles', cat: 'combat', desc: '', code: null, unlock: null },
+  { name: 'Explosive Shotgun', cat: 'combat', desc: '', code: null, unlock: null },
+  { name: 'Hauners H-AT', cat: 'combat', desc: '', code: null, unlock: null },
+
+  // VEHICLE SPAWNS (21)
+  { name: 'Maibatsu Boomazoom', cat: 'vehicle', desc: 'Spawns the Maibatsu Boomazoom.', code: 'L U R D L L U L', unlock: 'Complete 5 shopping challenges' },
+  { name: 'MTL Pumper', cat: 'vehicle', desc: 'Spawns the MTL Pumper.', code: 'L U R D L R R U', unlock: 'Shown in the Progress menu' },
+  { name: 'HVY Bulldozer', cat: 'vehicle', desc: 'Spawns the HVY Bulldozer.', code: 'L U R D L R R D', unlock: 'Shown in the Progress menu' },
+  { name: 'Interstate Ambulance', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Airboat 09', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Bravado Banshee', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Tuff BMX', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Nagasaki Carbon RS', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: "'65 Vapid Dominator", cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Progen Emerus', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Inflatable Flamingo', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Vapid Stanier G2 Taxi', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Hauners P-996 Lazer', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Lapwing Mallard', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Brimstone Golfer', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Hauners Rhino Tank', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Maibatsu Sanchez', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Nagasaki Sea Sparrow', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Speeder 700 GT', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Truffade Thrax', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+  { name: 'Western Zombie Bobber', cat: 'vehicle', desc: 'Vehicle spawn.', code: null, unlock: null },
+
+  // TIME & WEATHER (3)
+  { name: 'Cycle Weather', cat: 'world', desc: 'Switches to the next weather type.', code: 'D R U D R U R', unlock: 'Disputed — sources disagree (finish the story vs. reveal the whole map)' },
+  { name: 'Move Time Forward', cat: 'world', desc: '', code: null, unlock: null },
+  { name: 'Pause Time of Day', cat: 'world', desc: '', code: null, unlock: null },
+
+  // SCREEN FILTERS (16)
+  { name: 'Cataclysm', cat: 'filter', desc: 'Murky, smoky screen filter.', code: 'D D U R R U L L R R', unlock: 'Shown in the Progress menu' },
+  { name: 'Dollhouse', cat: 'filter', desc: 'Bright colours with a narrow picture.', code: 'D D U R R U L L D R', unlock: 'Spend 8 hours with your partner' },
+  { name: 'Faded Glory', cat: 'filter', desc: 'Old colour CRT TV look.', code: 'D D U R R U L L L R', unlock: 'Rob 50 stores with your partner' },
+  { name: 'Golden Hour', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Powdered Sugar', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Pinhole', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Neon Jungle', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Yesteryear', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Videotape', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Dark Mirror', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Migraine', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Bubblegum', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Fast Forward', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Fisheye', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Pixel Art', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null },
+  { name: 'Hellscape', cat: 'filter', desc: 'Screen filter.', code: null, unlock: null }
 ];
+
+const CHEAT_CAT_LABELS = { player: 'Player', combat: 'Combat', vehicle: 'Vehicle', world: 'Time & Weather', filter: 'Filter' };
+const CHEAT_ACTIVATION = { ps5: 'L1 + R1', xbox: 'LB + RB' };
+const DPAD_ARROWS = { U: '↑', R: '→', D: '↓', L: '←' };
+const DPAD_WORDS = { U: 'Up', R: 'Right', D: 'Down', L: 'Left' };
+
+function cheatArrows(code) { return code.split(' ').map(k => DPAD_ARROWS[k]).join(' '); }
+function cheatWords(code) { return code.split(' ').map(k => DPAD_WORDS[k]).join(', '); }
 
 let activeCheatPlatform = 'ps5';
 let activeCheatCategory = 'all';
@@ -1847,35 +1799,54 @@ function renderCheats() {
   const container = document.getElementById('cheatCardsGrid');
   if (!container) return;
 
+  const known = CHEATS_DATA.filter(c => c.code).length;
+  const knownEl = document.getElementById('cheatKnownCount');
+  if (knownEl) knownEl.textContent = known;
+  const keysEl = document.getElementById('cheatActivationKeys');
+  if (keysEl) keysEl.textContent = CHEAT_ACTIVATION[activeCheatPlatform];
+
   const search = (document.getElementById('cheatSearchInput')?.value || '').toLowerCase();
-  
+
   const filtered = CHEATS_DATA.filter(c => {
-    const matchCat = (activeCheatCategory === 'all' || c.cat === activeCheatCategory);
-    const matchSearch = !search || c.name.toLowerCase().includes(search) || c.desc.toLowerCase().includes(search) || c.pc.toLowerCase().includes(search);
+    const matchCat = activeCheatCategory === 'all'
+      || (activeCheatCategory === 'known' ? !!c.code : c.cat === activeCheatCategory);
+    const matchSearch = !search || c.name.toLowerCase().includes(search) || c.desc.toLowerCase().includes(search)
+      || (CHEAT_CAT_LABELS[c.cat] || '').toLowerCase().includes(search);
     return matchCat && matchSearch;
-  });
+  }).sort((a, b) => (b.code ? 1 : 0) - (a.code ? 1 : 0)); // known inputs first
 
   if (filtered.length === 0) {
-    container.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No cheats found matching your filter criteria.</div>';
+    container.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No cheats match your search.</div>';
     return;
   }
 
+  const activation = CHEAT_ACTIVATION[activeCheatPlatform];
   container.innerHTML = filtered.map(c => {
-    const code = c[activeCheatPlatform] || c.ps5;
-    return `
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.2rem;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .2s;position:relative" onmouseenter="this.style.borderColor='var(--gold)'" onmouseleave="this.style.borderColor='var(--border)'">
-        <div>
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem">
-            <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;color:var(--white);margin:0">${c.name}</h4>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:rgba(0,112,243,0.1);padding:.15rem .45rem;border-radius:2px">${c.cat}</span>
+    const codeBlock = c.code ? `
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:3px;padding:.75rem 1rem">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">Phone out · hold ${activation} · D-pad</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:.8rem">
+            <div>
+              <div style="font-size:1.25rem;letter-spacing:.18em;color:var(--gold);font-weight:700">${cheatArrows(c.code)}</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.15rem">${cheatWords(c.code)}</div>
+            </div>
+            <button onclick="copyCheatCode('${cheatWords(c.code)}')" style="background:transparent;border:1px solid var(--border);color:var(--white);padding:.3rem .6rem;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;flex-shrink:0;transition:all .15s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--white)'">Copy</button>
           </div>
-          <p style="font-size:.82rem;color:var(--muted);line-height:1.5;margin-bottom:1rem">${c.desc}</p>
+        </div>` : `
+        <div style="background:var(--card);border:1px dashed var(--border);border-radius:3px;padding:.75rem 1rem;font-size:.78rem;color:var(--muted)">
+          Input not found yet — we'll add it once it's confirmed.
+        </div>`;
+    return `
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.2rem;display:flex;flex-direction:column;justify-content:space-between;gap:.8rem;transition:border-color .2s;${c.code ? '' : 'opacity:.7;'}" onmouseenter="this.style.borderColor='var(--gold)'" onmouseleave="this.style.borderColor='var(--border)'">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;margin-bottom:.4rem">
+            <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;color:var(--white);margin:0">${c.name}</h4>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:rgba(0,112,243,0.1);padding:.15rem .45rem;border-radius:2px;white-space:nowrap">${CHEAT_CAT_LABELS[c.cat]}</span>
+          </div>
+          ${c.desc ? `<p style="font-size:.82rem;color:var(--muted);line-height:1.5;margin:0 0 .4rem">${c.desc}</p>` : ''}
+          <p style="font-size:.74rem;color:var(--muted);line-height:1.5;margin:0"><strong style="color:var(--white)">Unlock:</strong> ${c.unlock || 'Challenge not documented yet'}</p>
         </div>
-        
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:3px;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:.8rem">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:var(--gold);word-break:break-all">${code}</div>
-          <button onclick="copyCheatCode('${code.replace(/'/g, "\\'")}')" style="background:transparent;border:1px solid var(--border);color:var(--white);padding:.3rem .6rem;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;flex-shrink:0;transition:all .15s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--white)'">Copy</button>
-        </div>
+        ${codeBlock}
       </div>
     `;
   }).join('');
@@ -2641,8 +2612,8 @@ const tourSteps = [
   },
   {
     selector: '.sb-item[onclick*="cheat"]',
-    title: '🔑 Interactive Cheat Engine',
-    desc: 'Instant platform-specific cheats for PS5, Xbox Series X, PC, and Cell Phone dialer with one-click copy.'
+    title: '🔑 Cheat Vault',
+    desc: 'All 61 GTA 6 cheats for PS5 and Xbox with unlock challenges and one-click copy. New codes added as they are confirmed.'
   },
   {
     selector: '.sb-item[onclick*="story"]',
