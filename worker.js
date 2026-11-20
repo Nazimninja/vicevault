@@ -281,7 +281,7 @@ async function handleWaitlist(request, env) {
 
     // Get current count
     const countRaw = await env.VICE_VAULT_KV.get('waitlist:count');
-    const count = countRaw ? parseInt(countRaw) : 12847;
+    const count = countRaw ? parseInt(countRaw) : 0; // real count — never seed with an inflated number
     const position = count + 1;
 
     // Store subscriber
@@ -336,7 +336,7 @@ async function handleWaitlist(request, env) {
     return json({
       success: true,
       position,
-      message: `You're #${position.toLocaleString()} on the list! Check your email.`,
+      message: `You're on the list! Check your email.`,
     });
 
   } catch (err) {
@@ -391,11 +391,11 @@ async function handleNewsletter(request, env) {
 // ─── STATS HANDLER ─────────────────────────────────────────
 async function handleStats(env) {
   try {
-    const wlCount = await env.VICE_VAULT_KV.get('waitlist:count') || '12847';
+    const wlCount = await env.VICE_VAULT_KV.get('waitlist:count') || '0';
     const nlCount = await env.VICE_VAULT_KV.get('newsletter:count') || '0';
     return json({ waitlist: parseInt(wlCount), newsletter: parseInt(nlCount) });
   } catch {
-    return json({ waitlist: 12847, newsletter: 0 });
+    return json({ waitlist: 0, newsletter: 0 });
   }
 }
 
@@ -492,27 +492,23 @@ function waitlistEmailHTML(position) {
 <div class="wrap">
   <div class="logo">VICE<span>VAULT</span></div>
   <div class="hero-box">
-    <div class="hb-num">#${position?.toLocaleString()}</div>
-    <div class="hb-label">Your waitlist position</div>
     <div class="hb-title">You're in the vault 🔐</div>
-    <div class="hb-sub">We'll email you 24 hours before Vice Vault launches with your early access link. No spam between now and then — just the launch email.</div>
+    <div class="hb-sub">Thanks for joining. GTA 6 is out, and our sourced guides and the full cheat list are live now.</div>
   </div>
   <div class="section">
-    <div class="section-title">What you get on launch day</div>
+    <div class="section-title">What's in the vault</div>
     <ul class="feature-list">
-      <li>24-hour early access before the public launch</li>
-      <li>Launch-day pricing locked in — same rate forever</li>
-      <li>First weekly Thursday drop the moment we go live</li>
-      <li>Access to all 11 sections — 320+ guides at launch</li>
+      <li>Sourced GTA 6 guides — every fact checked against multiple sources</li>
+      <li>All 61 cheats, with the codes found so far and how to unlock them</li>
+      <li>New guides every week as facts are confirmed</li>
       <li>Discord crew access (Vault Pro and Elite members)</li>
     </ul>
   </div>
   <div class="section">
-    <div class="section-title">While you wait</div>
+    <div class="section-title">Next steps</div>
     <ul class="feature-list">
-      <li>Share Vice Vault to move up the waitlist</li>
-      <li>Follow us on X @vicevaultgg for pre-launch intel drops</li>
-      <li>Join our Discord for early community access</li>
+      <li>Read the free beginner's guide and cheat list</li>
+      <li>Join our Discord to find crew and get guide alerts</li>
     </ul>
   </div>
   <a href="https://vicevault.linkwa.in" class="btn">Visit Vice Vault →</a>
@@ -555,12 +551,12 @@ function newsletterEmailHTML() {
   <div class="hero-box">
     <div class="hb-icon">🎯</div>
     <div class="hb-title">You're on the intel list</div>
-    <div class="hb-sub">Every Thursday at 6PM IST — the best GTA 6 money routes, meta shifts, new cheat codes, and secrets discovered that week. Straight to your inbox.</div>
+    <div class="hb-sub">Every week — new GTA 6 guides and newly found cheat codes, each checked against multiple sources. Straight to your inbox.</div>
   </div>
-  <div class="section-title">Your first drop includes</div>
-  <div class="drop-preview"><div class="dp-label">Heist Blueprint</div><div class="dp-title">Vice City Bank Job — Silent approach, $4.2M max take</div><div class="dp-meta">New this week · 14 min read</div></div>
-  <div class="drop-preview"><div class="dp-label">Money Meta</div><div class="dp-title">$800K/hr passive: the business stacking method</div><div class="dp-meta">Updated · 8 min read</div></div>
-  <div class="drop-preview"><div class="dp-label">Cheat Vault</div><div class="dp-title">3 new cheat codes confirmed this week — PS5 & Xbox</div><div class="dp-meta">All verified</div></div>
+  <div class="section-title">Live right now</div>
+  <div class="drop-preview"><div class="dp-label">Starter Guide</div><div class="dp-title">GTA 6 beginner's guide — essential tips for your first hours</div><div class="dp-meta">Sourced · 7 min read</div></div>
+  <div class="drop-preview"><div class="dp-label">Money Meta</div><div class="dp-title">Early money in Chapters 1 &amp; 2</div><div class="dp-meta">Sourced · 6 min read</div></div>
+  <div class="drop-preview"><div class="dp-label">Cheat Vault</div><div class="dp-title">All 61 GTA 6 cheats — 18 codes found so far</div><div class="dp-meta">PS5 &amp; Xbox</div></div>
   <a href="https://vicevault.linkwa.in/weekly" class="btn">See this week's drop →</a>
   <div class="footer">
     © 2025 Vice Vault · Not affiliated with Rockstar Games<br>

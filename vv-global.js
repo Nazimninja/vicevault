@@ -56,64 +56,55 @@
   const GA_TRACKING_ID = '';
 
   const PREORDER_DEALS = [
+    // Must match preorder.html and the prices charged in worker.js (handleCreateOrder).
+    // List only features that actually exist — no invented content or reference prices.
     {
       id: 'soldier',
       name: 'Soldier',
-      price: 199,
-      originalPrice: 299,
+      price: 299,
       period: 'month',
       badge: null,
       color: '#7a788a',
       features: [
-        '10 heist blueprints per month',
-        'Full cheat code vault (PS5 & Xbox)',
-        'Weekly money meta summary',
-        'Basic story walkthroughs',
-        'Wanted level escape guides',
+        'Full cheat vault — all 61 cheats (PS5 & Xbox)',
+        'Full beginner\'s guide',
+        'Weekly drop summary',
       ],
-      locked: ['Unlimited guide access', 'Hidden route unlocks', 'Discord access'],
+      locked: ['Every Vault Pro guide', 'Discord crew access'],
     },
     {
       id: 'pro',
       name: 'Vault Pro',
-      price: 399,
-      originalPrice: 499,
+      price: 499,
       period: 'month',
-      badge: '⭐ Best value',
+      badge: '⭐ Most popular',
       color: 'var(--blue)',
       hot: true,
       features: [
-        'Unlimited access — all 11 sections',
-        'Full heist blueprints + hidden routes',
-        'Weekly money meta deep-dives',
-        'Full story walkthrough vault',
-        'Vehicle speed tests & tuning guides',
-        'Online multiplayer strategy',
-        'Priority Discord crew channels (Heist, RP, Lobbies)',
+        'Every guide, plus each new one as it\'s published',
+        'Full cheat vault — all 61 cheats',
+        'Verified Leonida locations board',
+        'Priority Discord crew channel',
       ],
-      locked: ['Custom blueprint requests'],
+      locked: ['Guide topic requests'],
       note: null,
     },
     {
       id: 'elite',
       name: 'Elite Crew',
       price: 999,
-      originalPrice: 1199,
       period: 'year',
       badge: '💎 Founding member',
       color: 'var(--pink)',
       features: [
         'Everything in Vault Pro',
-        'Custom blueprint requests (2/month)',
-        'Early access — guides 48hr early',
-        'Monthly live strategy session',
-        'Private Elite HQ Channels & VIP Voice Lounge',
+        'Guide topic requests',
+        'Private Elite Discord channel',
+        'Direct channel to the Vice Vault team',
         'Founding member badge (lifetime)',
-        'Direct line to our analysts',
-        'Weekly personal meta briefing',
       ],
       locked: [],
-      note: 'Founding member status — only available during pre-launch',
+      note: null,
     },
   ];
 
@@ -849,8 +840,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
           <span class="vv-bar-pulse"></span>
           <span class="vv-bar-label">
             <span class="vv-bl-accent">Vice Vault</span>
-            <span class="vv-bar-long"> launches with GTA 6 — </span>
-            <span class="vv-bar-long">pre-order now & save 20%</span>
+            <span class="vv-bar-long"> — sourced GTA 6 guides &amp; cheats</span>
           </span>
         </div>
         <div class="vv-bar-right" style="display:flex;align-items:center;gap:1.2rem">
@@ -863,7 +853,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
             <span class="vv-cd-sep">:</span>
             <div class="vv-cd-unit"><div class="vv-cd-num" id="vvb-s">00</div><div class="vv-cd-label">Sec</div></div>
           </div>
-          <button class="vv-bar-cta" onclick="VV.openPreorder()">Pre-order — save 20%</button>
+          <button class="vv-bar-cta" onclick="VV.openPreorder()">See plans</button>
           <button class="vv-bar-close" onclick="VV.closeBar()" aria-label="Close">✕</button>
         </div>
       `;
@@ -909,9 +899,9 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
       <div id="vv-modal">
         <div class="vvm-header">
           <button class="vvm-close" onclick="VV.closePreorder()" aria-label="Close">✕</button>
-          <div class="vvm-eye"><span class="vvm-eye-dot"></span>Pre-launch exclusive — ends at launch</div>
-          <div class="vvm-title">Lock in your rate before launch</div>
-          <div class="vvm-sub">Pre-order today and your price is locked forever. Vault Pro drops to ₹399/mo — saves you ₹100 every month, ₹1,200/year, permanently.</div>
+          <div class="vvm-eye"><span class="vvm-eye-dot"></span>GTA 6 is out · launch prices</div>
+          <div class="vvm-title">Lock in your rate</div>
+          <div class="vvm-sub">Join today and your price stays the same for as long as you stay subscribed. Vault Pro is ₹499/mo.</div>
           <div class="vvm-countdown">
             <div class="vvm-cd-unit"><div class="vvm-cd-num" id="vvm-d">00</div><div class="vvm-cd-label">Days</div></div>
             <div class="vvm-cd-unit"><div class="vvm-cd-num" id="vvm-h">00</div><div class="vvm-cd-label">Hours</div></div>
@@ -924,17 +914,17 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
           <div class="vvm-form">
             <input type="email" class="vvm-email" id="vvm-email" placeholder="your@email.com" aria-label="Email address">
             <button class="vvm-submit" id="vvm-submit" onclick="VV.submitPreorder()">
-              Pre-order Vault Pro — ₹399/mo →
+              Continue — Vault Pro ₹499/mo →
             </button>
           </div>
           <div class="vvm-terms">
-            First payment collected today to join. Active billing cycle starts only on GTA 6 launch day. Price is locked forever. <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
+            Access starts as soon as you pay. Renews every 30 days (Elite: yearly). Price locked while you stay subscribed. <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
           </div>
         </div>
         <div class="vvm-success" id="vvm-success">
           <div class="vvm-success-icon">💳</div>
-          <div class="vvm-success-title">Spot Reserved!</div>
-          <div class="vvm-success-sub">You are <span id="vvm-pos" style="color:#0070f3;font-weight:700">#12,849</span> in line. Complete your checkout today to secure your place on the paid waiting list and lock in your price forever. Active billing starts on game launch day.</div>
+          <div class="vvm-success-title">Almost there!</div>
+          <div class="vvm-success-sub">Complete checkout to unlock your membership and lock in your price.</div>
           <a id="vvm-checkout-link" href="signup.html" class="vvm-submit" style="display:inline-block;text-align:center;text-decoration:none;margin-top:1.2rem;width:100%">Complete Checkout Now →</a>
         </div>
       </div>
@@ -1013,14 +1003,11 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
           body: JSON.stringify({ email, source: 'preorder', tier: selectedDealId }),
         });
         const data = await res.json();
-        const pos = data.position || 12849;
         document.getElementById('vvm-footer-main').style.display = 'none';
         const success = document.getElementById('vvm-success');
         if (success) {
           success.classList.add('vvm-shown');
-          const posEl = document.getElementById('vvm-pos');
-          if (posEl) posEl.textContent = '#' + pos.toLocaleString();
-          
+
           const checkoutLink = document.getElementById('vvm-checkout-link');
           if (checkoutLink) {
             const tierPrice = selectedDealId === 'soldier' ? '299' : (selectedDealId === 'elite' ? '999' : '499');

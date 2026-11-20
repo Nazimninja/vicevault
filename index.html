@@ -789,23 +789,6 @@ function submitHomePreorder(){
   window.location.href = `signup.html?tier=499&email=${encodeURIComponent(email)}`;
 }
 
-// WAITLIST COUNTER ANIMATION
-function animateCounter(){
-  const el=document.getElementById('wl-count');
-  if(!el) return;
-  const target=12847;
-  const start=12000;
-  const dur=2000;
-  const startTime=Date.now();
-  function step(){
-    const progress=Math.min((Date.now()-startTime)/dur,1);
-    const ease=1-Math.pow(1-progress,3);
-    el.textContent=Math.floor(start+(target-start)*ease).toLocaleString();
-    if(progress<1)requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-setTimeout(animateCounter,1200);
 
 // ── REVEAL ON SCROLL ─────────────────────────────
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
