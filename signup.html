@@ -434,7 +434,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       <button class="btn-o" onclick="goStep(1)" style="flex:1;justify-content:center">← Back</button>
       <button class="btn-g" onclick="validateAndNext()" style="flex:2;justify-content:center">Create account →</button>
     </div>
-    <p style="font-size:.74rem;color:var(--muted);text-align:center">By continuing you agree to our <a href="#" style="color:var(--gold)">Terms</a> and <a href="#" style="color:var(--gold)">Privacy Policy</a></p>
+    <p style="font-size:.74rem;color:var(--muted);text-align:center">By continuing you agree to our <a href="terms.html" target="_blank" style="color:var(--gold)">Terms</a>, <a href="privacy.html" target="_blank" style="color:var(--gold)">Privacy Policy</a>, and <a href="disclaimer.html" target="_blank" style="color:#00f0ff">Disclaimer</a></p>
   </div>
 
   <!-- STEP 3: PAYMENT -->
@@ -465,7 +465,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
       <span id="payBtnText">Pay <span id="pay-amount-label">₹499</span> — Confirm Pre-order</span>
     </button>
 
-    <p class="pay-terms">By completing this purchase you agree to our <a href="#">Terms of Service</a>. Subscriptions auto-renew monthly starting from launch day. Cancel anytime from your dashboard with no penalty.</p>
+    <p class="pay-terms">By completing this purchase you agree to our <a href="terms.html" target="_blank">Terms of Service</a>, <a href="privacy.html" target="_blank">Privacy Policy</a>, and <a href="disclaimer.html" target="_blank">Disclaimer &amp; DMCA Notice</a>. Subscriptions auto-renew monthly. Cancel anytime from your dashboard with no penalty.</p>
+    <div style="background:rgba(0,112,243,0.06);border:1px solid rgba(0,112,243,0.2);border-radius:4px;padding:.8rem 1rem;margin-top:1rem;text-align:left;font-size:.72rem;color:var(--muted);line-height:1.5">
+      <strong style="color:var(--white);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase">Independent Service Notice:</strong> Vice Vault is an independent fan community providing editorial walkthroughs and research tools. Subscriptions do NOT include video game software copies or in-game currency. Not affiliated with Rockstar Games or Take-Two Interactive.
+    </div>
 
     <div style="margin-top:1rem;display:flex;gap:.8rem">
       <button class="btn-o" onclick="goStep(1)" style="flex:1;justify-content:center;font-size:.8rem">← Change Tier</button>
