@@ -118,17 +118,26 @@ function isAdminEmail(email, env) {
   return !!(email && env.ADMIN_EMAIL && email === env.ADMIN_EMAIL.toLowerCase().trim());
 }
 
+// Paid access is decided by the paid-until date, never by the `subscribed` flag alone.
+// Plans don't auto-renew: after the paid period ends the member keeps access for a
+// 7-day grace period to renew, then it ends. `subscribed` only means "has not cancelled".
+const GRACE_DAYS = 7;
+
 function hasActiveAccess(user) {
   if (!user) return false;
-  if (user.subscribed) return true;
   const expiresAt = user.subscriptionExpiresAt ? new Date(user.subscriptionExpiresAt) : null;
-  return !!(expiresAt && new Date() <= expiresAt); // 7-day grace period
+  if (!expiresAt || isNaN(expiresAt.getTime())) {
+    return user.subscribed === true; // access granted by admin with no end date
+  }
+  return Date.now() <= expiresAt.getTime() + GRACE_DAYS * 86400 * 1000;
 }
 
-// Strip secrets (password hash etc.) before sending a user record to a browser
+// Strip secrets (password hash etc.) before sending a user record to a browser.
+// `subscribed` is replaced by the real access state so the browser never sees stale access.
 function publicUser(user) {
   if (!user) return null;
   const { passwordHash, passwordSalt, ...rest } = user;
+  rest.subscribed = hasActiveAccess(user);
   return rest;
 }
 
@@ -600,7 +609,7 @@ function premiumEmailHTML(tier) {
     </div>
     <a href="https://vicevault.linkwa.in/dashboard.html" style="display:inline-block;background-color:#0070f3;color:#030308;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:14px 35px;border-radius:2px;text-decoration:none;margin-bottom:30px">Go to Dashboard →</a>
     <div style="font-size:11px;color:#7a788a;border-top:1px solid rgba(255,255,255,0.05);padding-top:20px;line-height:1.6;text-align:center">
-      Got questions? Hit us up at support@vicevault.linkwa.in. Subscriptions auto-renew but you can cancel anytime with a single click from your dashboard.
+      Got questions? Hit us up at support@vicevault.linkwa.in. Plans don't auto-renew: your access runs for the period you paid for, and we'll never charge you again unless you choose to renew.
     </div>
   </div>
 </body>
@@ -1034,8 +1043,13 @@ async function handleCancelSubscription(request, env) {
     }
     const user = JSON.parse(userStr);
 
+    // Cancelling never shortens a period the member already paid for: access runs to
+    // subscriptionExpiresAt, then the 7-day grace period, then ends (plans don't auto-renew).
     user.subscribed = false;
-    user.subscriptionExpiresAt = new Date(Date.now() + 7 * 86400 * 1000).toISOString(); // 7-day grace period
+    user.cancelledAt = new Date().toISOString();
+    if (!user.subscriptionExpiresAt) {
+      user.subscriptionExpiresAt = new Date().toISOString(); // no end date (admin grant): grace starts now
+    }
     await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
 
     // Post webhook alert about cancellation and active grace period
@@ -1047,11 +1061,11 @@ async function handleCancelSubscription(request, env) {
           body: JSON.stringify({
             embeds: [{
               title: "🚫 Subscription Cancelled (Grace Period Active)",
-              description: "A subscription was cancelled. Access and Discord roles remain active during the 7-day grace period.",
+              description: "A subscription was cancelled. Access and Discord roles stay active until the paid period ends, plus the 7-day grace period.",
               color: 16753920, // Orange
               fields: [
                 { name: "Email", value: cleanEmail, inline: true },
-                { name: "Grace Expiration", value: user.subscriptionExpiresAt, inline: true }
+                { name: "Paid until", value: user.subscriptionExpiresAt, inline: true }
               ],
               timestamp: new Date().toISOString()
             }]
@@ -1080,8 +1094,7 @@ async function syncDiscordRoles(env) {
       const user = JSON.parse(userStr);
       if (!user.discordUserId) continue;
 
-      const isGraceExpired = user.subscriptionExpiresAt && now > new Date(user.subscriptionExpiresAt);
-      const isInactive = !user.subscribed && (!user.subscriptionExpiresAt || isGraceExpired);
+      const isInactive = !hasActiveAccess(user); // paid period + 7-day grace is over
 
       if (isInactive) {
         const userId = user.discordUserId;
@@ -1257,6 +1270,10 @@ async function handleVerifyPayment(request, env) {
     const existingStr = await env.VICE_VAULT_KV.get(`user:${cleanEmail}`);
     let user = existingStr ? JSON.parse(existingStr) : {};
 
+    // Renewing early adds the new days on top of the time already paid for
+    const currentEnd = user.subscriptionExpiresAt ? new Date(user.subscriptionExpiresAt).getTime() : 0;
+    const periodStart = Math.max(Date.now(), isNaN(currentEnd) ? 0 : currentEnd);
+
     user = {
       ...user,
       email: cleanEmail,
@@ -1264,7 +1281,8 @@ async function handleVerifyPayment(request, env) {
       lastName: lastName || user.lastName || '',
       tier: tierName,
       subscribed: true,
-      subscriptionExpiresAt: new Date(Date.now() + accessDays * 86400 * 1000).toISOString(),
+      subscriptionExpiresAt: new Date(periodStart + accessDays * 86400 * 1000).toISOString(),
+      cancelledAt: null,
       lastPaymentId: razorpay_payment_id,
       lastOrderId: razorpay_order_id,
       joinedAt: user.joinedAt || new Date().toISOString()
@@ -1318,7 +1336,7 @@ async function handleAdminStats(env) {
       if (val) {
         try {
           const user = JSON.parse(val);
-          if (user.subscribed) {
+          if (hasActiveAccess(user)) {
             activeSubs++;
             if (user.tier === 'soldier') soldierCount++;
             else if (user.tier === 'elite') eliteCount++;

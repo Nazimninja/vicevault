@@ -29,10 +29,9 @@
 
 ### A. Pre-Order & Waitlist Subscription System
 - **Billing Strategy**:
-  - Members pay upfront during the pre-launch phase to secure their spot on the waitlist and lock in discounted founder pricing.
-  - The actual recurring 30-day billing cycle activates on official game launch day.
+  - Each payment is a **one-time Razorpay order** (no auto-renewal): Soldier ₹299 / Pro ₹499 = 30 days, Elite ₹999 = 365 days (`TIER_ACCESS_DAYS`). Renewing early stacks on top of the remaining time. Never describe plans as "recurring" or "auto-renewing" in copy unless real Razorpay Subscriptions are implemented.
 - **7-Day Grace Period & Paywall**:
-  - Users with failed payments or cancellations are granted a 7-day grace period to renew before their access is fully revoked.
+  - Access = now ≤ `subscriptionExpiresAt` + 7 days (`hasActiveAccess` in `worker.js`). The `subscribed` flag alone never grants access; cancelling never shortens a paid period.
   - Enforced in `dashboard.html`, `vv-global.js` access checks, and `worker.js` backend endpoints (`/api/auth/status`).
 - **Pre-Launch Limited Dashboard Access**:
   - Instead of blocking paid pre-launch users with a blank/lock screen, members receive limited access with an interactive pre-launch status banner and preview content to ensure immediate purchase satisfaction and prevent buyer remorse.

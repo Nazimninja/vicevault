@@ -900,7 +900,7 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
         <div class="vvm-header">
           <button class="vvm-close" onclick="VV.closePreorder()" aria-label="Close">✕</button>
           <div class="vvm-eye"><span class="vvm-eye-dot"></span>GTA 6 is out · launch prices</div>
-          <div class="vvm-title">Lock in your rate</div>
+          <div class="vvm-title">Pick your plan</div>
           <div class="vvm-sub">Join today and your price stays the same for as long as you stay subscribed. Vault Pro is ₹499/mo.</div>
           <div class="vvm-countdown">
             <div class="vvm-cd-unit"><div class="vvm-cd-num" id="vvm-d">00</div><div class="vvm-cd-label">Days</div></div>
@@ -918,13 +918,13 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
             </button>
           </div>
           <div class="vvm-terms">
-            Access starts as soon as you pay. Renews every 30 days (Elite: yearly). Price locked while you stay subscribed. <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
+            Access starts as soon as you pay and lasts 30 days (Elite: one year). No auto-renewal — you choose whether to renew. <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
           </div>
         </div>
         <div class="vvm-success" id="vvm-success">
           <div class="vvm-success-icon">💳</div>
           <div class="vvm-success-title">Almost there!</div>
-          <div class="vvm-success-sub">Complete checkout to unlock your membership and lock in your price.</div>
+          <div class="vvm-success-sub">Complete checkout to unlock your membership straight away.</div>
           <a id="vvm-checkout-link" href="signup.html" class="vvm-submit" style="display:inline-block;text-align:center;text-decoration:none;margin-top:1.2rem;width:100%">Complete Checkout Now →</a>
         </div>
       </div>
@@ -1196,14 +1196,10 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     const user = getCurrentUser();
     if (!user) return false;
     
-    const now = new Date();
+    // Same rule as the Worker: access lasts until the paid-until date + 7-day grace
     const expiresAt = user.subscriptionExpiresAt ? new Date(user.subscriptionExpiresAt) : null;
-    
-    // Deny access if not subscribed and no grace period expiration date is set
-    if (!user.subscribed && !expiresAt) return false;
-    
-    // Deny access if grace period has expired
-    if (!user.subscribed && expiresAt && now > expiresAt) return false;
+    if (!user.subscribed) return false;
+    if (expiresAt && Date.now() > expiresAt.getTime() + 7 * 86400 * 1000) return false;
     
     const userTier = user.tier.toLowerCase().replace(/[^a-z]/g, '');
     const reqTier = requiredTier.toLowerCase().replace(/[^a-z]/g, '');

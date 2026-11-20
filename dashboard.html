@@ -18,13 +18,16 @@
   }
 
   const user = JSON.parse(localStorage.getItem('vv_user') || '{}');
-  const now = new Date();
+  // `subscribed` comes from the server and already covers the paid period + 7-day grace;
+  // the date check is a fallback for copies saved before that change.
+  const GRACE_MS = 7 * 86400 * 1000;
   const expiresAt = user.subscriptionExpiresAt ? new Date(user.subscriptionExpiresAt) : null;
-  const isGraceActive = !user.subscribed && expiresAt && now <= expiresAt;
+  const withinPaidPeriod = expiresAt ? Date.now() <= expiresAt.getTime() + GRACE_MS : !!user.subscribed;
+  const hasAccess = !!user.subscribed && withinPaidPeriod;
 
   if (!isLocalDev && (!user || !user.email)) {
     window.location.replace('signup.html?mode=login');
-  } else if (!isLocalDev && (!user.subscribed && !isGraceActive)) {
+  } else if (!isLocalDev && !hasAccess) {
     window.location.replace(`signup.html?step=3&email=${encodeURIComponent(user.email)}&fname=${encodeURIComponent(user.firstName || '')}&lname=${encodeURIComponent(user.lastName || '')}&tier_id=${user.tier || 'pro'}`);
   } else {
     // Asynchronously verify subscription status with server to prevent local storage bypass
@@ -50,17 +53,11 @@
         }
         if (data.success) {
           if (!data.subscribed) {
+            // Server says the paid period and the 7-day grace period are both over
             user.subscribed = false;
             if (data.subscriptionExpiresAt) user.subscriptionExpiresAt = data.subscriptionExpiresAt;
             localStorage.setItem('vv_user', JSON.stringify(user));
-            
-            // Verify grace period
-            const currentNow = new Date();
-            const currentExpires = data.subscriptionExpiresAt ? new Date(data.subscriptionExpiresAt) : null;
-            const currentGraceActive = currentExpires && currentNow <= currentExpires;
-            if (!currentGraceActive) {
-              window.location.replace(`signup.html?step=3&email=${encodeURIComponent(user.email)}&fname=${encodeURIComponent(user.firstName || '')}&lname=${encodeURIComponent(user.lastName || '')}&tier_id=${user.tier || 'pro'}`);
-            }
+            window.location.replace(`signup.html?step=3&email=${encodeURIComponent(user.email)}&fname=${encodeURIComponent(user.firstName || '')}&lname=${encodeURIComponent(user.lastName || '')}&tier_id=${user.tier || 'pro'}`);
           } else {
             user.subscribed = true;
             user.tier = data.tier;
@@ -930,10 +927,24 @@ a{color:inherit;text-decoration:none}
       </div>
 
       <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:.3rem;letter-spacing:.04em">Subscription Settings</h3>
-      <p style="font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem">Manage your membership status. Cancelling will <strong style="color:var(--white)">immediately revoke</strong> your private Discord crew channels access.</p>
-      
+      <p style="font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem"><span id="paidUntilLine">Your plan</span> Plans don't auto-renew, so you'll never be charged again unless you choose to renew. After your paid period ends you get a 7-day grace period to renew.</p>
+      <script>
+        (function () {
+          try {
+            var u = JSON.parse(localStorage.getItem('vv_user') || '{}');
+            var d = u.subscriptionExpiresAt ? new Date(u.subscriptionExpiresAt) : null;
+            if (d && !isNaN(d.getTime())) {
+              document.getElementById('paidUntilLine').innerHTML = 'Paid until <strong style="color:var(--white)">' +
+                d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) + '</strong>.';
+            } else {
+              document.getElementById('paidUntilLine').textContent = 'Your plan has no end date.';
+            }
+          } catch (e) {}
+        })();
+      </script>
+
       <div style="display:flex;flex-direction:column;gap:.8rem">
-        <button class="btn-g" style="background:linear-gradient(135deg,#0070f3,#c4193b);border:none;padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer" onclick="VV.cancelSubscription()" id="cancelSubBtn">🚫 Cancel Subscription &amp; Revoke Discord Roles</button>
+        <a class="btn-g" style="padding:.9rem 1.5rem;font-size:.85rem;text-align:center;text-decoration:none" href="preorder.html">Renew or change plan</a>
         <button class="btn-o" style="padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer;border-color:var(--gold);background:rgba(0,112,243,.07)" onclick="initOnboardingTour(true)">🗺️ Restart Onboarding Guide Tour</button>
         <button class="btn-o" style="padding:.9rem 1.5rem;font-size:.85rem;cursor:pointer" onclick="VV.logout()">← Sign Out</button>
       </div>
@@ -1212,7 +1223,7 @@ a{color:inherit;text-decoration:none}
       </div>
       
       <div style="font-size:.72rem;color:var(--muted);margin-top:1.2rem">
-        Instant activation · Price locked forever · 7-day grace period
+        Instant activation · No auto-renewal · 7-day grace period to renew
       </div>
     </div>
   </div>
