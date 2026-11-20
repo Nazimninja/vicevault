@@ -1,32 +1,34 @@
-# 301 Redirects — old blog URLs → clean slug URLs
-/blog1.html /gta6-weapon-customization.html 301
-/blog2.html /gta6-leonida-map-size.html 301
-/blog3.html /gta6-confirmed-vehicles.html 301
+# ─── CLOUDFLARE PAGES CLEAN REDIRECTS ─────────────────────────────────────
+# NOTE: Cloudflare Pages automatically maps /page -> page.html natively.
+# Never redirect /page to /page.html, as it causes an infinite redirect loop.
 
-# Day-1 Live Route Shortcuts
-/cheats /cheat-codes.html 301
-/map /map.html 301
-/vip /preorder.html 301
-/pass /preorder.html 301
-/beginner-guide /gta-6-beginners-guide-tips.html 301
-/fast-cash /gta-6-fast-cash-early-money-guide.html 301
-/guides /guides.html 301
-/weekly /weekly.html 301
-/preorder /preorder.html 301
-/blog /blog.html 301
-/about /about.html 301
-/discord /discord.html 301
-/privacy /privacy.html 301
-/terms /terms.html 301
-/pricing /preorder.html 301
+# Legacy blog URLs → clean slugs
+/blog1.html /gta6-weapon-customization 301
+/blog2.html /gta6-leonida-map-size 301
+/blog3.html /gta6-confirmed-vehicles 301
+/blog4.html /gta-6-release-date-latest-delay-rumors 301
+/blog5.html /gta-6-lucia-jason-protagonists 301
+/blog6.html /gta-6-leonida-map-locations-real-miami 301
+/blog7.html /gta-6-crypto-in-game-economy 301
+/blog8.html /gta-6-character-customization-hair-gym 301
 
-# Legacy Structure & Subfolder Fallbacks
-/guides/cargo-ship-heist /guide.html 301
-/guides/heist-blueprints/cargo-ship-heist-gta6-walkthrough /guide.html 301
-/guides/heist-blueprints/* /guides.html 301
-/guides/money-meta/* /gta-6-fast-cash-early-money-guide.html 301
-/guides/cheat-codes/* /cheat-codes.html 301
-/guides/vehicles/* /gta6-confirmed-vehicles.html 301
-/guides/easter-eggs/* /guides.html 301
-/guides/story-mode/* /gta-6-beginners-guide-tips.html 301
-/guides/* /guides.html 301
+# Helpful Aliases & Route Shortcuts (target clean URLs)
+/cheats /cheat-codes 301
+/cheat /cheat-codes 301
+/vip /preorder 301
+/pass /preorder 301
+/pricing /preorder 301
+/subscribe /preorder 301
+/login /dashboard 301
+/beginner-guide /gta-6-beginners-guide-tips 301
+/fast-cash /gta-6-fast-cash-early-money-guide 301
+
+# Legacy Subfolder Fallbacks (target clean URLs)
+/guides/cargo-ship-heist /guides 301
+/guides/heist-blueprints/cargo-ship-heist-gta6-walkthrough /guides 301
+/guides/heist-blueprints/* /guides 301
+/guides/money-meta/* /gta-6-fast-cash-early-money-guide 301
+/guides/cheat-codes/* /cheat-codes 301
+/guides/vehicles/* /gta6-confirmed-vehicles 301
+/guides/easter-eggs/* /guides 301
+/guides/story-mode/* /gta-6-beginners-guide-tips 301
