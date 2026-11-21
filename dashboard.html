@@ -163,8 +163,9 @@
         }
         
         if (tierEl) {
-          const tierStar = tierId === 'elite' ? '👑' : '⭐';
-          tierEl.textContent = `${tierStar} ${tierName}`;
+          tierEl.textContent = user.founder
+            ? `🔑 Founding Member${user.founderNumber ? ' #' + user.founderNumber : ''}`
+            : `⭐ ${tierName}`;
         }
 
         // Sidebar card: members see a renew prompt; there is nothing to upgrade to

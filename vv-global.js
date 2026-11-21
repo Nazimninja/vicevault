@@ -1516,6 +1516,49 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     }
   }
 
+  // ─── FRESHNESS LABELS ─────────────────────────────────────
+  // <span data-vv-updated="2026-11-20">checked 20 Nov 2026</span> → "checked 1 day ago".
+  // The date is the real last-checked date; update it whenever the content is re-verified.
+  function initFreshness() {
+    document.querySelectorAll('[data-vv-updated]').forEach(el => {
+      const d = new Date(el.getAttribute('data-vv-updated') + 'T12:00:00+05:30');
+      if (isNaN(d)) return;
+      const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+      if (days < 0 || days > 60) return; // keep the absolute date when it's old
+      const verb = el.getAttribute('data-vv-verb') || 'checked';
+      el.title = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+      el.textContent = days === 0 ? `${verb} today` : days === 1 ? `${verb} yesterday` : `${verb} ${days} days ago`;
+    });
+  }
+
+  // ─── FOUNDING MEMBER SPOTS (real count from /api/founders) ─
+  // Renders into any <div data-vv-founders></div>. Shows nothing if the API fails or spots run out,
+  // so the page never displays a number that isn't real.
+  async function initFounderCounters() {
+    const slots = document.querySelectorAll('[data-vv-founders]');
+    if (!slots.length) return;
+    let data;
+    try {
+      const res = await fetch(`${API_BASE}/api/founders`);
+      data = await res.json();
+    } catch (e) { return; }
+    if (!data || typeof data.left !== 'number' || data.left <= 0) return;
+    const pct = Math.round((data.taken / data.limit) * 100);
+    slots.forEach(slot => {
+      slot.innerHTML = `
+        <div style="max-width:480px;margin:1.2rem auto;padding:1rem 1.2rem;border-radius:12px;border:1px solid rgba(255,61,154,.4);background:rgba(255,61,154,.08);text-align:left;font-family:'Barlow',sans-serif">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.55rem">
+            <strong style="color:#fff;font-size:.95rem">🔑 Founding Member spots</strong>
+            <span style="color:#ff3d9a;font-weight:800;font-size:.95rem;white-space:nowrap">${data.left} of ${data.limit} left</span>
+          </div>
+          <div style="height:6px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden">
+            <div style="height:100%;width:${Math.max(pct, 2)}%;background:linear-gradient(90deg,#ff3d9a,#c830ff)"></div>
+          </div>
+          <div style="font-size:.8rem;color:#c9c6d6;margin-top:.55rem;line-height:1.5">The first ${data.limit} Vault Pass members keep a <strong style="color:#fff">lifetime Founding Member role</strong> on our Discord, even if they renew later.</div>
+        </div>`;
+    });
+  }
+
   // Renders into any <div data-vv-lead="source-name"></div>
   function initLeadBoxes() {
     const slots = document.querySelectorAll('[data-vv-lead]');
@@ -1581,7 +1624,9 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     const tierEl = document.querySelector('.sb-tier');
     if (tierEl) {
       // One product now; older soldier/elite members are shown as Vault Pass holders too
-      tierEl.textContent = '⭐ ' + (user.subscribed ? 'Vault Pass' : 'Vault Member');
+      tierEl.textContent = user.founder
+        ? '🔑 Founding Member' + (user.founderNumber ? ' #' + user.founderNumber : '')
+        : '⭐ ' + (user.subscribed ? 'Vault Pass' : 'Vault Member');
     }
 
     // Update sub title on dashboard: "Welcome back, Nazim"
@@ -1725,6 +1770,8 @@ html.lenis, html.lenis body, html.lenis-smooth, html.lenis-scrolling {
     initGA();
     initMetaPixel();
     initLeadBoxes();
+    initFounderCounters();
+    initFreshness();
 
     // Auth initialization
     injectPaywallCSS();

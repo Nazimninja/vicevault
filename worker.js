@@ -357,6 +357,8 @@ export default {
       response = await handleNewsletter(request, env);
     } else if (url.pathname === '/api/unsubscribe' && (request.method === 'GET' || request.method === 'POST')) {
       return await handleUnsubscribe(url, env); // HTML page, returned as-is
+    } else if (url.pathname === '/api/founders' && request.method === 'GET') {
+      response = await handleFounders(env);
     } else if (url.pathname === '/api/stats' && request.method === 'GET') {
       response = await handleStats(env);
     } else if (url.pathname === '/api/auth/send-otp' && request.method === 'POST') {
@@ -511,6 +513,46 @@ async function handleWaitlist(request, env) {
     console.error('Waitlist error:', err);
     return json({ error: 'Something went wrong. Please try again.' }, 500);
   }
+}
+
+// ─── FOUNDING MEMBERS ───────────────────────────────────────
+// Real scarcity: the first FOUNDER_LIMIT paying members get a lifetime Founding Member role.
+// One KV record per founder ("founder:<email>"); the count shown on the site is counted from them.
+const FOUNDER_LIMIT = 100;
+
+async function founderCount(env) {
+  let n = 0, cursor;
+  do {
+    const page = await env.VICE_VAULT_KV.list({ prefix: 'founder:', cursor });
+    n += page.keys.length;
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return n;
+}
+
+// Returns the founder number if a spot was claimed, or 0 if all spots are taken
+async function claimFounderSpot(email, env) {
+  const existing = await env.VICE_VAULT_KV.get(`founder:${email}`);
+  if (existing) return JSON.parse(existing).n;
+  const taken = await founderCount(env);
+  if (taken >= FOUNDER_LIMIT) return 0;
+  const n = taken + 1;
+  await env.VICE_VAULT_KV.put(`founder:${email}`, JSON.stringify({ n, at: new Date().toISOString() }));
+  return n;
+}
+
+async function handleFounders(env) {
+  const taken = await founderCount(env);
+  return json({ limit: FOUNDER_LIMIT, taken: Math.min(taken, FOUNDER_LIMIT), left: Math.max(0, FOUNDER_LIMIT - taken) });
+}
+
+async function addDiscordRole(discordUserId, roleId, env) {
+  if (!discordUserId || !roleId || !env.DISCORD_BOT_TOKEN || !env.DISCORD_GUILD_ID) return;
+  try {
+    await fetch(`https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${discordUserId}/roles/${roleId}`, {
+      method: 'PUT', headers: { 'Authorization': `Bot ${env.DISCORD_BOT_TOKEN}` }
+    });
+  } catch (e) { console.error('Discord role error:', e.message); }
 }
 
 // Counts the actual waitlist records instead of trusting the stored counter
@@ -1133,6 +1175,9 @@ async function handleDiscordAuth(request, env) {
         if (tier === 'elite' && env.DISCORD_ELITE_ROLE_ID) {
           rolesToAssign.push(env.DISCORD_ELITE_ROLE_ID);
         }
+        if (user.founder && env.DISCORD_FOUNDER_ROLE_ID) {
+          rolesToAssign.push(env.DISCORD_FOUNDER_ROLE_ID);
+        }
 
         // Try adding the member to the server with roles directly
         await fetch(`https://discord.com/api/v10/guilds/${guildId}/members/${userId}`, {
@@ -1146,6 +1191,8 @@ async function handleDiscordAuth(request, env) {
             roles: rolesToAssign
           })
         });
+        // Members already in the server don't get roles from the call above, so add them explicitly
+        for (const r of rolesToAssign) await addDiscordRole(userId, r, env);
       } catch (err) {
         console.error("Auto-role error:", err);
       }
@@ -1430,6 +1477,16 @@ async function handleVerifyPayment(request, env) {
       lastOrderId: razorpay_order_id,
       joinedAt: user.joinedAt || new Date().toISOString()
     };
+
+    // Founding members: the first FOUNDER_LIMIT paying members keep the Founding Member role for life
+    if (!user.founder) {
+      const n = await claimFounderSpot(cleanEmail, env);
+      if (n) {
+        user.founder = true;
+        user.founderNumber = n;
+        if (user.discordUserId) await addDiscordRole(user.discordUserId, env.DISCORD_FOUNDER_ROLE_ID, env);
+      }
+    }
 
     await env.VICE_VAULT_KV.put(`user:${cleanEmail}`, JSON.stringify(user));
 
