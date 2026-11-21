@@ -447,9 +447,8 @@ async function handleWaitlist(request, env) {
       });
     }
 
-    // Get current count
-    const countRaw = await env.VICE_VAULT_KV.get('waitlist:count');
-    const count = countRaw ? parseInt(countRaw) : 0; // real count — never seed with an inflated number
+    // Real count of stored signups (the old stored counter was seeded with an inflated number)
+    const count = await realWaitlistCount(env);
     const position = count + 1;
 
     // Store subscriber
@@ -514,6 +513,17 @@ async function handleWaitlist(request, env) {
   }
 }
 
+// Counts the actual waitlist records instead of trusting the stored counter
+async function realWaitlistCount(env) {
+  let n = 0, cursor;
+  do {
+    const page = await env.VICE_VAULT_KV.list({ prefix: 'waitlist:', cursor });
+    n += page.keys.filter(k => k.name !== 'waitlist:count').length;
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return n;
+}
+
 // ─── NEWSLETTER HANDLER ─────────────────────────────────────
 async function handleNewsletter(request, env) {
   try {
@@ -569,7 +579,7 @@ async function handleNewsletter(request, env) {
 // ─── STATS HANDLER ─────────────────────────────────────────
 async function handleStats(env) {
   try {
-    const wlCount = await env.VICE_VAULT_KV.get('waitlist:count') || '0';
+    const wlCount = String(await realWaitlistCount(env));
     const nlCount = await env.VICE_VAULT_KV.get('newsletter:count') || '0';
     return json({ waitlist: parseInt(wlCount), newsletter: parseInt(nlCount) });
   } catch {
@@ -1485,8 +1495,7 @@ async function handleAdminStats(env) {
       }
     }
 
-    const waitlistCountStr = await env.VICE_VAULT_KV.get('waitlist:count') || '0';
-    const waitlistCount = parseInt(waitlistCountStr, 10);
+    const waitlistCount = await realWaitlistCount(env);
 
     // Monthly revenue from members with active access. New sales are all the ₹499 Vault Pass (tier "pro");
     // soldier/elite counts are legacy members from the old three-tier pricing.
